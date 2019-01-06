@@ -1,0 +1,97 @@
+/* CSS ESTILO */
+/* determinacion de las fuentes*/
+@font-face{
+    font-family:<Centaur>;
+    src: url(<fonts/centaur.ttf>);
+}
+
+body{
+	background-color: #1D1F1F;
+	margin: 0; padding: 0;
+	font-family: Centaur;
+	color: #c1c1c1;
+	line-height: 20px;
+	font-size: 15px;
+}
+
+a.nav-link:hover {
+
+	color: red;
+ 	text-decoration: underline;
+	text-decoration-color: red;
+}
+
+.pagina{
+	width: 100%;
+}
+
+/* --------------------- NAVEGACION - MENU --------------- */
+#menu{ /*hace referencia al id menu*/
+	background-color:#1D1F1F;
+	font-family: 'Cinzel', serif;
+	color: red;
+}
+
+.menu{ /*hace referencia a la clase menu*/
+
+	z-index:1000;
+	top:0;
+	left:0;	
+	width: 100%;
+	height: 51px;
+	font-family: 'Cinzel', serif;
+	color: #c1c1c1;
+	background-color: #1D1F1F;
+	
+	
+}
+.menu-fixed {
+	position:fixed;
+	z-index:1000;
+	top:0;
+	left:0;	
+	width: 100%;
+	height: 51px;
+	font-family: 'Cinzel', serif;
+	background-color: #1D1F1F;
+	opacity: 0.9;
+}
+/* --------------------- MENSAJE ------------------------ */
+
+#contenedor .marco{background-repeat: no-repeat;}
+
+
+/* --------------------- ACORDEONES -------------------------*/
+
+div.accordion{
+	font-size: 1.2em;
+}
+
+/* --------------------- BOTONES BOOSTRAP -------------------------*/
+
+button.btn{
+	font-size: 0.7em;
+	color: #A4A4A4;
+
+}
+
+/* --------------------- CARDS BOOSTRAP -------------------------*/
+
+div.card{ /*cara de la tarjeta*/
+	background-color: #3B170B;
+}
+
+div.card-body{ /*interior de la tarjeta*/
+	background-color: #5F4C0B;
+}
+/* --------------------- CONTACTOS -------------------------*/
+
+.contacto{
+	line-height: 1.2em;
+	font-size: 1.3em;
+}
+
+#subcontenedorcontacto{
+	margin-top: 0.5em;
+	padding: 4em;
+}
