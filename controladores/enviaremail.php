@@ -1,4 +1,6 @@
 <?php 
+	ini_set( 'display_errors', 1 );
+    error_reporting( E_ALL );
 	$email = "info@templaystudios.com";
 	$emailale = "alemarchena@gmail.com";
 	$emailjuan = "juan_pacheco@outlook.com";

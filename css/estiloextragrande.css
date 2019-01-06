@@ -106,19 +106,13 @@ img.contemsjfooter{
 #seccionmultimedia{
 	height: 400px;
 	width: 100%;
-	background-color: red;
+	background-color: #610B0B;
 }
 
 #secciondisenio{
 	height: 400px;
 	width: 100%;
-	background-color: blue;
-}
-
-#seccionmultimedia{
-	height: 400px;
-	width: 100%;
-	background-color: red;
+	background-color: #0B3861;
 }
 
 #seccionproyectosweb{
@@ -135,7 +129,7 @@ img.contemsjfooter{
 #seccionapps{
 	height: 400px;
 	width: 100%;
-	background-color:green;
+	background-color:#0B3B2E;
 }
 #seccionclientes{
 	height: 400px;
@@ -155,8 +149,5 @@ img.contemsjfooter{
 footer{
 	height: 200px;
 	width: 100%;
-	background-color:grey;
+	background-color:#2E2E2E;
 }
-
-
-
