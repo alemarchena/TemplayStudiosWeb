@@ -1,33 +1,38 @@
-<div class="subcontenedorcontacto">
-	<div class="col-sm-12" align="left">
+
+<form>
+	<div class="form-row subcontenedorcontacto">
 		<h4 >Por favor complete los datos y envíenos su inquietud</h4>
-		<div class="input-group">
-			<div class="input-group-prepend">
-				<span class="input-group-text contacto">Nombre y Apellido</span>
-			
+	  
+		<div class="form-row px-6">
+			<div class="form-group col-md-6">
+				<label for="inputEmail4">Nombre</label>
 				<input id="nombre" type="text" aria-label="First name" class="form-control contacto" placeholder="Escriba su nombre">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputEmail4">Apellido</label>
 				<input id="apellido" type="text" aria-label="Last name" class="form-control contacto" placeholder="Escriba su Apellido">
 			</div>
-			<br>
-			<div class="input-group-prepend btn-block">
-				<span for="exampleInputEmail1"class="input-group-text  btn-block contacto">Su correo</span>
-				<input id="email" type="email" class="form-control contacto" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
 
-				<span class="input-group-text contacto" >Su Teléfono</span>
-				<input id="telefono" type="text" aria-label="Telefono" class="form-control contacto" placeholder="Número">
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputEmail4">Email</label>
+				<input id="email" type="email" class="form-control"  placeholder="Email">
 			</div>
-			<br>
-			<div class="input-group-prepend btn-block">
-		    	<span class="input-group-text contacto">Escribanos</span>
-				<textarea id="mensaje" class="form-control contacto " aria-label="With textarea" placeholder="Su mensaje"></textarea>
-	  		</div>
+			<div class="form-group col-md-6">
+				<label for="inputAddress">Teléfono</label>
+				<input id="telefono" type="text" class="form-control" placeholder="Número de teléfono">
+			</div>
+
+		</div>
+
+ 		<div class="form-group col-md-12">
+			<label for="inputAddress2">Mensaje</label>
+			<textarea id="mensaje" class="form-control contacto " aria-label="With textarea" placeholder="Su mensaje"></textarea>
+			<button id="enviar" type="submit" class="btn text-white bg-dark contacto" style="font-size: 1.3em">Enviar</button>
 		</div>
 	
-		<button id="enviar" type="submit" class="btn text-white bg-dark contacto" style="font-size: 1.3em">Enviar</button>
-
-	</div>
-</div>
-
+	
+</form>
 <script>
 	
 	$("#enviar").click(function(){

@@ -14,6 +14,9 @@ body{
 	font-size: 15px;
 }
 
+div>p{
+	color: #c1c1c1;
+}
 a.nav-link:hover {
 
 	color: red;
@@ -79,11 +82,12 @@ button.btn{
 /* --------------------- CARDS BOOSTRAP -------------------------*/
 
 div.card{ /*cara de la tarjeta*/
-	background-color: #3B170B;
+	/*background-color: #B40404;*/
+	color: #A4A4A4;
 }
 
 div.card-body{ /*interior de la tarjeta*/
-	background-color: #5F4C0B;
+	background-color: #1D1F1F;
 }
 /* --------------------- CONTACTOS -------------------------*/
 

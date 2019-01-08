@@ -1,5 +1,5 @@
 <div class="accordion" id="accordionExample">
-  <div class="card">
+  <div class="card py-1 mb-1 bg-danger text-white text-center">
     <div class="card-header" id="cabecerauno">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card py-1 mb-1 bg-danger text-white text-center">
     <div class="card-header" id="cabecerados">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos">
@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card py-1 mb-1 bg-danger text-white text-center">
     <div class="card-header" id="cabeceratres">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTres" aria-expanded="false" aria-controls="collapseTres">
