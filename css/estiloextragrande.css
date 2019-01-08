@@ -1,10 +1,6 @@
 /* CSS ESTILO */
 /* determinacion de las fuentes*/
 
-.pagina{
-	width: 100%;
-}
-
 /* --------------------- PORTADA - HEADER ------------------------ */
 header{
 	height: 400px;
@@ -14,13 +10,15 @@ header{
 	background-image: url('../img/templay1366.png');
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-position: center;
+	background-color: #1D1F1F;
 }
 
 /* --------------------- NAVEGACION - MENU --------------- */
 #menu{
-	background-color:#1D1F1F;
 	font-family: 'Cinzel', serif;
-	color: red;
+	color: #c6c6c6;
+
 }
 
 /* --------------------- MENSAJE ------------------------ */
@@ -36,7 +34,7 @@ header{
 
 div.contenido{
 	float: left;
-	padding: 3.3em 0 0 2em;
+	padding: 3.4em 0 0 2em;
 }
 
 div.imagen{
@@ -44,7 +42,7 @@ div.imagen{
 	height: 200px;
 	width: 200px;
 
-	background-image: url('../img/brujula274x232.png');
+	background-image: url('../img/brujula.png');
 	background-repeat: no-repeat;
 	background-position: bottom right;
 	float: right;
@@ -52,9 +50,12 @@ div.imagen{
 
 p.contemsj{
 	font-family: Centaur;
-	color: #c1c1c1;
+	color: #c6c6c6;
 	line-height: 0.2em;
-	font-size: 1.2em;
+	font-size: 1.3em;
+}
+#mensajecorto{
+	display: none;
 }
 
 /* --------------------- FOOTER ------------------------ */
@@ -64,7 +65,7 @@ p.contemsj{
 }
 
 #contenedorfooter .marcofooter{
-	width: 50%;
+	width: 50%; /*distribuye el espacio de los div en el marco*/
 	
 }
 
@@ -89,14 +90,15 @@ h5.contemsjfooter{
 }
 p.contemsjfooter{
 	font-family: Centaur;
-	color: #c1c1c1;
+	color: #c6c6c6;
 	line-height: 0.1em;
 	font-size: 1.2em;
 }
 
+
 img.contemsjfooter{
 	font-family: Centaur;
-	color: #c1c1c1;
+	color: #c6c6c6;
 	width:1em; height:1em;
 	line-height: 0.1em;
 	font-size: 1.2em;
@@ -106,7 +108,7 @@ img.contemsjfooter{
 #seccionclientes{
 
 	background-color:white;
-	background-image: url('../img/Clientes.png');
+	/*background-image: url('../img/Clientes.png');*/
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;

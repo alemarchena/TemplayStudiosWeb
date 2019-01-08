@@ -1,6 +1,6 @@
 var altura = $('.menu').offset().top;
 var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
-
+var velocidadscroll = 600;
 
 $(window).on('scroll', function(){
 	if ( $(window).scrollTop() > altura ){
@@ -13,22 +13,22 @@ $(window).on('scroll', function(){
 });
 
 //--------------------------SCROLL DEL MENU ----------------------------------------------
-$("#inicio").on('click',function(e){ e.preventDefault(); $("html, body").animate({ scrollTop: 0 }, 800); });
+$("#inicio").on('click',function(e){ e.preventDefault(); $("html, body").animate({ scrollTop: 0 }, velocidadscroll); });
 
 	
-$("#menumultimedia").on('click',function(e){var posmultimedia = $("#seccionmultimedia").offset().top - alturamenu ; e.preventDefault(); $("html, body").animate({scrollTop:posmultimedia }, 800); $("#listamultimedia").addClass('flipInX animated'); });
+$("#menumultimedia").on('click',function(e){var posmultimedia = $("#seccionmultimedia").offset().top - alturamenu ; e.preventDefault(); $("html, body").animate({scrollTop:posmultimedia }, velocidadscroll); $("#listamultimedia").addClass('flipInX animated'); });
 
-$("#menudisenio").on('click', function(e){var posdisenio = $("#secciondisenio").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posdisenio}, 800);});
+$("#menudisenio").on('click', function(e){var posdisenio = $("#secciondisenio").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posdisenio}, velocidadscroll);});
 
-$("#menuproyectosweb").on('click', function(e) {var posproyectosweb = $("#seccionproyectosweb").offset().top - alturamenu ; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posproyectosweb}, 800);});
+$("#menuproyectosweb").on('click', function(e) {var posproyectosweb = $("#seccionproyectosweb").offset().top - alturamenu ; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posproyectosweb}, velocidadscroll);});
 
-$("#menuapps").on('click', function(e) {var posapps = $("#seccionapps").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posapps}, 800);});
+$("#menuapps").on('click', function(e) {var posapps = $("#seccionapps").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posapps}, velocidadscroll);});
 
-$("#menuclientes").on('click', function(e) {var posclientes = $("#seccionclientes").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posclientes}, 800);});
+$("#menuclientes").on('click', function(e) {var posclientes = $("#seccionclientes").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: posclientes}, velocidadscroll);});
 
 $("#subcontenedorcontacto").load("contacto.php");
 
-$("#menucontacto").on('click', function(e) {var poscontacto = $("#seccioncontacto").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto}, 800);});
+$("#menucontacto").on('click', function(e) {var poscontacto = $("#seccioncontacto").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto}, velocidadscroll);});
 
 //------------------------------- MOUSE SOBRE LA SECCION produce EFECTO EN EL MENU ----------------------------------------------
 

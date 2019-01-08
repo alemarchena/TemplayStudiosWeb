@@ -1,0 +1,25 @@
+/* CSS ESTILO */
+/* determinacion de las fuentes*/
+
+/* --------------------- NAVEGACION - MENU --------------- */
+header{
+	height: 400px;
+
+	align-items: center;
+	text-align: center;
+	background-image: url('../img/templay768.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-color: #1D1F1F;
+}
+
+a.nav-link{
+	background-color: #1D1F1F;
+	opacity: 0.95;
+	text-align: center;
+	color: #c6c6c6;
+}
+#mensajecorto{
+	display: none;
+}

@@ -1,0 +1,40 @@
+/* CSS ESTILO */
+/* determinacion de las fuentes*/
+
+/* --------------------- NAVEGACION - MENU --------------- */
+header{
+	height: 200px;
+
+	align-items: center;
+	text-align: center;
+	background-image: url('../img/templay300.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #1D1F1F;
+}
+
+a.nav-link{
+	background-color: #1D1F1F;
+	opacity: 0.95;
+	text-align: center;
+	color: #c6c6c6;
+}
+
+p.contemsj{
+	display: none;
+}
+
+#mensajecorto{
+	display: block;
+	font-family: Centaur;
+	color: #c6c6c6;
+	line-height: 0.5em;
+	font-size: 1em;
+}
+
+h2.contemsj{
+	font-family: Centaur;
+	color: #c6c6c6;
+	line-height: 1em;
+	font-size: 1.5em;
+}

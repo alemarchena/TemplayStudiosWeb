@@ -1,37 +1,38 @@
 
-<form>
-	<div class="form-row subcontenedorcontacto">
+<form id="formulariocontacto">
+	<div class="form-row" id="contenidoformulariocontacto">
 		<h4 >Por favor complete los datos y envíenos su inquietud</h4>
-	  
-		<div class="form-row px-6">
-			<div class="form-group col-md-6">
-				<label for="inputEmail4">Nombre</label>
-				<input id="nombre" type="text" aria-label="First name" class="form-control contacto" placeholder="Escriba su nombre">
+		<div class="form-group col-12">
+			<div class="form-row">
+				<div class="col">
+					<label class="contacto" for="nombre">Nombre</label>
+					<input id="nombre" type="text" aria-label="Last name" class="form-control contacto" placeholder="Escriba su Nombre">
+				</div>
+				<div class="col">
+					<label class="contacto" for="apellido">Apellido</label>
+					<input id="apellido" type="text" aria-label="Last name" class="form-control contacto" placeholder="Escriba su Apellido">
+				</div>
 			</div>
-			<div class="form-group col-md-6">
-				<label for="inputEmail4">Apellido</label>
-				<input id="apellido" type="text" aria-label="Last name" class="form-control contacto" placeholder="Escriba su Apellido">
+			<div class="form-row" class="col" >
+				<div>
+					<label class="contacto" style="padding-top: 1em;" for="email">Email</label>
+					<input id="email" type="email" class="form-control contacto" placeholder="Ingrese su email">
+				</div>
+				<div class="col">
+					<label class="contacto" style="padding-top: 1em;" for="telefono">Teléfono</label>
+					<input id="telefono" type="text" class="form-control contacto" placeholder="Ingrese su número">
+				</div>
 			</div>
-
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<label for="inputEmail4">Email</label>
-				<input id="email" type="email" class="form-control"  placeholder="Email">
-			</div>
-			<div class="form-group col-md-6">
-				<label for="inputAddress">Teléfono</label>
-				<input id="telefono" type="text" class="form-control" placeholder="Número de teléfono">
-			</div>
-
-		</div>
-
- 		<div class="form-group col-md-12">
-			<label for="inputAddress2">Mensaje</label>
-			<textarea id="mensaje" class="form-control contacto " aria-label="With textarea" placeholder="Su mensaje"></textarea>
-			<button id="enviar" type="submit" class="btn text-white bg-dark contacto" style="font-size: 1.3em">Enviar</button>
-		</div>
+		<div>
 	
-	
+		<div class="form-group ">
+			<div class="col-12">
+				<label class="contacto" style="padding-top: 1em;" for="mensaje">Mensaje</label>
+				<textarea id="mensaje" class="form-control contacto" aria-label="With textarea" placeholder="Escriba su mensaje"></textarea>
+				<button id="enviar" type="submit" class="btn text-white bg-dark" style="font-size: 1.3em">Enviar</button>
+			</div>
+		</div>
+	</div>
 </form>
 <script>
 	

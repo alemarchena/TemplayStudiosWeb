@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Templay Studios</title>
-	<link rel="icon" type="image/png" href="/img/icotemplay.png" />
+	<link rel="icon" type="image/png" href="/img/templay100.png" />
 	<!-- -------------------------------- BOOSTRAP ------------------------------------------ -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -16,14 +16,17 @@
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link rel="stylesheet" href="css/estilo.css">
 	<!-- -------------------------------- MEDIAQUERYS EN CSS ------------------------------------------ -->
-	<!--
-	<link rel="stylesheet" media="only screen and (min-width:1px) and (max-width:340px)"  href="css/estilodiminuto.css">
-	<link rel="stylesheet" media="only screen and (min-width:341px) and (max-width:359px)"  href="css/estilopequenio.css">
-	<link rel="stylesheet" media="only screen and (min-width:360px) and (max-width:575px)"  href="css/estilochico.css">
+
+	<link rel="stylesheet" media="only screen and (min-width:1px) and (max-width:340px)"  href="css/estilopequenio.css">
+
+	<link rel="stylesheet" media="only screen and (min-width:341px) and (max-width:575px)"  href="css/estilochico.css">
+	
 	<link rel="stylesheet" media="only screen and (min-width:576px) and (max-width:767px)"  href="css/estilomediano.css">
+
 	<link rel="stylesheet" media="only screen and (min-width:768px) and (max-width:991px)"  href="css/estilogrande.css">
-	-->
+
 	<link rel="stylesheet" media="only screen and (min-width:992px)"  href="css/estiloextragrande.css">
+
 
 	<link rel="stylesheet" href="css/animate.css">
 
@@ -39,34 +42,31 @@
 </head>
 <body>
 	
-	<div class="pagina">
+
 	<!-- ------------------------------------------ BARRA DE NAVEGACION --------------------------------------- -->
 
-	<nav id="menu" class="menu navbar navbar-expand-lg navbar-dark">
-	  	<a id="inicio" class="navbar-brand pulse animated" href="#">
-			<img alt="Templay" src="img/templay1.png" onmouseout="this.src='img/templay1.png';" onmouseover="this.src='img/templay2.png';">
-		</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
+	<nav id="menu" class="menu navbar navbar-expand-lg">
 
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto lista">
-	      	<li><a id="menumultimedia" class="nav-link" href="#">Multimedia</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a id="menudisenio" class="nav-link" href="#secciondisenio">Diseño</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a id="menuproyectosweb" class="nav-link" href="#seccionproyectosweb">Proyectos web</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a id="menuapps" class="nav-link" href="#seccionapps">Apps</a></li>
-			<li role="separator" class="divider"></li>
-	    </ul>
-	    <ul class="nav navbar-nav navbar-right">
-			<li><a id="menuclientes" class="nav-link" href="#seccionclientes">Clientes</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a id="menucontacto" class="nav-link" href="#seccioncontacto">Contacto</a></li>
-		</ul>
-	  </div>
+		<a id="inicio" class="navbar-brand pulse animated" href="#">
+		<img alt="Templay" src="img/templay1.png" onmouseout="this.src='img/templay1.png';" onmouseover="this.src='img/templay2.png';">
+		</a>
+
+	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  	</button>
+
+		<div class="collapse navbar-collapse " id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			  	<li><a id="menumultimedia" class="nav-link" href="#">Multimedia</a></li>
+				<li><a id="menudisenio" class="nav-link" href="#secciondisenio">Diseño</a></li>
+				<li><a id="menuapps" class="nav-link" href="#seccionapps">Apps</a></li>
+				<li><a id="menuproyectosweb" class="nav-link" href="#seccionproyectosweb">Proyectos web</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a id="menuclientes" class="nav-link" href="#seccionclientes">Clientes</a></li>
+				<li><a id="menucontacto" class="nav-link" href="#seccioncontacto">Contacto</a></li>
+			</ul>
+		</div>
 	</nav>
 	
 	<!-- ------------------------------------------ HEADER --------------------------------------- -->
@@ -80,6 +80,8 @@
 			<div class="contenido">
 				<h2 class="contemsj">Tenemos una misión:</h2>
 				<p class="lead contemsj">dar vida al mensaje de tus sueños y lograr que sea tan</p>
+				<p id="mensajecorto" class="lead contemsj">dar vida al mensaje de tus sueños</p>
+				<p id="mensajecorto" class="lead contemsj">y lograr que sea tan</p>
 				<p class="lead contemsj">espectacular en pantalla como en nuestras mentes.</p>
 			</div>
 		</div>
@@ -92,11 +94,12 @@
 	</div>
 	<!-- ------------------------------------------ SECCION MULTIMEDIA------------------------------- -->
 	<section id="seccionmultimedia">
-
+			<h4 id="textomultimedia" class="text-center textosencabezados" >MULTIMEDIA</h4>
+			 <img src="img/appsmultimedia.gif" class="d-block w-100" alt="...">
 	</section>
 	<!-- ------------------------------------------ SECCION DISEÑO ----------------------------------- -->
 	<section id="secciondisenio" >
-			<h4 class="py-1 mb-1 bg-danger text-white text-center">Diseño</h4>
+			<h4 class="text-center">DISEÑO</h4>
 			<div id="carouseldisenio" class="carousel slide" data-ride="carousel">
 			  <ol class="carousel-indicators">
 			    <li data-target="#carouseldisenio" data-slide-to="0" class="active"></li>
@@ -128,7 +131,7 @@
 	
 	<!-- ------------------------------------------ SECCION APPS ------------------------------------- -->
 	<section id="seccionapps">
-		<h4 class="py-1 mb-1 bg-danger text-white text-center">Apps</h4>
+		<h4 class="text-center" style="background-color:#1D1F1F; ">APPS</h4>
 		<div id="carouselapps" class="carousel slide" data-ride="carousel">
 		  <ol class="carousel-indicators">
 		    <li data-target="#carouselapps" data-slide-to="0" class="active"></li>
@@ -159,10 +162,10 @@
 
 	<!-- ------------------------------------------ SECCION PROYECTOS WEB ---------------------------- -->
 		<section id="seccionproyectosweb">
-			<h4 class="py-1 mb-1 bg-danger text-white text-center">Proyectos Web</h4>
+			<h4 class="text-center ">PROYECTOS WEB</h4>
 			<div class="row">
 				<div class="col-sm-5">
-					<h5 class="py-1 mb-1 bg-secondary text-white text-center">Tips</h5>
+					<h5 class="py-1 mb-1 bg-secondary text-white text-center">TIPS</h5>
 					<article id="acordeonproyectosweb">
 						
 					</article>
@@ -199,21 +202,44 @@
 			</div>
 		</section>
 	<!-- ------------------------------------------ SECCION CLIENTES --------------------------------------- -->
+	
+		<h4 id="textoclientes" class="text-center textosencabezados">CLIENTES</h4>
+
 	<section id="seccionclientes">
-		<img src="img/Clientes.png" class="d-block w-100" alt="...">
+		
+		<div id="contenedorclientes" class="container">
+		  <div class="row justify-content-around">
+		    <div class="col align-center"><img src="img/clientes/dj.png"></div>
+		    <div class="col align-center"><img src="img/clientes/filmandes.png"></div>
+		    <div class="col align-center"><img src="img/clientes/iscamen.png"></div>
+		    <div class="col align-center"><img src="img/clientes/margaritacorvalan.png"></div>
+		    <div class="col align-center"><img src="img/clientes/merlin.png"></div>
+		    <div class="col align-center"><img src="img/clientes/moro.png"></div>
+		  </div>
+		  <div class="row justify-content-around">
+		    <div class="col align-center"><img src="img/clientes/odontologica.png"></div>
+		    <div class="col align-center"><img src="img/clientes/oestelims.png"></div>
+		    <div class="col align-center"><img src="img/clientes/panificadorareggio.png"></div>
+		    <div class="col align-center"><img src="img/clientes/scubalight.png"></div>
+		    <div class="col align-center"><img src="img/clientes/winecity.png"></div>
+		    <div class="col align-center"><img src="img/clientes/zonapilates.png"></div>
+		  </div>
+	  	</div>
+</div>
 	</section>
 	<!-- ------------------------------------------ SECCION CONTACTO --------------------------------- -->
-	<section id="seccioncontacto">
-		<div id="subcontenedorcontacto">
+	<section id="seccioncontacto" class="container">
+		<div id="subcontenedorcontacto" >
 			
 		</div>
 	</section>
 	<!-- ------------------------------------------ SECCION FOOTER --------------------------------- -->
 	<footer>
+		<h4 class="text-center textosencabezados">CONTACTO</h4>
 		<div id="contenedorfooter">
 			<div class="marcofooter">
 				<div class="contenidofooter">
-					<h5 class="lead contemsjfooter">Contacto</h5>
+					
 					<p class="lead contemsjfooter"><img class="lead contemsjfooter" src="img/telefono.png" alt="subir"> Juan Pacheco       Tel.+54 9 263 430 2585</p>
 					<p class="lead contemsjfooter"><img class="lead contemsjfooter" src="img/telefono.png" alt="subir"> Alejandro Marchena Tel.+54 9 261 340 8918</p>
 					<p class="lead contemsjfooter"><img class="lead contemsjfooter" src="img/correo.png" alt="subir">info@templaystudios.com</p>
@@ -230,7 +256,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	</footer>
 

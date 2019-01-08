@@ -3,7 +3,7 @@
     <div class="card-header" id="cabecerauno">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
-          ¿Sabías que?
+          <p>¿Sabías que?</p>
         </button>
       </h2>
     </div>
@@ -21,7 +21,7 @@
     <div class="card-header" id="cabecerados">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos">
-          ¿Porqué tener un sitio o proyecto web?
+          <p>¿Porqué necesitas tu web?</p>
         </button>
       </h2>
     </div>
@@ -29,7 +29,7 @@
       <div class="card-body">
         <p>Tener un sitio web nos permite estar a la altura de nuestros mejores competidores</p>
         <p>Brinda información multimedial permitiendo promocionar y difundir mediante material interactivo</p>
-        <p>Es la carta de presentación hacia clientes y proveedores.</p>
+        <p>Es la carta de presentación hacia tu público, sean clientes, proveedores, seguidores y amigos.</p>
         <p>Las herramientas web como agendas o sistemas personalizados permiten acceden a la información mediante computadoras y dispositivo móviles</p>
       </div>
     </div>
@@ -39,7 +39,7 @@
     <div class="card-header" id="cabeceratres">
       <h2 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTres" aria-expanded="false" aria-controls="collapseTres">
-          ¿Porqué trabajar con nosotros?
+          <p>¿Porqué trabajar con nosotros?</p>
         </button>
       </h2>
     </div>
