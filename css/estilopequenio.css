@@ -15,13 +15,19 @@ header{
 
 a.nav-link{
 	background-color: #1D1F1F;
-	opacity: 0.95;
+	opacity: 1;
 	text-align: center;
 	color: #c6c6c6;
 }
-
+.menu{
+	opacity: 1;
+}
+.menu-fixed {
+	opacity: 1;
+}
 p.contemsj{
 	display: none;
+
 }
 
 #mensajecorto{
@@ -30,6 +36,7 @@ p.contemsj{
 	color: #c6c6c6;
 	line-height: 0.5em;
 	font-size: 1em;
+	padding-left: 1em;
 }
 
 h2.contemsj{

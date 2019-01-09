@@ -16,9 +16,15 @@ header{
 
 a.nav-link{
 	background-color: #1D1F1F;
-	opacity: 0.95;
+	opacity :1;
 	text-align: center;
 	color: #c6c6c6;
+}
+.menu{
+	opacity: 1;
+}
+.menu-fixed {
+	opacity: 1;
 }
 #mensajecorto{
 	display: none;

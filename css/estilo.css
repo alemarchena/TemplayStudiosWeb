@@ -52,7 +52,9 @@ section>h4{
 	margin: 0.9em;
 	font-size: 1.1em;
 }
-
+.navbar-toggler-icon {
+  background-image: url("../img/icotemplay.png");
+}
 .textosencabezados{
 	font-family: 'Cinzel', serif;
 	color: #c6c6c6;

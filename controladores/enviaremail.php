@@ -1,7 +1,7 @@
 <?php 
 	ini_set( 'display_errors', 1 );
     error_reporting( E_ALL );
-	$email = "info@templaystudios.com";
+	$emailtemplay = "info@templaystudios.com";
 	$emailale = "alemarchena@gmail.com";
 	$emailjuan = "juan_pacheco@outlook.com";
 
@@ -15,12 +15,17 @@
 	$subtitulo = "Contacto online ";
 	
 
-
 	$cuerpo = "Nombre: " . $nombre . ", Apellido: " . $apellido . " - Email: " . $email . ", Teléfono: " . $telefono . " - Mensaje: " . $mensaje;
 
-	mail($email, $titulo , $subtitulo . $cuerpo);
+
+	mail($emailtemplay, $titulo , $subtitulo . $cuerpo);
 	mail($emailale, $titulo , $subtitulo . $cuerpo);
 	mail($emailjuan, $titulo , $subtitulo . $cuerpo);
+
+	$mensajealcliente = "Muchas gracias por contactarnos, por favor no conteste este mensaje, en breve nos comunicaremos con usted. Saludos cordiales.";
+	$subtituloalcliente = "Respuesta automática.";
+	$tituloalcliente = "Contacto con Templay Studios.";
+	mail($email, $tituloalcliente , $subtituloalcliente . $mensajealcliente);
 
 	echo "Enviado correctamente";
 ?>
