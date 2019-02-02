@@ -53,26 +53,28 @@ section>h4{
 	font-size: 1.1em;
 }
 .navbar-toggler-icon {
-  background-image: url("../img/icotemplay.png");
+  background-image: url("../img/icono-menu.png");
 }
 .textosencabezados{
 	font-family: 'Cinzel', serif;
 	color: #c6c6c6;
-	padding-top: 0.9em;
+
 	margin: 0.9em;
 	font-size: 1.1em;
-
-	border-top: 1px solid;
-	border-color: grey;
 }
 
 #textomultimedia{
-	padding-top: 0px;
+	padding-top: 15px;
 	border-top: 0px;
 	margin-top: 0px;
 
 }
-
+#contenedor{
+	border-bottom: 1px solid #c6c6c6;
+}
+footer{
+	border-top: 1px solid #c6c6c6;
+}
 /* --------------------- NAVEGACION - MENU --------------- */
 #menu{ /*hace referencia al id menu*/
 	background-color:#1D1F1F;
@@ -133,13 +135,13 @@ div.card-body{ /*interior de la tarjeta*/
 	background-color: #1D1F1F;
 }
 /* --------------------- CONTACTOS -------------------------*/
-
+/*
 .contacto{
 	background-color: #1D1F1F;
 	line-height: 1.2em;
 	font-size: 1.3em;
 }
-
+*/
 
 #seccioncontacto.container{
 	background-color: #1D1F1F;
@@ -148,4 +150,74 @@ div.card-body{ /*interior de la tarjeta*/
 
 #contenedorclientes{
 	background-color: white;
+}
+
+#seccionvideo{
+	position: relative;
+	text-align: center;
+	top: 0;
+	left: 0;
+	height: 312px;
+	width:auto;
+	color: #fff;
+	overflow: hidden;
+	margin: 0 auto;
+	border-left: 10em solid #2E2E2E;
+	border-right: 10em solid #2E2E2E;
+}
+
+
+.fullscreen-video {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: -100;
+}
+
+@media screen and (max-device-width: 3000px) and (min-device-width: 1300px)
+{ 
+
+}
+
+@media screen and (max-device-width: 1299px) and (min-device-width: 1140px)
+{ 
+	
+	
+}
+
+@media screen and (max-device-width: 1139px) and (min-device-width: 960px)
+{ 
+	
+	
+}
+
+@media screen and (max-device-width: 959px) and (min-device-width: 720px)
+{ 
+
+	
+}
+
+@media screen and (max-device-width: 719px) and (min-device-width: 540px)
+{ 
+	
+}
+
+@media screen and (max-device-width: 539px) and (min-device-width: 490px)
+{ 
+	
+	
+}
+
+@media screen and (max-device-width: 489px) and (min-device-width: 400px)
+{ 
+
+}
+
+@media screen and (max-device-width: 399px) and (min-device-width: 200px)
+{ 
+	
+	
 }

@@ -7,7 +7,7 @@ header{
 
 	align-items: center;
 	text-align: center;
-	background-image: url('../img/templay300.png');
+	background-image: url('../img/templay300.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: #1D1F1F;
@@ -44,4 +44,29 @@ h2.contemsj{
 	color: #c6c6c6;
 	line-height: 1em;
 	font-size: 1.5em;
+}
+
+#seccionvideo{
+	position: relative;
+	text-align: center;
+	top: 0;
+	left: 0;
+	height: 230px;
+	width:auto;
+	color: #fff;
+	overflow: hidden;
+	margin: 0 auto;
+	border-left: 0em solid #2E2E2E;
+	border-right: 0em solid #2E2E2E;
+}
+
+
+.fullscreen-video {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: -100;
 }

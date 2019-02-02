@@ -7,7 +7,7 @@ header{
 
 	align-items: center;
 	text-align: center;
-	background-image: url('../img/templay1366.png');
+	background-image: url('../img/templay1366.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -122,4 +122,29 @@ footer{
 	height: 200px;
 	width: 100%;
 	background-color:#2E2E2E;
+}
+
+#seccionvideo{
+	position: relative;
+	text-align: center;
+	top: 0;
+	left: 0;
+	height: 312px;
+	width:auto;
+	color: #fff;
+	overflow: hidden;
+	margin: 0 auto;
+	border-left: 10em solid #2E2E2E;
+	border-right: 10em solid #2E2E2E;
+}
+
+
+.fullscreen-video {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: -100;
 }
