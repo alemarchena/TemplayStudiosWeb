@@ -129,13 +129,12 @@ footer{
 	text-align: center;
 	top: 0;
 	left: 0;
-	height: 312px;
-	width:auto;
+	
 	color: #fff;
 	overflow: hidden;
 	margin: 0 auto;
-	border-left: 10em solid #2E2E2E;
-	border-right: 10em solid #2E2E2E;
+	border-left: 11em solid #2E2E2E;
+	border-right: 11em solid #2E2E2E;
 }
 
 
