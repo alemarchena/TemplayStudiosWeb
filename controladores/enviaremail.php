@@ -3,7 +3,7 @@
     error_reporting( E_ALL );
 	$emailtemplay = "info@templaystudios.com";
 	$emailale = "alemarchena@gmail.com";
-	$emailjuan = "juan_pacheco@outlook.com";
+	
 
 	$nombre = $_POST["nombre"];
 	$apellido = $_POST["apellido"];
@@ -20,7 +20,7 @@
 
 	mail($emailtemplay, $titulo , $subtitulo . $cuerpo);
 	mail($emailale, $titulo , $subtitulo . $cuerpo);
-	mail($emailjuan, $titulo , $subtitulo . $cuerpo);
+
 
 	$mensajealcliente = "Muchas gracias por contactarnos, por favor no conteste este mensaje, en breve nos comunicaremos con usted. Saludos cordiales.";
 	$subtituloalcliente = "Respuesta automática.";
