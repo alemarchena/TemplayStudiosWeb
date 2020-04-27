@@ -12,7 +12,7 @@
 	$mensaje = $_POST["mensaje"];
 
 	$titulo = "Mensaje Web";
-	$subtitulo = "Contacto online ";
+	$subtitulo = "Contacto online Templay Studios ";
 	
 
 	$cuerpo = "Nombre: " . $nombre . ", Apellido: " . $apellido . " - Email: " . $email . ", Teléfono: " . $telefono . " - Mensaje: " . $mensaje;

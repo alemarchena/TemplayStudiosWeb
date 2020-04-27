@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- autenticacion -->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css" />
+
+    <!-- integracion de google -->
+    <meta name="google-signin-client_id" content="924130463898-msl693j1tpigdb4kfc5a72jndqei43t4.apps.googleusercontent.com">
+    <meta name="google-signin-cookiepolicy" content="single_host_origin">
+    <meta name="google-signin-scope" content="profile email">
+
+    <title>Templay Studios</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    
+    <!-- estilos -->
+    <link rel="icon" href="/img/icotemplay.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilo2020.css">
+    
+    
+
+</head>
+
+<body>
+    <div class="d-flex justify-content-center mt-4">
+        <img src="img/templaystudiosmediano.jpg" class="img-fluid" alt="Responsive image">
+    </div>
+    
+    <div class="container">
+        <div id="tarjeta" class="card text-center">
+            <div class="card-header">
+                Bienvenidos
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Plataforma de trabajo</h5>
+                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            </div>
+            <div class="card-footer text-muted">
+                
+                <a href="#" onclick="signOut();">Sign out</a>
+            </div>
+        </div>
+    </div>
+    <!-- ---------------------------------- Script externos ---------------------------------------------- -->
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAwy17hths5YGknlot758vbfJmdvUYxlhM",
+        authDomain: "templay-studios.firebaseapp.com",
+        databaseURL: "https://templay-studios.firebaseio.com",
+        projectId: "templay-studios",
+        storageBucket: "templay-studios.appspot.com",
+        messagingSenderId: "794779272524",
+        appId: "1:794779272524:web:81a2242dc1484162223be9",
+        measurementId: "G-CYXV1DX5QB"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
+
+
+
+   
+/*
+ * Create form to request access token from Google's OAuth 2.0 server.
+ */
+function oauthSignIn() {
+  // Google's OAuth 2.0 endpoint for requesting an access token
+  var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+  // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+  var form = document.createElement('form');
+  form.setAttribute('method', 'GET'); // Send as a GET request.
+  form.setAttribute('action', oauth2Endpoint);
+
+  // Parameters to pass to OAuth 2.0 endpoint.
+  var params = {'client_id': '924130463898-msl693j1tpigdb4kfc5a72jndqei43t4.apps.googleusercontent.com',
+                'redirect_uri': 'http://templaystudios.com',
+                'response_type': 'token',
+                'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
+                'include_granted_scopes': 'true',
+                'state': 'pass-through value'};
+
+  // Add form parameters as hidden input values.
+  for (var p in params) {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'hidden');
+    input.setAttribute('name', p);
+    input.setAttribute('value', params[p]);
+    form.appendChild(input);
+  }
+
+  // Add form to page and submit it to open the OAuth 2.0 endpoint.
+  document.body.appendChild(form);
+  form.submit();
+}
+
+    function onSignIn(googleUser) {
+        console.log('Google Auth Response', googleUser);
+        // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+        var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
+            unsubscribe();
+            // Check if we are already signed-in Firebase with the correct user.
+            if (!isUserEqual(googleUser, firebaseUser)) {
+                // Build Firebase credential with the Google ID token.
+                var credential = firebase.auth.GoogleAuthProvider.credential(
+                    googleUser.getAuthResponse().id_token);
+                // Sign in with credential from the Google user.
+                firebase.auth().signInWithCredential(credential).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+            } else {
+                console.log('User already signed-in Firebase.');
+            }
+        });
+    }
+
+    function isUserEqual(googleUser, firebaseUser) {
+        if (firebaseUser) {
+            var providerData = firebaseUser.providerData;
+            for (var i = 0; i < providerData.length; i++) {
+                if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+                    providerData[i].uid === googleUser.getBasicProfile().getId()) {
+                    // We don't need to reauth the Firebase connection.
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+        
+</script>

@@ -1,0 +1,188 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Boostrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="google-signin-client_id" content="25910506869-dg6grc7afjkmmfpc6vruo9l03ckoqm58.apps.googleusercontent.com">
+         
+    <!-- mensajes de sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
+    <title>Templay Studios - Administración</title>
+</head>
+<body>
+
+    <div class="container pt-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <h5>Ingreso al panel</h5>
+        </div>
+        <hr>
+        
+        <div class="col-sm-4 offset-sm-4 card">
+            
+            <div class="div card-body">
+                <div class="row d-flex justify-content-center align-items-center" style="height: 10;">
+                    <p id="datosusuario"></p>
+                </div>
+                <div class="row d-flex justify-content-center align-items-center" >
+                    <img class="card" id="imagenusuario" src="" alt="">
+                </div>
+            </div>
+            
+            <div id="botonConectar" class="row d-flex justify-content-center align-items-center" >
+                <div class="g-signin2" data-onsuccess="onSignIn">Login con Google</div>
+            </div>
+
+            <div class="row d-flex justify-content-center align-items-center" >
+                <a id="cerrarsesion" href="#" onclick="signOut();" style="visibility: hidden;">Cerrar Sesión</a>
+            </div>
+
+            <div class="row d-flex justify-content-center align-items-center" > 
+                <a id="gmail" style="visibility: hidden;" href = "http://www.gmail.com" target = "_BLANK" > Ingresar a gmail para cambiar de usuario</a >
+
+            </div>
+            
+        </div>
+
+        <hr>
+    </div>
+
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Boostrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<script>
+    var CLIENT_ID="25910506869-dg6grc7afjkmmfpc6vruo9l03ckoqm58.apps.googleusercontent.com";
+    var nombre="";
+    var email="";
+    var id="";
+
+    function onSignIn(googleUser) 
+    {
+        var profile = googleUser.getBasicProfile();
+        id= profile.getId();
+        nombre = profile.getName();
+        email = profile.getEmail();
+        var id_token = googleUser.getAuthResponse().id_token;
+        var parametros_post = new FormData();
+
+        $("#datosusuario").text('Hola ' + profile.getName());
+        $("#imagenusuario").attr("src", profile.getImageUrl());
+
+
+        if(email!="")
+        {
+           
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://www.templaystudios.com/controladores/consultaloguearadmin.php');
+            xhr.withCredentials = true;
+            xhr.onload = function () 
+            {
+                if (xhr.readyState === 4) 
+                {
+                    if (xhr.status == 200 || xhr.status == 0)  
+                    { 
+                        if(xhr.responseText == "[]") 
+                        {
+                            MandaEmail(email);
+                            Noconectado();
+                        }else
+                            var dd = JSON.parse(xhr.responseText); 
+                            
+                            $.each(dd, function (key, value) 
+                            {
+                                Conectado();
+                                
+                                redireccionar(dd[key].sitioautorizado);
+                            });
+
+                    }else
+                        alert("Error de estado " + xhr.status);
+                }
+            }
+            parametros_post.append('email' , email);
+            xhr.send(parametros_post);
+        }
+
+
+    }
+    
+    function MandaEmail(email){
+
+        var emailnuevo = new FormData();
+        var xhrnuevo = new XMLHttpRequest();
+        xhrnuevo.open('POST', 'http://www.templaystudios.com/controladores/emailnuevousuario.php');
+        xhrnuevo.withCredentials = true;
+
+        emailnuevo.append('email', email);
+        xhrnuevo.send(emailnuevo);
+
+    }
+
+
+    function signOut() 
+     {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () 
+        {
+            $("#botonConectar").css("visibility", "visible");
+
+            $("#gmail").css("visibility", "visible");
+            $("#cerrarsesion").css("visibility", "hidden")
+            $("#imagenusuario").css("visibility", "hidden")
+            $("#datosusuario").css("visibility", "hidden")
+
+            
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Ingrese a gmail y cambie de usuario',
+                showConfirmButton: false,
+                timer: 5000
+            })
+        
+        });
+    }
+
+    function Noconectado(texto){
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'No tiene permisos para ingresar',
+            showConfirmButton: false,
+            timer: 5000
+        })
+        $("#botonConectar").css("visibility", "hidden");
+        $("#gmail").css("visibility", "visible");
+
+        $("#consejo").css("visibility", "hidden");
+        $("#cerrarsesion").css("visibility", "visible")
+    }
+
+    function Conectado()
+    {
+        $("#botonConectar").css("visibility","hidden");
+        $("#consejo").css("visibility", "hidden");
+        $("#gmail").css("visibility", "hidden");
+
+    }
+    function redireccionar(sitio) {
+            window.location = "http://" + sitio;
+    } 
+   
+
+   
+</script>
