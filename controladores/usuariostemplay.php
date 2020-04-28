@@ -1,6 +1,6 @@
 <?php
     date_default_timezone_set('America/Argentina/Mendoza');
-    include "conexiones/parametrostemplay.php";
+    include "../conexiones/parametrostemplay.php";
 
     $mysqli = new mysqli( $host,$user,$password, $dbname,$port, $socket);
     
@@ -16,9 +16,19 @@
     $data = array();
 
   
-    if($tipo=="alta")
+    if($tipo=="alta" || $tipo == "baja" || $tipo == "activar" || $tipo == "desactivar" || $tipo == "validar")
     {
-        $sql = "insert into " .$tabla. "(email) values('".$email."')";
+        if($tipo=="alta")
+            $sql = "insert into " .$tabla. "(email) values('".$email."')";
+        else if($tipo=="baja")
+            $sql = "delete from " .$tabla. " where email = '" .$email. "'";
+        else if($tipo == "activar" )
+            $sql = "update " .$tabla. " set activo = true where email = '".$email."'";
+        else if($tipo == "desactivar" )
+            $sql = "update " .$tabla. " set activo = false where email = '".$email."'";
+        else if($tipo == "validar" )
+            $sql = "update " .$tabla. " set validado = true where email = '".$email."' and validado = false";
+        
         $resultado = $mysqli->query($sql);
         
         if($resultado)
@@ -28,10 +38,7 @@
             echo "-1";
         }
     }
-    else if($tipo == "baja")
-    {
-
-    }else if($tipo == "consultar")
+    else if($tipo == "consultar")
     {
         $sql = "select * from " .$tabla. " where email = '" .$email. "'";
         $resultado = $mysqli->query($sql);
@@ -45,19 +52,5 @@
             }
         }
         echo json_encode($data);
-
-    }else if($tipo == "validar")
-    {
-
-
-    }else if($tipo == "activar")
-    {
-        // $activo = $fila['activo'];
-        // if($activo == true)
-        // {
-
-        // }
     }
-
-
 ?>

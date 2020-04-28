@@ -43,18 +43,17 @@
             if (firebase.auth().currentUser) {
                 // [START signout]
                 firebase.auth().signOut();
-                document.getElementById('textoexplicacion').style.visibility = "hidden";
 
                 // [END signout]
             } else {
                 var email = document.getElementById('email').value;
                 var password = document.getElementById('password').value;
                 if (email.length < 4) {
-                    swal("Falta Información!", "ingrese una dirección de email!");
+                    swal("Atención", "Ingrese una dirección de email!");
                     return;
                 }
                 if (password.length < 4) {
-                    swal("Falta Información!", "ingrese una dirección una clave!");
+                    swal("Atención", "ingrese una clave!");
 
                     return;
                 }
@@ -91,7 +90,7 @@
 
             $.ajax({
 
-                url: "usuariostemplay.php",
+                url: "controladores/usuariostemplay.php",
                 data: { objetojson: objetojson },
                 type: "post",
 
@@ -121,18 +120,30 @@
         
          function crearusuario(){
             
-            var email = document.getElementById('email').value;
-           
+            
+             var email = document.getElementById('email').value;
+             var password = document.getElementById('password').value;
+
+            if (email.length < 4) {
+                swal("Email", "Por favor ingrese una dirección de correo.");
+                return;
+            }
+            if (password.length < 4) {
+                swal("Contraseña", "Ingrese una clave de al menos 4 digitos");
+                return;
+            }
+
 
             objeto = new Object();
             objeto.email = email.trim();
             objeto.tipo = "alta";
             var objetojson = JSON.stringify(objeto);
 
-           
+            M.toast({ html: 'Trabajando...' });
+
             $.ajax({
 
-                url:"usuariostemplay.php",
+                url:"controladores/usuariostemplay.php",
                 data: {objetojson: objetojson},
                 type: "post",
 
@@ -145,7 +156,7 @@
                     }else if (data == "1"){
                         console.log("Usuario creado");
                         handleSignUp();
-                        swal("Usuario Creado!", "presione 'Verificar cuenta', luego abra el correo y siga el link de verificación!");
+                        swal("Usuario Creado!", "Presione 'Verificar cuenta' para continuar!");
 
                     }else{
                         console.log("Otro error " + data);
@@ -157,26 +168,66 @@
             });
         }
 
+        function verificarusuario() 
+        {
+
+            var email = document.getElementById('email').value;
+
+
+            objeto = new Object();
+            objeto.email = email.trim();
+            objeto.tipo = "validar";
+            var objetojson = JSON.stringify(objeto);
+
+
+            $.ajax({
+
+                url: "controladores/usuariostemplay.php",
+                data: { objetojson: objetojson },
+                type: "post",
+
+                success: function (data) {
+                    if (data == "nobdd") {
+                        console.log("No se conecto a la base de  datos");
+
+                    } else if (data == "1") {
+                        console.log("Usuario validado");
+                        //Hacer aqui el traer datos de las tablas
+                        
+
+                    } else  if (data == "-1") {
+                        console.log("Usuario ya validado");
+                    } else{
+                        console.log("Otro error " + data);
+                    }
+                },
+                error: function (e) {
+                    console.log("Error:" + e);
+                }
+            });
+        }
+
         function handleSignUp() {
             
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-            if (email.length < 4) {
-                swal("Email", "por favor ingrese una dirección de correo.");
-                return;
-            }
-            if (password.length < 4) {
-                swal("Contraseña", "por favor ingrese una clave.");
-                return;
-            }
+            document.getElementById('textoexplicacion').style.visibility = "visible";
+            MandaEmail(email);
             
 
             firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 if (errorCode == 'auth/weak-password') {
+                    document.getElementById('textoexplicacion').style.visibility = "hidden";
+
+                    eliminarusuario();
                     swal("Contraseña", "la clave es demasiado débil.");
+
                 } else {
+                    document.getElementById('textoexplicacion').style.visibility = "hidden";
+
+                    eliminarusuario();
                     swal("Error", errorMessage);
                 }
                 console.log(error);
@@ -185,16 +236,48 @@
          
         }
 
+        function eliminarusuario() {
+
+
+            var email = document.getElementById('email').value;
+           
+
+            objeto = new Object();
+            objeto.email = email.trim();
+            objeto.tipo = "baja";
+            var objetojson = JSON.stringify(objeto);
+
+
+            $.ajax({
+
+                url: "controladores/usuariostemplay.php",
+                data: { objetojson: objetojson },
+                type: "post",
+
+                success: function (data) {
+                    if (data == "nobdd") {
+                        console.log("No se conecto a la base de  datos");
+
+                    } else if (data == "1") {
+                        console.log("Usuario eliminado");
+                    } else {
+                        console.log("Otro error " + data);
+                    }
+                },
+                error: function (e) {
+                    console.log("Error:" + e);
+                }
+            });
+        }
         /**
          * Sends an email verification to the user.
          */
         function sendEmailVerification() {
             firebase.auth().currentUser.sendEmailVerification().then(function () {
-                swal("Enviado!", "enviamos a su email la verificación!");
+                swal("Perfecto!", "Estás a un paso de conseguirlo, abre tu correo y verifica la cuenta!");
             });
             document.getElementById('quickstart-verify-email').style.visibility = "hidden";
-            document.getElementById('textoexplicacion').style.visibility = "visible";
-
+            firebase.auth().signOut();
         }
 
         function sendPasswordReset() {
@@ -213,6 +296,17 @@
             });
         }
 
+        function MandaEmail(email) {
+
+            var emailnuevo = new FormData();
+            var xhrnuevo = new XMLHttpRequest();
+            xhrnuevo.open('POST', 'http://www.templaystudios.com/controladores/emailnuevousuario.php');
+            xhrnuevo.withCredentials = true;
+
+            emailnuevo.append('email', email);
+            xhrnuevo.send(emailnuevo);
+
+        }
         // function actualizardatosusuario(apodo){
         //     var user = firebase.auth().currentUser;
             
@@ -237,7 +331,8 @@
             // Listening for auth state changes.
             firebase.auth().onAuthStateChanged(function (user) {
                 document.getElementById('quickstart-verify-email').disabled = true;
-                    
+                
+            
                 if (user) {
                     // User is signed in.
                     var displayName = user.displayName;
@@ -257,8 +352,13 @@
                         document.getElementById('quickstart-verify-email').disabled = false;
                     
                         document.getElementById('quickstart-verify-email').style.visibility = "visible";
+                        document.getElementById('quickstart-password-reset').style.visibility = "hidden";
                     }else{
+                        document.getElementById('quickstart-password-reset').style.visibility = "visible";
                         document.getElementById('quickstart-verify-email').style.visibility = "hidden";
+                        document.getElementById('textoexplicacion').style.visibility = "hidden";
+
+                        verificarusuario();
                     }
                 } else {
                     document.getElementById('quickstart-sign-in-status').textContent = 'Desconectado';
@@ -310,28 +410,26 @@
                 <div class="d-flex justify-content-center mt-4 row">
                     <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-in" name="signin">Ingresar</button>
                     &nbsp;&nbsp;&nbsp;
-                </div>
-                <div class="d-flex justify-content-center mt-4 row">
-                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Registrar</button>
+                
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Registrarse</button>
                     &nbsp;&nbsp;&nbsp;
                 </div>
 
                
-                <div class="d-flex justify-content-center mt-4 row">
+                <div class="d-flex justify-content-center row">
                     <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email"
                     name="verify-email" style="visibility: hidden;">Verificar cuenta</button>
                     &nbsp;&nbsp;&nbsp;
                 </div>
-                <div class="d-flex justify-content-center row">
-                    <p id="textoexplicacion" style="visibility: hidden;">Ingrese a su correo y verifique la cuenta desde el link que le enviamos.</p>
+                <div class="d-flex justify-content-center mt-1 row">
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email" style="visibility: hidden;">Resetear mi clave</button>
                 </div>
                 
-                <div class="d-flex justify-content-center mt-2 row">
-                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Resetear mi clave</button>
-                </div>
-               
             </div>
             <div class="card-footer text-muted">
+                <div class="d-flex justify-content-center row">
+                    <p id="textoexplicacion" style="visibility: hidden;">Por seguridad te enviamos un correo para que verifiquemos que es tuya la cuenta.</p>
+                </div>
                 <!-- Container where we'll display the user details -->
                 <div class="quickstart-user-details-container">
                     Estado de conexión: <span id="quickstart-sign-in-status">Desconocido</span>
