@@ -11,12 +11,13 @@
     $objetojson = json_decode($_POST['objetojson'],true);
     $email = $objetojson['email'];
     $tipo = $objetojson['tipo'];
+    $id = $objetojson['id'];
     $fho = new DateTime();
     $fechahoraoperativa= $fho->format('Y-m-d H:i:sP');
     $data = array();
-
+    
   
-    if($tipo=="alta" || $tipo == "baja" || $tipo == "activar" || $tipo == "desactivar" || $tipo == "validar")
+    if($tipo=="alta" || $tipo == "baja" || $tipo == "activar" || $tipo == "desactivar" )
     {
         if($tipo=="alta")
             $sql = "insert into " .$tabla. "(email) values('".$email."')";
@@ -26,11 +27,10 @@
             $sql = "update " .$tabla. " set activo = true where email = '".$email."'";
         else if($tipo == "desactivar" )
             $sql = "update " .$tabla. " set activo = false where email = '".$email."'";
-        else if($tipo == "validar" )
-            $sql = "update " .$tabla. " set validado = true where email = '".$email."' and validado = false";
-        
+       
+            
         $resultado = $mysqli->query($sql);
-        
+            
         if($resultado)
         {
             echo $resultado;
@@ -38,9 +38,25 @@
             echo "-1";
         }
     }
-    else if($tipo == "consultar")
+    else if($tipo == "consultar" || $tipo == "verificar" || $tipo == "plataforma")
     {
-        $sql = "select * from " .$tabla. " where email = '" .$email. "'";
+        if($tipo == "consultar")
+            $sql = "select * from " .$tabla. " where email = '" .$email. "'";
+        else if( $tipo == "verificar")
+            $sql = "select * from " .$tabla. " where email = '" .$email. "' and activo = true";
+        else if( $tipo == "plataforma"){
+            
+
+            $sql = "select " .$plataforma.".id,".$plataforma. ".nombre,"    .$plataforma.".bdd,".$plataforma.".tablaajustes,"
+            .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,"
+            .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,"
+            .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos,".$plataforma.".rutaimagenes,"
+            .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma ".
+            " from " .$plataforma. "  LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma where "
+            .$usuarioplataforma. ".idusuario = " .$id ;
+
+        }
+
         $resultado = $mysqli->query($sql);
         
         if($resultado)

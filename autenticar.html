@@ -23,7 +23,7 @@
         <!-- estilos -->
         <link rel="icon" href="/img/icotemplay.png" type="image/png">
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/estilo2020.css">
+        <!-- <link rel="stylesheet" href="css/estilo2020.css"> -->
 
         
   
@@ -35,6 +35,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script type="text/javascript">
+   
+
+        // function actualizardatosusuario(apodo){
+                //     var user = firebase.auth().currentUser;
+
+
+                //     user.updateProfile({
+                //         displayName: apodo,
+                //         photoURL: "https://example.com/jane-q-user/profile.jpg"
+                //     }).then(function () {
+                //         // Update successful.
+                //         swal("Actualizado!", "Ahora puede usar su apodo!");
+
+                //     }, function (error) {
+                //         // An error happened.
+                //         swal("Error!", "Al actualizar su apodo!");
+
+                //     });
+                // }
+
 
         /**
          * INGRESO AL SISTEMA.
@@ -53,7 +73,7 @@
                     return;
                 }
                 if (password.length < 4) {
-                    swal("Atención", "ingrese una clave!");
+                    swal("Atención", "Ingrese una clave!");
 
                     return;
                 }
@@ -62,7 +82,7 @@
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     if (errorCode === 'auth/wrong-password') {
-                        swal("Contraseña", "la clave es incorrecta.");
+                        swal("Contraseña", "La clave es incorrecta.");
                     } else {
                         swal("Error", "No existe un usuario con este email");
                     }
@@ -104,7 +124,7 @@
                     } else if (data >= "1") {
 
                        
-                        swal("Usuario!", "ya existe un usuario con este email!");
+                        swal("Usuario!", "Ya existe alguien con este email!");
                         
                     } else {
                         console.log("Otro error " + data);
@@ -170,15 +190,12 @@
 
         function verificarusuario() 
         {
-
             var email = document.getElementById('email').value;
-
 
             objeto = new Object();
             objeto.email = email.trim();
-            objeto.tipo = "validar";
+            objeto.tipo = "verificar";
             var objetojson = JSON.stringify(objeto);
-
 
             $.ajax({
 
@@ -187,19 +204,27 @@
                 type: "post",
 
                 success: function (data) {
+
+
                     if (data == "nobdd") {
                         console.log("No se conecto a la base de  datos");
 
-                    } else if (data == "1") {
-                        console.log("Usuario validado");
-                        //Hacer aqui el traer datos de las tablas
-                        
+                    } else if (data != "[]") {
 
-                    } else  if (data == "-1") {
-                        console.log("Usuario ya validado");
-                    } else{
+                        
+                        var dd = JSON.parse(data);
+                        $.each(dd,function(key){
+                           traerplataforma(dd[key].id);
+                           
+                        });
+                        
+                        firebase.auth().signOut();
+                        
+                    } else {
                         console.log("Otro error " + data);
                     }
+
+                    
                 },
                 error: function (e) {
                     console.log("Error:" + e);
@@ -207,6 +232,7 @@
             });
         }
 
+        
         function handleSignUp() {
             
             var email = document.getElementById('email').value;
@@ -222,7 +248,7 @@
                     document.getElementById('textoexplicacion').style.visibility = "hidden";
 
                     eliminarusuario();
-                    swal("Contraseña", "la clave es demasiado débil.");
+                    swal("Contraseña", "La clave es demasiado débil.");
 
                 } else {
                     document.getElementById('textoexplicacion').style.visibility = "hidden";
@@ -238,15 +264,12 @@
 
         function eliminarusuario() {
 
-
             var email = document.getElementById('email').value;
-           
 
             objeto = new Object();
             objeto.email = email.trim();
             objeto.tipo = "baja";
             var objetojson = JSON.stringify(objeto);
-
 
             $.ajax({
 
@@ -269,6 +292,62 @@
                 }
             });
         }
+        
+        arregloplataforma = [];
+
+        function traerplataforma(id) {
+            
+            objeto = new Object();
+            objeto.email = "";
+            objeto.id = id;
+            objeto.tipo = "plataforma";
+            var objetojson = JSON.stringify(objeto);
+
+            $.ajax({
+
+                url: "controladores/usuariostemplay.php",
+                data: { objetojson: objetojson },
+                type: "post",
+
+                success: function (data) 
+                {
+                    if (data != "[]")
+                    {
+                        dd = JSON.parse(data);
+                        $.each(dd,function(key){
+
+                           
+                            dominio = dd[key].dominio;
+                           
+                        });
+                        // abrirweb(dominio);
+                        //window.location.replace("http://" + dominio + "/" + "panelpublicacion.php");
+                        
+                    }    
+                },error: function(e){
+                    console.log("Error " + e );
+                }
+            });
+        } 
+
+        function abrirweb(domi){
+            var xhttp;
+
+            if (window.XMLHttpRequest)
+                xhttp = new XMLHttpRequest();
+            else
+                xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    // var elm = document.getElementById("nums").innerHTML = this.responseText;
+                }
+            }
+
+            xhttp.open("POST", "http://" + domi + "/" + "panelpublicacion.php");
+            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttp.send("permitido=1");
+        }
         /**
          * Sends an email verification to the user.
          */
@@ -283,7 +362,7 @@
         function sendPasswordReset() {
             var email = document.getElementById('email').value;
             firebase.auth().sendPasswordResetEmail(email).then(function () {
-                swal("Enviado!", "abra su email y resetee su clave!");
+                swal("Enviado!", "Abra su email y resetee su clave!");
             }).catch(function (error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -307,25 +386,6 @@
             xhrnuevo.send(emailnuevo);
 
         }
-        // function actualizardatosusuario(apodo){
-        //     var user = firebase.auth().currentUser;
-            
-
-        //     user.updateProfile({
-        //         displayName: apodo,
-        //         photoURL: "https://example.com/jane-q-user/profile.jpg"
-        //     }).then(function () {
-        //         // Update successful.
-        //         swal("Actualizado!", "Ahora puede usar su apodo!");
-
-        //     }, function (error) {
-        //         // An error happened.
-        //         swal("Error!", "Al actualizar su apodo!");
-
-        //     });
-        // }
-       
-        
 
         function initApp() {
             // Listening for auth state changes.
@@ -357,7 +417,7 @@
                         document.getElementById('quickstart-password-reset').style.visibility = "visible";
                         document.getElementById('quickstart-verify-email').style.visibility = "hidden";
                         document.getElementById('textoexplicacion').style.visibility = "hidden";
-
+                        
                         verificarusuario();
                     }
                 } else {
@@ -389,59 +449,63 @@
     <div class="d-flex justify-content-center mt-2">
         <img src="img/templaystudiosmediano.jpg" class="img-fluid" alt="Responsive image" width="10%" height="auto">
     </div>
-    
-    <div class="container">
-        <div id="tarjeta" class="card text-center">
-            <div class="card-header">
-                Autenticación
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Plataforma de trabajo</h5>
-                
-                <div class="d-flex justify-content-center mt-4 row">
-                    <input class="mdl-textfield__input" style="display:inline;width:35%;" type="text" id="email" name="email"
-                        placeholder="Email" />
-                    &nbsp;&nbsp;&nbsp;
-                    <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password"
-                        placeholder="Password" />
-                    <br /><br />
-                </div>
+    <div class="d-flex justify-content-center mt-2">
 
-                <div class="d-flex justify-content-center mt-4 row">
-                    <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-in" name="signin">Ingresar</button>
-                    &nbsp;&nbsp;&nbsp;
-                
-                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Registrarse</button>
-                    &nbsp;&nbsp;&nbsp;
+    <input id="inputbase" type="text">
+    </div>
+    <div id="plataforma">
+        <div  class="container">
+            <div id="tarjeta" class="card text-center">
+                <div class="card-header">
+                    Autenticación
                 </div>
-
-               
-                <div class="d-flex justify-content-center row">
-                    <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email"
-                    name="verify-email" style="visibility: hidden;">Verificar cuenta</button>
-                    &nbsp;&nbsp;&nbsp;
-                </div>
-                <div class="d-flex justify-content-center mt-1 row">
-                    <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email" style="visibility: hidden;">Resetear mi clave</button>
-                </div>
-                
-            </div>
-            <div class="card-footer text-muted">
-                <div class="d-flex justify-content-center row">
-                    <p id="textoexplicacion" style="visibility: hidden;">Por seguridad te enviamos un correo para que verifiquemos que es tuya la cuenta.</p>
-                </div>
-                <!-- Container where we'll display the user details -->
-                <div class="quickstart-user-details-container">
-                    Estado de conexión: <span id="quickstart-sign-in-status">Desconocido</span>
+                <div class="card-body">
+                    <h5 class="card-title">Plataforma de trabajo</h5>
                     
-                    <pre><code id="quickstart-account-details"> </code></pre>
-                </div>
+                    <div class="d-flex justify-content-center mt-4 row">
+                        <input class="mdl-textfield__input" style="display:inline;width:35%;" type="text" id="email" name="email"
+                            placeholder="Email" />
+                        &nbsp;&nbsp;&nbsp;
+                        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password"
+                            placeholder="Password" />
+                        <br /><br />
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-4 row">
+                        <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-in" name="signin">Ingresar</button>
+                        &nbsp;&nbsp;&nbsp;
+                    
+                        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Registrarse</button>
+                        &nbsp;&nbsp;&nbsp;
+                    </div>
+
                 
+                    <div class="d-flex justify-content-center row">
+                        <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email"
+                        name="verify-email" style="visibility: hidden;">Verificar cuenta</button>
+                        &nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="d-flex justify-content-center mt-1 row">
+                        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Resetear mi clave</button>
+                    </div>
+                    
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="d-flex justify-content-center row">
+                        <p id="textoexplicacion" style="visibility: hidden;">Por seguridad te enviamos un correo para que verifiquemos que es tuya la cuenta.</p>
+                    </div>
+                    <!-- Container where we'll display the user details -->
+                    <div class="quickstart-user-details-container">
+                        Estado de conexión: <span id="quickstart-sign-in-status">Desconocido</span>
+                        
+                        <pre><code id="quickstart-account-details"> </code></pre>
+                    </div>
+                    
+                </div>
             </div>
         </div>
+
     </div>
-
-
     <!-- ---------------------------------- Script externos ---------------------------------------------- -->
     
     
@@ -476,10 +540,7 @@
     </script>
     
     
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" -->
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+  
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
@@ -487,7 +548,19 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+
+
+ 
+       <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- para mostrar la tabla -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <!-- para mostrar los toast -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+
 
 </body>
 
