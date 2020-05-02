@@ -41,7 +41,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
     <!-- estilos -->
-    <link rel="icon" href="img/logoempresa.png" type="image/png">
+    <link rel="icon" href="/img/logoempresa.png" type="image/png">
     <!-- <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet"> -->
   
     <!-- Material Design Theming -->
@@ -54,6 +54,8 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script src="configuracion.js"></script>
 
     <script type="text/javascript">
    

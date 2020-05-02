@@ -54,9 +54,10 @@
                     <i class="fas fa-lightbulb"></i>Marketing</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a id="botbonus" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-gift"></i>Bonus</a>
-                        <!-- CONFIGURACION -->
-                        <a class="nav-link" href="http://www.onewaybebidas.com/catalogopapel.html"  target="_BLANK" tabindex="-1" aria-disabled="true"><i class="fas fa-newspaper"></i>Catálogo papel</a>
-                        <!-- CONFIGURACION FIN -->
+                        
+                        <!-- CAMBIAME 22 Direccion web del catalogo -->
+                        <a class="nav-link" href="http://www.templaystudios.com/plataforma6/catalogopapel.html"  target="_BLANK" tabindex="-1" aria-disabled="true"><i class="fas fa-newspaper"></i>Catálogo papel</a>
+                        
 
                     </div>
                 </li>

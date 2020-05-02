@@ -25,8 +25,7 @@
     <link rel="icon" type="img/png" href="img/logoempresa.png"/>
     <meta name="description" content="">
 
-    <!-- CAMBIAME 2  titulo de la pagina -->
-    <title>Templay Studios</title>
+    <title></title> 
 
     <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
   
@@ -46,9 +45,6 @@
   <!-- mensajes de sweetalert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-  
-  
-  <!-- CAMBIAME 3 nombre de las tablas -->
   <script src="configuracion.js"></script>
 
   <link href= "css/cover.css" rel="stylesheet">
@@ -93,14 +89,11 @@
           </ul>
           <ul id="listamenuderecha" class="navbar-nav justify-content-center">
             <li class="nav-item">
-              <!-- CAMBIAME 4 telefono -->
-
-              <p id="telefono">261 3408 918</p>
+                <p id="telefono_en_barra"></p>
             </li>
 
             <li class="nav-item">
-              <!-- CAMBIAME 5 instagram -->
-              <a href="https://www.instagram.com/raulalejandromarchena/" target="_blank"><img class="lead" src="img/logoinstagram.png" alt="facebook"></a>
+              <a id="direccioninstagram" href="" target="_blank"><img class="lead" src="img/logoinstagram.png" alt="facebook"></a>
             </li>
           </ul>
         </div>
@@ -110,13 +103,13 @@
           </a>
       
           <ul>
-              <!-- CAMBIAME 6 direccion-->
+              <!-- CAMBIAME direccion-->
             <li><a class="btn tooltipped btn-floating red" data-position="left"
                 data-tooltip=" Lencinas 351-Godoy Cruz-Mendoza"><i class="material-icons">location_on</i></a>
             </li>
 
-              <!-- CAMBIAME 7 telefono de ventas-->
-            <li><a class="btn tooltipped btn-floating red" data-position="left"
+              <!-- CAMBIAME telefono de ventas-->
+            <li><a id="ventastooltip" class="btn tooltipped btn-floating red" data-position="left"
                 data-tooltip="VENTAS : +54 9 261 3408 918"><i
                   class="material-icons">local_phone</i></a></li>
           </ul>
@@ -144,8 +137,7 @@
   <div id="seccionfotoslocal">
     <div class="d-flex flex-row justify-content-center align-items-center bd-highlight">
       <div class="col-sm-12 center">
-        <!-- CAMBIAME 8 mensaje slogan -->
-        <p style="font-size: 20px;" class="pt-2">Queremos dar vida al mensaje de tus negocios y que sea tan real como en tu mente.</p>
+        <p id="slogan" style="font-size: 20px;" class="pt-2"></p>
       </div>
     </div>
   </div>
@@ -198,9 +190,8 @@
 
       <section id="seccionubicacion" class="container jumbotron">
         <h5>Ubicación</h5>
-        <!-- CAMBIAME 9 ubicacion en google maps -->
-        <iframe
-          src="https://goo.gl/maps/X3dbfqDkpEzMwkru5"
+        <iframe id="direcciongoogle"
+          src=""
           width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
       </section>
 
@@ -236,6 +227,8 @@
   <script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
   <script src="js/funciones.js"></script>
   <script src="js/subscriptionPopup.js"></script>
+  <script src="establecerparametrosweb.js"></script>
+  
 
 </body>
 </html>
