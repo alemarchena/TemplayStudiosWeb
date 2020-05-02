@@ -1,0 +1,97 @@
+
+<form action="" id="formulariorubros" method="POST" role="form">
+    <div class="row">
+        <!-- Columna de tarjeta de anuncio -->
+        <div class="col-sm-6 offset-sm-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Rubros</h5>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="row">
+                                <div class="col-sm-2 offset-sm-1">
+                                    <!-- id -->
+                                    <input id="idrubro" disabled value="" name="idrubro" type="text">
+                                </div>
+                                <div class="col col-sm-6">
+                                    <!-- Nuevo -->
+                                    <button class="btn chip " type="button" id="limpiarrubro" name="limpiarrubro">Limpiar
+                                </div>
+                            </div>
+                    
+                            <div class="row">
+                                <div class=" col-sm-8 offset-sm-2 center">
+                                    <!-- rubro -->
+                                    <input 
+                                        onKeyDown="return validarteclarubro(event,this.value,50)"
+                                        onKeyUp="return validarteclarubro(event,this.value,50)" id="nombrerubro" name="nombrerubro"
+                                        type="text" class="validate">
+                                    <label for="nombrerubro">Rubro</label>
+                                </div>
+                            </div>
+
+                            <!-- Boton publicar -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button class="btn waves-effect  orange green-4" type="button" id="enviarrubro"
+                                        name="enviarrubro">Guardar Rubro
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Columna de lista de anuncios -->
+            <div class="col-sm-6 offset-sm-3">
+                <div class="row">
+                    Lista de Rubros
+                    <!-- <button id="consultar">Consultar</button> -->
+                </div>
+                <div class="table-responsive">
+                    <table id="tablarubros" class="display table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Editar</th>
+                                <th>Rubro</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+<script>
+    $(document).ready(function () 
+    {
+        //configuracion de la tabla
+        configuraciontablarubro();
+
+       $("#enviarrubro").click(function () {
+            EnviarFormularioRubro();
+        });
+
+        //trae los anuncios al cargar la pagina
+        consultarrubros();
+
+        $("#limpiarrubro").click(function () {
+            limpiarformulariorubro();
+        });
+    });
+</script>

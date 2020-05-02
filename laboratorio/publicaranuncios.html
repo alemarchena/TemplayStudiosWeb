@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        <nav class="nav-extended  red lighten-2">
+            <div class="nav-content">
+                <span class="nav-title">Panel de Anuncios</span>
+            </div>
+        </nav>
+   
+
+        <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
+
+            
+
+            <div class="row">
+                <!-- Columna de tarjeta de anuncio -->
+                <div class="col-sm-4">
+                    <div class="card text-center grey lighten-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Tarjeta de publicación</h5>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <!-- id -->
+                                            <input id="id" disabled value="" name="id" type="text">
+                                        </div>
+                                    </div>
+                                    <!-- Imagen -->
+                                    <div class="card z-depth-2 grey lighten-3 pt-2">
+
+                                        <div class="card-body  grey lighten-3 ">
+                                            <div class="row">
+                                                <div class="col-sm-6 offset-sm-3">
+                                                    <img id="muestra" class="materialboxed center-align" width="100%" src="imagenessitio/agregarimagen.jpg">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Cargador de imagen -->
+                                                <div class="col-sm-12">
+                                                    <label  class="colorletras p-1"for="imagen">Selecciona una imagen para el anuncio</label>
+                                                    <div class="form-group">
+                                                        <input class="colorletras grey lighten-3 pt-2" value="Ninguna imagen cargada" class="form-control" type="file" id="imagen" name="imagen"
+                                                            required>
+                                                        <progress class="progress" id="barra" value="0" max="100">0%</progress>
+                                                        <label class="colorletras" for="" id="valorbarra">0%</label>
+                                                        <p class="red-text accent-4" id="aviso"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        
+                                       <!-- ------------------ abm rubro ----------------- -->
+                                        <div class=" col-sm-2"> 
+                                            <!-- rubro -->
+                                            <input style="display: none;" onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)" id="rubro" name="rubro" type="text" class="validate">
+                                            <label class="colorletras" for="rubro">Rubro</label>
+                                        </div>
+                                        
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="opciones" name="opciones">
+                                            
+                                                <!-- aca se inserta la consulta de rubros -->
+                                            
+                                            </select>
+                                        </div>
+                                        <!-- ------------------------------------------------------- -->
+                                    </div>
+
+                                    <!-- Titulo -->
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"  id="titulo" name="titulo" type="text" class="validate">
+                                            <label class="colorletras" for="titulo">Título</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Descripcion -->
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Descripción</span>
+                                            </div>
+                                            <textarea onKeyDown="return validartecla(event,this.value,150)" onKeyUp="return validartecla(event,this.value,150)" class="form-control" id="descripcion" name="descripcion" aria-label="descripcion" ></textarea>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <!-- Botones de Observaciones y Comentarios-->
+                                    <div class="row">
+                                        <div class="col">
+                                            <a id="botonobservaciones" class="btn" data-toggle="collapse" href="#collapseDescripcion" role="button" aria-expanded="false"
+                                                aria-controls="collapseDescripcion">Observaciones</a>
+                                        </div>
+                                        <div class="col">
+                                            <button id="botoncomentarios" class="btn" type="button" data-toggle="collapse" data-target="#collapseComentarios"
+                                                aria-expanded="false" aria-controls="collapseComentarios">Comentarios</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Observaciones -->
+                                    <div id="areaobservaciones" class="row">
+                                        <div class="col">
+                                            <div class="collapse multi-collapse" id="collapseDescripcion">
+                                                <div class="card card-body">
+                                                    <span class="input-group-text">Observaciones</span>
+                                                    <div class="input-group">
+                                                        <!-- <div class="input-group-prepend">
+                                                            <span class="input-group-text">Descripción extra</span>
+                                                        </div> -->
+                                                        <textarea  rows="10" onKeyDown="return validartecla(event,this.value,1000)"
+                                                            onKeyUp="return validartecla(event,this.value,1000)" class="form-control" id="observaciones" name="observaciones"
+                                                            aria-label="observaciones"></textarea>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comentarios -->
+                                    <div id="areacomentarios" class="row">
+                                        <div class="col">
+                                            <div class="collapse multi-collapse" id="collapseComentarios">
+                                                <div class="card card-body">
+                                                    <span class="input-group-text">Comentarios</span>
+                                                    <div class="input-group">
+                                                        <!-- <div class="input-group-prepend">
+                                                            <span class="input-group-text">Comentarios extra</span>
+                                                        </div> -->
+                                                        <textarea  rows="6" onKeyDown="return validartecla(event,this.value,1000)"
+                                                            onKeyUp="return validartecla(event,this.value,1000)" class="form-control" id="comentarios" name="comentarios"
+                                                            aria-label="comentarios"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <!-- Precio -->
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
+                                                id="costo" name="costo" type="number" class="validate">
+                                            <label class="colorletras" for="costo">$ Costo</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)" id="precio" name="precio" type="number" class="validate">
+                                            <label class="colorletras" for="precio">$ Precio Vta</label>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <!-- Boton publicar -->
+                                        <div class="col-sm-6 offset-sm-3">
+                                            <button class="btn waves-effect  orange green-4" type="button" id="enviar" name="enviar">Publicar
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- ------- Check de opcion es oferta ------- -->
+                                        <div class="col col-sm-6">
+                                            <p>
+                                                <label>
+                                                    <input id="esoferta" type="checkbox" class="filled-in" />
+                                                    <span class="colorletras"> Es Oferta</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <!-- ------- Check de opcion es novedad ------- -->
+                                        <div class="col col-sm-6">
+                                            <p>
+                                                <label>
+                                                    <input id="esnovedad" type="checkbox" class="filled-in" />
+                                                    <span class="colorletras">Es Novedad</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- ------- Check de opcion no publica en la web ------- -->
+                                        <div class="col col-sm-6">
+                                            <p>
+                                                <label>
+                                                    <input id="opcionnopublicar" type="checkbox" class="filled-in" />
+                                                    <span class="colorletras">No publicar en la web</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <!-- ------- Check de opcion no borrar ------- -->
+                                        <div class="col col-sm-6" >
+                                            <p>
+                                                <label>
+                                                    <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
+                                                    <span class="colorletras">No limpiar formulario al guardar </span>
+                                                </label>
+                                                
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Columna de lista de anuncios -->
+                <div class="col-sm-8">
+                    <div class="d-flex flex-row justify-content-center bd-highlight my-5">
+                        <div class="col-sm-6">
+                            <label for="opcioneslista">Selecciona un Rubro a buscar</label>
+                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                    <table id="tablaanuncios" class="display table table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Editar</th>
+                                <th>Imagen</th>
+                                <th>Rubro</th>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Precio Vta</th>
+                                <th>Costo</th>
+                                <th>Es Promo</th>
+                                <th>Es Novedad</th>
+                                <th>se publica?</th>
+                                <th>Eliminar</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+
+       
+
+    </body>
+
+</html>
+
+
+<script>
+
+    // window.addEventListener("load", inicio);
+
+    // function inicio() {
+    //        window.setInterval("consultaranuncios()", 150000);
+    // }
+
+    $(document).ready(function () 
+    {
+        consultarubros_seleccion_lista(); //llena la lista del buscador
+        imageneszoom(); //habilita el zoom para las imagenes
+        validarcambioimagen(); //verifica cuando se elige otra imagen en la tarjeta
+        configuraciontabla('#tablaanuncios');//configuracion de la tabla
+        consultarubros_seleccion(); //llena la lista del alta de anuncio
+
+        function inicioconsulta()
+        {
+            //agrego un texto que mejora la vista para buscar
+            var newItem = document.createElement("h5");
+            var textnode = document.createTextNode("Filtro de productos");
+            newItem.appendChild(textnode);
+
+            var taf = document.getElementById("tablaanuncios_filter");
+            taf.insertBefore(newItem, taf.childNodes[0]);
+        }
+
+        
+        inicioconsulta(); //trae los anuncios al cargar la pagina
+
+         $("#enviar").click(function () {
+            EnviarFormulario();
+        });
+
+        $("#limpiar").click(function () {
+            limpiarformulario();
+        });
+
+
+        $("#opciones").change(function () {
+            var o = document.getElementById("opciones");
+            var opcion = o.options[o.selectedIndex].text;
+            document.getElementById('rubro').value = opcion;
+       
+        });
+
+        $('#tablaanuncios').on('page.dt', function () {
+            imageneszoom();
+        });
+
+        $('#tablaanuncios').on('draw.dt', function () {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            imageneszoom();
+        });
+
+        
+        
+    });
+
+   
+     $("#opcioneslista").on('change', function () {
+
+            consultaranuncios();
+            M.toast(
+            {
+                html: 'Buscando productos por rubro...',
+                displayLength: '3000'
+            });
+        });
+</script>

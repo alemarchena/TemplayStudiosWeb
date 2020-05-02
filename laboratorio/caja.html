@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        
+        <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
+            <!-- <span class="nav-title">Panel de Venta</span> -->
+
+            <div class="row m-4" >
+                <!-- Columna de tarjeta de ventas -->
+                <div class="col-sm-12 notapedido ">
+                    
+                    <div class="d-flex flex-row justify-content-center bd-highlight">
+                        <div class="col-sm-12">
+                            <h5>Consulta de Caja</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-center bd-highlight">
+                        <div class="col-sm-3">
+                            <label for="totalcosto" class=" bd-highlight colorletras">Total Costo</label>
+                            <input id="totalcosto" type="text" class="text center" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="fechaventadesde" class=" bd-highlight colorletras"> Desde Fecha</label>
+                            <input id="fechaventadesde" type="text" class="datepicker center" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="fechaventahasta" class=" bd-highlight colorletras">Hasta Fecha</label>
+                            <input id="fechaventahasta" type="text" class="datepicker center" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="totalventa" class=" bd-highlight colorletras">Total Venta</label>
+                            <input id="totalventa" type="text" class="text center" readonly>
+                        </div>
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tablacaja" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Título</th>
+                                    <th>Descripción</th>
+                                    <th class="masmenoscolumna">Cantidad</th>
+                                    <th>Precio vta</th>
+                                    <th>Total vta</th>
+                                    
+                                    <th>Rubro</th>
+                                    <th class="columnadedos">Costo Unidad</th>
+                                    <th class="columnadedos">Costo Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="masmenoscolumna"></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                    <td></td>
+                                    <td class="columnadedos"></td>
+                                    <td class="columnadedos"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </body>
+</html>
+
+
+<script>
+
+function consultacajaenterdias() 
+{
+    var fechaventadesde = $("#fechaventadesde").val();
+    fechaventaenviadadesde = conviertefechaastringdmy(fechaventadesde);
+
+    var fechaventahasta = $("#fechaventahasta").val();
+    fechaventaenviadahasta = conviertefechaastringdmy(fechaventahasta);
+
+    consultacaja(fechaventaenviadadesde, fechaventaenviadahasta);
+}
+
+$(document).ready(function () 
+{
+    configuracalendario();
+    configuraciontablacaja('#tablacaja');
+
+    function inicioconsulta(){
+
+        //agrego un texto que mejora la vista para buscar
+        var newItem = document.createElement("h5");
+        var textnode = document.createTextNode("Filtro en caja");
+        newItem.appendChild(textnode);
+
+        var taf = document.getElementById("tablacaja_filter");
+        taf.insertBefore(newItem, taf.childNodes[0]);
+    }
+
+    //trae los anuncios al cargar la pagina
+    inicioconsulta();
+
+    
+    $("#fechaventadesde").change(function () {
+        consultacajaenterdias()
+    });
+
+    $("#fechaventahasta").change(function () {
+        consultacajaenterdias()
+    });
+
+    
+});
+
+</script>
