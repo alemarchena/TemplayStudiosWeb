@@ -38,7 +38,7 @@
             echo "-1";
         }
     }
-    else if($tipo == "consultar" || $tipo == "verificar" || $tipo == "plataforma")
+    else if($tipo == "consultar" || $tipo == "verificar" || $tipo == "plataforma" || "consultausuarios" || "consultaplataformas")
     {
         if($tipo == "consultar")
             $sql = "select * from " .$tabla. " where email = '" .$email. "'";
@@ -51,10 +51,14 @@
             .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,"
             .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,"
             .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos,".$plataforma.".rutaimagenes,"
-            .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma ".
-            " from " .$plataforma. "  LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma where "
-            .$usuarioplataforma. ".idusuario = " .$id ;
+            .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 
+            .$plataforma. " LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma".
+            ") LEFT JOIN " .$tabla. " ON " .$usuarioplataforma. ".idusuario = " .$tabla.  ".id) where " .$usuarioplataforma. ".idusuario = " .$id ;
 
+        }elseif ($tipo == "consultausuarios"){
+            $sql = "select * from " .$tabla;
+        }elseif ($tipo == "consultaplataformas"){
+            $sql = "select * from " .$plataforma;
         }
 
         $resultado = $mysqli->query($sql);

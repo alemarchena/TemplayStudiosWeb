@@ -226,7 +226,6 @@
 
                 success: function (data) {
 
-
                     if (data == "nobdd") {
                         console.log("No se conecto a la base de  datos");
 
@@ -235,7 +234,11 @@
                         
                         var dd = JSON.parse(data);
                         $.each(dd,function(key){
-                           traerplataforma(dd[key].id);
+
+                            if(dd[key].esadmin == "1"){
+                                opcionesadmin(dd[key].esadmin);
+                            }else
+                                traerplataforma(dd[key].id);
                            
                         });
                         
@@ -253,7 +256,13 @@
             });
         }
 
-        
+        var idadmin="";
+
+        function opcionesadmin(id){
+            idamin =id;
+            $("#plataforma").load("paneladmin.html");
+        }
+
         function handleSignUp() {
             
             var email = document.getElementById('email').value;
@@ -356,6 +365,8 @@
                         $("#plataforma").load("panel.php");
                     }    
                 },error: function(e){
+                    swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");
+
                     console.log("Error " + e );
                 }
             });
@@ -470,54 +481,54 @@
   
     <div id="plataforma">
         <div  class="container">
-            <div id="tarjeta" class="card text-center">
-                <div class="card-header">
-                    Autenticación
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Plataforma de trabajo</h5>
-                    
-                    <div class="d-flex justify-content-center mt-4 row">
-                        <input class="mdl-textfield__input" style="display:inline;width:35%;" type="text" id="email" name="email"
-                            placeholder="Email" />
-                        &nbsp;&nbsp;&nbsp;
-                        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password"
-                            placeholder="Password" />
-                        <br /><br />
+                <div id="tarjeta" class="card text-center">
+                    <div class="card-header">
+                        Autenticación
                     </div>
-
-                    <div class="d-flex justify-content-center mt-4 row">
-                        <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-in" name="signin">Ingresar</button>
-                        &nbsp;&nbsp;&nbsp;
-                    
-                        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Registrarse</button>
-                        &nbsp;&nbsp;&nbsp;
-                    </div>
-
-                
-                    <div class="d-flex justify-content-center row">
-                        <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email"
-                        name="verify-email" style="visibility: hidden;">Verificar cuenta</button>
-                        &nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div class="d-flex justify-content-center mt-1 row">
-                        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Resetear mi clave</button>
-                    </div>
-                    
-                </div>
-                <div class="card-footer text-muted">
-                    <div class="d-flex justify-content-center row">
-                        <p id="textoexplicacion" style="visibility: hidden;">Por seguridad te enviamos un correo para que verifiquemos que es tuya la cuenta.</p>
-                    </div>
-                    <!-- Container where we'll display the user details -->
-                    <div class="quickstart-user-details-container">
-                        Estado de conexión: <span id="quickstart-sign-in-status">Desconocido</span>
+                    <div class="card-body">
+                        <h5 class="card-title">Plataforma de trabajo</h5>
                         
-                        <pre><code id="quickstart-account-details"> </code></pre>
-                    </div>
+                        <div class="d-flex justify-content-center mt-4 row">
+                            <input class="mdl-textfield__input" style="display:inline;width:35%;" type="text" id="email" name="email"
+                                placeholder="Email" />
+                            &nbsp;&nbsp;&nbsp;
+                            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password"
+                                placeholder="Password" />
+                            <br /><br />
+                        </div>
+
+                        <div class="d-flex justify-content-center mt-4 row">
+                            <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-in" name="signin">Ingresar</button>
+                            &nbsp;&nbsp;&nbsp;
+                        
+                            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Registrarse</button>
+                            &nbsp;&nbsp;&nbsp;
+                        </div>
+
                     
+                        <div class="d-flex justify-content-center row">
+                            <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email"
+                            name="verify-email" style="visibility: hidden;">Verificar cuenta</button>
+                            &nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="d-flex justify-content-center mt-1 row">
+                            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Resetear mi clave</button>
+                        </div>
+                        
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="d-flex justify-content-center row">
+                            <p id="textoexplicacion" style="visibility: hidden;">Por seguridad te enviamos un correo para que verifiquemos que es tuya la cuenta.</p>
+                        </div>
+                        <!-- Container where we'll display the user details -->
+                        <div class="quickstart-user-details-container">
+                            Estado de conexión: <span id="quickstart-sign-in-status">Desconocido</span>
+                            
+                            <pre><code id="quickstart-account-details"> </code></pre>
+                        </div>
+                        
+                    </div>
                 </div>
-            </div>
         </div>
 
     </div>

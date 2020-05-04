@@ -1,0 +1,247 @@
+<div class="d-flex justify-content-center mt-5">
+<h4>Administrador de la Plataforma</h4>
+</div>
+
+<div class="d-flex justify-content-center row">
+    <div class="col-sm-3 ">
+        <label for="usuarioelegido">Usuario seleccionado</label>
+        <input id="usuarioelegido" type="text" readonly>
+
+    </div>
+    <div class="col-sm-3">
+        
+            <label for="plataformaelegida">Plataforma seleccionada</label>
+            <input id="plataformaelegida" type="text" readonly>
+
+    </div>
+</div>
+<div class="row mt-2">
+    <!-- Columna de lista de anuncios -->
+    <div class="col-sm-6">
+        <div class="d-flex justify-content-center row">
+            <h5>Lista de Usuarios</h5>
+            
+        </div>
+        <div class="table-responsive">
+            <table id="tablausuarios" class="display table table-striped">
+                <thead>
+                    <tr>
+                        <th>Seleccionar</th>
+                        <th>Id</th>
+                        <th>email</th>
+                        <th>activo</th>
+                        <th>es admin</th>
+                        <th>empresa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="d-flex justify-content-center row">
+          <h5>Lista de Plataformas</h5>
+        </div>
+        <div class="table-responsive">
+            <table id="tablaplataformas" class="display table table-striped">
+                <thead>
+                    <tr>
+                        <th>Seleccionar</th>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Dominio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src=js/funciones.js></script>
+
+<script>
+    // ---------------------------------------------- Panel Admin ------------------------------------------
+
+    function configuraciontablausuariosplataformas() {
+
+        $('#tablausuarios').DataTable({
+            "language": {
+
+                "processing": "Procesando...",
+                "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+                "lengthMenu": "",
+                "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                "emptyTable": "No hay registros guardados",
+                "zeroRecords": "No hay registros guardados",
+                "infoEmpty": "No hay rubros para mostrar",
+                "paginate": {
+                    "first": "Primera",
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "last": "Ultima"
+                },
+                "aria": {
+                    "sortAscending": "Ordenar columna ascendente",
+                    "sortDescending": "Ordenar columna descendente"
+                }
+            },
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+            ],
+            "pageLength": 10
+
+        });
+
+        $('#tablaplataformas').DataTable({
+            "language": {
+
+                "processing": "Procesando...",
+                "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+                "lengthMenu": "",
+                "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                "emptyTable": "No hay registros guardados",
+                "zeroRecords": "No hay registros guardados",
+                "infoEmpty": "No hay rubros para mostrar",
+                "paginate": {
+                    "first": "Primera",
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "last": "Ultima"
+                },
+                "aria": {
+                    "sortAscending": "Ordenar columna ascendente",
+                    "sortDescending": "Ordenar columna descendente"
+                }
+            },
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+            ],
+            "pageLength": 10
+
+        });
+    }
+    
+
+    function consultausuarioplataformas(){
+
+
+    }
+
+    function consultausuarios(){
+        if ($.fn.dataTable.isDataTable('#tablausuarios')) {
+            var tr = $('#tablausuarios').DataTable();
+        }
+
+        objeto = new Object();
+        objeto.email = "";
+        objeto.tipo = "consultausuarios";
+        var objetojson = JSON.stringify(objeto);
+        M.toast({ html: 'Buscando usuarios...', displayLength: '1000', classes: 'rounded' });
+
+        tr.clear().draw(true);
+
+        $.ajax({
+
+            url: "controladores/usuariostemplay.php",
+            data: { objetojson: objetojson },
+
+            type: "post",
+
+            success: function (data) {
+                if (data != "consultavacia") {
+                    dd = JSON.parse(data); //data decodificado
+
+                    tr.clear().draw(true);
+
+                    $.each(dd, function (key, value) {
+                        tr.row.add([
+                            "<a onclick='seleccionarusuario(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">assignment_turned_in</i>",
+                            dd[key].id,
+                            dd[key].email,
+                            dd[key].activo,
+                            dd[key].esadmin,
+                            dd[key].empresa
+                            
+                        ]).draw(false);
+                    });
+
+                }
+            },
+            error: function (e) {
+                alert("Error en la consulta." + e.value);
+            }
+        });
+    }
+
+    function consultaplataformas() {
+        if ($.fn.dataTable.isDataTable('#tablaplataformas')) {
+            var tr = $('#tablaplataformas').DataTable();
+        }
+
+        objeto = new Object();
+        objeto.email = "";
+        objeto.tipo = "consultaplataformas";
+        var objetojson = JSON.stringify(objeto);
+        M.toast({ html: 'Buscando usuarios...', displayLength: '1000', classes: 'rounded' });
+
+        tr.clear().draw(true);
+
+        $.ajax({
+
+            url: "controladores/usuariostemplay.php",
+            data: { objetojson: objetojson },
+
+            type: "post",
+
+            success: function (data) {
+                if (data != "consultavacia") {
+                    dd = JSON.parse(data); //data decodificado
+
+                    tr.clear().draw(true);
+
+                    $.each(dd, function (key, value) {
+                        tr.row.add([
+                            "<a onclick='seleccionarplataforma(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">assignment_turned_in</i>",
+                            dd[key].id,
+                            dd[key].nombre,
+                            dd[key].dominio
+
+                        ]).draw(false);
+                    });
+
+                }
+            },
+            error: function (e) {
+                alert("Error en la consulta." + e.value);
+            }
+        });
+    }
+
+    configuraciontablausuariosplataformas();
+    consultausuarios();
+    consultaplataformas();
+
+
+
+</script>

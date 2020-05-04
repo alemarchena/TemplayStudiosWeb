@@ -896,7 +896,7 @@ function consultarrubros(e) {
     itemrubro.id = id;
     itemrubro.rubro = "";
     var objetorubro = JSON.stringify(itemrubro);
-console.log(objetorubro);
+
     $.ajax({
 
         url: "consultarubros.php",
@@ -5164,3 +5164,4 @@ function consultarubros_seleccionconpreciopaginaweb(e) {
     });
 
 }
+
