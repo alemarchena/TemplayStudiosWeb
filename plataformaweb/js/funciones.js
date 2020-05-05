@@ -3570,12 +3570,39 @@ function validarbonus(e, contenido, caracteres) {
 }
 
 function guardarbonus(){
-
     var bdd = conexionbdd;
-    var tipo = "alta";
+    var tipo = "consultar";
+    var tabla = tablabonus;
+
+    M.toast({ html: 'Verificando bonus', displayLength: '1000', classes: 'rounded' });
+
+    $.ajax({
+        url: "consultabonus.php",
+        data: { bdd: bdd, tabla: tabla, tipo: tipo },
+        type: "post",
+        success: function (data) {
+            if (data == "[]" || data == "") 
+            {
+                grabarbonus("alta");
+            }else
+            {
+                grabarbonus("actualizar");
+            }
+        },
+        error: function (e) {
+            M.toast({ html: 'Error al intentar guardar.' })
+        }
+    });
+   
+}
+
+function grabarbonus(tipopasado){
+ var bdd = conexionbdd;
+    var tipo = tipopasado;
     var tabla = tablabonus;
 
     bonusestablecido = $("#bonusestablecido").val();
+
 
     $.ajax({
         url: "consultabonus.php",

@@ -158,4 +158,10 @@ $(document).ready(function ()
             $("#contenido").load("bonus.html");
         });
     });
+
+    function colorblancofondo(){
+
+        document.getElementById("panelcolor").style.visibility = "hidden";
+    }
+    colorblancofondo();
 </script>

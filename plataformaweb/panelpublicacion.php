@@ -208,61 +208,10 @@
             });
         }
 
-        function verificarusuario() 
-        {
-            var email = document.getElementById('email').value;
+        
 
-            objeto = new Object();
-            objeto.email = email.trim();
-            objeto.tipo = "verificar";
-            var objetojson = JSON.stringify(objeto);
-            M.toast({ html: 'Autenticando...', displayLength: '1000', classes: 'rounded' });
-
-            $.ajax({
-
-                url: "controladores/usuariostemplay.php",
-                data: { objetojson: objetojson },
-                type: "post",
-
-                success: function (data) {
-
-                    if (data == "nobdd") {
-                        console.log("No se conecto a la base de  datos");
-
-                    } else if (data != "[]") {
-
-                        
-                        var dd = JSON.parse(data);
-                        $.each(dd,function(key){
-
-                            if(dd[key].esadmin == "1"){
-                                opcionesadmin(dd[key].esadmin);
-                            }else
-                                traerplataforma(dd[key].id);
-                           
-                        });
-                        
-                        firebase.auth().signOut();
-                        
-                    } else {
-                        console.log("Otro error " + data);
-                    }
-
-                    
-                },
-                error: function (e) {
-                    console.log("Error:" + e);
-                }
-            });
-        }
-
-        var idadmin="";
-
-        function opcionesadmin(id){
-            idamin =id;
-            $("#plataforma").load("paneladmin.html");
-        }
-
+       
+     
         function handleSignUp() {
             
             var email = document.getElementById('email').value;
@@ -325,12 +274,19 @@
         
         arregloplataforma = [];
 
-        function traerplataforma(id) {
+        function traerplataforma(id,idplataforma) {
+            
+            var adondeentra = "";
+            if(idplataforma == -1)
+                adondeentra = "plataforma";
+            else
+                adondeentra = "plataformaadmin";
             
             objeto = new Object();
             objeto.email = "";
             objeto.id = id;
-            objeto.tipo = "plataforma";
+            objeto.idplataformaagregada = idplataforma;
+            objeto.tipo =  adondeentra;
             var objetojson = JSON.stringify(objeto);
 
             $.ajax({
@@ -473,14 +429,16 @@
 <!-- ---------------------------------------------- BODY ------------------------------------------------------ -->
 
 <body>
+    <div id="panelcolor" class="fixed-top" style="background-color: #2E9AFE; height: 300px;z-index: -1"></div>
+
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
     <!-- <div class="d-flex justify-content-center mt-2">
         <img src="img/logoempresa.png" class="img-fluid" alt="Responsive image" width="10%" height="auto">
     </div> -->
   
-    <div id="plataforma">
-        <div  class="container">
+    <div id="plataforma"class="mt-5">
+        <div  class="col-sm-6 offset-sm-3">
                 <div id="tarjeta" class="card text-center">
                     <div class="card-header">
                         Autenticación
@@ -489,10 +447,12 @@
                         <h5 class="card-title">Plataforma de trabajo</h5>
                         
                         <div class="d-flex justify-content-center mt-4 row">
-                            <input class="mdl-textfield__input" style="display:inline;width:35%;" type="text" id="email" name="email"
-                                placeholder="Email" />
+                            <input class="mdl-textfield__input center" style="display:inline;width:65%;" type="text" id="email" name="email"
+                            placeholder="Email" />
                             &nbsp;&nbsp;&nbsp;
-                            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password"
+                        </div>
+                        <div class="d-flex justify-content-center mt-4 row">
+                            <input class="mdl-textfield__input center" style="display:inline;width:65%;" type="password" id="password" name="password"
                                 placeholder="Password" />
                             <br /><br />
                         </div>
@@ -531,6 +491,39 @@
                 </div>
         </div>
 
+        <div id="opcionesadministracion" style="visibility:hidden;">
+
+            <div class="d-flex justify-content-center row">
+                <h5>Relación de Usuarios con Plataformas</h5>
+                
+            </div>
+            <div class="justify-content-center row">
+                <button id="seleccionarpaneladmin" class="btn btn-primary">Entrar como Admin</button> 
+            </div>
+            <div class="table-responsive">
+                <table id="tablarelacion" class="display table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id usuario</th>
+                            <th>email</th>
+                            <th>Id plataforma</th>
+                            <th>nombre</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <!-- ---------------------------------- Script externos ---------------------------------------------- -->
     
@@ -578,10 +571,180 @@
 
 <script>
 
-    $(document).ready(function () {
-        $('.materialboxed').materialbox();
+    $('#tablarelacion').DataTable(
+    {
+        "language": {
 
-     
+            "processing": "Procesando...",
+            "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+            "lengthMenu": "",
+            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+            "emptyTable": "No hay registros guardados",
+            "zeroRecords": "No hay registros guardados",
+            "infoEmpty": "No hay rubros para mostrar",
+            "paginate": {
+                "first": "Primera",
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "last": "Ultima"
+            },
+            "aria": {
+                "sortAscending": "Ordenar columna ascendente",
+                "sortDescending": "Ordenar columna descendente"
+            }
+        },
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+        ],
+        "pageLength": 10,
+        "dom": '<"top"p>rt<"clear">',
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    }   );
+
+
+
+//    function consultausuarioplataformas() {
+//         if ($.fn.dataTable.isDataTable('#tablarelacion')) {
+//             var tr = $('#tablarelacion').DataTable();
+//         }
+
+//         objeto = new Object();
+//         objeto.email = "";
+//         objeto.tipo = "consultausuarioplataforma";
+//         var objetojson = JSON.stringify(objeto);
+//         M.toast({ html: 'Buscando relación usuarios-plataformas...', displayLength: '1000', classes: 'rounded' });
+
+//         tr.clear().draw(true);
+
+//         $.ajax({
+
+//             url: "controladores/usuariostemplay.php",
+//             data: { objetojson: objetojson },
+
+//             type: "post",
+
+//             success: function (data) {
+
+//                 if (data != "consultavacia" && data != "[]") {
+//                     dd = JSON.parse(data); //data decodificado
+
+//                     tr.clear().draw(true);
+
+//                     $.each(dd, function (key, value) {
+//                         tr.row.add([
+//                             "<a onclick='seleccionarplataforma(\"" + dd[key].idusuario + "\",\"" + dd[key].idplataforma + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">open_in_browser</i>",
+//                             dd[key].idusuario,
+//                             dd[key].email,
+//                             dd[key].idplataforma,
+//                             dd[key].nombre
+
+//                         ]).draw(false);
+//                     });
+
+//                 }
+//             },
+//             error: function (e) {
+//                 alert("Error en la consulta." + e.value);
+//             }
+//         });
+
+//     }
+
+    function veropcionesadministrador(){
+        document.getElementById("opcionesadministracion").style.visibility = "visible";
+        // consultausuarioplataformas();
+    }
+
+    function vermasopciones(){
+        veropcionesadministrador();
+        document.getElementById("seleccionarpaneladmin").style.visibility = "hidden";
+    }
+    
+    $("#seleccionarpaneladmin").click(function(){
+        $("#plataforma").load("paneladmin.html");
     });
     
+   
+    function seleccionarplataforma(idusuario,idplataforma){
+        traerplataforma(idusuario,idplataforma);
+    }
+
+    function verificarusuario() 
+    {
+        var email = document.getElementById('email').value;
+
+        objeto = new Object();
+        objeto.email = email.trim();
+        objeto.tipo = "verificar";
+        var objetojson = JSON.stringify(objeto);
+        M.toast({ html: 'Autenticando...', displayLength: '1000', classes: 'rounded' });
+
+        if ($.fn.dataTable.isDataTable('#tablarelacion')) {
+            var tr = $('#tablarelacion').DataTable();
+        }
+        
+        tr.clear().draw(true);
+
+        $.ajax({
+
+            url: "controladores/usuariostemplay.php",
+            data: { objetojson: objetojson },
+            type: "post",
+
+            success: function (data) 
+            {
+
+                if (data == "nobdd") {
+                    console.log("No se conecto a la base de  datos");
+
+                } else if (data != "[]") {
+
+                    var cuenta = 0;
+                    var esad = -1;
+                    var idencontrado=-1;
+
+                    var dd = JSON.parse(data);
+                    $.each(dd,function(key){
+                        cuenta = cuenta + 1;
+                        if(dd[key].esadmin == "1"){
+                            esad = 1;
+                        }
+                        idencontrado=dd[key].idusuario;
+
+                        tr.row.add([
+                            "<a onclick='seleccionarplataforma(\"" + dd[key].idusuario + "\",\"" + dd[key].idplataforma + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">open_in_browser</i>",
+                            dd[key].idusuario,
+                            dd[key].email,
+                            dd[key].idplataforma,
+                            dd[key].nombre
+
+                        ]).draw(false);
+                    });
+
+                    if(esad == "1"){
+
+                        veropcionesadministrador();
+                    }else
+                    if(cuenta > 1)
+                    {
+                        vermasopciones();
+                    }else{
+                        traerplataforma(idencontrado,-1);
+                    }
+                
+
+                    firebase.auth().signOut();
+                    
+                } else {
+                    console.log("Otro error " + data);
+                }
+
+                
+            },
+            error: function (e) {
+                console.log("Error:" + e);
+            }
+        });
+    }
 </script>

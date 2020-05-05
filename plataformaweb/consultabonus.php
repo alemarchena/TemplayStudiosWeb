@@ -28,9 +28,15 @@
         $fila = $resultado->fetch_assoc();
         echo ($fila["bonusestablecido"]);
      
-    }else if($tipo == "alta")
+    }else if($tipo == "actualizar")
     {
         $sql = "update " .$tabla. " set bonusestablecido = '$bonusestablecido '";
+        $resultado  = $mysqli->query($sql);
+        echo $resultado;
+        
+    }else if($tipo == "alta")
+    {
+        $sql = "insert into " .$tabla. "(bonusestablecido) values('$bonusestablecido ')";
         $resultado  = $mysqli->query($sql);
         echo $resultado;
         
