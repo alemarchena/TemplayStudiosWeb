@@ -91,7 +91,6 @@
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro where " .$tabla. ".idrubro = " 
                                  .$idrubro . " " . $sentencia . " ) order by " .$tabla. ".titulo";
             }
-
         }else if($tipo == "consultafiltros")
         {
             if($sentencia == ""){

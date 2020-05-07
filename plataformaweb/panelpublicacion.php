@@ -318,7 +318,7 @@
                             dominio = dd[key].dominio;
                            
                         });
-                        $("#plataforma").load("panel.php");
+                        $("#plataforma").load("panel.html");
                     }    
                 },error: function(e){
                     swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");
@@ -603,53 +603,6 @@
     }   );
 
 
-
-//    function consultausuarioplataformas() {
-//         if ($.fn.dataTable.isDataTable('#tablarelacion')) {
-//             var tr = $('#tablarelacion').DataTable();
-//         }
-
-//         objeto = new Object();
-//         objeto.email = "";
-//         objeto.tipo = "consultausuarioplataforma";
-//         var objetojson = JSON.stringify(objeto);
-//         M.toast({ html: 'Buscando relación usuarios-plataformas...', displayLength: '1000', classes: 'rounded' });
-
-//         tr.clear().draw(true);
-
-//         $.ajax({
-
-//             url: "controladores/usuariostemplay.php",
-//             data: { objetojson: objetojson },
-
-//             type: "post",
-
-//             success: function (data) {
-
-//                 if (data != "consultavacia" && data != "[]") {
-//                     dd = JSON.parse(data); //data decodificado
-
-//                     tr.clear().draw(true);
-
-//                     $.each(dd, function (key, value) {
-//                         tr.row.add([
-//                             "<a onclick='seleccionarplataforma(\"" + dd[key].idusuario + "\",\"" + dd[key].idplataforma + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">open_in_browser</i>",
-//                             dd[key].idusuario,
-//                             dd[key].email,
-//                             dd[key].idplataforma,
-//                             dd[key].nombre
-
-//                         ]).draw(false);
-//                     });
-
-//                 }
-//             },
-//             error: function (e) {
-//                 alert("Error en la consulta." + e.value);
-//             }
-//         });
-
-//     }
 
     function veropcionesadministrador(){
         document.getElementById("opcionesadministracion").style.visibility = "visible";

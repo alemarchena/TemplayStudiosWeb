@@ -141,6 +141,7 @@ function muestrabuscar(){
             if (key == 13) {
                 buscarproductos("consultafiltros");
                 muestrabuscar();
+                $(".navbar-collapse").collapse("hide");
 
             }
         
@@ -164,6 +165,8 @@ function muestrabuscar(){
         $("#consulta").click(function () {
             buscarproductos("consultafiltros");
             muestrabuscar();
+            $(".navbar-collapse").collapse("hide");
+
         });
 
         

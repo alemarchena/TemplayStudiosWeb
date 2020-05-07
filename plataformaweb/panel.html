@@ -55,8 +55,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a id="botbonus" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-gift"></i>Bonus</a>
                         
-                        <!-- CAMBIAME 22 Direccion web del catalogo -->
-                        <a class="nav-link" href="http://www.templaystudios.com/plataforma6/catalogopapel.html"  target="_BLANK" tabindex="-1" aria-disabled="true"><i class="fas fa-newspaper"></i>Catálogo papel</a>
+                        <a id="direccioncatalogoweb" class="nav-link" href=""  target="_BLANK" tabindex="-1" aria-disabled="true"><i class="fas fa-newspaper"></i>Catálogo papel</a>
                         
 
                     </div>
@@ -87,6 +86,7 @@
     <script src=js/scrollmenu.js></script>
     <script src=js/funciones.js></script>
     <script src=js/convertidorfecha.js></script>
+    
 </div>
 
 <script>
@@ -163,5 +163,13 @@ $(document).ready(function ()
 
         document.getElementById("panelcolor").style.visibility = "hidden";
     }
+    
+    function asignardireccionweb(){
+        direccioncatalogoweb = 'http://www.templaystudios.com/plataformaweb/catalogopapel.html'
+        document.getElementById("direccioncatalogoweb").href = direccioncatalogoweb;
+    }
+    
     colorblancofondo();
+    asignardireccionweb();
+
 </script>

@@ -27,7 +27,7 @@
         <link rel="stylesheet" type="text/css" href="css/estilo.css">
         <link rel="icon" href="img/icono_catalogo.png" type="image/png" sizes="16x16">
        
-        <title>Catalogo de Productos</title>
+        <title>Catálogo en papel</title>
     </head>
 <body>
         
@@ -36,18 +36,16 @@
             <img style="width: 25%;" src="img/logoempresa.png" alt="Catalogo">
         </div>
         <div class="col-sm-4 center mt-2">
-                <!-- CAMBIAME 20 -->
-            <h5>Templay Studios</h5>
+            <h5 id="tituloempresa"></h5>
             <div class="d-flex flex-row justify-content-center">
-                <!-- CAMBIAME 21 -->
-                <p>LENCINAS 351-GODOY CRUZ-Mendoza</p>
+                <p id="direccionempresa"></p>
                
             </div>
         </div>
         <div class="col-sm-4 center mt-2">
             <div class="d-flex flex-row justify-content-center">
                 <h5>Catálogo </h5>
-                <div class="d-flex flex-row justify-content-center"></div>
+                <div class="d-flex flex-row justify-content-center">
                     <a id="ocultar"><i class="fas fa-low-vision"></i></a>
                 </div>
             </div>
@@ -172,6 +170,8 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <!-- para mostrar los toast -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+    <script src=configuracion.js> </script>
+
     <script src=js/funciones.js> </script> 
     <!-- <script src=js/funcionesrubros.js> </script> -->
 </body>
@@ -387,8 +387,14 @@
     });
 
     function eliminarEtiqueta(identificacion) {
-            var id = document.getElementById(identificacion);
+        var id = document.getElementById(identificacion);
+        id.remove();
+    }
 
-            id.remove();
-        }
+    function establecevaloresvariables(){
+        document.getElementById("tituloempresa").innerText = "Templay Studios";
+        document.getElementById("direccionempresa").innerText = "LENCINAS 351 - GODOY CRUZ - Mendoza";
+    }
+
+    establecevaloresvariables();
 </script>

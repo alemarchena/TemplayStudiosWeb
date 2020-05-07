@@ -1,0 +1,241 @@
+   
+
+    <div id="datoscliente" class="form-row d-flex justify-content-center" 
+    style="margin-top: 10em;padding-left: 4em;padding-right: 4em;">
+    
+    </div>
+    <div class="d-flex justify-content-center ">
+        
+        <!-- Columna de lista de anuncios -->
+        <div class="col-sm-10">
+            
+            <div class="table-responsive">
+                <table id="tablacarrito" class="display table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Quitar</th>
+                            <th></th>
+                            <th>Id</th>
+                            <th>Titulo</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Menos</th>
+                            <th>Cantidad</th>
+                            <th>Mas</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
+
+
+<script>
+  
+  function configuraciontablacarrito() {
+        $('#tablacarrito').DataTable({
+            "language": {
+
+                "processing": "Procesando...",
+                "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+                "lengthMenu": "",
+                "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                "emptyTable": "No hay registros guardados",
+                "zeroRecords": "No hay registros guardados",
+                "infoEmpty": "No hay rubros para mostrar",
+                "paginate": {
+                    "first": "Primera",
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "last": "Ultima"
+                },
+                "aria": {
+                    "sortAscending": "Ordenar columna ascendente",
+                    "sortDescending": "Ordenar columna descendente"
+                }
+            },
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+            ],
+            "pageLength": 10,
+
+            // "dom": '<"bottom"fl><"bottom"p>rt<"clear">'
+            "dom": 'lrtip'
+
+        });
+    }
+
+function consultaranuncioscarrito(e) {
+
+        
+        var rutaimagenes = "imagenes/";
+        var t;
+
+        if ($.fn.dataTable.isDataTable('#tablacarrito')) {
+            t = $('#tablacarrito').DataTable();
+        }
+       
+       
+        t.clear().draw(true);
+
+        var di=""; 
+        var ti = "";
+        var de="";
+        var pr="";
+        var im="";
+        var su="";
+
+        arreglocarrito.forEach(function (valor, indice) {
+
+                di= arreglocarrito[indice].id;
+                ti = arreglocarrito[indice].titulo;
+                de = arreglocarrito[indice].descripcion;
+                pr = arreglocarrito[indice].precio;
+                im = arreglocarrito[indice].imagen;
+                su = arreglocarrito[indice].subtotal;
+
+                t.row.add([
+               
+                    "<a data-position='right'  data-tooltip='Quitar del carrito' onclick='quitardelcarrito(\"" + di + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  red darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
+                    "<img class='materialboxed center-align' width='65%' src=" + "'" + im + "'></img>",
+                    di,
+                    ti,
+                    de,
+                    pr,
+                    "<a onclick='menosunoencarro(\"" + di + "\",\"" + pr + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
+                    "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='cantidad_" + di + "' name ='cantidad_" + di + "' type ='text' class='cajacantidad validate masmenoscolumna'></input>",
+                    "<a onclick='masunoencarro(\"" + di + "\",\"" + pr + "\")' class=" + "\"btn-floating btn-small waves-effect   green darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
+                    "<a id='subtotal_" + di + "'>" + "$ " + su + "</a >"
+                ]).draw(false);
+
+                verificacantidadcero(di);
+        });
+                        
+        t.columns.adjust().draw();
+
+        imageneszoom();
+    }
+
+    $(".cajacantidad").focusout(function () 
+    {
+        alert("Caja");
+    });
+
+
+    function quitardelcarrito(idquitado){
+        arreglocarrito.forEach(function (valor, indice) {
+
+            if (arreglocarrito[indice].id == idquitado) 
+            {
+                arreglocarrito.splice(indice, 1);
+                cambiacantidadcarrito(-1);
+                consultaranuncioscarrito();
+            }
+        });
+
+         calculatotal();
+    }
+
+    function verificacantidadcero(id) {
+            var etiqueta = document.getElementById('cantidad_' + id);
+            var can = parseInt(etiqueta.value);
+
+            if (isNaN(can) || can==0)
+                can = 1;
+
+            etiqueta.value = can;
+    }
+
+    function masunoencarro(id,pr) {
+        var etiqueta = document.getElementById('cantidad_' + id);
+        var can = parseInt(etiqueta.value);
+
+        if (isNaN(can))
+            can = 0;
+
+        can += 1;
+        etiqueta.value = can;
+
+        var subt = document.getElementById('subtotal_' + id);
+        var nuevosubtotal = parseInt(subt) + pr;
+        subt.innerText =  "$ " + (nuevosubtotal);
+
+        actualizasubtotal(id, pr);
+
+         calculatotal();
+    }
+
+    function menosunoencarro(id,pr) {
+        var etiqueta = document.getElementById('cantidad_' + id);
+        var can = parseInt(etiqueta.value);
+
+        if (isNaN(can))
+            can = 0;
+
+        can -= 1;
+
+        if (can >0 )
+        {
+            etiqueta.value = can;
+
+            var subt = document.getElementById('subtotal_' + id);
+            var nuevosubtotal = parseInt(subt) - pr;
+            subt.innerText = "$ " + (nuevosubtotal);
+
+            actualizasubtotal(id, pr * -1);
+            calculatotal();
+        }
+
+        if (can < 1)
+            can = 1;
+    }
+
+   
+
+    if (quecargo!="carrito" )
+    {
+        quecargo = "carrito";
+        configuraciontablacarrito();
+        consultaranuncioscarrito();
+        cargaformenviocarrito();
+    }
+
+    function cargaformenviocarrito(){
+        $("#datoscliente").load('carritocontacto.html');
+    }
+
+    function actualizasubtotal(idpasado,monto) {
+
+           console.log("Monto " + monto);
+
+            arreglocarrito.forEach(function (valor, indice) {
+
+                if(arreglocarrito[indice].id == idpasado)
+                    arreglocarrito[indice].subtotal = parseInt(arreglocarrito[indice].subtotal) + parseInt(monto);
+
+            });
+
+           
+        }
+   
+   
+</script>

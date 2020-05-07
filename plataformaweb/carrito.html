@@ -1,0 +1,146 @@
+<!doctype html>
+<div lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- fuentes de google -->
+        <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
+        <!-- materialize -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- iconos materialize -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- datatable -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <!-- mensajes de sweetalert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/estilo.css">
+        <link rel="icon" type="image/png" src="imagenessitio/favicon.png">
+       
+        <title>Pedidos</title>
+    </head>
+<body>
+    <div class="fixed-top row d-flex justify-content-center  lime lighten-5" >
+        <div class="col-sm-4 mt-1" style=" align-self: center;">
+            <img class="d-inline-block align-top" style="width: 25%;" src="img/logoempresa.png" alt="Catalogo">
+        </div>
+
+        <div class="col-sm-4" style=" align-self: center;">
+            <div class="row  d-flex justify-content-center">
+                <h5 id="tituloempresa"></h5>
+            </div>
+            <div class="row  d-flex justify-content-center">
+                <small><p id="direccionempresa"></p></small>
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="row d-flex justify-content-center mt-2">
+                <h5><small>Carrito de productos</small></h5>
+                <a id="ocultar"><i class="fas fa-low-vision"></i></a>
+            </div>
+            <div class="row d-flex justify-content-center mt-2">
+                <div class="col-sm-2 center">
+                    <button class="btn waves-effect  orange green-4" type="button" id="verbusqueda" name="vercarrito"><i
+                        class="fas fa-search"></i></button>
+                </div>
+                <div class="col-sm-2 center">
+                    <button class="btn waves-effect  orange green-4" type="button" id="vercarrito" name="vercarrito"><i
+                        class="fas fa-shopping-cart"></i>  </button>
+                </div>
+                <div class="col-sm-2 center">
+                    <span id="btncantidadcarrito"></span>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <hr>
+    <div id="sectorbusqueda">
+        
+    </div>
+    
+    <!-- --------------------------------------- LIBRERIAS NECESARIAS ---------------------------------- -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- para mostrar la tabla -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <!-- para mostrar los toast -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+    <script src=configuracion.js> </script>
+
+    <script src=js/funciones.js> </script> 
+    <!-- <script src=js/funcionesrubros.js> </script> -->
+</body>
+
+
+<script>
+    arregloenbusqueda = [];
+    arreglocarrito= [];
+    cantidadcarrito=0;
+    quecargo="inicio";
+    
+    
+  
+    $("#sectorbusqueda").load("carritobusqueda.html");
+
+    function cambiacantidadcarrito(cantidadpasada) {
+            cantidadcarrito = cantidadcarrito + cantidadpasada;
+            vercantidad();
+    }
+    
+    $("#verbusqueda").click(function () {
+        if (quecargo != "busqueda" ) {
+            carritobusqueda();
+        }
+    });
+    function carritobusqueda() {$("#sectorbusqueda").load("carritobusqueda.html");}
+
+    $("#vercarrito").click(function () {if (quecargo != "carrito") {carritoestado();}});
+    function carritoestado(){$("#sectorbusqueda").load("carritoestado.html");}
+
+    function establecevaloresvariables(){
+        document.getElementById("tituloempresa").innerText = "Templay Studios";
+        document.getElementById("direccionempresa").innerText = "LENCINAS 351 - GODOY CRUZ - Mendoza";
+    }
+    establecevaloresvariables();
+
+    function vercantidad(){
+        document.getElementById("btncantidadcarrito").innerText = cantidadcarrito + " artículos";
+    }
+    vercantidad();
+
+    function calculatotal() {
+
+        var sumatotal = 0;
+
+        arreglocarrito.forEach(function (valor, indice) {
+
+            sumatotal = sumatotal + parseInt(arreglocarrito[indice].subtotal);
+
+        });
+
+        var totcarrito = document.getElementById('totalcarrito');
+        totcarrito.value = "Total $ " + sumatotal;
+
+        console.log(totalcarrito.value);
+    }
+</script>
