@@ -135,11 +135,36 @@ function consultaranuncioscarrito(e) {
         imageneszoom();
     }
 
-    $(".cajacantidad").focusout(function () 
-    {
-        alert("Caja");
-    });
+  
+    function validarnumerocarrito(e, contenido, precio) {
 
+        
+        var unicode = e.keyCode ? e.keyCode : e.charCode;
+        if (unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+            return true;
+        }
+
+        if (key == 13) {
+            var r = document.getElementById('rubro').value;
+            var t = document.getElementById('titulo').value;
+            var d = document.getElementById('descripcion').value;
+            var p = document.getElementById('precio').value;
+
+            if (r != "" && t != "" && d != "" && p != "" && p >= 0) {
+                EnviarFormulario();
+            }
+            return true;
+        }
+
+
+
+        var key = window.event ? e.which : e.keyCode;
+
+        if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) && (contenido.length < caracteres)) {
+            return true;
+        }
+        return false;
+    }
 
     function quitardelcarrito(idquitado){
         arreglocarrito.forEach(function (valor, indice) {
@@ -156,6 +181,8 @@ function consultaranuncioscarrito(e) {
     }
 
     function verificacantidadcero(id) {
+
+
             var etiqueta = document.getElementById('cantidad_' + id);
             var can = parseInt(etiqueta.value);
 
@@ -165,48 +192,43 @@ function consultaranuncioscarrito(e) {
             etiqueta.value = can;
     }
 
-    function masunoencarro(id,pr) {
+    function masunoencarro(id,pr) 
+    {
         var etiqueta = document.getElementById('cantidad_' + id);
         var can = parseInt(etiqueta.value);
 
+        var subt = document.getElementById('subtotal_' + id);
+      
         if (isNaN(can))
             can = 0;
 
         can += 1;
         etiqueta.value = can;
 
-        var subt = document.getElementById('subtotal_' + id);
-        var nuevosubtotal = parseInt(subt) + pr;
+       
+        var nuevosubtotal = actualizasubtotal(id, pr);
         subt.innerText =  "$ " + (nuevosubtotal);
-
-        actualizasubtotal(id, pr);
 
          calculatotal();
     }
 
-    function menosunoencarro(id,pr) {
+    function menosunoencarro(id,pr) 
+    {
         var etiqueta = document.getElementById('cantidad_' + id);
         var can = parseInt(etiqueta.value);
 
-        if (isNaN(can))
-            can = 0;
+        var subt = document.getElementById('subtotal_' + id);
 
-        can -= 1;
-
-        if (can >0 )
+        if (can >=2 && !isNaN(can)) 
         {
+            can -= 1;
             etiqueta.value = can;
 
-            var subt = document.getElementById('subtotal_' + id);
-            var nuevosubtotal = parseInt(subt) - pr;
+            var nuevosubtotal = actualizasubtotal(id, pr * -1);
+            
             subt.innerText = "$ " + (nuevosubtotal);
-
-            actualizasubtotal(id, pr * -1);
             calculatotal();
         }
-
-        if (can < 1)
-            can = 1;
     }
 
    
@@ -225,17 +247,18 @@ function consultaranuncioscarrito(e) {
 
     function actualizasubtotal(idpasado,monto) {
 
-           console.log("Monto " + monto);
+        var nuevost = 0;
+        arreglocarrito.forEach(function (valor, indice) {
 
-            arreglocarrito.forEach(function (valor, indice) {
+            if(arreglocarrito[indice].id == idpasado)
+            {
+                nuevost= parseInt(arreglocarrito[indice].subtotal) + parseInt(monto);
+                arreglocarrito[indice].subtotal = nuevost;
+            }
+        });
 
-                if(arreglocarrito[indice].id == idpasado)
-                    arreglocarrito[indice].subtotal = parseInt(arreglocarrito[indice].subtotal) + parseInt(monto);
-
-            });
-
-           
-        }
+        return nuevost;       
+    }
    
    
 </script>

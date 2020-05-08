@@ -65,8 +65,25 @@
         </div>
     </div>    
     <hr>
-    <div id="sectorbusqueda">
-        
+    <div id="sectorbusqueda" style="z-index:-1; margin-top: 9em;">
+        <div class="d-flex flex-row justify-content-center align-items-center bd-highlight">
+            <div class="col-sm-3 ">
+                <h3>Te enviamos el pedido que prepares aquí</h3>
+            </div>
+            <div class="col-sm-4 center">
+                <p class="blue-text text-darken-4"><b>Encuentra productos</b></p>
+                <p class="mr-5 ml-5">Puedes buscar por rubro / o filtrar con palabras por ej : una marca</p>
+            </div>
+            <div class="col-sm-3" style="text-align: right;">
+                <p class="blue-text text-darken-4"><b>Añade al carrito</b></p>
+                <p>En el carrito puedes modificar las cantidades</p>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center bd-highlight mt-5 pt-3">
+            <div class="col-sm-12 center">
+                <button class="btn waves-effect btn-primary" type="button" id="entendido" name="entendido">Entendido</button>
+            </div>
+        </div>
     </div>
     
     <!-- --------------------------------------- LIBRERIAS NECESARIAS ---------------------------------- -->
@@ -100,13 +117,19 @@
     
     
   
-    $("#sectorbusqueda").load("carritobusqueda.html");
+    // $("#sectorbusqueda").load("carritobusqueda.html");
 
     function cambiacantidadcarrito(cantidadpasada) {
             cantidadcarrito = cantidadcarrito + cantidadpasada;
             vercantidad();
     }
     
+    
+     $("#entendido").click(function () {
+            if (quecargo != "busqueda") {
+                carritobusqueda();
+            }
+        });
     $("#verbusqueda").click(function () {
         if (quecargo != "busqueda" ) {
             carritobusqueda();
@@ -140,7 +163,5 @@
 
         var totcarrito = document.getElementById('totalcarrito');
         totcarrito.value = "Total $ " + sumatotal;
-
-        console.log(totalcarrito.value);
     }
 </script>
