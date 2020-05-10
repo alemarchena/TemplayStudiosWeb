@@ -472,7 +472,9 @@
                             &nbsp;&nbsp;&nbsp;
                         </div>
                         <div class="d-flex justify-content-center mt-1 row">
-                            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Resetear mi clave</button>
+                            <!-- <a class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">¿Has olvidado tu contraseña?</a> -->
+                            <a class="btn-link blue-text text-darken-2" id="quickstart-password-reset" name="verify-email">¿Has olvidado tu contraseña?</a>
+                            
                         </div>
                         
                     </div>

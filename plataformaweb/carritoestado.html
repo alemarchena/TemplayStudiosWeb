@@ -1,13 +1,13 @@
    
 
     <div id="datoscliente" class="form-row d-flex justify-content-center" 
-    style="margin-top: 10em;padding-left: 4em;padding-right: 4em;">
+    style="margin-top: 1em;padding-left: 4em;padding-right: 4em;">
     
     </div>
     <div class="d-flex justify-content-center ">
         
         <!-- Columna de lista de anuncios -->
-        <div class="col-sm-10">
+        <div class="col-sm-11">
             
             <div class="table-responsive">
                 <table id="tablacarrito" class="display table table-striped">
@@ -49,6 +49,8 @@
 
 
 <script>
+
+
   
   function configuraciontablacarrito() {
         $('#tablacarrito').DataTable({
@@ -122,7 +124,7 @@ function consultaranuncioscarrito(e) {
                     de,
                     pr,
                     "<a onclick='menosunoencarro(\"" + di + "\",\"" + pr + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                    "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='cantidad_" + di + "' name ='cantidad_" + di + "' type ='text' class='cajacantidad validate masmenoscolumna'></input>",
+                    "<input  onFocusOut ='validarlostfocuscarritos(event, this.value," + di +")'  onKeyDown='return validarnumero(event, this.value, 6)' onKeyUp ='return validarnumerocarrito(event, this.value," + di + "," + pr + ",6)' id ='cantidad_" + di + "' name ='cantidad_" + di + "'  type ='text' class='cajacantidad validate masmenoscolumna'></input>",
                     "<a onclick='masunoencarro(\"" + di + "\",\"" + pr + "\")' class=" + "\"btn-floating btn-small waves-effect   green darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                     "<a id='subtotal_" + di + "'>" + "$ " + su + "</a >"
                 ]).draw(false);
@@ -133,12 +135,37 @@ function consultaranuncioscarrito(e) {
         t.columns.adjust().draw();
 
         imageneszoom();
+
     }
 
-  
-    function validarnumerocarrito(e, contenido, precio) {
+    function validarlostfocuscarritos(e, cantidad, idpasado){
+        if (cantidad < 1) {
+            var etiqueta = document.getElementById('cantidad_' + idpasado);
+            etiqueta.value = 1;
+        }
+        calculatotal();
+    }
 
+    function validarnumerocarrito(e, cantidad, idpasado, precio,caracteres) {
+
+        if (cantidad < 1)
+            cantidad = 1;
+    
+        //actualizo la etiqueta
+        var subt = document.getElementById('subtotal_' + idpasado);
+        var nuevosubtotal = parseInt(cantidad) * parseInt(precio);
+        subt.innerText = "$ " + (nuevosubtotal);
+
+        //actualizo el arreglo
+        arreglocarrito.forEach(function (valor, indice) {
+
+            if (arreglocarrito[indice].id == idpasado) {
+                arreglocarrito[indice].subtotal = nuevosubtotal;
+            }
+        });
         
+        calculatotal();
+
         var unicode = e.keyCode ? e.keyCode : e.charCode;
         if (unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
             return true;
@@ -160,7 +187,7 @@ function consultaranuncioscarrito(e) {
 
         var key = window.event ? e.which : e.keyCode;
 
-        if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) && (contenido.length < caracteres)) {
+        if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) && (cantidad.length < caracteres)) {
             return true;
         }
         return false;
@@ -206,7 +233,7 @@ function consultaranuncioscarrito(e) {
         etiqueta.value = can;
 
        
-        var nuevosubtotal = actualizasubtotal(id, pr);
+        var nuevosubtotal = actualizasubtotal(id, pr,can);
         subt.innerText =  "$ " + (nuevosubtotal);
 
          calculatotal();
@@ -224,7 +251,7 @@ function consultaranuncioscarrito(e) {
             can -= 1;
             etiqueta.value = can;
 
-            var nuevosubtotal = actualizasubtotal(id, pr * -1);
+            var nuevosubtotal = actualizasubtotal(id, pr * -1, can);
             
             subt.innerText = "$ " + (nuevosubtotal);
             calculatotal();
@@ -245,7 +272,7 @@ function consultaranuncioscarrito(e) {
         $("#datoscliente").load('carritocontacto.html');
     }
 
-    function actualizasubtotal(idpasado,monto) {
+    function actualizasubtotal(idpasado,monto, cantidad) {
 
         var nuevost = 0;
         arreglocarrito.forEach(function (valor, indice) {
@@ -254,6 +281,7 @@ function consultaranuncioscarrito(e) {
             {
                 nuevost= parseInt(arreglocarrito[indice].subtotal) + parseInt(monto);
                 arreglocarrito[indice].subtotal = nuevost;
+                arreglocarrito[indice].cantidad = cantidad;
             }
         });
 

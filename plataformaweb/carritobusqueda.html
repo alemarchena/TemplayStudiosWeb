@@ -1,96 +1,64 @@
 
-        <!-- ----------------------------- Componentes de busqueda --------------------------- -->
-        <div id="componentes" >
+<!-- ----------------------------- Componentes de busqueda --------------------------- -->
+<div id="componentes" >
+    
+    
+    <div class="row justify-content-center">
+        <div class="col-sm-3">
+            <!-- consultar por rubros -->
             
-            <div class="accordion" id="accordionBuscadorRubroFiltro">
-                <div class="d-flex flex-row justify-content-center p-4">
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-header " id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-block collapsed" type="button" data-toggle="collapse"
-                                        data-target="#collapseBuscaxRubro" aria-expanded="true" aria-controls="collapseBuscaxRubro">
-                                        Consultar por rubro
-                                    </button>
-                                </h2>
-                            </div>
+            <div class="d-flex flex-row justify-content-center bd-highlight">
             
-                            <div id="collapseBuscaxRubro" class="collapse" aria-labelledby="headingOne"
-                                data-parent="#accordionBuscadorRubroFiltro">
-                                <div class="card-body">
-                                    <!-- consultar por rubros -->
+                <div class="col-sm-12">
+                    <label for="opcioneslista">Selecciona un Rubro a buscar</label>
+                    <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-9">
+            <!-- consultar con filtros -->
+            <div class="row justify-content-center">
             
-                                    <div class="d-flex flex-row justify-content-center bd-highlight my-5">
-            
-                                        <div class="col-sm-12">
-                                            <label for="opcioneslista">Selecciona un Rubro a buscar</label>
-                                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-                                        </div>
-                                    </div>
-            
+                <div class="col-sm-12">
+                    <div class="row justify-content-center bd-highligh">
+                        
+                        <div class="col-sm-6">
+                            <label for="filtro_productos"></label>Buscar<input id="filtro_productos"
+                            name="filtro_productos" type="text" class="validate tooltipped" data-position="top" data-tooltip="Escribe  aquí lo que deseas encontrar" 
+                            onKeyUp="validarfiltro(event)"
+                            placeholder="Escriba productos, marcas... y presiona Enter">
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row justify-content-center bd-highligh">
+                                <div class="col center">
+                                    <a id="agregar_filtro_productos"><img src="img/icono_suma.png" alt="Agregar"
+                                            class="tooltipped" data-position="bottom"
+                                            data-tooltip="Agrega un producto como filtro de búsqueda"></a>
+                                </div>
+                                <div class="col center">
+                                    <a id="consulta" class="tooltipped" data-position="bottom"
+                                        data-tooltip="Busca todos los productos o aquellos filtrados"><i class='fas fa-search'
+                                            style="font-size:40px;"></i></a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="card">
-                            <div class="card-header " id="headingTwo">
-                                <h2 class="mb-0">
-                                    <button id="btnconsultaxrubro" class="btn btn-block collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseFiltro" aria-expanded="false"
-                                        aria-controls="collapseFiltro">
-                                        Consultar por productos
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseFiltro" class="collapse" aria-labelledby="headingTwo"
-                                data-parent="#accordionBuscadorRubroFiltro">
-                                <div class="card-body">
-                                    <!-- consultar con filtros -->
-                                    <div class="d-flex flex-row justify-content-center py-1">
-            
-                                        <div class="col-sm-11">
-                                            <div class="d-flex flex-row justify-content-center bd-highligh">
-                                                <div id="criterios_productos" class="col-sm-6">
-            
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <label for="filtro_productos">Agrega aquí lo que deseas buscar!!!</label> <input id="filtro_productos"
-                                                        name="filtro_productos" type="text" class="validate"
-                                                        onKeyUp="validarfiltro(event)"
-                                                        placeholder="Escribe una palabra a buscar y da Enter">
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <a id="agregar_filtro_productos"><img src="img/icono_suma.png" alt="Agregar"
-                                                            class="tooltipped" data-position="bottom"
-                                                            data-tooltip="Agrega un filtro"></a>
-                                                </div>
-            
-                                            </div>
-                                        </div>
-            
-                                        <div class="col-sm-1 ">
-            
-                                            <a id="consulta" class="tooltipped" data-position="bottom"
-                                                data-tooltip="Busca todos los productos o aquellos filtrados"><i
-                                                    class='fas fa-search' style="font-size:40px;"></i></a>
-                                        </div>
-            
-                                    </div>
-                                </div>
-                            </div>
+                        <div id="criterios_productos" class="col-sm-3">
+
                         </div>
                     </div>
                 </div>
-            </div>
-
-        </div>
-
-        <div id="tarjetaanuncios" class="card-group ">
             
-
+            </div>
         </div>
+        
+    </div>
+</div>
 
+<div id="tarjetaanuncios" class="card-group ">
+    
+
+</div>
 
 <script>
 
@@ -117,7 +85,19 @@
         {
             filtro.push( $(this).text() );
         });
+        
+        if(seleccionidrubro=="")
+        {
+            if(filtro.length<=0){
 
+                Swal.fire({
+                    closeOnEsc: false,
+                    title: 'Escriba algo para buscar !!!',
+
+                })
+                return false;
+            }
+        }
         //tipo de consulta
         var tipo;
         
@@ -268,6 +248,7 @@
                     objetoagregado.precio = arregloenbusqueda[indice].precio;
                     objetoagregado.imagen = arregloenbusqueda[indice].imagen;
                     objetoagregado.subtotal = arregloenbusqueda[indice].subtotal;
+                    objetoagregado.cantidad = 1;
 
                     arreglocarrito.push(objetoagregado);
 
@@ -351,4 +332,7 @@
         consultarubros_seleccion_listapaginaweb();
     }
 
+    $(document).ready(function () {
+        $('.tooltipped').tooltip();
+    });
 </script>

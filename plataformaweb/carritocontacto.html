@@ -1,80 +1,143 @@
-<div class="col-sm-12">
+<div class="col-sm-12 ">
 	
-		<div class="form-row">
+		<div class="form-row justify-content-center">
+			
 			<div class="col-sm-2">
-				<label class="contacto" for="nombre">Nombre</label>
-				<input id="nombre" type="text" aria-label="Last name" class="form-control " placeholder="Escriba su Nombre">
+				<label class="contacto" for="nota">Nota u observación</label>
+				<input maxlength="150" id="nota" type="text" aria-label="Last name" class="form-control " placeholder="Escriba una observación">
 			</div>
 			<div class="col-sm-2">
-				<label class="contacto" for="apellido">Apellido</label>
-				<input id="apellido" type="text" aria-label="Last name" class="form-control " placeholder="Escriba su Apellido">
+				<label class="contacto" for="apellido">Nombre y Apellido</label>
+				<input maxlength="50" id="apellido" type="text" aria-label="Last name" class="form-control " placeholder="Nombre y Apellido">
 			</div>
 			<div class="col-sm-2">
 				<label class="contacto" for="email">Email</label>
-				<input id="email" type="email" class="form-control " placeholder="Ingrese su email">
+				<input maxlength="50" id="email" type="email" class="form-control " placeholder="Email">
 			</div>
 			<div class="col-sm-2">
 				<label class="contacto" for="celular">Teléfono</label>
-				<input id="celular" type="text" class="form-control " placeholder="Ingrese su teléfono">
+				<input maxlength="30" id="celular" type="text" class="form-control " placeholder="Teléfono">
 			</div>
 			
-			<div class="col-2">
+		</div>
+		<div class="form-row justify-content-center">
+		
+			<div class="col-sm-6 center">
 				<input id="totalcarrito" readonly type="text" class="form-control " placeholder="Total $ ">
-
 			</div>
 			
-			<div class="col-2">
+			<div class="col-sm-6 center">
 				<button id="enviar" type="submit" class="btn btn-primary" style="font-size: 1em">Enviar</button>
 			</div>
 		</div>
-		<textarea style="visibility: hidden;" id="mensaje" class="form-control contactoplaceholder" aria-label="With textarea" placeholder="Escriba su mensaje"></textarea>
-			
-</div>
+		
+	</div>
+	<textarea style="visibility: hidden;" id="mensaje" class="form-control contactoplaceholder" aria-label="With textarea" placeholder="Escriba su mensaje"></textarea>
+
 
 <script>
 
-	 
-
+	
+	
 	$("#enviar").click(function(){
 		var telefono = $("#celular").val();
-
-
-		var nombre = $("#nombre").val();
+		apellido = telefono.trim();
+		
 		var apellido = $("#apellido").val();
+		apellido = apellido.trim();
+		
 		var email = $("#email").val();
-		var mensaje = $("#mensaje").val();
+		email = email.trim();
 
-		Swal.fire({
-			position: 'top-end',
-			icon: 'success',
-			title: 'Gracias por enviar su mensaje',
-			showConfirmButton: false,
-			timer: 1500
-		});
+		var mensaje = $("#mensaje").val();
+		mensaje = mensaje.trim();
+
+		var nota = $("#nota").val();
 
 	
+		if (mensaje == "* Total * $ Total $ 0") {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Su carrito está vacío',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+
+		if (apellido == "") {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Ingrese su nombre y apellido',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+		if (email == "") {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Ingrese su email',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+		if(telefono == ""){
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Ingrese el número de teléfono',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+		document.getElementById("enviar").disabled = true;
+		
+		M.toast(
+		{
+			html: 'Enviando mensaje...',
+			displayLength: '1500'
+		});
+	
+		// alert("Nombre" + nombre + "-Apellido:"+apellido+"Tel:" + telefono + "Pedido:"+mensaje);
+		// return false;
 
 		$.ajax({
 
-			url:"controladores/enviaremail.php",
-			data:{nombre:nombre,apellido:apellido,email:email,telefono:telefono,mensaje:mensaje},
+			url:"controladores/enviaremailpedido.php",
+			data:{nota: nota,apellido:apellido,email:email,telefono:telefono,mensaje:mensaje},
 			type:"post",
 			success:function(data)
 			{
 				if(data=="Enviado correctamente")
 				{
-					
-						
-					nombre = $("#nombre").val("");
-					apellido = $("#apellido").val("");
-					email = $("#email").val("");
-					telefono = $("#telefono").val("");
-					mensaje = $("#mensaje").val("");
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'Gracias por enviar su mensaje',
+						showConfirmButton: false,
+						timer: 1500
+					});
+					console.log("Enviado ok");						
 	            }
+				document.getElementById("enviar").disabled = false;
 			},
 			error:function(e){
 				alert("Error al Enviar");
+				document.getElementById("enviar").disabled = false;
+
 			}
+			
+
 		});
 	});
 	

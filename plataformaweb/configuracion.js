@@ -6,9 +6,9 @@ var tablarubrospaginaweb    = empresa + "_rubros";
 var conexionbddpaginaweb    = "conexiones/parametros.php";
 var rutaimagenespaginaweb   = "imagenes/";
 
-tituloweb               = 'Templay Studios 2020';
+tituloweb               = 'Templay Studios';
 slogan                  = 'Queremos dar vida al mensaje de tus negocios y que sea tan real como en tu mente.';
-telefono_en_barra       = '261 3408 918';
+telefono_en_barra       = '+54 9 261 3408 918';
 telefonopiepagina       = 'Contacto: +54 9 261 3408 918';
 direccionfisica         ='LENCINAS 351-GODOY CRUZ-Mendoza Argentina';
 direccioninstagram      = 'https://www.instagram.com/raulalejandromarchena/';
