@@ -1,0 +1,178 @@
+
+<div class="d-flex flex-row justify-content-center bd-highlight">
+    <div class="col-sm-12">
+        <h5>Lista de precios con stock</h5>
+    </div>
+</div>
+<div class="accordion" id="accordionBuscadorRubroFiltro">
+    <div class="d-flex flex-row justify-content-center p-4">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header " id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-block collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseBuscaxRubro" aria-expanded="true" aria-controls="collapseBuscaxRubro">
+                            Consultar por rubro
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapseBuscaxRubro" class="collapse" aria-labelledby="headingOne"
+                    data-parent="#accordionBuscadorRubroFiltro">
+                    <div class="card-body">
+                        <!-- consultar por rubros -->
+
+                        <div class="d-flex flex-row justify-content-center bd-highlight my-5">
+
+                            <div class="col-sm-12">
+                                <label for="opcioneslista">Selecciona un Rubro a buscar</label>
+                                <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header " id="headingTwo">
+                    <h2 class="mb-0">
+                        <button id="btnconsultaxrubro" class="btn btn-block collapsed" type="button"
+                            data-toggle="collapse" data-target="#collapseFiltro" aria-expanded="false"
+                            aria-controls="collapseFiltro">
+                            Consultar por productos
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseFiltro" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionBuscadorRubroFiltro">
+                    <div class="card-body">
+                        <!-- consultar con filtros -->
+                        <div class="d-flex flex-row justify-content-center py-1">
+
+                            <div class="col-sm-11">
+                                <div class="d-flex flex-row justify-content-center bd-highligh">
+                                    <div id="criterios_productos" class="col-sm-6">
+
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label for="filtro_productos">Filtro</label> <input id="filtro_productos"
+                                            name="filtro_productos" type="text" class="validate"
+                                            onKeyUp="validarfiltrostock(event)"
+                                            placeholder="Escribe una palabra a buscar y da Enter">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a id="agregar_filtro_productos"><img src="img/icono_suma.png" alt="Agregar"
+                                                class="tooltipped" data-position="bottom"
+                                                data-tooltip="Agrega un filtro"></a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-1 ">
+
+                                <a id="consulta" class="tooltipped" data-position="bottom"
+                                    data-tooltip="Busca todos los productos o aquellos filtrados"><i
+                                        class='fas fa-search' style="font-size:40px;"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="col-sm-12">
+    <div class="table-responsive">
+        <table id="tablaanunciosstock" class="display table table-striped" style="font-size: 1.3em;">
+            <thead>
+                <tr>
+                    
+                    <th>Precio</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Rubro</th>
+                    <th>Stock</th>
+                    <th>Proveedor</th>
+                    <th>Precio anterior</th>
+                    <th>Costo anterior</th>
+                    <th id="hstinicio" class="columnadedos">Stock inicio</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    
+                    <td></td>
+                    <td></td>
+                    <td ALIGN=center></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td id="stinicio" class="columnadedos"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+
+
+
+    
+
+
+    $(document).ready(function () 
+    {
+
+       
+        window.addEventListener("load", iniciolista());
+
+        function iniciolista() {
+
+            consultarubros_seleccion_lista();
+            configuraciontablastock();
+        }
+       
+
+        $("#agregar_filtro_productos").click(function () {
+            agregarfiltroproductostock();
+        });
+
+        
+
+        $("#consulta").click(function () {
+            consultaranunciosstock_filtros();
+            M.toast(
+                {
+                    html: 'Buscando productos filtrados...',
+                    displayLength: '3000'
+                });
+        });
+    });
+
+    $("#opcioneslista").on('change', function () {
+
+            consultaranunciosstock_rubros();
+            M.toast(
+                {
+                    html: 'Buscando productos por rubro...',
+                    displayLength: '3000'
+                });
+    });
+
+
+    $(document).ready(function () {
+        $('.tooltipped').tooltip();
+    });
+    
+</script>

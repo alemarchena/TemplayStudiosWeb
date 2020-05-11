@@ -1,0 +1,194 @@
+<!doctype html>
+<div lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- fuentes de google -->
+        <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
+        <!-- materialize -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- iconos materialize -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- datatable -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <!-- mensajes de sweetalert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/estilo.css">
+        <link rel="icon" type="image/png" src="imagenessitio/favicon.png">
+       
+        <title>Pedidos</title>
+    </head>
+<body>
+    <nav class="navbar" style="height: 120%;background-color: #f0f4c3;">
+
+        <form class="form-inline" style="color: black;">
+            <a class="navbar-brand" href="#" style="color: black;">
+            </a>
+            <img src="img/logoempresa.png" width="20%" class="d-inline-block align-top"
+            alt="Empresa">
+            <h5 id="tituloweb"  style="margin:0em 0em 0em 1em"></h5>
+            <p id="telefono_en_barra" style="margin:0em 0em 0em 1em"></p>
+            <p id="direccionfisica" style="margin:0em 0em 0em 1em"></p>
+        </form>            
+        
+        <form class="form-inline" style="color: black;">
+            <button class="btn waves-effect  orange green-4 tooltipped" data-position="bottom" data-tooltip="Buscar productos"
+            type="button" id="verbusqueda" name="verbusqueda"><i class="fas fa-search"></i></button>
+            
+            <button class="btn waves-effect  orange green-4 tooltipped" data-position="bottom" data-tooltip="Ver Carrito"
+            type="button" id="vercarrito" name="vercarrito"><i class="fas fa-shopping-cart"></i> </button>
+            <span class="nav-item ml-1" id="btncantidadcarrito" ></span>
+        </form>
+    </nav>
+
+      
+    <hr>
+    <div id="seccionlogocarrito" class="fixed-top text-center" style="z-index: -2; padding-top: 8em;border-bottom border-success">
+        <div class="col">
+            <img src="imagenessitio/logocarrito.png" alt="" style="opacity:0.3;width: 50%;">
+        </div>
+    </div>
+    
+    <div id="sectorbusqueda" style="z-index:-1; margin-top: 3em;margin-bottom: 2em;">
+        <div class="row justify-content-center align-items-center bd-highlight">
+            
+            <div class="col-sm-4 center" >
+                <h3>Te enviamos el pedido que prepares aquí</h3>
+            </div>
+            <div class="col-sm-4 center" >
+                <p class="blue-text text-darken-4"><b>Encuentra productos</b></p>
+                <p class="mr-5 ml-5">Puedes buscar por rubro / o filtrar con palabras por ej : una marca</p>
+            </div>
+            <div class="col-sm-4 center">
+                <p class="blue-text text-darken-4"><b>Añade al carrito</b></p>
+                <p>En el carrito puedes modificar las cantidades</p>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center bd-highlight mt-5 pt-3">
+            <div class="col-sm-12 center">
+                <button class="btn waves-effect btn-primary" type="button" id="entendido" name="entendido">Entendido</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- --------------------------------------- LIBRERIAS NECESARIAS ---------------------------------- -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- para mostrar la tabla -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <!-- para mostrar los toast -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+    <script src=configuracion.js> </script>
+
+    <script src=js/funciones.js> </script> 
+    <script src=configuracion.js> </script> 
+    
+</body>
+
+
+<script>
+    arregloenbusqueda = [];
+    arreglocarrito= [];
+    cantidadcarrito=0;
+    quecargo="inicio";
+ 
+
+    function cambiacantidadcarrito(cantidadpasada) {
+            cantidadcarrito = cantidadcarrito + cantidadpasada;
+            vercantidad();
+    }
+    
+    
+     $("#entendido").click(function () {
+         
+            if (quecargo != "busqueda") {
+                carritobusqueda();
+            }
+        });
+    $("#verbusqueda").click(function () {
+
+        $("html, body").animate({ scrollTop: 0 }, 50);
+
+        if (quecargo != "busqueda" ) {
+            carritobusqueda();
+        }
+    });
+    function carritobusqueda() {$("#sectorbusqueda").load("carritobusqueda.html");}
+
+    $("#vercarrito").click(function () {
+      
+        $("html, body").animate({ scrollTop: 0 }, 50);
+        
+
+        if (quecargo != "carrito") {
+            carritoestado();
+        }
+    });
+    function carritoestado(){$("#sectorbusqueda").load("carritoestado.html");}
+
+    function establecevaloresvariables(){
+        document.getElementById("tituloweb").innerText = tituloweb;
+        document.getElementById("telefono_en_barra").innerText = telefono_en_barra;
+        document.getElementById("direccionfisica").innerText = direccionfisica;
+
+    }
+    establecevaloresvariables();
+
+    function vercantidad(){
+        document.getElementById("btncantidadcarrito").innerText = cantidadcarrito + " artículos";
+    }
+    vercantidad();
+
+    function calculatotal() {
+
+        var sumatotal = 0;
+        var men = document.getElementById("mensaje");
+        men.value = "";
+
+        arreglocarrito.forEach(function (valor, indice) {
+
+            sumatotal = sumatotal + parseInt(arreglocarrito[indice].subtotal);
+            men.value = men.value + "\n" + 
+                        "Cant:" + arreglocarrito[indice].cantidad + "-" + 
+                        arreglocarrito[indice].titulo + "-" + 
+                        "$ " + arreglocarrito[indice].precio + "-" + 
+                        "subtotal $ " + arreglocarrito[indice].subtotal;
+                        men.value = men.value + "\n";
+        });
+
+        var totcarrito = document.getElementById('totalcarrito');
+        totcarrito.value = "Total $ " + sumatotal;
+        men.value = men.value + " * Total * $ " + totcarrito.value;
+
+    }
+
+    $(document).ready(function () {
+        $('.tooltipped').tooltip();
+    });
+
+    
+   
+
+  
+</script>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        
+        <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
+            <div class="d-flex flex-row justify-content-center bd-highlight">
+                <div class="col-sm-12">
+                    <h5>Compras y Ajustes</h5>
+                </div>
+            </div>
+            <div class="accordion" id="accordionExample">
+
+                <div class="card">
+                    <div class="card-header container" id="headingCompras">
+                        <h2 class="mb-0">
+                            <button class="btn btn-primary btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseCompras" aria-expanded="true" aria-controls="collapseCompras">
+                            Comprar o Ajustar
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseCompras" class="collapse" aria-labelledby="headingCompras" data-parent="#accordionExample">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="d-flex flex-row justify-content-center bd-highlight cabecera">
+                                        <div class="col-sm-4 ">
+                                            <h5>Compras y Ajustes</h5>
+                                        </div>
+                                        <div class="col-sm-2 mt-2">
+                                            <label for="fechacompraajuste " class=" bd-highlight colorletras" >Fecha de transacción</label>
+                                            <input id="fechacompraajuste" type="text" class="datepicker center" readonly>
+                                        </div>
+                                        <div class="col-sm-4 ">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-center bd-highlight cabecera mb-4 p-4">
+                                        <div class="col-sm-4">
+                                            <label for="opcioneslista" class="colorletras">Selecciona un Rubro a buscar</label>
+                                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
+                                            <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="opcioneslistatiposmovimientostock" class="colorletras">Selecciona un tipo de movimiento</label>
+                                            <select class="form-control" id="opcioneslistatiposmovimientostock" name="opcioneslistatiposmovimientostock"></select>
+                                        </div>
+                                    </div>
+                                    <div class=" col-sm-2">
+                                        <input style="display: none;" id="idproveedorelegido" name="idproveedorelegido" type="text" >
+                                        <input style="display: none;" id="proveedorelegido" name="proveedorelegido" type="text">
+                                        <input style="display: none;" id="idtipomovimientostockelegido" name="idtipomovimientostockelegido" type="text">
+                                        <input style="display: none;" id="tipomovimientostockelegido" name="tipomovimientostockelegido" type="text">
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="tablaanunciosmovimientos" class="display table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th class="columnadedos center">Stock inicio</th>
+                                                    <th>Título</th>
+                                                    <th>Descripción</th>
+                                                    <th class="columnadedos center">Menos</th>
+                                                    <th class="columnadetres center">cantidad</th>
+                                                    <th class="columnadedos center">Mas</th>
+                                                    <th class="columnadetres center">$ Costo</th>
+                                                    <th class="columnadetres center">$ vta</th>
+                                                    <th class="columnadetres center">Guardar</th>
+                                                    <th class="columnadetres">Imagen</th>
+                                                   
+                                                    <th class="columnadetres center">$ Costo</th>
+                                                    <th class="columnadetres center">Stock</th>
+
+                                                    <th >Inicio stock</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="columnadedos center"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="columnadedos center"></td>
+                                                    <td class="columnadetres center"></td>
+                                                    <td class="columnadedos center"></td>
+                                                    <td class="columnadetres center"></td>
+                                                    <td class="columnadetres center"></td>
+                                                    <td class="columnadetres center"></td>
+                                                    <td class="columnadetres"></td>
+                                                    <td class="columnadetres"></td>
+                                                    
+                                                    <td class="columnadetres center"></td>
+                                                    <td ></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header container" id="headingComprasAjustes">
+                        <h2 class="mb-0">
+                            <button id="consultacomprasajustes" class="btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseConsultaCompras" aria-expanded="false" aria-controls="collapseConsultaCompras">
+                            Consultar Compras y Ajustes
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseConsultaCompras" class="collapse" aria-labelledby="headingComprasAjustes" data-parent="#accordionExample">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="d-flex flex-row justify-content-center bd-highlight">
+                                        <div class="col-sm-3">
+                                            <h5>Consulta entre dias</h5>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label for="fechamovimientodesde" class=" bd-highlight colorletras"> Desde Fecha</label>
+                                            <input id="fechamovimientodesde" type="text" class="datepicker center" readonly>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label for="fechamovimientohasta" class=" bd-highlight colorletras">Hasta Fecha</label>
+                                            <input id="fechamovimientohasta" type="text" class="datepicker center" readonly>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label for="totalcompras" class=" bd-highlight colorletras">Total Compras</label>
+                                            <input id="totalcompras" type="text" class="text center" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 notapedido">
+                                    <div class="d-flex flex-row justify-content-center bd-highlight">
+                                        <div class="col-sm-12">
+                                            <h5>Compras</h5>
+                                        </div>
+                                
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="tablamovimientostock" class="display table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th >fecha compra</th>
+                                                    <th>Título</th>
+                                                    <th>Descripción</th>
+                                                    <th class="masmenoscolumna">cantidad</th>
+                                                    <th>Costo compra</th>
+                                                    
+                                                    <th>Proveedor</th>
+                                                    <th class="masmenoscolumna">Precio Vta</th>
+                                                    <th class="masmenoscolumna">Costo actual</th>
+                                                    <th class="masmenoscolumna">Tipo movimiento</th>
+                                                    <th>Eliminar</th>
+                                                    <th>Inicio stock</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td ></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="masmenoscolumna"></td>
+                                                    <td></td>
+                                                    
+                                                    <td></td>
+                                                    <td class="masmenoscolumna"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 notapedido">
+                                    <div class="d-flex flex-row justify-content-center bd-highlight">
+                                        <div class="col-sm-12">
+                                            <h5>Ajustes</h5>
+                                        </div>
+                            
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="tablamovimientostockajuste" class="display table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>fecha ajuste</th>
+                                                    <th>Título</th>
+                                                    <th>Descripción</th>
+                                                    <th class="masmenoscolumna">cantidad</th>
+                                                    
+                                                    <th class="masmenoscolumna">Tipo movimiento</th>
+                                                    <th>Eliminar</th>
+                                                    <th>Inicio stock</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="masmenoscolumna"></td>
+                                                    
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    
+                                
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </body>
+</html>
+
+
+<script>
+
+$(document).ready(function () 
+{
+    configuracalendario();
+    
+    consultarubros_seleccion_lista(); //llena la lista del buscador
+    consultaproveedores_seleccion_lista(); //llena la lista del buscador
+    consultatiposdemovimiento_seleccion_lista(); //llena la lista con tipos de movmimiento
+    imageneszoom();
+    configuraciontablamovimientostockajuste();
+    configuraciontablamovimientosstock();
+    configuraciontablamovimiento();
+
+    function inicioconsulta(){
+
+        //agrego un texto que mejora la vista para buscar
+        var newItem = document.createElement("h5");
+        var textnode = document.createTextNode("Filtro de productos");
+        newItem.appendChild(textnode);
+
+        var taf = document.getElementById("tablaanunciosmovimientos_filter");
+        taf.insertBefore(newItem, taf.childNodes[0]);
+    }
+
+    inicioconsulta();
+
+
+    $("#opciones").change(function () {
+        var o = document.getElementById("opciones");
+        var opcion = o.options[o.selectedIndex].text;
+        document.getElementById('rubro').value = opcion;
+    });
+
+    $('#tablaanunciosmovimientos').on('page.dt', function () {
+        imageneszoom();
+    });
+
+    $('#tablaanunciosmovimientos').on('draw.dt', function () {
+        imageneszoom();
+    });
+
+    
+    $("#fechacompraajuste").change(function () {
+
+        var fechamovimiento = $("#fechacompraajuste").val();
+     
+        $("#fechamovimientodesde").val(fechamovimiento);
+        $("#fechamovimientohasta").val(fechamovimiento);
+
+        fechamovimientoenviada = conviertefechaastringdmy(fechamovimiento);
+        consultarcomprasdeldia(fechamovimientoenviada, fechamovimientoenviada);
+
+        tipomovimientonombrecorto = eligetipomovimiento();
+        consultarajustesdeldia(fechamovimientoenviada,fechamovimientoenviada);
+    });
+
+    
+    $("#fechamovimientodesde").change(function () {
+        if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
+            desdehasta();
+            desdehastaajuste();
+        }
+    });
+
+     $("#fechamovimientohasta").change(function () {
+        if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
+            desdehasta();
+            desdehastaajuste();
+        }
+    });
+
+    $("#consultacomprasajustes").click(function(){
+
+        if (! $("#collapseConsultaCompras").hasClass("show"))
+        {
+            if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
+                desdehasta();
+                desdehastaajuste();
+            }
+        }
+    });
+
+    $("#opcioneslistaproveedores").change(function () {
+        var o = document.getElementById("opcioneslistaproveedores");
+        var opcion = o.options[o.selectedIndex].text;
+        document.getElementById('proveedorelegido').value = opcion;
+        
+    });
+
+    $("#opcioneslistatiposmovimientostock").change(function () {
+        var o = document.getElementById("opcioneslistatiposmovimientostock");
+        var opcion = o.options[o.selectedIndex].text;
+        document.getElementById('tipomovimientostockelegido').value = opcion;
+        eligetipomovimiento();
+    });
+});
+
+
+
+$("#opcioneslista").on('change', function () {
+    consultaranunciosparamovimientos();
+    M.toast(
+    {
+        html: 'Buscando productos por rubro...',
+        displayLength: '3000'
+    });
+});
+
+$(document).ready(function () {
+    $('.tooltipped').tooltip();
+});
+    
+</script>

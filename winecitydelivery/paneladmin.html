@@ -1,0 +1,36 @@
+<div id="panel">
+
+    <div id="tituloexplica" class="d-flex justify-content-center align-items-center mt-5">
+            
+        <div class="col-sm-4">
+            <div class="row">
+                <h2>Activa usuarios y asigna una plataforma</h2>
+            </div>
+            
+        </div>
+        <div class="col-sm-4 center">
+            
+            <div class="row">
+                <h4>Administrador de la Plataforma</h4>
+            </div>
+            
+            <div class="row justify-content-center">
+                <p>Cada usuario del sistema debe estar activado y relacionado con una plataforma</p>
+            </div>
+            
+        </div>
+    </div>
+    <div id="diventendido" class="d-flex justify-content-center align-items-center pt-5 mt-5">
+        <div class="col-sm-4 center">
+            <button id="entendido" class="btn btn-primary">Entendido</button>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $("#entendido").click(function () {
+        $("#panel").load("paneladmininterno.html");
+    })
+</script>

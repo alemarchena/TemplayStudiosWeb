@@ -1,0 +1,177 @@
+<div class="d-flex flex-row justify-content-center bd-highlight">
+    <div class="col-sm-3 offset-sm-8">
+        <input id="cajabusqueda" class="border-right-0 border-top-0 border border-success" 
+        style="background-color: white;opacity: 80%;height: 40px;"onkeyup="validarenter(event)" type="text" placeholder="BUSCA PRODUCTOS, MARCAS Y MAS.. ">
+    </div>
+    <div class="col-sm-1" style="font-size:40px;background-color: white;opacity: 80%;height: 40px;">
+        <a id="consulta" ><i class='fas fa-search' style="font-size:45px;"></i></a>
+    </div>
+</div>
+
+<script>
+
+function muestrabuscar(){
+    if ($("#cajabusqueda").val() != "") {
+        M.toast(
+            {
+                html: '...Buscando',
+                displayLength: '3000'
+            });
+    } else {
+        M.toast(
+            {
+                html: '...Buscando',
+                displayLength: '5000'
+            });
+    }
+    
+}
+    function buscarproductos(tipoconsulta, e) {
+        var bdd = conexionbddpaginaweb;
+        var rutadeimagenes = rutaimagenespaginaweb;
+        var tabla = tablaanunciospaginaweb;
+        var tabladerubros = tablarubrospaginaweb;
+
+        //Tamañio de la imagen del anuncio
+        tamanioimagen = 150;
+        anchocard = 200;
+
+        var textobuscado = $("#cajabusqueda").val();
+
+        //Lista con filtros
+        var filtro = [];
+        filtro.push( textobuscado );
+        
+        var t = null;
+        var id = 0;
+
+        var itemanuncio = new Object();
+        itemanuncio.bdd = bdd;
+        itemanuncio.tabla = tabla;
+        itemanuncio.tablarubros = tabladerubros;
+        itemanuncio.tipo = tipoconsulta;
+        itemanuncio.id = id;
+        itemanuncio.rutaimagenes = rutadeimagenes;
+        itemanuncio.filtro = filtro;
+
+        var objetoanuncio = JSON.stringify(itemanuncio);
+
+        sn= $('#seccionnovedades div');
+        sn.each(function () {
+            $(this).remove();
+        });
+
+        t = $('#seccionbuscados');
+        
+''
+        $(".hijos").remove();
+
+        var trabajacomonovedad = false;
+
+        $.ajax({
+            url: "consultaanuncios.php",
+
+            data: { objetoanuncio: objetoanuncio },
+            type: "post",
+
+            success: function (data) {
+
+        
+                if (data != '[]') {
+
+                    dd = JSON.parse(data); //data decodificado
+                    var cuenta = 0;
+
+                    $.each(dd, function (key, value) {
+
+                        cuenta = cuenta + 1;
+
+                        var parteobservacion = "";
+                        var partecomentarios = "";
+                        var colapsocomentarios = "";
+                        var colapsoobservaciones = "";
+
+                        if (dd[key].observaciones != "") {
+                            parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
+                            colapsoobservaciones = "<div class='collapse' id='collapseObservaciones" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].observaciones + "</div></div>";
+                        }
+
+                        if (dd[key].comentarios != "") {
+                            partecomentarios = "<div class='col'><p><a class='btn light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras' data-toggle='collapse' href='#collapseComentarios" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseComentarios" + cuenta + "'>Sugerencias</a></p></div>";
+                            colapsocomentarios = "<div class='collapse' id='collapseComentarios" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].comentarios + "</div></div>";
+                        }
+
+                        if (dd[key].nopublicar == 0) {
+                            if (trabajacomonovedad == true) {
+                                if (dd[key].esnovedad == 1) {
+                                    var precio;
+                                    if (dd[key].precio > 0)
+                                        precio = "$ " + dd[key].precio;
+                                    else
+                                        precio = "Consultar Precio";
+                                    t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p><p class='card-text'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                }
+                            } else {
+                                t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div><div class='row'> " + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                            }
+                        }
+                    });
+                     imageneszoom();
+                } else {
+                    Swal.fire({
+                        closeOnEsc: false,
+                        title: 'No hay artículos para esta búsqueda !!!',
+                    })
+                }
+            },
+            error: function (e) {
+                console.log("Error de comunicación");
+            }
+        });
+        resetopciones();
+        var alturamenu = $('.menu').outerHeight(true);
+        var iraqui = $("#seccionnovedades").offset().top - alturamenu;
+        $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+    }
+
+    function validarenter(e)
+    {
+            var key = window.event ? e.which : e.keyCode;
+
+            if (key == 13) {
+                buscarproductos("consultafiltros");
+                muestrabuscar();
+                $(".navbar-collapse").collapse("hide");
+
+            }
+        
+    }
+
+    $("#cajabusqueda").keydown(function () {
+
+        if($("#cajabusqueda").val() != "")   {
+            resetopciones();
+        }
+
+    });
+
+    function resetopciones(){
+
+        $("#opciones option:selected").prop("selected", false);
+        $(this).prop("selected", true);
+    }
+
+    $(document).ready(function () {
+        $("#consulta").click(function () {
+            buscarproductos("consultafiltros");
+            muestrabuscar();
+            $(".navbar-collapse").collapse("hide");
+
+        });
+
+        
+
+    });
+
+
+</script>

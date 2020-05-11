@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <body>
+        
+        <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
+            <!-- <span class="nav-title">Panel de Venta</span> -->
+
+            <div class="row">
+                <!-- Columna de lista de anuncios -->
+                <div class="col-sm-12">
+                    <div class="d-flex flex-row justify-content-center bd-highlight cabecera">
+                        <div class="col-sm-4 mt-1">
+                            <h5>Vender</h5>
+                        </div>
+                        <div class="col-sm-2 mt-2">
+                            <label for="fechaventa " class=" bd-highlight colorletras" >Fecha</label>
+                            <input id="fechaventa" type="text" class="datepicker center" readonly>
+                        </div>
+                        <div class="col-sm-2 offset-sm-2 mt-2">
+                            <label for="bonusestablecido" class="colorletras">% de Bonus</label>
+                            <input type="text" id="bonusestablecido" value="" class="center" readonly>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-center bd-highlight cabecera mb-4 p-4">
+                        <div class="col-sm-4">
+                            <label for="opcioneslista" class="colorletras">Selecciona un Rubro a buscar</label>
+                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="opcioneslistaclientes" class="colorletras">Selecciona un cliente</label>
+                            <select class="form-control" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="opcioneslistatiposdepago" class="colorletras">Selecciona un tipo de pago</label>
+                            <select class="form-control" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
+                        </div>
+                    </div>
+                    <div class=" col-sm-2">
+                        <!-- cliente elegido -->
+                        <input style="display: none;" id="idclienteelegido" name="idclienteelegido" type="text" >
+                        <input style="display: none;" id="clienteelegido" name="clienteelegido" type="text">
+                        <input style="display: none;" id="idtipodepagoelegido" name="idtipodepagoelegido" type="text">
+                        <input style="display: none;" id="tipodepagoelegido" name="tipodepagoelegido" type="text">
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tablaanunciosvender" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Observaciones</th>
+
+                                    <th class="titulocolumna">Título</th>
+                                    <th class="descripcioncolumna">Descripción</th>
+                                    <th class="masmenoscolumna center">$ lista</th>
+                                    <th class="columnadedos">Menos</th>
+                                    <th class="masmenoscolumna center">cantidad</th>
+                                    <th class="columnadedos center">Mas</th>
+                                    <th class="masmenoscolumna center">$ vta</th>
+                                    <th class="masmenoscolumna center">Guardar</th>
+                                    <th class="imagencolumna">Imagen</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td ></td>
+
+                                    <td class="imagencolumna"></td>
+                                    <td class="titulocolumna"></td>
+                                    <td class="descripcioncolumna"></td>
+                                    <td class="masmenoscolumna center"></td>
+                                    <td class="masmenoscolumna center"></td>
+                                    <td class="masmenoscolumna center"></td>
+                                    <td class="masmenoscolumna center"></td>
+                                    <td class="masmenoscolumna center"></td>
+                                    
+                                    <td class="masmenoscolumna center"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Columna de tarjeta de ventas -->
+                <div class="col-sm-12 notapedido">
+                
+                    <div class="d-flex flex-row justify-content-center bd-highlight">
+                        <div class="col-sm-12">
+                            <h5>Ventas del día</h5>
+                        </div>
+                
+                    </div>
+                
+                    <div class="table-responsive">
+                        <table id="tablavender" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Descripción</th>
+                                    <th class="masmenoscolumna">cantidad</th>
+                                    <th>Precio</th>
+                                    
+                                    <th class="masmenoscolumna">Id Cliente</th>
+                                    <th>Cliente</th>
+                                    <th class="masmenoscolumna">Bonus Vta</th>
+                                    <th class="masmenoscolumna">Forma Pago</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="masmenoscolumna"></td>
+                                    <td></td>
+                                   
+                                    <td class="masmenoscolumna"></td>
+                                    <td></td>
+                                    <td class="masmenoscolumna"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </body>
+</html>
+
+
+<script>
+
+$(document).ready(function () 
+{
+    configuracalendario();
+    consultarbonus();
+    consultarubros_seleccion_lista(); //llena la lista del buscador
+    consultaclientes_seleccion_lista(); //llena la lista del buscador
+    consultatiposdepago_seleccion_lista(); //llena la lista con tipos de pago
+    imageneszoom();
+    configuraciontablavender();
+    configuraciontablaanunciosvender();
+
+    function inicioconsulta(){
+
+        //agrego un texto que mejora la vista para buscar
+        var newItem = document.createElement("h5");
+        var textnode = document.createTextNode("Filtro de productos");
+        newItem.appendChild(textnode);
+
+        var taf = document.getElementById("tablaanunciosvender_filter");
+        taf.insertBefore(newItem, taf.childNodes[0]);
+    }
+
+    inicioconsulta();
+
+
+    $("#opciones").change(function () {
+        var o = document.getElementById("opciones");
+        var opcion = o.options[o.selectedIndex].text;
+        document.getElementById('rubro').value = opcion;
+    });
+
+    $('#tablaanunciosvender').on('page.dt', function () {
+        imageneszoom();
+    });
+
+    $('#tablaanunciosvender').on('draw.dt', function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        imageneszoom();
+    });
+
+    $("#fechaventa").change(function () {
+
+        var fechaventa = $("#fechaventa").val();
+        fechaventaenviada = conviertefechaastringdmy(fechaventa);
+        consultarventasdeldia(fechaventaenviada);
+    });
+
+    $("#opcioneslistaclientes").change(function () {
+        var o = document.getElementById("opcioneslistaclientes");
+        var opcion = o.options[o.selectedIndex].text;
+        document.getElementById('clienteelegido').value = opcion;
+        
+    });
+
+    $("#opcioneslistatiposdepago").change(function () {
+        var o = document.getElementById("opcioneslistatiposdepago");
+        var opcion = o.options[o.selectedIndex].text;
+        document.getElementById('tipodepagoelegido').value = opcion;
+        eligetipopago();
+    });
+});
+
+
+
+$("#opcioneslista").on('change', function () {
+    consultaranunciosvender();
+    M.toast(
+    {
+        html: 'Buscando productos por rubro...',
+        displayLength: '3000'
+    });
+});
+
+
+    $('.tooltipped').tooltip();
+
+</script>
