@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recorte de imagen</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+    <script src="https://unpkg.com/jcrop"></script>
+
+</head>
+<body>
+
+<div id="carga"></div>
+
+
+<form action="" id="formularioimagen" method="POST" role="form" enctype="multipart/form-data">
+
+    <div class="row">
+
+        <div class="col-sm-3">
+
+            <div  class="row justify-content-center">
+                    <input class="form-group mb-2" style="padding:20px;"><input class="btn btn-primary" type='button' id="editar"
+                        value='Editar Imagen'>
+            </div>
+            <div class="row justify-content-center">
+                <input class="form-group mb-2" style="padding:20px;"><input class="btn btn-primary" type='button' id="recortar"
+                    value='Rectortar Imagen'>
+            </div>
+
+            <div class="row justify-content-center">
+                <label>X <input type="text" name="x" id="x" size="4" /></label>
+            </div>
+            <div class="row justify-content-center">
+                    <label>Y <input type="text" name="y" id="y" size="4" /></label>
+            </div>
+            <div class="row justify-content-center">
+                <label>W <input type="text" name="w" id="w" size="4" /></label>
+            </div>
+            <div class="row justify-content-center">
+                    <label>H <input type="text" name="h" id="h" size="4" /></label>
+            </div>
+            <div class="row justify-content-center">
+                <label>Tamaño de archivo<input type="text" name="tamanioarchivo" id="tamanioarchivo" size="4" /></label>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="row justify-content-center">
+                <label for="imagen">SELECCIONA UNA IMAGEN</label>
+                <div class="form-group">
+                    <input class="grey lighten-3 pt-2" value="Ninguna imagen cargada" class="form-control" type="file" id="imagen"
+                        name="imagen" required>
+                    <progress class="progress" id="barra" value="0" max="100">0%</progress>
+                    <label for="" id="valorbarra">0%</label>
+                    <p class="red-text accent-4" id="aviso"></p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <!-- aca inserta un jcrop automatico la misma clase -->
+                <!-- <img id="muestraoriginal" src="../imagenessitio/agregarimagen.jpg"> -->
+                <img class="img-fluid" id="muestraoriginal" src="agregarimagen.jpg">
+                <!-- fin del jcrop -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-sm-12 center">
+            <img class="img-fluid" src="#" id="imagenrecortada">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <input class="form-group mb-2" style="padding:20px;"><input class="btn btn-primary" type='button' id="descargar"
+        value='Descargar Imagen'>
+    </div>
+ 
+    <img id="original" src="" style="display: none;">
+
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+<!--     
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+    
+
+
+</body>
+</html>
+
+<script>
+    tamanio ="";
+    muestra="";
+    muestrarecortador="";
+
+    anchoenvista = 0;
+    altoenvista = 0;
+    anchooriginal = 0;
+    altooriginal = 0;
+    
+    factorescalaancho=0;
+    factorescalaalto=0;
+
+   
+
+    function validarcambioimagen() {
+
+        var imagen = document.getElementById('imagen');
+        imagen.onchange = function (e) { validarimagen(e); }
+    }
+
+    validarcambioimagen();
+
+    function validarimagen(e)
+    {
+        archivo = e.target.files[0];
+
+        var extensiones = ["jpg", "PNG", "png", "jpeg"];
+        var verTam = function (mega) {
+            return Math.pow(3, 20) * mega; //2 a la 20 da 1048576 que es 1Mb
+        }
+
+        extension = archivo.type.split('/').pop();
+        tamanioMax = 1;
+
+        if (extensiones.indexOf(extension) !== -1) //verificamos si la extension esta en el arreglo
+        {
+            document.getElementById("tamanioarchivo").value = archivo.size / 1000000;
+
+            if (archivo.size <= verTam(tamanioMax)) 
+            {
+                vistaimagen();
+                vistaimagenoriginal();
+            }
+            else 
+            {
+                var aviso = document.getElementById("aviso")
+                aviso.innerHTML = "Puede subir archivos hasta " + tamanioMax + "Mb como máximo.";
+                $("#aviso").fadeIn(500);
+                $("#aviso").fadeOut(5000);
+                limpiarinputimagen();
+                
+                archivo.value = "";
+            }
+        }
+        else 
+        {
+            aviso.innerHTML = "Solo se admiten archivos de tipo " + extensiones;
+            $("#aviso").fadeIn(500);
+            $("#aviso").fadeOut(5000);
+            limpiarinputimagen();
+
+            archivo.value = "";
+        }
+    }
+
+    function vistaimagen() {
+
+        var fr = new FileReader();
+        var barra = document.getElementById("barra");
+        muestra = document.getElementById("muestraoriginal");
+
+        var valorbarra = document.getElementById("valorbarra");
+
+        fr.onprogress = function (e) {
+            barra.value = (e.loaded * 100 / e.total);
+            valorbarra.innerHTML = Math.round(barra.value) + "%";
+        }
+
+        fr.onloadend = function (e) {
+            muestra.src = fr.result;
+            anchoenvista= muestra.width;
+            altoenvista= muestra.height;
+        }
+        fr.readAsDataURL(archivo);
+    }
+
+    function vistaimagenoriginal(){
+        //carga la imagen original
+        var fro = new FileReader();
+        original = document.getElementById("original");
+
+        fro.onloadend = function (e) {
+            original.src = fro.result;
+            anchooriginal = original.width;
+            altooriginal = original.height;
+        }
+        fro.readAsDataURL(archivo);
+    }
+
+     function subeimagenalservidor() {
+        var formulario = document.getElementById("formularioimagen");
+
+        var formdata = new FormData(formulario);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                buscarrecorte();
+            } else {
+        
+                $('#carga').show();
+
+                $('#carga').html('<div class="loading"><img src="cargando.gif" alt="loading" /><br/>Comprimiendo el archivo...</div>');
+                
+            }
+        };
+        xhttp.open('POST', 'subirimagenoriginal.php', true);
+        xhttp.send(formdata);
+    }
+
+    $("#editar").click(function () {
+        
+        subeimagenalservidor();
+    });
+
+    function actualizacoordenadas(xx, yy, ww, hh) {
+
+        document.getElementById("x").value = xx;
+        document.getElementById("y").value = yy;
+        document.getElementById("w").value = ww;
+        document.getElementById("h").value = hh;
+
+        //revisa el ancho y alto de la imagen a la vista y recalcula el factor
+        var imgori = document.getElementById("muestraoriginal");
+
+        anchoenvista = imgori.width;
+        altoenvista = imgori.height;
+
+        if (anchooriginal > anchoenvista) {
+            factorescalaancho = anchooriginal / anchoenvista;
+        }
+
+        if (altooriginal > altoenvista) {
+            factorescalaalto = altooriginal / altoenvista;
+        }
+
+
+
+        if(factorescalaancho > 0)
+        {
+            if(factorescalaancho>factorescalaalto){
+
+                var xscalado = xx * factorescalaancho;
+                var wscalado = ww * factorescalaancho;
+            }else{
+                var xscalado = xx * factorescalaalto;
+                var wscalado = ww * factorescalaalto;
+            }
+        }else{
+            var xscalado = xx;
+            var wscalado = ww;
+        }
+
+        if(factorescalaalto > 0)
+        {
+            if (factorescalaancho > factorescalaalto)
+            {
+                var yscalado = yy * factorescalaancho;
+                var hscalado = hh * factorescalaancho;
+            }else{
+                var yscalado = yy * factorescalaalto;
+                var hscalado = hh * factorescalaalto;
+            }
+        }else
+        {
+            var yscalado = yy;
+            var hscalado = hh;
+        }
+        tamanio = { x: xscalado, y: yscalado, w: wscalado, h: hscalado};
+
+       
+
+        console.log("Vista : ancho : " + anchoenvista + " alto: " +  altoenvista );
+        console.log("Original : ancho: " + anchooriginal + " alto: " + altooriginal);
+
+        console.log("Factor estala ancho : " + factorescalaancho + " alto " + factorescalaalto);
+        console.log(tamanio);
+    }
+
+
+    function buscarrecorte() {
+
+        
+        // if (anchooriginal > anchoenvista) {
+        //     factorescalaancho = anchooriginal / anchoenvista;
+        // }
+
+        // if (altooriginal > altoenvista) {
+        //     factorescalaalto = altooriginal / altoenvista;
+        // }
+
+        const stage = Jcrop.attach('muestraoriginal', {
+            shadeColor: 'red'
+        });
+
+        stage.active = true;
+
+        stage.listen('crop.change', function (widget, e) {
+            const pos = widget.pos;
+            actualizacoordenadas(pos.x, pos.y, pos.w, pos.h);
+        });
+
+
+        stage.listen('crop.activate', function (widget, e) {
+            const pos = widget.pos;
+            actualizacoordenadas(pos.x, pos.y, pos.w, pos.h);
+        });
+
+        M.toast(
+            {
+                html: 'Ya puedes recortar la imagen!!',
+                displayLength: '3000'
+            });
+           
+        muestrarecortador = document.getElementById("muestraoriginal");
+        muestrarecortador.src = "imagenesrecorte/" + archivo.name;
+        
+
+        // console.log(muestrarecortador.src);
+        $('#carga').hide();
+
+       
+
+    }
+
+    function eliminararchivodeservidor(carpeta){
+
+        $.ajax({
+            url: "eliminararchivodeservidor.php",
+            data: { carpeta: carpeta},
+            type: "post",
+            success: function(data)
+            {
+                if(data=="ok")
+                {
+                    console.log("Papelera eliminada en el servidor");
+                
+                }
+            },
+            error: function(){
+                alert("Error");
+            }
+        });
+    }
+
+
+    
+    $("#recortar").click(function () {
+        var img = $("#muestraoriginal").attr('src');
+        $("#imagenrecortada").attr('src', 'imagenrecortada.php?x=' + tamanio.x + '&y=' + tamanio.y + '&w=' + tamanio.w + '&h=' + tamanio.h + '&img=' + img);
+    });
+
+    function descargar() {
+        var source = $("#imagenrecortada").attr('src');
+        var a = document.createElement('a');
+        a.download = true;
+        a.target = '_blank';
+        a.href = source;
+        a.click();
+
+        eliminararchivodeservidor("imagenesrecorte/");
+
+    }
+
+    $("#descargar").click(function () {
+        descargar();
+    });
+
+
+    function limpiarinputimagen() {
+        input = document.getElementById("imagen");
+        input.value = '';
+        input.innerHTML = "";
+    }
+
+    
+
+</script>

@@ -23,7 +23,6 @@
                         <!-- consultar por rubros -->
 
                         <div class="d-flex flex-row justify-content-center bd-highlight my-5">
-
                             <div class="col-sm-12">
                                 <label for="opcioneslista">Selecciona un Rubro a buscar</label>
                                 <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
@@ -51,31 +50,23 @@
                         <!-- consultar con filtros -->
                         <div class="d-flex flex-row justify-content-center py-1">
 
-                            <div class="col-sm-11">
+                            <div class="col-sm-12">
                                 <div class="d-flex flex-row justify-content-center bd-highligh">
                                     <div id="criterios_productos" class="col-sm-6">
 
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <label for="filtro_productos">Filtro</label> <input id="filtro_productos"
                                             name="filtro_productos" type="text" class="validate"
                                             onKeyUp="validarfiltrostock(event)"
-                                            placeholder="Escribe una palabra a buscar y da Enter">
+                                            placeholder="Escribe una palabra a buscar y presiona Enter">
                                     </div>
                                     <div class="col-sm-1">
-                                        <a id="agregar_filtro_productos"><img src="img/icono_suma.png" alt="Agregar"
-                                                class="tooltipped" data-position="bottom"
-                                                data-tooltip="Agrega un filtro"></a>
+                                        <a id="agregar_filtro_productos"><i class='fas fa-search' style="font-size:40px;"></i></a>
+
                                     </div>
 
                                 </div>
-                            </div>
-
-                            <div class="col-sm-1 ">
-
-                                <a id="consulta" class="tooltipped" data-position="bottom"
-                                    data-tooltip="Busca todos los productos o aquellos filtrados"><i
-                                        class='fas fa-search' style="font-size:40px;"></i></a>
                             </div>
 
                         </div>
@@ -126,11 +117,6 @@
 
 <script>
 
-
-
-    
-
-
     $(document).ready(function () 
     {
 
@@ -146,18 +132,10 @@
 
         $("#agregar_filtro_productos").click(function () {
             agregarfiltroproductostock();
-        });
-
-        
-
-        $("#consulta").click(function () {
             consultaranunciosstock_filtros();
-            M.toast(
-                {
-                    html: 'Buscando productos filtrados...',
-                    displayLength: '3000'
-                });
+
         });
+
     });
 
     $("#opcioneslista").on('change', function () {

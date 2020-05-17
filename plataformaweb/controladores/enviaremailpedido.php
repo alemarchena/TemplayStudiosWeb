@@ -11,12 +11,13 @@
 	$email = $_POST["email"];
 	$telefono = $_POST["telefono"];
 	$mensaje = $_POST["mensaje"];
+	$direccion = $_POST["direccion"];
 
 	$titulo = "Pedido Web" . $nombreempresa;
 	$subtitulo = "Detalle del Carrito";
 	
 
-	$cuerpo = " Nota: " . $nota . ", Apellido: " . $apellido . " - Email: " . $email . ", Telefono: " . $telefono . " - Mensaje: " . $mensaje . "\n";
+	$cuerpo = "Nota: " . $nota . "\n Dirección: " . $direccion . "\n Apellido: " . $apellido . " - Email: " . $email . ", Telefono: " . $telefono . "\n Pedido: " . $mensaje . "\n";
 	
 	mail($emailtemplay, $titulo , $subtitulo . $cuerpo);
 

@@ -14,4 +14,4 @@ direccionfisica         = 'Beltrán 1807 1º Piso Of 1-GODOY CRUZ-Mendoza Argent
 direccioninstagram      = 'https://www.instagram.com/';
 direccioninstagrampie   = 'https://www.instagram.com/';
 direcciongoogle         = 'https://www.google.com/maps/';
-dominioruta             = 'http://www.templaystudios.com/wiciol/';
+dominioruta             = 'http://www.templaystudios.com/wicionline/';

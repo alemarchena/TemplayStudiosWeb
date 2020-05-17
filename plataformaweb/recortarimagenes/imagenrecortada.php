@@ -6,6 +6,6 @@
   
   header('Content-type: image/jpeg');
   imagejpeg($dst_r);
- 
+
   exit;
 ?>

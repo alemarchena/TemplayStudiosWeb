@@ -3,10 +3,6 @@
 		<div class="form-row justify-content-center">
 			
 			<div class="col-sm-2">
-				<label class="contacto" for="nota">Nota u observación</label>
-				<input maxlength="150" id="nota" type="text" aria-label="Last name" class="form-control " placeholder="Escriba una observación">
-			</div>
-			<div class="col-sm-2">
 				<label class="contacto" for="apellido">Nombre y Apellido</label>
 				<input maxlength="50" id="apellido" type="text" aria-label="Last name" class="form-control " placeholder="Nombre y Apellido">
 			</div>
@@ -18,16 +14,23 @@
 				<label class="contacto" for="celular">Teléfono</label>
 				<input maxlength="30" id="celular" type="text" class="form-control " placeholder="Teléfono">
 			</div>
+			<div class="col-sm-2">
+				<label class="contacto" for="nota">Nota u observación</label>
+				<input maxlength="150" id="nota" type="text" aria-label="Last name" class="form-control " placeholder="Escriba una observación">
+			</div>
 			
 		</div>
 		<div class="form-row justify-content-center">
-		
-			<div class="col-sm-4 center">
-			</div>
-			<div class="col-sm-4 center">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2 right">
 				<input id="totalcarrito" readonly type="text" class="form-control " placeholder="Total $ ">
 			</div>
 			
+			<div class="col-sm-4 center">
+				<label class="direccion" for="nota">Dirección</label>
+				<input maxlength="300" id="direccion" type="text" aria-label="Last name" class="form-control "
+					placeholder="Dirección de envío">
+			</div>
 			<div class="col-sm-4">
 				<button id="enviar" type="submit" class="btn btn-primary" style="font-size: 1em">Enviar</button>
 			</div>
@@ -53,6 +56,9 @@
 
 		var mensaje = $("#mensaje").val();
 		mensaje = mensaje.trim();
+
+		var direccion = $("#direccion").val();
+		direccion = direccion.trim();
 
 		var nota = $("#nota").val();
 
@@ -116,7 +122,7 @@
 		$.ajax({
 
 			url:"controladores/enviaremailpedido.php",
-			data:{nota: nota,apellido:apellido,email:email,telefono:telefono,mensaje:mensaje},
+			data:{nota: nota,apellido:apellido,email:email,telefono:telefono,mensaje:mensaje, direccion: direccion},
 			type:"post",
 			success:function(data)
 			{

@@ -25,18 +25,20 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
         <link rel="stylesheet" type="text/css" href="css/estilo.css">
-        <link rel="icon" type="image/png" src="imagenessitio/favicon.png">
+        <link rel="icon" type="image/png" src="imagenessitio/logoempresa.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
        
-        <title>Pedidos</title>
+        <title>Carrito de Pedidos</title>
     </head>
 <body>
-    <nav class="navbar" style="height: 120%;background-color: #f0f4c3;">
+    <nav class="navbar sticky-top" style="height: 120%;background-color: #f0f4c3;">
 
         <form class="form-inline" style="color: black;">
             <a class="navbar-brand" href="#" style="color: black;">
             </a>
-            <img src="img/logoempresa.png" width="20%" class="d-inline-block align-top"
+            <img id="imagenempresa" src="img/logoempresa.png" width="20%" class="d-inline-block align-top"
             alt="Empresa">
+
             <h5 id="tituloweb"  style="margin:0em 0em 0em 1em"></h5>
             <p id="telefono_en_barra" style="margin:0em 0em 0em 1em"></p>
             <p id="direccionfisica" style="margin:0em 0em 0em 1em"></p>
@@ -188,7 +190,27 @@
     });
 
     
-   
+   $("#imagenempresa").click(function(){
+       posicioninicial();
+   });
 
-  
+    
+    
+    $(window).on('scroll', function () {
+
+        
+        $("#imagenempresa").mousemove(function (event) {
+            if ($(window).scrollTop() > 350) {
+                $("#imagenempresa").addClass('animate__pulse animated');
+            }else{
+                $("#imagenempresa").removeClass('animate__pulse animated');
+            }
+        });
+        
+
+        $("#imagenempresa").mouseleave(function (event) {
+            $("#imagenempresa").removeClass('animate__pulse animated');
+        });
+    });
+
 </script>
