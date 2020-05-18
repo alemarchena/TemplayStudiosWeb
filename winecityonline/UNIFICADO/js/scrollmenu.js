@@ -94,6 +94,9 @@ $("#botbonus").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 	$(".navbar-collapse").collapse("hide");
 });
+$("#botlistastock").on('click', function (e) {
+	var poscontacto = $("#contenido").offset().top; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
 
 $("#botonobservaciones").on('click', function (e) {
 	var poscontacto = $("#areaobservaciones").offset().top; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
@@ -101,6 +104,7 @@ $("#botonobservaciones").on('click', function (e) {
 $("#botoncomentarios").on('click', function (e) {
 	var poscontacto = $("#areacomentarios").offset().top; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
+
 
 //------------------------------- MOUSE SOBRE LA SECCION produce EFECTO EN EL MENU ----------------------------------------------
 

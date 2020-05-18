@@ -84,6 +84,16 @@ $("#botvender").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 	$(".navbar-collapse").collapse("hide");
 });
+$("#botmovimientos").on('click', function (e) {
+	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+	$(".navbar-collapse").collapse("hide");
+});
+$("#botlistastock").on('click', function (e) {
+	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+	$(".navbar-collapse").collapse("hide");
+});
+
+
 
 $("#botcaja").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
