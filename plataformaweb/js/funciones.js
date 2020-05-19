@@ -1941,7 +1941,9 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                 if(totalventa >0 && totalcosto >0 )
                 {
                     $("#rentabilidadpesos").attr("value", totalventa - totalcosto);
-                    $("#rentabilidadporcentaje").attr("value", (Math.round((totalventa - totalcosto) / totalcosto )*100));
+                    
+                    var renta = Math.ceil( (totalventa - totalcosto) / totalcosto  *100);
+                    $("#rentabilidadporcentaje").attr("value", renta);
                 }else
                 {
                     $("#rentabilidadpesos").attr("value", "");
