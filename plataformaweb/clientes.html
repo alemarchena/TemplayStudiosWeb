@@ -1,137 +1,186 @@
 
-<form action="" id="formulariorubros" method="POST" role="form">
-    <div class="row">
-        <!-- Columna de tarjeta de clientes -->
-        <div class="col-sm-10 offset-sm-1">
-            <div class="card text-center">
+    <div id="accordionClientes">
+
+        <div class="card">
+            
+            <h5>Clientes <i class="fas fa-address-book"></i></h5>
+            <p class="p-1">Administrar la información de tus clientes es escencial para tu negocio</p>
+
+            <div class="card-header" id="headingCli">
+                <h5 class="m-0">
+                    <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseCli" aria-expanded="true"
+                        aria-controls="collapseCli">
+                        Nuevos Clientes
+                    </button>
+                </h5>
+            </div>
+    
+            <div id="collapseCli" class="collapse" aria-labelledby="headingCli" data-parent="#accordionClientes">
                 <div class="card-body">
-                    <h5 class="card-title">Clientes</h5>
+                   <!-- Nuevos clientes -->
+                    <div class="row">
 
-                        <div class="row">
-                            <div class="col-sm-9">
-
-                                <div class="row">
-                                    <div class="col-sm-2 offset-sm-1">
-                                        <!-- id -->
-                                        <input id="idcliente" disabled value="" name="idcliente                                                                                                                             " type="text">
+                        <!-- Columna de tarjeta de clientes -->
+                        <div class="col-sm-10 offset-sm-1">
+                            <div class="card text-center">
+                                
+                                <div class="card-body">
+                        
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                        
+                                            <div class="row">
+                                                <div class="col-sm-2 offset-sm-1">
+                                                    <!-- id -->
+                                                    <input id="idcliente" disabled value=""
+                                                        name="idcliente                                                                                                                             "
+                                                        type="text">
+                                                </div>
+                                                <div class="col col-sm-6">
+                                                    <!-- Nuevo -->
+                                                    <button class="btn chip " type="button" id="limpiarcliente" name="limpiarcliente">Limpiar
+                                                </div>
+                        
+                                            </div>
+                        
+                                            <div class="row">
+                                                <div class=" col-sm-4 center">
+                                                    <!-- nombre -->
+                                                    <input onKeyDown="return validarteclaCliente(event,this.value,150)"
+                                                        onKeyUp="return validarteclaCliente(event,this.value,150)" id="nombrecliente"
+                                                        name="nombreproveedor" type="text" class="validate center">
+                                                    <label for="nombrecliente">Nombre</label>
+                                                </div>
+                                                <div class=" col-sm-4 center">
+                                                    <!-- teléfono -->
+                                                    <input onKeyDown="return validarteclaCliente(event,this.value,255)"
+                                                        onKeyUp="return validarteclaCliente(event,this.value,255)" id="telefonocliente"
+                                                        name="telefonocliente" type="text" class="validate  center">
+                                                    <label for="telefonocliente">Teléfono</label>
+                                                </div>
+                                                <div class=" col-sm-4  center">
+                                                    <!-- email -->
+                                                    <input onKeyDown="return validarteclaCliente(event,this.value,255)"
+                                                        onKeyUp="return validarteclaCliente(event,this.value,255)" id="emailcliente"
+                                                        name="emailproveedor" type="text" class="validate  center">
+                                                    <label for="emailcliente">Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class=" col-sm-8 offset-sm-2 center">
+                                                    <!-- dirección -->
+                                                    <input onKeyDown="return validarteclaCliente(event,this.value,255)"
+                                                        onKeyUp="return validarteclaCliente(event,this.value,255)" id="direccioncliente"
+                                                        name="direccionproveedor" type="text" class="validate center">
+                                                    <label for="direccioncliente">Dirección</label>
+                                                </div>
+                                            </div>
+                        
+                                            <!-- Boton publicar -->
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <button class="btn waves-effect  orange green-4" type="button" id="enviarcliente"
+                                                        name="enviarcliente">Guardar Cliente
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="row">
+                                                <!-- BONUS -->
+                                                <label for="bonus" style="font-weight: bold;">Bonus</label>
+                                                <input id="bonus" class="center" value="" name="bonus" type="text" readonly>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button id="restarbonus" type="button"
+                                                        class="btn-floating btn-small waves-effect pink darken-2" disabled><i
+                                                            class=material-icons>remove_circle_outline</i>
+                                                </div>
+                                                <div class="col">
+                                                    <input id="cantidadsumarestabonus" name="cantidadsumarestabonus" class="center"
+                                                        onKeyDown='return validarnumero(event, this.value, 6)'
+                                                        onKeyUp='return validarnumero(event, this.value, 6)' type="text">
+                                                </div>
+                                                <div class="col">
+                                                    <button id="sumarbonus" type="button"
+                                                        class="btn-floating btn-small waves-effect green darken-4" disabled><i
+                                                            class=material-icons>add_circle_outline</i>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col col-sm-6">
-                                        <!-- Nuevo -->
-                                        <button class="btn chip " type="button" id="limpiarcliente" name="limpiarcliente">Limpiar
-                                    </div>
-                                    
+                        
                                 </div>
-                    
-                                <div class="row">
-                                    <div class=" col-sm-4 center">
-                                        <!-- nombre -->
-                                        <input 
-                                            onKeyDown="return validarteclaCliente(event,this.value,150)"
-                                            onKeyUp="return validarteclaCliente(event,this.value,150)" id="nombrecliente" name="nombreproveedor"
-                                            type="text" class="validate center">
-                                        <label for="nombrecliente">Nombre</label>
-                                    </div>
-                                    <div class=" col-sm-4 center">
-                                        <!-- teléfono -->
-                                        <input onKeyDown="return validarteclaCliente(event,this.value,255)"
-                                            onKeyUp="return validarteclaCliente(event,this.value,255)" id="telefonocliente" name="telefonocliente"
-                                            type="text" class="validate  center">
-                                        <label for="telefonocliente">Teléfono</label>
-                                    </div>
-                                    <div class=" col-sm-4  center">
-                                        <!-- email -->
-                                        <input onKeyDown="return validarteclaCliente(event,this.value,255)"
-                                            onKeyUp="return validarteclaCliente(event,this.value,255)" id="emailcliente" name="emailproveedor" type="text"
-                                            class="validate  center">
-                                        <label for="emailcliente">Email</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" col-sm-8 offset-sm-2 center">
-                                        <!-- dirección -->
-                                        <input onKeyDown="return validarteclaCliente(event,this.value,255)"
-                                            onKeyUp="return validarteclaCliente(event,this.value,255)" id="direccioncliente" name="direccionproveedor"
-                                            type="text" class="validate center">
-                                        <label for="direccioncliente">Dirección</label>
-                                    </div>
-                                </div>
-                            
-                                <!-- Boton publicar -->
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                    <button class="btn waves-effect  orange green-4" type="button" id="enviarcliente"
-                                        name="enviarcliente">Guardar Cliente
-                                    </div>
-                                </div>
+                                <a href="" target="_blank"></a>
                             </div>
-                            <div class="col-sm-3">
-                                <div class="row">
-                                    <!-- BONUS -->
-                                    <label for="bonus" style="font-weight: bold;">Bonus</label>
-                                    <input id="bonus" class="center" value="" name="bonus" type="text" readonly>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <button id="restarbonus" type="button" class="btn-floating btn-small waves-effect pink darken-2" disabled><i class=material-icons>remove_circle_outline</i>
-                                    </div>
-                                    <div class="col">
-                                        <input id="cantidadsumarestabonus" name="cantidadsumarestabonus" class="center" onKeyDown='return validarnumero(event, this.value, 6)' onKeyUp='return validarnumero(event, this.value, 6)' type="text">
-                                    </div>
-                                    <div class="col">
-                                        <button id="sumarbonus" type="button" class="btn-floating btn-small waves-effect green darken-4" disabled><i class=material-icons>add_circle_outline</i>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                   <!-- Fin nuevos clientes -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingListaCli">
+                <h5 class="m-0">
+                    <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaCli"
+                        aria-expanded="false" aria-controls="collapseListaCli">
+                        Editar/Eliminar clientes
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseListaCli" class="collapse" aria-labelledby="headingListaCli" data-parent="#accordionClientes">
+                <div class="card-body">
+                   <!-- Editar/Eliminar -->
+                    <div class="row">
+                        <!-- Columna de lista de anuncios -->
+                        <div class="col-sm-8 offset-sm-2">
+                            <div class="row">
+                                Lista de Clientes
+                                <!-- <button id="consultar">Consultar</button> -->
+                            </div>
+                            <div class="table-responsive">
+                                <table id="tablaclientes" class="display table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Editar</th>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Direccion</th>
+                                            <th>Teléfono</th>
+                                            <th>email</th>
+                                            <th>Eliminar</th>
+                                            <th>Whatsapp</th>
+                                            <th>Bonus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                     </div>
-                    <a href="" target="_blank"></a>
+                   <!-- Fin editar eliminar -->
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <!-- Columna de lista de anuncios -->
-            <div class="col-sm-8 offset-sm-2">
-                <div class="row">
-                    Lista de Clientes
-                    <!-- <button id="consultar">Consultar</button> -->
-                </div>
-                <div class="table-responsive">
-                    <table id="tablaclientes" class="display table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Editar</th>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Direccion</th>
-                                <th>Teléfono</th>
-                                <th>email</th>
-                                <th>Eliminar</th>
-                                <th>Whatsapp</th>
-                                <th>Bonus</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
         </div>
         
-    </form>
+    </div>
+        
+
 
 <script>
     $(document).ready(function () 

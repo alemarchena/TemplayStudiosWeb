@@ -349,6 +349,9 @@ function EnviarFormulario()
         }else
         {//esta modificando pero dejo la misma imagen
             var i = "";
+            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come);
+            limpiarformulario();
+
         }
     }else{
         var i = imagen.files[0].name;
@@ -359,7 +362,10 @@ function EnviarFormulario()
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("ok");
-                // consultaranuncios();
+                 //guardar el anuncio en la base de datos
+                altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come);
+                limpiarformulario();
+
             } else
                 console.log("intentando subir imagen...");
         };
@@ -368,9 +374,7 @@ function EnviarFormulario()
         xhttp.send(formdata);
     }
 
-    //guardar el anuncio en la base de datos
-    altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come);
-    limpiarformulario();
+   
 
 }
 
@@ -542,8 +546,7 @@ function consultaranuncios(e)
 
                     tanuncios.row.add( [
                         dd[key].id,
-                        // "<a onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].titulo + "\",\"" + dd[key].descripcion + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + observaciones + "\",\"" + comentarios + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
-                        "<a onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
+                        "<a onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
                         "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
                         dd[key].rubro,
                         dd[key].titulo,
@@ -662,9 +665,11 @@ function eliminaranuncio(idpasado,i)
 
 }
 
-// function seleccionarproducto(id, rub, tit, des, pre, cos, ima, en, eo, np, obs, come)
 function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np)
 {
+   
+    posicioninicial();
+    $('#collapsePub').collapse('toggle');
 
     limpiarinputimagen();
     document.getElementById('id').value = id;
@@ -725,6 +730,8 @@ function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np)
             document.getElementById('comentarios').value = arreglo[indice].comentarios;
         }
     });
+
+
 
 }
 // ------------------------------------------------------------------------------------------------------------
@@ -1271,8 +1278,9 @@ function seleccionarrubros(id, rub) {
     document.getElementById('idrubro').value = id;
     document.getElementById('nombrerubro').value = rub;
 
-    var posicion = $("BODY").offset().top;
-    $("HTML, BODY").animate({ scrollTop: posicion }, 600);
+    $('#collapseRub').collapse('toggle');
+
+    posicioninicial();
 
 }
 
@@ -1812,7 +1820,7 @@ function configuraciontablacaja() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "BUSQUEDA EN EL PEDIDO:",
+            "search": "Puedes buscar datos en la caja:",
             "lengthMenu": "",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -1916,10 +1924,31 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
 
                 if(totalventa>0){
                     $("#totalventa").attr("value", totalventa);
+                }else
+                {
+                    $("#totalventa").attr("value", "");
                 }
+
+
                 if (totalcosto>0){
                     $("#totalcosto").attr("value", totalcosto);
+                }else
+                {
+                    $("#totalcosto").attr("value", "");
                 }
+
+                
+                if(totalventa >0 && totalcosto >0 )
+                {
+                    $("#rentabilidadpesos").attr("value", totalventa - totalcosto);
+                    $("#rentabilidadporcentaje").attr("value", (Math.round((totalventa - totalcosto) / totalcosto )*100));
+                }else
+                {
+                    $("#rentabilidadpesos").attr("value", "");
+                    $("#rentabilidadporcentaje").attr("value", "");
+
+                }
+                
             }
         },
         error: function (e) {
@@ -2198,7 +2227,7 @@ function seleccionarproveedores(id, nom,dir,tel,ema ) {
     document.getElementById('emailproveedor').value = ema;
 
     posicioninicial();
-    $('#collapseOneProveedor').collapse('toggle')
+    $('#collapseOneProveedor').collapse('toggle');
 
 }
 
@@ -3215,6 +3244,7 @@ function consultarclientes(e) {
                     }
                 });
                 limpiarformulariocliente();
+                
             }
         },
         error: function (e) {
@@ -3235,8 +3265,9 @@ function seleccionarclientes(id, nom,dir,tel,ema,bonus) {
     document.getElementById("sumarbonus").disabled = false;
     document.getElementById("restarbonus").disabled = false;
 
-    var posicion = $("BODY").offset().top;
-    $("HTML, BODY").animate({ scrollTop: posicion }, 600);
+    $('#collapseCli').collapse('toggle');
+
+    posicioninicial();
 }
 
 function eliminarc(id) {
@@ -4526,7 +4557,7 @@ function consultaranunciosstock_rubros(e) {
 
 
     if (seleccionrubro != "Seleccione un rubro") {
-        $('#collapseBuscaxRubro').collapse('toggle')
+        $('#collapseBuscaxRubro').collapse('toggle');
         
         var bdd = conexionbdd;
         var rutadeimagenes = rutaimagenes;

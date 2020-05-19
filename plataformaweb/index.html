@@ -278,7 +278,10 @@
     var velocidad= 500;
     var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
 
-    checkCookietabaqueria("checkCookieTabaqueria");
+    var consinprecio = "conprecio";
+    checkCookietabaqueria("checkCookieTabaqueria", consinprecio);
+
+    
     $("#seccionpromociones").load("anuncios_ofertas.html");
     $("#seccionbusqueda").load("buscador.html");
     
@@ -286,7 +289,7 @@
     $("#mayor").click(function () 
     {
       $('#vervineria').show();
-      $("#seccionnovedades").load("anuncios_tarjeta.html");
+      $("#seccionnovedades").load("anuncios_tarjeta_conprecio.html");
       $('li.nav-item').removeClass("active");
     
       $("#menuproductos").parent().addClass("active");

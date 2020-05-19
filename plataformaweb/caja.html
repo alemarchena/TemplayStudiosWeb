@@ -1,77 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="card">
 
-    <body>
-        
-        <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
-            <!-- <span class="nav-title">Panel de Venta</span> -->
+    <h5>Ventas de Caja <i class="fas fa-money-bill-alt"></i></h5>
+    <p class="p-1">Consulta tus ventas entre fechas</p>
 
-            <div class="row m-4" >
-                <!-- Columna de tarjeta de ventas -->
-                <div class="col-sm-12 notapedido ">
-                    
-                    <div class="d-flex flex-row justify-content-center bd-highlight">
-                        <div class="col-sm-12">
-                            <h5>Consulta de Caja</h5>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row justify-content-center bd-highlight">
-                        <div class="col-sm-3">
-                            <label for="totalcosto" class=" bd-highlight colorletras">Total Costo</label>
-                            <input id="totalcosto" type="text" class="text center" readonly>
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="fechaventadesde" class=" bd-highlight colorletras"> Desde Fecha</label>
-                            <input id="fechaventadesde" type="text" class="datepicker center" readonly>
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="fechaventahasta" class=" bd-highlight colorletras">Hasta Fecha</label>
-                            <input id="fechaventahasta" type="text" class="datepicker center" readonly>
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="totalventa" class=" bd-highlight colorletras">Total Venta</label>
-                            <input id="totalventa" type="text" class="text center" readonly>
-                        </div>
-                        
-                    </div>
-                    <div class="table-responsive">
-                        <table id="tablacaja" class="display table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Título</th>
-                                    <th>Descripción</th>
-                                    <th class="masmenoscolumna">Cantidad</th>
-                                    <th>Precio vta</th>
-                                    <th>Total vta</th>
-                                    
-                                    <th>Rubro</th>
-                                    <th class="columnadedos">Costo Unidad</th>
-                                    <th class="columnadedos">Costo Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="masmenoscolumna"></td>
-                                    <td></td>
-                                    <td></td>
-                                    
-                                    <td></td>
-                                    <td class="columnadedos"></td>
-                                    <td class="columnadedos"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="d-flex flex-row justify-content-center bd-highlight">
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col">
+                    <label for="totalcosto" class=" bd-highlight colorletras">Total Costo</label>
+                    <input id="totalcosto" type="text" class="text center" readonly>
+                </div>    
+                <div class="col">
+                    <label for="totalventa" class=" bd-highlight colorletras">Total Venta</label>
+                    <input id="totalventa" type="text" class="text center" readonly>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-sm-3">
+            <label for="fechaventadesde" class=" bd-highlight colorletras"> Desde Fecha</label>
+            <input id="fechaventadesde" type="text" class="datepicker center" readonly>
+        </div>
+        <div class="col-sm-3">
+            <label for="fechaventahasta" class=" bd-highlight colorletras">Hasta Fecha</label>
+            <input id="fechaventahasta" type="text" class="datepicker center" readonly>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col">
+                    <label for="rentabilidadpesos" class=" bd-highlight colorletras">Rentabilidad $</label>
+                    <input id="rentabilidadpesos" type="text" class="text center" readonly>
                 </div>
 
-            </div>
-        </form>
-    </body>
-</html>
+                <div class="col">
+                    <label for="rentabilidadporcentaje" class=" bd-highlight colorletras">Rentabilidad %</label>
+                    <input id="rentabilidadporcentaje" type="text" class="text center" readonly>
+                </div>
+            </div>  
+        </div>
+        
+    </div>
+    <div class="table-responsive">
+        <table id="tablacaja" class="display table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th class="masmenoscolumna">Cantidad</th>
+                    <th>Precio vta</th>
+                    <th>Total vta</th>
+                    
+                    <th>Rubro</th>
+                    <th class="columnadedos">Costo Unidad</th>
+                    <th class="columnadedos">Costo Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="masmenoscolumna"></td>
+                    <td></td>
+                    <td></td>
+                    
+                    <td></td>
+                    <td class="columnadedos"></td>
+                    <td class="columnadedos"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
+</div>
+
+
 
 
 <script>
@@ -96,7 +100,7 @@ $(document).ready(function ()
 
         //agrego un texto que mejora la vista para buscar
         var newItem = document.createElement("h5");
-        var textnode = document.createTextNode("Filtro en caja");
+        var textnode = document.createTextNode("Filtro de búsqueda");
         newItem.appendChild(textnode);
 
         var taf = document.getElementById("tablacaja_filter");

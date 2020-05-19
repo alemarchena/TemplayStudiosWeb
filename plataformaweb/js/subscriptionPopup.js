@@ -1,9 +1,9 @@
-function checkCookietabaqueria(nombre) {
+function checkCookietabaqueria(nombre, consinprecio) {
   var name = nombre;
   var cuqui = getCookie(name);
   if (cuqui == 1) {
     setTimeout(function () {
-      abreTabaqueria();
+      abreTabaqueria(consinprecio);
     }, 500);
     return;
   }else
@@ -19,8 +19,12 @@ function checkCookietabaqueria(nombre) {
   }
 }
 
-function abreTabaqueria() {
-  $("#seccionnovedades").load("anuncios_tarjeta.html");
+function abreTabaqueria(consinprecio) {
+  if (consinprecio == "conprecio")
+    $("#seccionnovedades").load("anuncios_tarjeta_conprecio.html");
+  else
+    $("#seccionnovedades").load("anuncios_tarjeta.html");
+
 }
 
 function ocultatabaqueria() {
