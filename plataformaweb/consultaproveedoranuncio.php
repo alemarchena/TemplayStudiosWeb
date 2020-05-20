@@ -52,7 +52,7 @@
     
     //--------------------------- Acciones -------------------------
     
-     if($tipo == "consultafiltros" || $tipo == "consultarubros" || $tipo == "consultarubrosdelproveedor" || $tipo == "consultafiltrosdelproveedor")
+     if($tipo == "consultaunproveedorenrelacion" || $tipo == "consultafiltros" || $tipo == "consultarubros" || $tipo == "consultarubrosdelproveedor" || $tipo == "consultafiltrosdelproveedor")
     {
         if($tipo == "consultarubros")
         {
@@ -129,6 +129,8 @@
                                  .$tablaproveedoresanuncios. ".idanuncio = " .$tabla.".id and " .$tablaproveedoresanuncios. ".idproveedor =" .$idproveedor. ") and "
                                  .$sentencia . " ) order by " .$tabla. ".titulo";
             }
+        }else if($tipo == "consultaunproveedorenrelacion"){
+            $sql = "Select * from " . $tablaproveedoresanuncios . " where idproveedor = " .$idproveedor . "";
         }
     
         // echo $sql;

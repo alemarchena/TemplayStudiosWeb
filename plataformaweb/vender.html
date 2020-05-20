@@ -3,43 +3,37 @@
 
             <div class="card">
                 <h5>Ventas <i class="fas fa-shopping-cart"></i></h5>
-                <div class="row">
-                    <p >Llevar ventas al día te dará estadísticas e información de clientes y stock</p>
-                </div>  
+                <div class="row m-0 p-0">
+                    <div class="col-sm-5 m-0 p-0">
+                        <p >Llevar ventas al día te dará estadísticas e información de clientes y stock</p><br>
+                        <p >En la lista inferior puedes ver las ventas del día y eliminar en caso sea necesario</p>
+                    </div>
 
-                <div class="row">
-                    <p >En la lista inferior puedes ver las ventas del día y eliminar en caso sea necesario</p>
+                    <div class="col-sm-2 center m-0 p-0">
+                        
+                            <label for="fechaventa " class=" bd-highlight colorletras">Fecha</label>
+                            <input id="fechaventa"  style="font-size: 1.3em;" type="text" class="datepicker center" readonly>
+                        
+                    </div>
+                    <div class="col-sm-3" style="text-align: end;">
+                        <input type="text" id="bonusestablecido" value="" class="center" readonly>
+                        <p>Es el (porcentaje) % de bonus o puntos que obtiene cliente por cada producto comprado y puede
+                        cambiar por productos</p>
+                    </div>
+                    
                 </div>
-
-
+                
                 <div class="card-header" id="headingVender">
-                    <h5 class="m-0">
-                        <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseVenta" aria-expanded="true"
-                            aria-controls="collapseVenta">
-                            Vender
-                        </button>
-                    </h5>
+                    <h5 class="m-0 p-0"><button class="btn btn-primary" data-toggle="collapse" data-target="#collapseVenta" aria-expanded="true"
+                            aria-controls="collapseVenta">Vender</button></h5>
                 </div>
         
                 <div id="collapseVenta" class="collapse " aria-labelledby="headingVender" data-parent="#accordionVentas">
                     <div class="card-body">
                         <!-- Vender -->
-                        <div class="row">
+                        <div class="row m-0 p-0">
                             <!-- Columna de lista de anuncios -->
                             <div class="col-sm-12">
-                                <div class="d-flex flex-row justify-content-center bd-highlight cabecera">
-                                    <div class="col-sm-4 mt-1">
-                                        <h5>Vender</h5>
-                                    </div>
-                                    <div class="col-sm-2 mt-2">
-                                        <label for="fechaventa " class=" bd-highlight colorletras">Fecha</label>
-                                        <input id="fechaventa" type="text" class="datepicker center" readonly>
-                                    </div>
-                                    <div class="col-sm-2 offset-sm-2 mt-2">
-                                        <label for="bonusestablecido" class="colorletras">% de Bonus</label>
-                                        <input type="text" id="bonusestablecido" value="" class="center" readonly>
-                                    </div>
-                                </div>
                                 <div class="d-flex flex-row justify-content-center bd-highlight cabecera mb-4 p-4">
                                     <div class="col-sm-4">
                                         <label for="opcioneslista" class="colorletras">Selecciona un Rubro a buscar</label>
@@ -115,7 +109,7 @@
                 <div id="collapseListaVenta" class="collapse" aria-labelledby="headingListaVenta" data-parent="#accordionVentas">
                     <div class="card-body">
                         <!-- lista venta -->
-                        <div class="row">
+                        <div class="row m-0 p-0">
                             <!-- Columna de tarjeta de ventas -->
                             <div class="col-sm-12 notapedido">
 
@@ -169,12 +163,14 @@
         </div>
 
 
-        <!-- <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data"> -->
-            <!-- <span class="nav-title">Panel de Venta</span> -->
-        <!-- </form> -->
- 
-
 <script>
+
+function consultaventadiaactual() {
+    var fechaventa = $("#fechaventa").val();
+    fechaventaenviada = conviertefechaastringdmy(fechaventa);
+    
+    consultarventasdeldia(fechaventaenviada);
+}
 
 $(document).ready(function () 
 {
@@ -186,6 +182,8 @@ $(document).ready(function ()
     imageneszoom();
     configuraciontablavender();
     configuraciontablaanunciosvender();
+
+    
 
     function inicioconsulta(){
 
@@ -217,11 +215,10 @@ $(document).ready(function ()
         imageneszoom();
     });
 
-    $("#fechaventa").change(function () {
+    
 
-        var fechaventa = $("#fechaventa").val();
-        fechaventaenviada = conviertefechaastringdmy(fechaventa);
-        consultarventasdeldia(fechaventaenviada);
+    $("#fechaventa").change(function () {
+        consultaventadiaactual();
     });
 
     $("#opcioneslistaclientes").change(function () {
@@ -237,6 +234,25 @@ $(document).ready(function ()
         document.getElementById('tipodepagoelegido').value = opcion;
         eligetipopago();
     });
+
+    
+
+    function colocafechaactual() {
+
+
+        var f = new Date();
+        var mes = f.getMonth() + 1;
+
+        if (mes < 10) {
+            mes = "0" + mes;
+        }
+
+        var fechaactual = f.getDate() + "-" + mes + "-" + f.getFullYear();
+        document.getElementById("fechaventa").value = fechaactual;
+
+        consultaventadiaactual();
+    }
+    colocafechaactual();
 });
 
 

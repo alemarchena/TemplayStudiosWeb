@@ -1203,9 +1203,9 @@ function intentaEliminarRubro(idpasado){
             // console.log(data);
 
 
-            if (data == "[]") {
+            if (data == "[]"|| data == "consultavacia") {
                 eliminarrubro(id);
-            } else if (data != "[]" && data != "consulta vacia")
+            } else if (data != "[]" && data != "consultavacia")
             {
                 Swal.fire({
                     position: 'top-end',
@@ -2004,7 +2004,7 @@ function configuraciontablaproveedorproductos() {
 
                 "processing": "Procesando...",
                 "search": "PRODUCTOS",
-                "lengthMenu": "Lista de anuncios",
+                "lengthMenu": " ",
                 "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
                 "emptyTable": "No hay registros guardados",
                 "zeroRecords": "No hay registros guardados",
@@ -2086,14 +2086,16 @@ function EnviarFormularioProveedores() {
 
     // validaciones de campos
     if (n == "") { mostrarToastError("Nombre"); return; }
-    if (d == "") { mostrarToastError("Dirección"); return; }
-    if (t == "") { mostrarToastError("Teléfono"); return; }
-    if (e == "") { mostrarToastError("Email"); return; }
+    // if (d == "") { mostrarToastError("Dirección"); return; }
+    // if (t == "") { mostrarToastError("Teléfono"); return; }
+    // if (e == "") { mostrarToastError("Email"); return; }
 
 
     //guardar el anuncio en la base de datos
     altaproveedor(id,n,d,t,e);
     limpiarformularioproveedor();
+    consultarproveedores();
+    consultaproveedores_seleccion_lista();
 
 }
 
@@ -2252,7 +2254,7 @@ function eliminarp(id) {
         reverseButtons: true
     }).then((result) => {
         if (result.value) {
-            eliminarproveedor(id);
+            intentaEliminarProveedor(id);
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -2263,6 +2265,59 @@ function eliminarp(id) {
             )
         }
     })
+}
+
+function intentaEliminarProveedor(idpasado){
+
+    var bdd = conexionbdd;
+    var tabladeproveedoresanuncios = tablaproveedoresanuncios;
+    
+    var tipo = "consultaunproveedorenrelacion";
+
+    var id;
+
+    if (idpasado == "")
+        id = 0;
+    else
+        id = idpasado;
+
+    var itemproveedor = new Object();
+    itemproveedor.bdd = bdd;
+    itemproveedor.tablaproveedoresanuncios = tabladeproveedoresanuncios;
+    itemproveedor.tipo = tipo;
+    itemproveedor.idproveedor = id;
+    var objetoanuncio = JSON.stringify(itemproveedor);
+
+    $.ajax({
+        url: "consultaproveedoranuncio.php",
+        data: { objetoanuncio: objetoanuncio },
+        type: "post",
+        success: function (data) {
+
+
+            if (data == "[]" || data == "consultavacia") {
+                eliminarproveedor(id);
+            } else if (data != "[]" && data != "consultavacia")
+            {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'Este proveedor tiene productos asignados, no puede ser eliminado',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            }else{
+                
+                console.log(data);
+            }
+            
+        },
+        error: function (e) {
+            alert("Error en el intento de eliminar un proveedor.");
+        }
+    });
+
+
 }
 
 function eliminarproveedor(idpasado) {
@@ -2305,6 +2360,7 @@ function eliminarproveedor(idpasado) {
                 )
 
                 consultarproveedores();
+                consultaproveedores_seleccion_lista();
                 posicioninicial();
 
             } else {
@@ -2430,6 +2486,7 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
         {
             $('#collapseBuscaxRubro').collapse('toggle')
 
+
             var bdd = conexionbdd;
             var tabla = tablaanuncios;
             var tabladerubros = tablarubros;
@@ -2464,12 +2521,10 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
             itemanuncio.filtro = "";
 
             var objetoanuncio = JSON.stringify(itemanuncio);
-
             arregloproveedoranuncio = [];
 
             $("#opcioneslista option:selected").prop("selected", false);
 
-            // console.log(objetoanuncio);
 
             $.ajax({
 
@@ -2915,69 +2970,104 @@ function altabajaproveedoranuncio(idanuncio, seleccionidproveedor, tipo, mensaje
 
 function cambiapreciosmasivos(tip)
 {
-    var porcentaje = document.getElementById("porcentaje");
-    if (tip == "restar" && porcentaje.value > 100){
+    var aplicaalcosto = 0;
+    var aplicaalaventa = 0;
 
-
-        Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            title: 'No puede restar mas del 100%',
-            showConfirmButton: false,
-            timer: 2500
-        })
-       
-        return;
+    if ($('#aplicaacosto').prop('checked')) {
+        aplicaalcosto = 1;
+    } 
+    
+    if ($('#aplicaaventa').prop('checked')) {
+        aplicaalaventa = 1;
     }
 
-    if (porcentaje.value != "" && porcentaje.value > 0 )
+    if(aplicaalcosto == 1 || aplicaalaventa == 1)
     {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        })
+        var alcancemodificacion = "";
+        
+        if(aplicaalcosto == 1 && aplicaalaventa == 1)
+        {
+            alcancemodificacion = "costoyventa";
+        }else if(aplicaalcosto == 1 && aplicaalaventa == 0)
+        {
+            alcancemodificacion = "costo";
+        }else
+            alcancemodificacion = "venta";
 
-        if (tip == "sumar") var mt = "¿Desea SUMAR el " + porcentaje.value  +  "% al precio de venta ?";
-        if (tip == "restar") var mt = "¿Desea RESTAR el " + porcentaje.value +  "% al precio de venta ?";
+        
+        var porcentaje = document.getElementById("porcentaje");
+        if (tip == "restar" && porcentaje.value > 100){
 
-        swalWithBootstrapButtons.fire({
-            title: 'Modificar precios',
-            text: mt,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Si!',
-            cancelButtonText: 'No!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                
-                cambiarPreciosVentaMasivamente(porcentaje.value,tip);
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Perfecto',
-                    'Los precios siguen iguales!!!'
-                )
-            }
-        })
-    }else{
 
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'No puede restar mas del 100%',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        
+            return;
+        }
+
+        if (porcentaje.value != "" && porcentaje.value > 0 )
+        {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            if (tip == "sumar") var mt = "¿Desea SUMAR el " + porcentaje.value  +  "% al precio de venta ?";
+            if (tip == "restar") var mt = "¿Desea RESTAR el " + porcentaje.value +  "% al precio de venta ?";
+
+            swalWithBootstrapButtons.fire({
+                title: 'Modificar precios',
+                text: mt,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si!',
+                cancelButtonText: 'No!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    
+                    cambiarPreciosVentaMasivamente(porcentaje.value, tip, alcancemodificacion);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Perfecto',
+                        'Los precios siguen iguales!!!'
+                    )
+                }
+            })
+        }else{
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Ingrese el porcentaje para el cambio de precios !',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+    }else
+    {
         Swal.fire({
             position: 'top-end',
             icon: 'warning',
-            title: 'Ingrese el porcentaje para el cambio de precios !',
+            title: 'Debe aplicarse el cambio al costo,venta o ambos !',
             showConfirmButton: false,
-            timer: 2500
+            timer: 3000
         })
     }
 }
 
-function cambiarPreciosVentaMasivamente(porcentaje,tip){
+function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
     
     for (var a = 0; a < arregloproveedoranuncio.length; a++) 
     {
@@ -2988,19 +3078,45 @@ function cambiarPreciosVentaMasivamente(porcentaje,tip){
         porcentaje = parseInt(porcentaje);
         if (tip == "sumar")
         {
-            costonuevo = parseInt(costoactual + costoactual * porcentaje / 100);
-            precionuevo = parseInt(precioactual + precioactual * porcentaje /100);
+            if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+                costonuevo = parseInt(costoactual + costoactual * porcentaje / 100);
+            else
+                costonuevo = parseInt(costoactual);
+
+            
+            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+                precionuevo = parseInt(precioactual + precioactual * porcentaje / 100);
+            else
+                precionuevo = parseInt(precioactual);
+
+            
         }else
         {
-            costonuevo = parseInt( costoactual - costoactual * porcentaje / 100);
-            precionuevo = parseInt(precioactual - precioactual * porcentaje / 100);
+            if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+                costonuevo = parseInt( costoactual - costoactual * porcentaje / 100);
+            else
+                costonuevo = parseInt( costoactual);
+            
+            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+                precionuevo = parseInt(precioactual - precioactual * porcentaje / 100);
+            else
+                precionuevo = parseInt(precioactual);
+
         }
 
         
         if (arregloproveedoranuncio[a].tildado == "checked") {
             actualizapreciocostoyventa(idproducto, precionuevo, precioactual, costonuevo, costoactual)
-            // console.log(idproducto, precionuevo, precioactual, costonuevo, costoactual );
+            console.log("Precios cambiados" );
         }
+
+        var tas = null;
+        console.log("Limpiar tabla");
+        if ($.fn.dataTable.isDataTable('#tablaanunciosproveedores'))
+            tas = $('#tablaanunciosproveedores').DataTable();
+        else return;
+
+        tas.clear().draw(true);
     }
 
     

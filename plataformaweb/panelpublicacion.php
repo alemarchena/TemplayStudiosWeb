@@ -510,11 +510,11 @@
                 <table id="tablarelacion" class="display table table-striped">
                     <thead>
                         <tr>
-                            <th>Id usuario</th>
-                            <th>email</th>
                             <th>Id plataforma</th>
                             <th>nombre</th>
-                            <th>Eliminar</th>
+                            <th>Ingreso</th>
+                            <th>Id usuario</th>
+                            <th>email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -672,11 +672,11 @@
                         idencontrado=dd[key].idusuario;
 
                         tr.row.add([
+                            dd[key].idplataforma,
+                            dd[key].nombre,
                             "<a onclick='seleccionarplataforma(\"" + dd[key].idusuario + "\",\"" + dd[key].idplataforma + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">open_in_browser</i>",
                             dd[key].idusuario,
-                            dd[key].email,
-                            dd[key].idplataforma,
-                            dd[key].nombre
+                            dd[key].email
 
                         ]).draw(false);
                     });

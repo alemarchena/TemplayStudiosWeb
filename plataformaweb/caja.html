@@ -19,11 +19,11 @@
         </div>
         <div class="col-sm-3">
             <label for="fechaventadesde" class=" bd-highlight colorletras"> Desde Fecha</label>
-            <input id="fechaventadesde" type="text" class="datepicker center" readonly>
+            <input id="fechaventadesde" style="font-size: 1.3em;" type="text" class="datepicker center" readonly>
         </div>
         <div class="col-sm-3">
             <label for="fechaventahasta" class=" bd-highlight colorletras">Hasta Fecha</label>
-            <input id="fechaventahasta" type="text" class="datepicker center" readonly>
+            <input id="fechaventahasta" style="font-size: 1.3em;" type="text" class="datepicker center" readonly>
         </div>
         <div class="col-sm-3">
             <div class="row">
@@ -84,10 +84,11 @@ function consultacajaenterdias()
 {
     var fechaventadesde = $("#fechaventadesde").val();
     fechaventaenviadadesde = conviertefechaastringdmy(fechaventadesde);
-
+   
     var fechaventahasta = $("#fechaventahasta").val();
     fechaventaenviadahasta = conviertefechaastringdmy(fechaventahasta);
-
+    
+  
     consultacaja(fechaventaenviadadesde, fechaventaenviadahasta);
 }
 
@@ -112,14 +113,31 @@ $(document).ready(function ()
 
     
     $("#fechaventadesde").change(function () {
-        consultacajaenterdias()
+        consultacajaenterdias();
     });
 
     $("#fechaventahasta").change(function () {
-        consultacajaenterdias()
+        consultacajaenterdias();
     });
 
-    
+    function colocafechaactual(){
+
+        
+        var f = new Date();
+        var mes = f.getMonth() + 1;
+       
+        if(mes<10){
+            mes = "0" + mes;
+        }
+        
+        var fechaactual =  f.getDate() + "-" + mes + "-" + f.getFullYear();
+        document.getElementById("fechaventadesde").value= fechaactual;
+        document.getElementById("fechaventahasta").value = fechaactual;
+
+        consultacajaenterdias();
+
+    }
+    colocafechaactual();
 });
 
 </script>

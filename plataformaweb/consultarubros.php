@@ -63,7 +63,7 @@
                 {
                     echo $resultado;
                 }else{
-                    echo "consultavacia ".$sql;
+                    echo "consultavacia".$sql;
                 }
             }
         }else{

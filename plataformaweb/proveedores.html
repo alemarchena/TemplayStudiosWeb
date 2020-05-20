@@ -178,7 +178,7 @@
                             
                         </div>
                         <div class="col-sm-4">
-                            <label id="labelopcionlistaproveedores" for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
+                            <label id="labelopcionlistaproveedores" for="opcioneslistaproveedores" class="colorletras">Lista de Proveedores</label>
                             <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
                         </div>
                         <div class="col-sm-4">
@@ -213,10 +213,10 @@
                                                     </div>
                                             
                                                     <div id="collapseBuscaxRubro" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                        <div class="card-body">
+                                                        
                                                             <!-- consultar por rubros -->
                                             
-                                                            <div class="d-flex flex-row justify-content-center bd-highlight my-5">
+                                                            <div class="row justify-content-center bd-highlight">
                                             
                                                                 <div class="col-sm-12">
                                                                     <label for="opcioneslista">Selecciona un Rubro a buscar</label>
@@ -224,7 +224,7 @@
                                                                 </div>
                                                             </div>
                                             
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,12 +240,12 @@
                                                         </h2>
                                                     </div>
                                                     <div id="collapseFiltro" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                                        <div class="card-body">
+                                                        
                                                             <!-- consultar con filtros -->
-                                                            <div class="d-flex flex-row justify-content-center py-1">
+                                                            <div class="row justify-content-center py-1">
                                             
                                                                 <div class="col-sm-11 ">
-                                                                    <div class="d-flex flex-row justify-content-center bd-highligh">
+                                                                    <div class="row justify-content-center bd-highligh">
                                                                         <div id="criterios_proveedoranuncios" class="col-sm-6">
                                             
                                                                         </div>
@@ -267,7 +267,7 @@
                                                                 </div>
                                             
                                                             </div>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -276,36 +276,77 @@
                                 </div>
                            </div>
 
-                            
+            <!-- ------------- Productos para asignar o cambiar precios --------------------- -->
                             
                             <div id="filapregunta" class="p-2">
                                 <h5 id="h5Titulo">Productos para asignar</h5>
                             </div>
-                            <p id="explicaasignacion" class="card-text">Tilde los productos que desee asignar o use los botones de cambio
-                                masivo</p>
-                            <p id="explicacambioprecio" class="card-text" style="display: none;">Ingrese el porcentaje, tilde los productos a modificar y use el botón
-                                de cambio masivo</p>
+                            <p id="explicaasignacion" class="card-text">Marcar uno a uno los productos a asignar o bien usar los botones de cambio masivo</p>
+                            <div id="explicacambioprecio" class="row justify-content-center" style="display: none;">
+                                <div class="col-sm-12">
+                                    <div class="row justify-content-center">
+                                        <p class="card-text">1-Ingresar solo el número de porcentaje a aplicar</p>
+                                      
+                                        <input id="porcentaje" name="porcentaje" placeholder="Ej: 10" data-position="top"
+                                            data-tooltip="Porcentaje de aumento o disminución que aplicará sobre el precio costo y venta actual del producto"
+                                            onKeyDown="return validarnumero(event, this.value, 6)" onKeyUp="return validarnumero(event, this.value, 6)"
+                                            type="text" class="validate  waves-effect columnadecuatro tooltipped amber lighten-5 border border-light ml-1"
+                                            ></input>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col">
+                                            <div class="row justify-content-center">
+                                                <p class="card-text">2-Marcar a que le aplica el cambio (venta/costo)</p>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <p class="mr-1">
+                                                    <label>
+                                                        <input id="aplicaacosto" type="checkbox" class="filled-in" />
+                                                        <span class="colorletras">Aplicar al costo</span>
+                                                    </label>
+                                                </p>
+                                                <p class="ml-1">
+                                                    <label>
+                                                        <input id="aplicaaventa" type="checkbox" class="filled-in" />
+                                                        <span class="colorletras">Aplicar al precio venta</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <p class="card-text">3-Marcar los productos a modificar</p>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <p class="card-text">4-Presionar el botón de cambio masivo</p>
+                                    </div>
+                                </div>
+                            </div>
                         
                             <hr>
+                            
 
                             <div class=" col-sm-2">
                                 <input style="display: none;" id="idproveedorelegido" name="idproveedorelegido" type="text">
                                 <input style="display: none;" id="proveedorelegido" name="proveedorelegido" type="text">
                             </div>
+
                             <div class="table-responsive">
                                 <table id="tablaanunciosproveedores" class="display table table-striped">
                                     <thead>
                                         <tr>
                                             <th>Título</th>
-                                            <th class="columnadetres center">
-                                                <input id ="porcentaje" name ="porcentaje" data-position="top"  data-tooltip="Porcentaje de aumento o disminución que aplicará sobre el precio costo y venta actual del producto" onKeyDown="return validarnumero(event, this.value, 6)" onKeyUp ="return validarnumero(event, this.value, 6)"  type="text" class="validate columnadetres tooltipped amber lighten-5 border border-light" style="display: none;"></input>
+                                            <th class="columnadedos center">
                                                 
-                                            <label id="" for="labelaltabaja">Asignación masiva</label>
-                                            <a id="btnaltaanuncio" onclick='agregaquitatodosprovanun("alta")' class="btn-floating btn-sm waves-effect waves-light   blue  tooltipped" data-position="right"  data-tooltip="Asignación masiva de productos" ><i class="material-icons">assignment_turned_in</i>
-                                            <a id="btnbajaanuncio" onclick='agregaquitatodosprovanun("baja")' class="btn-floating btn-sm waves-effect waves-light  pink accent-1 tooltipped" data-position="left"  data-tooltip="Desasignación masiva de productos"><i class="material-icons">assignment_turned_in</i>
-                                            <a id="btnpreciosumar" onclick='cambiapreciosmasivos("sumar")' class="btn-floating btn-sm waves-effect waves-light  amber  tooltipped" data-position="right"  data-tooltip="Aumentar masivamente los precios" style="display: none;"><i class="material-icons">assignment_turned_in</i>
-                                            <a id="btnpreciorestar" onclick='cambiapreciosmasivos("restar")' class="btn-floating btn-sm waves-effect waves-light   amber darken-4  tooltipped" data-position="left"  data-tooltip="Disminuir masivamente los precios" style="display: none;"><i class="material-icons">assignment_turned_in</i>
-                                        </th>
+                                                <label id="" for="labelaltabaja">Botones de cambio masivo</label>
+                                                <a id="btnaltaanuncio" onclick='agregaquitatodosprovanun("alta")' class="btn-floating btn-sm waves-effect waves-light   blue  tooltipped" data-position="right"  data-tooltip="Asignación masiva de productos" ><i class="material-icons">assignment_turned_in</i>
+                                                <a id="btnbajaanuncio" onclick='agregaquitatodosprovanun("baja")' class="btn-floating btn-sm waves-effect waves-light  pink accent-1 tooltipped" data-position="left"  data-tooltip="Desasignación masiva de productos"><i class="material-icons">assignment_turned_in</i>
+                                                <a id="btnpreciosumar" onclick='cambiapreciosmasivos("sumar")' class="btn-floating btn-sm waves-effect waves-light  amber  tooltipped" data-position="right"  data-tooltip="Aumentar masivamente los precios" style="display: none;"><i class="material-icons">assignment_turned_in</i>
+                                                <a id="btnpreciorestar" onclick='cambiapreciosmasivos("restar")' class="btn-floating btn-sm waves-effect waves-light   amber darken-4  tooltipped" data-position="left"  data-tooltip="Disminuir masivamente los precios" style="display: none;"><i class="material-icons">assignment_turned_in</i>
+                                            </th>
                             
 
                                             <th>Descripción</th>
@@ -316,7 +357,7 @@
                                     <tbody>
                                         <tr>
                                             <td></td>
-                                            <td class="columnadetres center"></td>
+                                            <td class="columnadedos center"></td>
                                             <td></td>
                                             <td class="columnadedos center"></td>
                                             <td class="columnadedos center"></td>
@@ -375,11 +416,10 @@
             var poscontacto = $("#subcabeceraProductosProveedor").offset().top - alturamenu;
             $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 
-            if ($.fn.dataTable.isDataTable('#tablaanunciosproveedores'))
+            if ($.fn.dataTable.isDataTable('#tablaanunciosproveedores')){
                 tas = $('#tablaanunciosproveedores').DataTable();
-            
-
-            tas.clear().draw(true);
+                tas.clear().draw(true);
+            }
         });
 
         $("#opcioneslista").on('change', function () 
@@ -398,6 +438,7 @@
 
         $("#consulta").click(function () 
         {
+
             if (estaAsignandoProductos)
                 consultarProveedoresProductosXfiltro("consultafiltros");
             else
@@ -420,7 +461,7 @@
        
 
         $("#btnProductosProveedor").click(function(){
-            $("#h5Titulo").text("Productos para asignar");
+            $("#h5Titulo").text("Asignar Productos al Proveedor");
             $("#cabeceraProductosProveedor").removeClass("amber lighten-5");
             $("#cabeceraProductosProveedor").addClass("  blue lighten-5");
 
@@ -435,7 +476,7 @@
            
            $("#btnpreciosumar").hide();
            $("#btnpreciorestar").hide();
-           $("#porcentaje").hide();
+ 
            $("#labelporcentaje").hide();
            $("#explicacambioprecio").hide();
            
@@ -448,7 +489,7 @@
         });
         
         $("#btnCambioPrecios").click(function () {
-            $("#h5Titulo").text("Productos del proveedor");
+            $("#h5Titulo").text("Cambio de Precios");
             $("#cabeceraProductosProveedor").removeClass("  blue lighten-5");
             $("#cabeceraProductosProveedor").addClass("amber lighten-5");
             
@@ -462,7 +503,7 @@
             
             $("#btnpreciosumar").show();
             $("#btnpreciorestar").show();
-            $("#porcentaje").show();
+          
             $("#labelporcentaje").show();
             $("#explicacambioprecio").show();
             
