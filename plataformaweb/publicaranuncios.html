@@ -4,7 +4,7 @@
     <body>
 
         <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
-            <div id="accordion">
+            <div id="accordionAnuncios">
 
                 <div class="card">
                     <h5>Productos <i class="fas fa-address-card"></i></h5>
@@ -19,7 +19,7 @@
                         </h5>
                     </div>
             
-                    <div id="collapsePub" class="collapse" aria-labelledby="headinPub" data-parent="#accordion">
+                    <div id="collapsePub" class="collapse" aria-labelledby="headinPub" data-parent="#accordionAnuncios">
                         <div class="card-body">
                             <!-- Nuevos productos -->
                             <div id="filatarjeta" class="row">
@@ -55,7 +55,7 @@
                                                                     <div class="form-group">
                                                                         <input class="colorletras grey lighten-3 pt-2"
                                                                             value="Ninguna imagen cargada" class="form-control" type="file"
-                                                                            id="imagen" name="imagen" required>
+                                                                            id="imagen" name="imagen">
                                                                         <progress class="progress" id="barra" value="0" max="100">0%</progress>
                                                                         <label class="colorletras" for="" id="valorbarra">0%</label>
                                                                         <p class="red-text accent-4" id="aviso"></p>
@@ -259,6 +259,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="card">
                     <div class="card-header" id="headingLista">
                         <h5 class="m-0">
@@ -268,62 +269,64 @@
                             </button>
                         </h5>
                     </div>
-                    <div id="collapseLista" class="collapse" aria-labelledby="headingLista" data-parent="#accordion">
+                    <div id="collapseLista" class="collapse" aria-labelledby="headingLista" data-parent="#accordionAnuncios">
                         <div class="card-body">
                                 <!-- Editar/Eliminar productos -->
-                                <div class="card text-center grey lighten-3">
+                                <div class="text-center grey lighten-3">
                                    
                                     <nav class="nav-extended  red lighten-2">
                                         <div class="nav-content">
                                             <span class="nav-title">Productos publicados</span>
                                         </div>
                                     </nav>
-                                    <div class="row">
+                                    <div class="row justify-content-center">
                                     
                                         <!-- Columna de lista de anuncios -->
                                         <div class="col-sm-12">
-                                            <div class="d-flex flex-row justify-content-center bd-highlight my-5">
-                                                <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-6 center">
                                                     <label for="opcioneslista">Selecciona un Rubro a buscar</label>
                                                     <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
                                                 </div>
                                             </div>
-                                            <div class="table-responsive">
-                                                <table id="tablaanuncios" class="display table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th>Editar</th>
-                                                            <th>Imagen</th>
-                                                            <th>Rubro</th>
-                                                            <th>Título</th>
-                                                            <th>Descripción</th>
-                                                            <th>Precio Vta</th>
-                                                            <th>Costo</th>
-                                                            <th>Es Promo</th>
-                                                            <th>Es Novedad</th>
-                                                            <th>se publica?</th>
-                                                            <th>Eliminar</th>
-                                    
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table id="tablaanuncios" class="display table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>Editar</th>
+                                                                <th>Imagen</th>
+                                                                <th>Rubro</th>
+                                                                <th>Título</th>
+                                                                <th>Descripción</th>
+                                                                <th>Precio Vta</th>
+                                                                <th>Costo</th>
+                                                                <th>Es Promo</th>
+                                                                <th>Es Novedad</th>
+                                                                <th>se publica?</th>
+                                                                <th>Eliminar</th>
+                                        
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     
@@ -351,6 +354,7 @@
     // function inicio() {
     //        window.setInterval("consultaranuncios()", 150000);
     // }
+
 
     $(document).ready(function () 
     {

@@ -29,21 +29,12 @@
                             onKeyUp="validarfiltro(event)"
                             placeholder="Escriba productos, marcas... y presiona Enter">
                         </div>
-                        <div class="col-sm-3">
-                            <div class="row justify-content-center bd-highligh">
-                                <div class="col center">
-                                    <a id="agregar_filtro_productos"><img src="img/icono_suma.png" alt="Agregar"
-                                            class="tooltipped" data-position="bottom"
-                                            data-tooltip="Agrega un producto como filtro de búsqueda"></a>
-                                </div>
-                                <div class="col center">
-                                    <a id="consulta" class="tooltipped" data-position="bottom"
+                        <div class="col-sm-4">
+                            <a id="agregar_filtro_productos" class="tooltipped" data-position="bottom"
                                         data-tooltip="Busca todos los productos o aquellos filtrados"><i class='fas fa-search'
                                             style="font-size:40px;"></i></a>
-                                </div>
-                            </div>
                         </div>
-                        <div id="criterios_productos" class="col-sm-3">
+                        <div id="criterios_productos" class="col-sm-2">
 
                         </div>
                     </div>
@@ -274,6 +265,8 @@
 
         $("#agregar_filtro_productos").click(function () {
             agregarfiltroproducto();
+            consultaranuncioscatalogo("consultafiltros");
+
         });
 
         $("#opcioneslista").on('change',function(){
@@ -289,11 +282,6 @@
                 displayLength: '1000'
             });
         });
-        
-        $("#consulta").click(function(){
-            consultaranuncioscatalogo("consultafiltros");
-        });
-        
         
     });
     
