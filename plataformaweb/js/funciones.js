@@ -1885,7 +1885,7 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
     itemventa.fechaventa = "";
 
     var vendido = JSON.stringify(itemventa);
-
+    
     $.ajax({
 
         url: "consultaventas.php",
@@ -1894,6 +1894,8 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
         type: "post",
 
         success: function (data) {
+
+        
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
 

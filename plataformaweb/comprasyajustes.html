@@ -320,6 +320,27 @@ $(document).ready(function ()
         }
     });
 
+    function colocafechaactual() {
+
+
+        var f = new Date();
+        var mes = f.getMonth() + 1;
+
+        if (mes < 10) {
+            mes = "0" + mes;
+        }
+
+        var fechaactual = f.getDate() + "-" + mes + "-" + f.getFullYear();
+        document.getElementById("fechamovimientodesde").value = fechaactual;
+        document.getElementById("fechamovimientohasta").value = fechaactual;
+        document.getElementById("fechacompraajuste").value = fechaactual;
+        
+
+        desdehasta();
+        desdehastaajuste();
+    }
+    colocafechaactual();
+
     $("#opcioneslistaproveedores").change(function () {
         var o = document.getElementById("opcioneslistaproveedores");
         var opcion = o.options[o.selectedIndex].text;

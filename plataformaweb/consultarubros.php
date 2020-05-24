@@ -31,11 +31,11 @@
     if($tipo == "consultatodosanuncios" || $tipo == "consulta" || $tipo == "consultarubroenanuncios")
     {
         if($tipo == "consultatodosanuncios" ){
-            $sql = "Select * from " .$tabla. " where 1";
+            $sql = "Select * from " .$tabla. " where 1 order by nombrerubro asc";
         }else if($tipo == "consulta"){
-            $sql = "Select * from " .$tabla. " where idrubro =" . $id;
+            $sql = "Select * from " .$tabla. " where idrubro =" . $id . " order by nombrerubro asc";
         }else if($tipo == "consultarubroenanuncios"){
-            $sql = "Select * from " .$tablaanuncios. " where idrubro =" . $id;
+            $sql = "Select * from " .$tablaanuncios. " where idrubro =" . $id. " order by nombrerubro asc";
         } 
 
         $resultado  = $mysqli->query($sql);

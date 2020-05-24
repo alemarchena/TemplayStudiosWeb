@@ -1,177 +1,119 @@
 
 html,
 body {
-  font-size: 20px;
-  font-family: 'Oswald',sans-serif;
+  font-size: 18px;
+  font-family: 'Kulim Park', sans-serif;
+  color: #2E2E2E;
+
   height: 100%;
-}
-
-#fondo {
-  position: absolute;
-  z-index: -1;
-  display: block;
-  width: 100%;
-}
-
-#seccionlocal{
-  z-index: -1;
-  padding-top: 5em;
-}
-
-/* --------------------------------------------------------*/
-.footer {
-
-  font-family: 'Oswald',sans-serif;
-  background-color: #ef9a9a ;
-}
-
-.footer > div.container {
-  padding: 30px;
-}
-.pie{
-
-  font-family: 'Oswald',sans-serif;
-  font-size: 18px;
-
-  color: rgb(51, 51, 37);
-  padding-bottom: 1em;
-}
-.pieredes{
-
-  font-family: 'Oswald',sans-serif;
-  font-size: 18px;
-
-  color: rgb(1, 120, 156);
-  padding-bottom: 1em;
-}
-p{
-  font-family: 'Oswald',sans-serif;
-  font-size: 18px;
-}
-
-.textobotonextras{
-  font-size: 13px;
-}
-
-.extradescripcion{
-  font-size: 70%;
-}
-
-#nombre,#apellido,#email,#celular{
-  font-size: 18px;
-  color: rgb(131, 203, 224);
-}
-.menu{
-  background-color:#fdd835 ;
-  height: 85px;
-}
-#listamenu { 
-  background-color:#fdd835 ;  
-  width: 100%; 
-}
-#listamenuderecha{
-  background-color:#fdd835 ;  
-  width: 50%;
 
 }
-.navbar-nav{
-  /* background-color:#e57373 ; */
-  background-color:#fdd835 ;
-  
-
-}
-.material-icons
-{
-  display: inline!important;
+/* --------------------- Barra de navegacion --------------- */
+.nav {
+    width: 100%;
 }
 a.nav-link {
-  color: rgb(71, 71, 71);
+  color: white;
   text-align: right;
-  background-color:#fdd835 ;
+  background-color:#415d9b ;
 }
 
-.claseseccionnovedades{
-  background-color: #ffffffce!important;
+#seccionbusqueda{
+  background-color:#415d9b ;
 }
-
-.row{
-  margin-bottom: 0em!important;
-}
-.contacto{
-  color: #d3d3d3;
-  font-size: 20px;
-  
-}
-.contactoplaceholder{
-  color: #d3d3d3;
-  font-size: 18px;
-
-}
-
-#menuofertas,#menucontacto, #menunegocio, #menuubicacion,#menuanuncios,#menuproductos{
-  color: rgb(0, 0, 0);
-}
-#menuofertas:hover,#menucontacto:hover, #menuubicacion:hover,#menuanuncios:hover,#menuproductos:hover{
-  
-  color: #880e4f;
-  background-color: white;
-}
-
-ul li.nav-item.active{
-  background-color: #d8fd35 ;
-  /* color: white; */
-}
-#telefono_en_barra{
-  color:#400909!important;
-}
-
-#menunegocio{
-  font-size: 20px;
-  color: rgb(66, 7, 51);
-  margin-right: 30px;
-}
-#listamenu{
+.menu{
+  margin-top: 65px;
   width: 100%;
+  background-color:#415d9b ;
+}
+
+#telefono_en_barra{
+  color:#ffffff!important;
+  font-family: 'Kulim Park', sans-serif;
+
+}
+/* ----------------------------------------------------------------- */
+
+p{
+  font-family: 'Kulim Park', sans-serif;
+
+   font-size: 18px;
 }
 
 
-#seccionfotoslocal{
-  background-color: white;
+#seccionnovedades{
+
+  background-color: rgb(235, 235, 235);
+  opacity: 95%;
+
 }
 
+/* ---------------------------Imagen fondo superior------------------------  */
 
 #seccionlocal{
-  
-  z-index: -1;
-
+  z-index: -3;
+  padding-top: 3em;
 }
-
+#seccionlogolocal{
+  z-index: -2;
+  padding-top: 12em;
+ 
+}
+ /* ---------------------------Parte transparente------------------------  */
 #seccioncontenidos{
   opacity: 0;
   z-index: -1;
 }
 
-
-#seccionutilidad{
-  background-color: white;
+/* ---------------------------------------------------------------------------- */
+#seccionfotoslocal{
+  background-color: rgb(235, 235, 235);
+  opacity: 95%;
 
 }
+
+.claseseccionnovedades{
+  background-color:  rgb(235, 235, 235);
+  opacity: 95%;
+
+}
+
+#seccionutilidad{
+  background-color:  rgb(235, 235, 235);
+  opacity: 95%;
+
+}
+
 .seccioncategoria{
   padding: 1em;
-  background-color: white;
+  background-color:  rgb(235, 235, 235);
   opacity: 0.95;
 
 }
+
+#seccionnovedades{
+
+}
+
+#seccionbuscados{
+
+}
+
+#seccionpromociones{
+
+}
+
 #subcontenedorcontacto{
 
   padding-top: 3%;
   padding-left: 3%;
   padding-right: 3%;
-  background-color:   rgb(104, 136, 168);
+  background-color:   rgb(235, 235, 235);
 }
 
 #seccioncontacto{
 
+ 
   opacity: 95%;
 }
 #seccionubicacion{
@@ -210,117 +152,60 @@ hr{
 }
 
 .describir{
-  background-color:#086A87; 
+  background-color:#086A87;
   color: white;
 }
 .describir:hover{
   background-color:grey;
   color: white;
 }
+/* --------------------------------------------------------*/
+.footer {
 
-
-.navbar {
-    width: 100%;
-
-  }
-.nav {
-    width: 100%;
-    
-
-  }
-
-
-
-/* ------------------------------------------ configuracion secciones ---------------------------------*/
-
-.ladoderecho{
-  padding-right: 1em; 
+  font-family: Rancho-Regular;
+  background-color: #ef9a9a ;
+  color: black;
 }
 
-.ladoizquierdo{
-  padding-left: 1em; 
+.footer > div.container {
+  padding: 30px;
 }
 
-/* ----------------------------------------- configuracion del slider ------------------------------- */
 .slidecontainer {
   width: 100%;
-  /* padding-top: 2em; */
 }
 
-.slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 15px;
-  border-radius: 5px;   
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
+/* -------------------- Media Queries ------------------------------- */
+ @media (min-width:  769px) and (max-width: 2000px) {
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%; 
-  background: #4CAF50;
-  cursor: pointer;
-}
+    #seccioncontenidos{
+      height: 30em!important;
 
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-}
-
-
-
-@media (max-width: 2000px) {
-
-  #seccioncontenidos{
-    height: 22em!important;
- 
-  }
-}
-
-
-@media (max-width:  768px) {
- 
-  #seccioncontenidos{
-  height: 13em;
- 
-  }
-  #my-nav{
-  background-color: aliceblue;
- 
+    }
   }
 
-  #listamenuderecha
-  {
-    background-color:#fdd835 ;  
-    width: 100%!important;
-  }
-}
+  @media (max-width:  768px) {
 
-@media (min-width:  300px) and (max-width: 575px) { 
+    #seccioncontenidos{
+      height: 18em;
+    }
+  }
 
-  #listamenuderecha{
-    background-color:#fdd835 ;  
-    width: 100%!important;
+  @media (min-width:  300px) and (max-width: 575px) {
+    /* #fondo{
+      visibility: hidden;
+    } */
+    #seccionlogolocal{
+      z-index: -2;
+      padding-top: 5em;
+    }
 
-  }
-  #fondo{
-    visibility: hidden;
-  }
-  #seccioncontenidos{
-  height: 6em;
- 
-  }
-  #my-nav{
-  background-color: aliceblue;
- 
+    #seccioncontenidos{
+      height: 20em;
+    }
+    
+    #seccionlocal{
+      z-index: -1;
+      padding-top: 8em;
+    }
 }

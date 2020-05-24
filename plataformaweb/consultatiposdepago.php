@@ -24,10 +24,10 @@
     if($tipo == "consultatodo" || $tipo == "consulta")
     {
         if($tipo == "consultatodo")
-            $sql = "Select * from " .$tabla. " where 1";
+            $sql = "Select * from " .$tabla. " where 1 order by nombre asc";
         
         if($tipo == "consulta")
-            $sql = "Select * from " .$tabla. " where id =" . $id;
+            $sql = "Select * from " .$tabla. " where id =" . $id . " order by nombre asc";
 
         $resultado  = $mysqli->query($sql);
         $data = array();

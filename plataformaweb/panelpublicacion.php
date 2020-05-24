@@ -297,6 +297,8 @@
 
                 success: function (data) 
                 {
+                     
+
                     if (data != "[]")
                     {
                         dd = JSON.parse(data);
@@ -318,7 +320,6 @@
                             dominio = dd[key].dominio;
                            
                         });
-                        
                         
                         $("#plataforma").load("panel.html");
                     }    

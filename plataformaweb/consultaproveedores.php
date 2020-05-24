@@ -32,9 +32,9 @@
     if($tipo == "consultatodosanuncios" || $tipo == "consulta")
     {
         if($tipo == "consultatodosanuncios"){
-            $sql = "Select * from " .$tabla. " where 1";}
+            $sql = "Select * from " .$tabla. " where 1 order by nombreproveedor";}
         else{
-            $sql = "Select * from " .$tabla. " where idproveedor =" . $id; }
+            $sql = "Select * from " .$tabla. " where idproveedor =" . $id . " order by nombreproveedor"; }
 
         $resultado  = $mysqli->query($sql);
         $data = array();

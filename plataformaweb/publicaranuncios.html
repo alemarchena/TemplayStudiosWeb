@@ -55,7 +55,7 @@
                                                                     <div class="form-group">
                                                                         <input class="colorletras grey lighten-3 pt-2"
                                                                             value="Ninguna imagen cargada" class="form-control" type="file"
-                                                                            id="imagen" name="imagen">
+                                                                            id="imagen" name="imagen" required>
                                                                         <progress class="progress" id="barra" value="0" max="100">0%</progress>
                                                                         <label class="colorletras" for="" id="valorbarra">0%</label>
                                                                         <p class="red-text accent-4" id="aviso"></p>
@@ -66,10 +66,10 @@
                                                     </div>
                                                 </div>
                             
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4 center">
                             
                             
-                                                    <div class="row">
+                                                    <div class="row justify-content-center">
                                                         <!-- ------------------ abm rubro ----------------- -->
                                                         <div class=" col-sm-2">
                                                             <!-- rubro -->
@@ -282,8 +282,8 @@
                                     <div class="row justify-content-center">
                                     
                                         <!-- Columna de lista de anuncios -->
-                                        <div class="col-sm-12">
-                                            <div class="row">
+                                        <div class="col-sm-12 center">
+                                            <div class="row justify-content-center">
                                                 <div class="col-sm-6 center">
                                                     <label for="opcioneslista">Selecciona un Rubro a buscar</label>
                                                     <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
@@ -378,7 +378,7 @@
         
         inicioconsulta(); //trae los anuncios al cargar la pagina
 
-         $("#enviar").click(function () {
+        $("#enviar").click(function () {
             EnviarFormulario();
         });
 
@@ -411,13 +411,13 @@
    
      $("#opcioneslista").on('change', function () {
 
-            consultaranuncios();
-            M.toast(
-            {
-                html: 'Buscando productos por rubro...',
-                displayLength: '3000'
-            });
+        consultaranuncios();
+        M.toast(
+        {
+            html: 'Buscando productos por rubro...',
+            displayLength: '3000'
         });
+    });
 
     
 </script>

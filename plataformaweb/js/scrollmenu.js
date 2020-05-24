@@ -3,13 +3,13 @@ var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con ma
 var velocidadscroll = 600;
 
 //-------------------------------------------controla lo que aparece o no segun el scroll ----------------------
-$(window).on('scroll', function () {
+// $(window).on('scroll', function () {
 
-	if ($(window).scrollTop() > 350) 
-		$("#seccionbusqueda").css("display", "none");
-	else
-		$("#seccionbusqueda").css("display", "block");
-});
+// 	if ($(window).scrollTop() > 350) 
+// 		$("#seccionbusqueda").css("display", "none");
+// 	else
+// 		$("#seccionbusqueda").css("display", "block");
+// });
 //--------------------------SCROLL DEL MENU ----------------------------------------------
 $("#inicio").on('click', function (e) { e.preventDefault(); $("html, body").animate({ scrollTop: 0 }, velocidadscroll); });
 $("#home").on('click', function (e) { e.preventDefault(); $("html, body").animate({ scrollTop: 0 }, velocidadscroll); });
