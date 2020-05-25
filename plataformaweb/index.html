@@ -50,9 +50,10 @@
     <script src="configuracion.js"></script>
     <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
   
-</head>
+  </head>
+
   <body>
-  <div class="slidecontainer">
+    <div class="slidecontainer">
 
       <!-- -------------------------------------comienzo de la barra -------------------------------------------- -->
       <div id="seccionbusqueda" class="fixed-top "></div>
@@ -72,136 +73,125 @@
           <li class="nav-item">
             <a id="menucontacto" class="nav-link " href="#">Delivery</a>
           </li>
+        </ul>
+
+        <ul class="nav justify-content-center">
           <li class="nav-item">
             <i class="fab fa-whatsapp ml-2"></i>
             <a id="telefono_en_barra" href="" target="_BLANK"></a>
           </li>
           <li class="nav-item">
-            <a id="direccioninstagram" href="" target="_blank"><img class="lead" src="img/logoinstagram.png" alt="facebook"></a>
+            <a id="direccioninstagram" href="" target="_blank"><img class="lead ml-2" src="img/logoinstagram.png"
+                alt="facebook"></a>
+          </li>
+          <li class="nav-item">
+            <a id="direccionfacebook" href="" target="_blank"><img class="lead ml-2" src="img/logo-facebook.png"
+                alt="facebook"></a>
           </li>
         </ul>
-      
       </div>
-
-     
-  </div>
-
-  
-  
-  <section id="seccionlocal" class="fixed-top text-center mt-5">
-    <img id="fondo" src="img/fondofondo.jpg" style="width: 100%;">
-  </section>
-  <section id="seccionlogolocal" class="fixed-top text-center mt-5 pt-8">
-    <img class="img-fluid rounded-top" src="img/logoempresa.png" alt="Empresa" width="13%" height="auto">
-  
-  </section>
-  
-  <!-- seccion transparente-->
-    <section id="seccioncontenidos">
-
+        
+    </div>
+      
+      
+    <!-- ----------------------------------------- FONDO Y LOGO  --------------------------------------- -->
+    
+    <section id="seccionlocal" class="fixed-top text-center mt-5">
+      <img id="fondo" src="img/fondofondo.jpg" style="width: 100%;">
     </section>
 
-<!-- --------------------------------------------------- NEGOCIO ------------------------------------------------- -->
-
-  <div id="seccionfotoslocal">
-    <div class="d-flex flex-row justify-content-center align-items-center bd-highlight">
-      <div class="col-sm-12 center">
-        <p id="slogan" style="font-size: 20px;" class="pt-2"></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="claseseccionnovedades">
-  
-    <div class="d-flex justify-content-around text-center">
-      
-      <div class="col-sm-4">
-        <!-- <button id="mayor" class="btn btn-outline-info btn-sm chip">Mayor a 18 años</button> -->
-        <button id="mayor" type="button" class="btn btn-warning" style="color: black;">Mayor a 18 años</button>
-      </div>
-      
-      <div class="col-sm-4">
-          
-      </div>
-
-      <div class="col-sm-4">
-        <!-- <button id="menor" class="btn btn-outline-info btn-sm chip">Menor a 18 años</button> -->
-        <button id="menor" type="button" class="btn btn-warning" style="color: black;">Menor a 18 años</button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
-  <div id="vervineria" class="claseseccionnovedades">
-
-    <div id="seccionnovedades">
+    <section id="seccionlogolocal" class="fixed-top text-center mt-5 pt-8">
+      <img class="img-fluid rounded-top" src="img/logoempresa.png" alt="Empresa" width="13%" height="auto">
+    </section>
     
-    </div>
-    <div id="seccionbuscados" class="card-deck row">
+    <!-- ----------------------------------------- seccion transparente --------------------------------------- -->
+    <section id="seccioncontenidos"></section>
 
-    </div>
-    <div id="seccionpromociones" class="p-3">
+    <!-- --------------------------------------------------- NEGOCIO ------------------------------------------------- -->
 
-    </div>
-  </div>
-  
-  <!-- --------------------------------------------------- MAPA ------------------------------------------------- -->
-  </div>
-
-      <section id="seccioncontacto" >
-        <div id="subcontenedorcontacto" >
-
+    <div id="seccionfotoslocal">
+      <div class="d-flex flex-row justify-content-center align-items-center bd-highlight">
+        <div class="col-sm-12 center">
+          <p id="slogan" class="pt-2"></p>
         </div>
-      </section>
+      </div>
+    </div>
+    
+    <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
 
-      <section id="seccionubicacion" class="container jumbotron">
-        <h5>Ubicación</h5>
-        <iframe id="direcciongoogle"
-          src=""
-          width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-      </section>
+    <div class="claseseccionnovedades">
+    
+      <div class="d-flex justify-content-around text-center">
+        <div class="col-sm-4">
+          <button id="mayor" type="button" class="btn btn-warning" style="color: black;">Mayor a 18 años</button>
+        </div>
+        
+        <div class="col-sm-4"></div>
 
-      <footer id="footer" class="footer">
-       
-      </footer>
+        <div class="col-sm-4">
+          <button id="menor" type="button" class="btn btn-warning" style="color: black;">Menor a 18 años</button>
+        </div>
+      </div>
 
-      <div id="direccioncatalogoweb"></div>
-      <div id="direccionfacebook"></div>
+    </div>
 
-        <!-- LIBRERIAS NECESARIAS -->
-        
-        <!-- JQuery -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
-        
-        
-        
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        
-        <!-- para mostrar la tabla -->
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-        
-        <!-- para mostrar los toast -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
-
-
-  <script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
-  <script src="js/funciones.js"></script>
-  <script src="js/subscriptionPopup.js"></script>
-  <script src="establecerparametrosweb.js"></script>
+    <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
+    <div id="vervineria" class="claseseccionnovedades">
+      <div id="seccionnovedades"></div>
+      <div id="seccionbuscados" class="card-deck row"></div>
   
+      <div id="divpromociones" class="d-flex flex-row justify-content-center align-items-center"><small><h5>Promociones</h5></small></div>
+      
 
-</body>
+      <div id="seccionpromociones" class="p-3"></div>
+    </div>
+    
+
+    <!-- --------------------------------------------------- CONTACTO ------------------------------------------------- -->
+
+    <section id="seccioncontacto" >
+      <div id="subcontenedorcontacto" ></div>
+    </section>
+        
+    <!-- --------------------------------------------------- MAPA ------------------------------------------------- -->
+
+    <section id="seccionubicacion" class="container jumbotron">
+      <h5>Ubicación</h5>
+      <iframe id="direcciongoogle"
+        src=""
+        width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    </section>
+
+    <footer id="footer" class="footer"></footer>
+
+    <div id="direccioncatalogoweb"></div>
+
+    <!-- ------------------------------------------- LIBRERIAS NECESARIAS --------------------------------->
+    
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+          <!-- Bootstrap core JavaScript -->
+          <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+          <!-- MDB core JavaScript -->
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+          <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+          <!-- para mostrar la tabla -->
+          <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+          <!-- para mostrar los toast -->
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+          
+    <!-- ------------------------------------------- LIBRERIAS PROPIAS --------------------------------->
+
+    <script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
+    <script src="js/funciones.js"></script>
+    <script src="js/subscriptionPopup.js"></script>
+    <script src="establecerparametrosweb.js"></script>
+
+  </body>
 </html>
 
 <script type="text/javascript">

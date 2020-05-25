@@ -3069,6 +3069,8 @@ function cambiapreciosmasivos(tip)
     }
 }
 
+
+
 function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
     
     for (var a = 0; a < arregloproveedoranuncio.length; a++) 
@@ -3078,16 +3080,27 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
         costoactual = parseInt(arregloproveedoranuncio[a].costo);
         precioactual = parseInt(arregloproveedoranuncio[a].precio);
         porcentaje = parseInt(porcentaje);
+
+        var redondeo = $('#opcionredondear').prop('checked');
+
         if (tip == "sumar")
         {
             if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+            {
                 costonuevo = parseInt(costoactual + costoactual * porcentaje / 100);
+                if(redondeo)
+                    costonuevo = Math.ceil(costonuevo/10)*10;
+            }
             else
                 costonuevo = parseInt(costoactual);
 
             
             if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+            {
                 precionuevo = parseInt(precioactual + precioactual * porcentaje / 100);
+                if(redondeo)
+                    precionuevo = Math.ceil(precionuevo/10)*10;
+            }
             else
                 precionuevo = parseInt(precioactual);
 
@@ -3095,12 +3108,19 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
         }else
         {
             if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+            {
                 costonuevo = parseInt( costoactual - costoactual * porcentaje / 100);
+                if(redondeo)
+                    costonuevo = Math.ceil(costonuevo/10)*10;
+            }
             else
                 costonuevo = parseInt( costoactual);
             
-            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa"){
                 precionuevo = parseInt(precioactual - precioactual * porcentaje / 100);
+                if(redondeo)
+                    precionuevo = Math.ceil(precionuevo/10)*10;
+            }
             else
                 precionuevo = parseInt(precioactual);
 
@@ -3109,11 +3129,9 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
         
         if (arregloproveedoranuncio[a].tildado == "checked") {
             actualizapreciocostoyventa(idproducto, precionuevo, precioactual, costonuevo, costoactual)
-            console.log("Precios cambiados" );
         }
 
         var tas = null;
-        console.log("Limpiar tabla");
         if ($.fn.dataTable.isDataTable('#tablaanunciosproveedores'))
             tas = $('#tablaanunciosproveedores').DataTable();
         else return;

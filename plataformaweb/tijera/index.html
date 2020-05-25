@@ -10,58 +10,89 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+    <!-- para mostrar los toast -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+    
     <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+
+    <link rel="stylesheet" href="esteticatijera.css">
+    
     <script src="https://unpkg.com/jcrop"></script>
 
 </head>
 <body>
 
-<div id="carga"></div>
 
 
 <form action="" id="formularioimagen" method="POST" role="form" enctype="multipart/form-data">
-    <div class="row justify-content-center">
-        <div class="col-sm-6">
-            <h5>Corte una imagen en tres pasos</h5>
-        </div>
-
-        <div class="col-sm-6">
-            <p>Selecciona, Corta y Guarda</p>
+    <div id="titulotijera" class="row">
+        <div class="col center">
+            <div class="row justify-content-center">
+                <div class="col-sm-6 center">
+                    <h5>Corte una imagen en tres pasos</h5>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-2 center"></div>
+                <div class="col-sm-8 center">
+                    <p>Sube una image, Recorta y Guarda</p>
+                </div>
+                <div class="col-sm-2 center">
+                    <button  id="nuevotijera" class="btn btn-sucess ">Nuevo</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
 
-        <div class="col-sm-3">
-
-            <div  class="row justify-content-center">
-                    <input class="form-group mb-2" style="padding:20px;"><input class="btn btn-primary" type='button' id="editar"
-                        value='Editar Imagen'>
+    <seccion id="seccionrecorte" class="row justify-content-center" style="display: none;">
+        <div class="col-sm-12">
+            <div class="row justify-content-center">
+                <p class="p-3">Arrastra sobre la imagen para marcar la zona de recorte</p>
             </div>
             <div class="row justify-content-center">
-                <input class="form-group mb-2" style="padding:20px;"><input class="btn btn-primary" type='button' id="recortar"
-                    value='Rectortar Imagen'>
-            </div>
-
-            <div class="row justify-content-center">
-                <label>X <input type="text" name="x" id="x" size="4" /></label>
-            </div>
-            <div class="row justify-content-center">
-                    <label>Y <input type="text" name="y" id="y" size="4" /></label>
-            </div>
-            <div class="row justify-content-center">
-                <label>W <input type="text" name="w" id="w" size="4" /></label>
-            </div>
-            <div class="row justify-content-center">
-                    <label>H <input type="text" name="h" id="h" size="4" /></label>
-            </div>
-            <div class="row justify-content-center">
-                <label>Tamaño de archivo<input type="text" name="tamanioarchivo" id="tamanioarchivo" size="4" /></label>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <div class="row justify-content-center">
+                        <label>Ancho<input type="text" name="w" id="w" size="4" readonly /></label>
+                        <label>Alto<input type="text" name="h" id="h" size="4" readonly /></label>
+                        <label>Tamaño de archivo<input type="text" name="tamanioarchivo" id="tamanioarchivo" size="4" readonly /></label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row justify-content-center">
+                        <!-- <input class="form-group mb-2" style="padding:20px;"> -->
+                        <input class="btn btn-primary" type='button' id="recortar"
+                        value='Rectortar Imagen'>
+                    </div>
+                </div>
+                
+               
             </div>
         </div>
-        <div class="col-sm-9">
+
+    </seccion>
+
+    <div id="secciondescarga" class="row justify-content-center"  style="display: none;">
+        <input class="btn btn-primary" type='button' id="descargar"
+            value='Descargar Imagen'>
+    </div>
+
+    <seccion id="seccionseleccion" class="row container">
+        <div class="col-sm-12">
+            
+            <div class="row justify-content-center">
+                <p>
+                    <label>
+                        <input id="escuadrada" type="checkbox" class="filled-in" checked="checked"/>
+                        <span> Corte de imagen cuadrada</span>
+                    </label>
+                </p>
+               
+            </div>
             <div class="row justify-content-center">
                 <label for="imagen">SELECCIONA UNA IMAGEN</label>
+            </div>
+            <div class="row justify-content-center">
                 <div class="form-group">
                     <input class="grey lighten-3 pt-2" value="Ninguna imagen cargada" class="form-control" type="file" id="imagen"
                         name="imagen" required>
@@ -70,28 +101,35 @@
                     <p class="red-text accent-4" id="aviso"></p>
                 </div>
             </div>
+        </div>
+    </seccion>
+
+    <seccion id="seccionimagenprincipal" class="row container">
+        <div class="col-sm-12">
             <div class="row justify-content-center">
+                <div id="carga"></div>
+
                 <!-- aca inserta un jcrop automatico la misma clase -->
-                <!-- <img id="muestraoriginal" src="../imagenessitio/agregarimagen.jpg"> -->
                 <img class="img-fluid" id="muestraoriginal" src="agregarimagen.jpg">
                 <!-- fin del jcrop -->
             </div>
         </div>
-    </div>
+        
+        
+    </seccion>
 
-    <div class="row justify-content-center">
+    <seccion id="seccionrecortada" class="row justify-content-center"  style="display: none;">
         <div class="col-sm-12 center">
             <img class="img-fluid" src="#" id="imagenrecortada">
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <input class="form-group mb-2" style="padding:20px;"><input class="btn btn-primary" type='button' id="descargar"
-        value='Descargar Imagen'>
-    </div>
+    </seccion>
  
     <img id="original" src="" style="display: none;">
 
 </form>
+
+<!-- mensajes de sweetalert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
@@ -156,6 +194,8 @@
             {
                 vistaimagen();
                 vistaimagenoriginal();
+                preguntasiedita();
+
             }
             else 
             {
@@ -196,8 +236,10 @@
             muestra.src = fr.result;
             anchoenvista= muestra.width;
             altoenvista= muestra.height;
+
         }
         fr.readAsDataURL(archivo);
+
     }
 
     function vistaimagenoriginal(){
@@ -214,18 +256,30 @@
     }
 
      function subeimagenalservidor() {
+        
+        var tiporecorte = $('#escuadrada').prop('checked');
+         
+        
         var formulario = document.getElementById("formularioimagen");
 
         var formdata = new FormData(formulario);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                buscarrecorte();
+
+                 if (tiporecorte) {
+                     buscarrecortecuadrado();
+                } else {
+                    buscarrecorterectangular();
+                }
+
             } else {
-        
+                
+                $('#muestraoriginal').hide();
+                $('#seccionseleccion').hide();
                 $('#carga').show();
 
-                $('#carga').html('<div class="loading"><img src="cargando.gif" alt="loading" /><br/>Comprimiendo el archivo...</div>');
+                $('#carga').html('<div class="loading"><img src="cargando.gif" alt="loading" /><br/>Procesando el archivo</div>');
                 
             }
         };
@@ -233,15 +287,41 @@
         xhttp.send(formdata);
     }
 
-    $("#editar").click(function () {
-        
-        subeimagenalservidor();
-    });
+    function preguntasiedita()
+    {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
+        swalWithBootstrapButtons.fire({
+            title: 'Desea usar esta imagen.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                subeimagenalservidor();
+        
+            } else if (
+
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'No hay problema !!!'
+                )
+            }
+        })
+
+    }
+  
     function actualizacoordenadas(xx, yy, ww, hh) {
 
-        document.getElementById("x").value = xx;
-        document.getElementById("y").value = yy;
         document.getElementById("w").value = ww;
         document.getElementById("h").value = hh;
 
@@ -292,28 +372,28 @@
             var hscalado = hh;
         }
         tamanio = { x: xscalado, y: yscalado, w: wscalado, h: hscalado};
+    }
 
-       
+    function avisopararecorte(){
+         M.toast(
+            {
+                html: 'Ya puedes recortar la imagen!!',
+                displayLength: '3000'
+            });
 
-        console.log("Vista : ancho : " + anchoenvista + " alto: " +  altoenvista );
-        console.log("Original : ancho: " + anchooriginal + " alto: " + altooriginal);
+        muestrarecortador = document.getElementById("muestraoriginal");
+        muestrarecortador.src = "imagenesrecorte/" + archivo.name;
 
-        console.log("Factor estala ancho : " + factorescalaancho + " alto " + factorescalaalto);
-        console.log(tamanio);
+
+        $('#carga').hide();
+        $('#muestraoriginal').show();
+
+        $('#seccionrecorte').show();
     }
 
 
-    function buscarrecorte() {
-
-        
-        // if (anchooriginal > anchoenvista) {
-        //     factorescalaancho = anchooriginal / anchoenvista;
-        // }
-
-        // if (altooriginal > altoenvista) {
-        //     factorescalaalto = altooriginal / altoenvista;
-        // }
-
+    function buscarrecorterectangular()
+    {
         const stage = Jcrop.attach('muestraoriginal', {
             shadeColor: 'red'
         });
@@ -331,21 +411,33 @@
             actualizacoordenadas(pos.x, pos.y, pos.w, pos.h);
         });
 
-        M.toast(
-            {
-                html: 'Ya puedes recortar la imagen!!',
-                displayLength: '3000'
-            });
-           
-        muestrarecortador = document.getElementById("muestraoriginal");
-        muestrarecortador.src = "imagenesrecorte/" + archivo.name;
-        
+        avisopararecorte();
+       
+    }
 
-        // console.log(muestrarecortador.src);
-        $('#carga').hide();
+    function buscarrecortecuadrado() 
+    {
 
+        const stage = Jcrop.attach('muestraoriginal', {
+            shadeColor: 'red', aspectRatio: 1
+        });
+
+        stage.active = true;
+
+        stage.listen('crop.change', function (widget, e) {
+            const pos = widget.pos;
+            actualizacoordenadas(pos.x, pos.y, pos.w, pos.h);
+        });
+
+
+        stage.listen('crop.activate', function (widget, e) {
+            const pos = widget.pos;
+            actualizacoordenadas(pos.x, pos.y, pos.w, pos.h);
+        });
        
 
+        avisopararecorte();
+        
     }
 
     function eliminararchivodeservidor(carpeta){
@@ -358,8 +450,10 @@
             {
                 if(data=="ok")
                 {
-                    console.log("Papelera eliminada en el servidor");
-                
+                    // console.log("Papelera eliminada en el servidor");
+                    Swal.fire({
+                        text: 'Excelente, archivo descargado!!!'
+                    })
                 }
             },
             error: function(){
@@ -369,10 +463,27 @@
     }
 
 
-    
-    $("#recortar").click(function () {
+    function activaseccionrecortada(){
         var img = $("#muestraoriginal").attr('src');
         $("#imagenrecortada").attr('src', 'imagenrecortada.php?x=' + tamanio.x + '&y=' + tamanio.y + '&w=' + tamanio.w + '&h=' + tamanio.h + '&img=' + img);
+        
+        $('#seccionrecortada').show();
+        $('#secciondescarga').show();
+
+        $('#seccionrecorte').hide();
+        $('#seccionimagenprincipal').hide();
+        
+
+    }
+
+    $("#recortar").click(function () {
+
+        if(tamanio.w > 0 && tamanio.h > 0)
+            activaseccionrecortada();        
+        else
+        Swal.fire({
+            text: 'Debes arrastar en la imagen para seleccionar el recorte'
+        })
     });
 
     function descargar() {
@@ -398,6 +509,12 @@
         input.innerHTML = "";
     }
 
-    
+
+    $("#nuevotijera").click(function(){
+        
+        location.reload();
+        return false;
+    });
+   
 
 </script>

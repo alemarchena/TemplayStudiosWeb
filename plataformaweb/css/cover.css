@@ -1,7 +1,7 @@
 
 html,
 body {
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'Kulim Park', sans-serif;
   color: #2E2E2E;
 
@@ -13,23 +13,26 @@ body {
     width: 100%;
 }
 a.nav-link {
-  color: white;
+  color: rgb(105, 105, 105)!important;
   text-align: right;
-  background-color:#415d9b ;
+  background-color:#fff159 ;
+  font-size: 14px;
+
 }
 
 #seccionbusqueda{
-  background-color:#415d9b ;
+  background-color:#fff159 ;
 }
 .menu{
   margin-top: 65px;
   width: 100%;
-  background-color:#415d9b ;
+  background-color:#fff159 ;
 }
 
 #telefono_en_barra{
-  color:#ffffff!important;
+  color: rgb(105, 105, 105)!important;
   font-family: 'Kulim Park', sans-serif;
+  font-size: 14px;
 
 }
 /* ----------------------------------------------------------------- */
@@ -40,7 +43,9 @@ p{
    font-size: 18px;
 }
 
-
+#slogan{
+   font-size: 18px;
+}
 #seccionnovedades{
 
   background-color: rgb(235, 235, 235);
@@ -99,9 +104,16 @@ p{
 
 }
 
+#divpromociones{
+  height: 3em;
+  color: white!important;
+  background-color: #24b3a7!important;
+}
+
 #seccionpromociones{
 
 }
+
 
 #subcontenedorcontacto{
 
@@ -116,27 +128,32 @@ p{
  
   opacity: 95%;
 }
+
+#enviar{
+  color: white!important;
+  background-color: #24b3a7!important;
+}
 #seccionubicacion{
     margin-top: 30px;
 }
 
 #seccionubicacion>h5{
-  color: #2E2E2E;
+  color: rgb(105, 105, 105)!important;
 }
 
 
 hr{
-  border-color: #ABA262;
+  border-color: #fff159;
 }
 
 /* ---------- configuracion de las cartas -----------------*/
 .card-text{
-  color:#424242;
+  color: rgb(105, 105, 105)!important;
   size: 16px;
 }
 .card{
   background-color: white;
-  color:#424242;
+  color: rgb(105, 105, 105)!important;
   size: 16px;
 }
 .carta{
@@ -148,23 +165,23 @@ hr{
 }
 
 .card-title{
-  color: #086A87;
+  color: rgb(105, 105, 105)!important;
 }
 
 .describir{
-  background-color:#086A87;
-  color: white;
+  background-color:#ebf89e;
+  color: 3f3f3f;
 }
 .describir:hover{
   background-color:grey;
-  color: white;
+  color: 3f3f3f;
 }
 /* --------------------------------------------------------*/
 .footer {
 
-  font-family: Rancho-Regular;
-  background-color: #ef9a9a ;
-  color: black;
+  font-family: 'Kulim Park', sans-serif;
+  background-color: #fff159 ;
+  color: rgb(105, 105, 105)!important;
 }
 
 .footer > div.container {
