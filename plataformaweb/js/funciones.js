@@ -1918,6 +1918,7 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                         dd[key].precio,
                         cantidadxprecio,
                         
+                        dd[key].nombrecliente,
                         dd[key].rubro,
                         dd[key].costo,
                         cantidadxcosto

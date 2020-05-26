@@ -55,7 +55,7 @@
                     <div class="row justify-content-center">
                         <label>Ancho<input type="text" name="w" id="w" size="4" readonly /></label>
                         <label>Alto<input type="text" name="h" id="h" size="4" readonly /></label>
-                        <label>Tamaño de archivo<input type="text" name="tamanioarchivo" id="tamanioarchivo" size="4" readonly /></label>
+                        <label>Tamaño de archivo (MB)<input type="text" name="tamanioarchivo" id="tamanioarchivo" size="4" readonly /></label>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -188,7 +188,8 @@
 
         if (extensiones.indexOf(extension) !== -1) //verificamos si la extension esta en el arreglo
         {
-            document.getElementById("tamanioarchivo").value = archivo.size / 1000000;
+             
+            document.getElementById("tamanioarchivo").value =archivo.size / 1000000;
 
             if (archivo.size <= verTam(tamanioMax)) 
             {
@@ -383,11 +384,8 @@
 
         muestrarecortador = document.getElementById("muestraoriginal");
         muestrarecortador.src = "imagenesrecorte/" + archivo.name;
-
-
         $('#carga').hide();
         $('#muestraoriginal').show();
-
         $('#seccionrecorte').show();
     }
 
@@ -395,8 +393,14 @@
     function buscarrecorterectangular()
     {
         const stage = Jcrop.attach('muestraoriginal', {
-            shadeColor: 'red'
+            shadeColor: 'red',
+            setSelect: [20, 20, 100, 100],
+            onChange: updatePreview,
+            onSelect: updatePreview
+            
         });
+
+      
 
         stage.active = true;
 
