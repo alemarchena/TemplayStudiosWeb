@@ -118,7 +118,9 @@
             $sql = "Select * from " .$tabla. " where id =" . $id;
 
         }else if($tipo == "consultatodosanuncios"){
-            $sql = "Select * from " .$tabla. " where 1";
+            $sql = "Select "    .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".precio," 
+                                .$tabla. ".idrubro," .$tablarubros. ".idrubro," .$tablarubros. ".nombrerubro as rubro from " .$tabla. " LEFT JOIN " 
+                                .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro where 1 order by " .$tablarubros. ".nombrerubro desc";
         }
 
         $resultado  = $mysqli->query($sql);

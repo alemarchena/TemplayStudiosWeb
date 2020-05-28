@@ -1413,7 +1413,7 @@ function consultaranunciosvender(e) {
                         "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate masmenoscolumna'></input>",
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                         "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='number' class='validate escampoprecio' value=" + "'" + dd[key].precio + "'></input>",
-                        "<a data-position='right'  data-tooltip='Guardar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">assignment_turned_in</i>",
+                        "<a data-position='right'  data-tooltip='Guardar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
                         "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>"
                         
@@ -4040,7 +4040,7 @@ function consultaranunciosparamovimientos(e) {
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                         "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='number' class='validate escampocosto' value=" + "'" + dd[key].costo + "'></input>",
                         "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='number' class='validate escampoprecio' value=" + "'" + dd[key].precio + "'></input>",
-                        "<a data-position='right'  data-tooltip='Guardar' onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">assignment_turned_in</i>",
+                        "<a data-position='right'  data-tooltip='Guardar' onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
                         "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
                         
@@ -4186,7 +4186,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                 dd = JSON.parse(data); //data decodificado
                 
                 fsi = "";
-
+                console.log(data);
                 $.each(dd, function (key, value) {
 
                     if (dd[key].fechastockinicio == "0000-00-00")
@@ -4199,6 +4199,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                     totalcompras = totalcompras + dd[key].cantidad * dd[key].costocompra;
                     tcompra.row.add([
                         fco,
+                        "<input onfocusout='guardanumerocomprobantemodificado(this.value," + dd[key].idcompra + ")' type ='text' value = '" + dd[key].comprobantecompra +  "'></input>",
                         dd[key].titulo,
                         dd[key].descripcion,
                         dd[key].cantidad,
@@ -4222,9 +4223,48 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     });
 }
 
+function guardanumerocomprobantemodificado(nuevonumerocompra,idcompra)
+{
+    var bdd = conexionbdd;
+    var tabla = tablacompras;
+    
+    var tipo = "actualizacomprobante";
+
+    var itemmovimiento = new Object();
+    itemmovimiento.bdd = bdd;
+    itemmovimiento.tabla = tabla;
+    itemmovimiento.tipo = tipo;
+
+    itemmovimiento.idcompra = idcompra;
+    itemmovimiento.comprobantecompra = nuevonumerocompra;
+
+
+    var comprado = JSON.stringify(itemmovimiento);
+
+    $.ajax({
+        url: "consultacompras.php",
+        data: { comprado: comprado },
+        type: "post",
+        success: function (data) {
+            if (data != "[]") {
+
+                M.toast({ html: 'Número de comprobante actualizado', displayLength: '1000', classes: 'rounded' });
+                
+            } else {
+                M.toast({ html: 'Error al crear el registro' })
+            }
+        },
+        error: function (e) {
+            M.toast({ html: 'Error al intentar guardar.' });
+        }
+    });
+}
+
 function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, fechamovimiento, cantidad, idproveedorelegido, tipomovimientonombrecorto) {
 
-  
+    var comprobantecompra =   document.getElementById('numerocomprobantecompra').value;
+    comprobantecompra = comprobantecompra.trim();
+
 
     var bdd = conexionbdd;
     var tabla = tablacompras;
@@ -4244,6 +4284,8 @@ function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, f
     itemmovimiento.idproveedorelegido = idproveedorelegido;
     itemmovimiento.tipomovimientonombrecorto = tipomovimientonombrecorto;
     itemmovimiento.fechacompra = fechamovimiento;
+    itemmovimiento.comprobantecompra = comprobantecompra;
+    
 
     var comprado = JSON.stringify(itemmovimiento);
 
@@ -5362,3 +5404,35 @@ function consultarubros_seleccionconpreciopaginaweb(e) {
 
 }
 
+// ------------------------------------------ Exportacion a excel -----------------------------
+
+function exportTableToExcel(tableID, filename){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}

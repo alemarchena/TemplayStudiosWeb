@@ -35,11 +35,11 @@
     if($tipo == "consultatodosanuncios" || $tipo == "consulta" || $tipo == "consultaclienteenventa")
     {
         if($tipo == "consultatodosanuncios")
-            $sql = "Select * from " .$tabla. " where 1 order by nombrecliente";
+            $sql = "Select * from " .$tabla. " where 1 order by nombrecliente desc";
         else if( $tipo == "consulta" ){
-            $sql = "Select * from " .$tabla. " where idcliente =" . $id . " order by nombrecliente";
+            $sql = "Select * from " .$tabla. " where idcliente =" . $id . " order by nombrecliente desc";
         }else if( $tipo == "consultaclienteenventa" ){
-            $sql = "Select * from " .$tablaventas. " where idcliente =" . $id . " order by nombrecliente";
+            $sql = "Select * from " .$tablaventas. " where idcliente =" . $id . " order by nombrecliente desc";
         }
 
         $resultado  = $mysqli->query($sql);

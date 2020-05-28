@@ -13,6 +13,8 @@
     $tablaproveedores= $comprado['tablaproveedores'];
     $tipo = $comprado['tipo'];
     $fechacomprarecibida =$comprado['fechacompra'];
+    $comprobantecompra =$comprado['comprobantecompra'];
+    $idcompra =$comprado['idcompra'];
     
     
     $fechacompracreada= date_create_from_format('dmY', $fechacomprarecibida);
@@ -67,7 +69,7 @@
     if($tipo == "consulta")
     {
 
-            $sql = "Select " .$tabla. ".fechacompra," .$tabla. ".id as idcompra," .$tabla. ".idproveedor," .$tabla. ".idproducto," .$tabla. ".cantidad," .$tabla. ".costo as costocompra," 
+            $sql = "Select " .$tabla. ".fechacompra," .$tabla. ".id as idcompra," .$tabla. ".idproveedor," .$tabla. ".idproducto," .$tabla. ".cantidad,"  .$tabla. ".comprobantecompra," .$tabla. ".costo as costocompra," 
             .$tablaanuncios. ".id," .$tablaanuncios. ".titulo,".$tablaanuncios. ".descripcion," .$tablaanuncios. ".costo as costoactual," 
             .$tablaanuncios. ".precio," .$tablaanuncios. ".fechastockinicio," .$tablaproveedores. ".idproveedor," .$tablaproveedores. ".nombreproveedor from ( ( (" 
             .$tabla. " LEFT JOIN " .$tablaanuncios. " ON " .$tabla. ".idproducto  = " .$tablaanuncios.".id) LEFT JOIN " 
@@ -86,11 +88,11 @@
             echo json_encode($data);
         }else { echo "consultavacia"; }
 
-    }else if($tipo == "alta" || $tipo == "baja"  || $tipo == "actualizafechainicio")
+    }else if($tipo == "alta" || $tipo == "baja"  || $tipo == "actualizafechainicio" || $tipo == "actualizacomprobante")
     {
         if($tipo == "alta"){
-            $sql = "Insert Into " .$tabla. "(idproducto, costo, fechacompra, cantidad, idproveedor)
-                values('$idproducto','$costo','$fechacompra','$cantidad','$idproveedor')";
+            $sql = "Insert Into " .$tabla. "(idproducto, costo, fechacompra, cantidad, idproveedor,comprobantecompra)
+                values('$idproducto','$costo','$fechacompra','$cantidad','$idproveedor','$comprobantecompra')";
         
         }else if($tipo == "baja"){
             $sql = "delete from " .$tabla. " where id = $id";
@@ -98,6 +100,8 @@
         }else if( $tipo == "actualizafechainicio"){
 
             $sql = "update " .$tablaanuncios. " set fechastockinicio = '" .$fechacompra. "' where id='" .$idproducto. "'" ;
+        }else if($tipo == "actualizacomprobante"){
+            $sql = "update " .$tabla. " set comprobantecompra = '" .$comprobantecompra. "' where id='" .$idcompra. "'" ;
         }
 
         // echo $sql;

@@ -6,11 +6,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<!-- 
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
     <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache"> -->
 
     <!-- fuentes de google -->
     <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap&family=Dosis:wght@200" rel="stylesheet">
@@ -42,8 +42,10 @@
     
     <!-- estilos -->
     <link rel="icon" href="/img/logoempresa.png" type="image/png">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap" rel="stylesheet"> -->
   
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
     <!-- Material Design Theming -->
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
@@ -52,9 +54,7 @@
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
+   
     <script src="configuracion.js"></script>
 
     <script type="text/javascript">
@@ -138,6 +138,7 @@
                     
                     if (data == '[]') {
                         crearusuario();
+                        console.log("Intento de crear usuario");
                     } else if (data == "nobdd") {
                         console.log("No se conecto a la base de  datos");
 
@@ -173,7 +174,7 @@
                 return;
             }
 
-
+            
             objeto = new Object();
             objeto.email = email.trim();
             objeto.tipo = "alta";
@@ -196,7 +197,8 @@
                     }else if (data == "1"){
                         console.log("Usuario creado");
                         handleSignUp();
-                        swal("Usuario Creado!", "Presione 'Verificar cuenta' para continuar!");
+                        //swal("Usuario Creado!", "Presione 'Verificar cuenta' para continuar!");
+                       
 
                     }else{
                         console.log("Otro error " + data);
@@ -206,6 +208,7 @@
                     console.log("Error:" + e);
                 }
             });
+            
         }
 
         
@@ -217,10 +220,10 @@
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             document.getElementById('textoexplicacion').style.visibility = "visible";
-            MandaEmail(email);
-            
+        
 
             firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 if (errorCode == 'auth/weak-password') {
@@ -235,12 +238,47 @@
                     eliminarusuario();
                     swal("Error", errorMessage);
                 }
-                console.log(error);
+                console.log("Resultado:" + error);
             });
 
-         
+            mensajeok();
         }
 
+        function mensajeok(){
+             
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-success',
+                                cancelButton: 'btn btn-danger'
+                            },
+                            buttonsStyling: false
+                        })
+
+                        swalWithBootstrapButtons.fire({
+                            title: 'Usuario Creado!',
+                            text: "Está a un solo paso, enviaremos un email para verificar que es el propietario de la cuenta!",
+                            icon: 'warning',
+                            showCancelButton: false,
+                            confirmButtonText: 'OK',
+                            cancelButtonText: 'No, cancelar!',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.value) {
+                                sendEmailVerification();
+                                MandaEmail(email);
+
+                            } else if (
+                                /* Read more about handling dismissals below */
+                                result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                                swalWithBootstrapButtons.fire(
+                                    'Perfecto',
+                                    'Si cambias de opinión presiona el botón verificar :)'
+                                )
+                            }
+                        })
+                        
+        }
         function eliminarusuario() {
 
             var email = document.getElementById('email').value;
@@ -337,7 +375,8 @@
          */
         function sendEmailVerification() {
             firebase.auth().currentUser.sendEmailVerification().then(function () {
-                swal("Perfecto!", "Estás a un paso de conseguirlo, abre tu correo y verifica la cuenta!");
+                swal("Genial!", "Estamos felices que quieras estar con nosotros! ya tienes un enlace en tu email");
+
             });
             document.getElementById('quickstart-verify-email').style.visibility = "hidden";
             firebase.auth().signOut();
@@ -441,22 +480,22 @@
     </div> -->
   
     <div id="plataforma"class="mt-5">
-        <form method=post action="">
+        <!-- <form method=post action=""> -->
             <div  class="col-sm-6 offset-sm-3">
                     <div id="tarjeta" class="card text-center">
                         <div class="card-header">
                             Autenticación
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Plataforma de trabajo</h5>
+                            <h5 class="card-title">Ingreso</h5>
                             
                             <div class="d-flex justify-content-center mt-4 row">
-                                <input class="mdl-textfield__input center" style="display:inline;width:65%;" type="text" id="email" name="email"
+                                <input class="mdl-textfield__input center"  onKeyUp="return verificaenter(event)" style="display:inline;width:65%;" type="text" id="email" name="email"
                                 placeholder="Email" />
                                 &nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="d-flex justify-content-center mt-4 row">
-                                <input class="mdl-textfield__input center" style="display:inline;width:65%;" type="password" id="password" name="password"
+                                <input class="mdl-textfield__input center" onKeyUp="return verificaenter(event)" style="display:inline;width:65%;" type="password" id="password" name="password"
                                     placeholder="Password" />
                                 <br /><br />
                             </div>
@@ -496,7 +535,7 @@
                         </div>
                     </div>
             </div>
-        </form>
+        <!-- </form> -->
 
         <div id="opcionesadministracion" style="visibility:hidden;">
 
@@ -534,7 +573,7 @@
     </div>
     <!-- ---------------------------------- Script externos ---------------------------------------------- -->
     
-    <!-- CAMBIAME 11 autenticacion con firebase -->
+   
     
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
@@ -578,6 +617,15 @@
 
 <script>
 
+function verificaenter(e){
+
+    var key = window.event ? e.which : e.keyCode;
+    
+    if (key == 13){
+         toggleSignIn();
+    }
+    
+}
     $('#tablarelacion').DataTable(
     {
         "language": {
