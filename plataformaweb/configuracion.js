@@ -14,5 +14,5 @@ direccionfisica         ='LENCINAS 351-GODOY CRUZ-Mendoza Argentina';
 direccioninstagram      = 'https://www.instagram.com/raulalejandromarchena/';
 direccioninstagrampie   = 'https://www.instagram.com/raulalejandromarchena/';
 direcciongoogle         = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3349.146600240695!2d-68.84525478473758!3d-32.92072477790671!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e09639844d649%3A0xc711f40cfbdacdbc!2sLencinas%20351%2C%20Godoy%20Cruz%2C%20Mendoza!5e0!3m2!1ses-419!2sar!4v1588461486446!5m2!1ses-419!2sar';
-dominioruta             = 'http://www.templaystudios.com/plataformaweb/';
-direccionfacebook       ='';
+dominioruta             = 'http://www.templaystudios.com/plataformaweb36/';
+direccionfacebook       ='https://www.facebook.com/alemarchena/';
