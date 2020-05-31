@@ -1,7 +1,7 @@
 .firstcharacter {
   color: #903;
   float: left;
-  font-family: 'Odibee Sans',sans-serif;
+  font-family: 'Oswald',sans-serif;
   font-size: 75px;
   line-height: 60px;
   padding-top: 4px;
@@ -11,9 +11,20 @@
 
 
 p.textoexplicativo{
-  font-family: 'Dosis', sans-serif!important;
+  
+  font-family: 'Oswald', sans-serif;
+  
+
   font-size: 10px!important;
   color: #424242!important;
+}
+
+#titulotarjeta{
+  font-size: 1.1em;
+}
+
+#descripciontarjeta{
+  font-size: 0.9em;
 }
 
 .material-icons.md-18 { font-size: 18px; }
@@ -47,13 +58,15 @@ p.textoexplicativo{
 
 .sub-titulo-principal{
     
-    font-family: 'Odibee Sans',sans-serif;
+  font-family: 'Kulim Park', sans-serif;
+
 
     color:rgb(170, 159, 159);
   }
 .subtitulo-parallax{
-    
-    font-family: 'Odibee Sans',sans-serif;
+
+  font-family: 'Kulim Park', sans-serif;
+
     
     color:#E6E6E6;
     text-shadow: -2px 2px 45px rgba(0,0,0,0.6), -2px 0px 4px rgba(255,255,255,0.6);
@@ -61,7 +74,9 @@ p.textoexplicativo{
 }
 .letranavbar{
     
-    font-family: 'Odibee Sans',sans-serif;
+  font-family: 'Kulim Park', sans-serif;
+
+
 
     color:#E6E6E6;
 }
@@ -90,7 +105,7 @@ p.textoexplicativo{
   width: 200px;
 }
 
-.tamaimagen{ width: 180px; height: 180px; }
+.tamaimagen{ width: auto; height: 180px; }
 
 .titulo{  font-weight: bold; font-size: 17px; }
 

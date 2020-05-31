@@ -97,7 +97,7 @@
                                     precio = "$ " + dd[key].precio;
                                 else
                                     precio = "Consultar Precio";
-                                t.append("<div class='col-sm-3 hijosofer'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title center'>" + dd[key].titulo + "</h5><p class='card-text center'>" + dd[key].descripcion + "</p><p class='card-text center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                t.append("<div class='col-sm-3 hijosofer'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><p id='preciotarjeta' class='center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
 
                             }
                         }

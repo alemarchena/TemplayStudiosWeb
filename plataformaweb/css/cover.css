@@ -3,6 +3,7 @@ html,
 body {
   font-size: 16px;
   font-family: 'Kulim Park', sans-serif;
+
   color: #2E2E2E;
 
   height: 100%;
@@ -31,13 +32,42 @@ a.nav-link {
 
 #telefono_en_barra{
   color: rgb(105, 105, 105)!important;
+  
+
   font-family: 'Kulim Park', sans-serif;
+
   font-size: 14px;
 
 }
-/* ----------------------------------------------------------------- */
+/* ------------------------TARJETAS DE PUBLICACION ----------------------------- */
+
+.tamaimagen{ 
+  width: auto; 
+  height: 180px; 
+  padding-top: 1em;
+}
+
+#titulotarjeta{
+  font-size: 1.1em;
+  color: rgb(26, 26, 26);
+}
+#cajabusqueda{
+  height: 35px;
+  margin-top: 1em;
+  width: 70%;
+}
+#descripciontarjeta{
+  font-size: 0.9em;
+}
+
+#preciotarjeta{
+  font-size: 1.2em;
+  color: #56167e!important;
+}
 
 p{
+  
+
   font-family: 'Kulim Park', sans-serif;
 
    font-size: 18px;
@@ -45,6 +75,7 @@ p{
 
 #slogan{
    font-size: 18px;
+   padding-top: 1em;
 }
 
 #logoinstagram{
@@ -174,7 +205,7 @@ hr{
 }
 
 .card-title{
-  color: rgb(105, 105, 105)!important;
+  /* color: rgb(105, 105, 105)!important; */
 }
 
 .describir{
@@ -189,6 +220,8 @@ hr{
 .footer {
 
   font-family: 'Kulim Park', sans-serif;
+ 
+
   background-color: #fff159 ;
   color: rgb(105, 105, 105)!important;
 }

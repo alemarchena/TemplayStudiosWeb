@@ -9,7 +9,6 @@
 <div id="tarjetaanuncios" class="row"> 
     
 </div>
-
 <script>
 
     var bdd = conexionbddpaginaweb;
@@ -113,11 +112,11 @@
                                             precio = "$ " + dd[key].precio;
                                         else
                                             precio = "Consultar Precio";
-                                            t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutaimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align ' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p><p class='card-text'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                            t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutaimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p  id='descripciontarjeta' class='card-text'>" + dd[key].descripcion + "</p><hr><p id='preciotarjeta' class='center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
                                     }
                                 }else
                                 {
-                                    t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align ' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div><div class='row'> " + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                    t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text'>" + dd[key].descripcion + "</p></div><div class='row'> " + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
                                 }
                             }
                         });
