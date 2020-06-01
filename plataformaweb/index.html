@@ -48,52 +48,54 @@
     <!-- <link rel="icon" type="image/png" href="imagenessitio/favicon.png"> -->
     <link rel="icon" href="/img/logoempresa.png" type="image/png">
     <!-- <link rel="stylesheet" type="text/css" href="css/estilo.css"> -->
-    <link href="css/cover.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link href="cover.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="animate.css">
     <script src="configuracion.js"></script>
     <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
   
   </head>
 
   <body>
-    <div class="slidecontainer">
 
       <div id="seccionbusqueda" class="fixed-top "></div>
 
-     
-        <div class="menu fixed-top"  id="colapsable">
-          
-          <ul class="nav justify-content-center">
-              <li class="nav-item">
-                  <a id="menuofertas" class="nav-link" href="#">Promociones<i class="fas fa-bell ml-2"></i></a>
-                </li>
-              <li class="nav-item">
-                <a id="menuproductos" class="nav-link" href="#">Novedades<i class="fas fa-exclamation-circle ml-2"></i></a>
-              </li>
-              <li class="nav-item">
-                <a id="menuubicacion" class="nav-link" href="#">Ubicación</a>
-              </li>
-              <li class="nav-item">
-                <a id="menucontacto" class="nav-link " href="#">Delivery</a>
-              </li>
-          
-              <li class="nav-item">
-                <i class="fab fa-whatsapp ml-2"></i>
-                <a id="telefono_en_barra" href="" target="_BLANK"></a>
-              </li>
-              <li class="nav-item">
-                <a id="direccioninstagram" href="" target="_blank"><img id="logoinstagram" class="lead ml-2" src="img/logoinstagram.png"
-                    alt="facebook"></a>
-              </li>
-              <li class="nav-item">
-                <a id="direccionfacebook" href="" target="_blank"><img id="logofacebook" class="lead ml-2" src="img/logo-facebook.png"
-                    alt="facebook"></a>
-              </li>
-          </ul>
-        </div>
+      <nav id="navegar" class="navbar navbar-expand-lg navbar-light menu fixed-top">
+ 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav navbar-center">
+            <li class="nav-item">
+              <a id="menuofertas" class="textoenbarra" href="#">Promociones</a>
+            </li>
+            <li class="nav-item">
+              <a id="menuproductos" class="textoenbarra" href="#">Novedades</a>
+            </li>
+            <li class="nav-item">
+              <a id="menuubicacion" class="textoenbarra" href="#">Ubicación</a>
+            </li>
+            <li class="nav-item">
+              <a id="menucontacto" class="textoenbarra " href="#">Delivery</a>
+            </li>
 
+            <li class="nav-item">
+              <a class="textoenbarra" id="telefono_en_barra" href="" target="_BLANK"></a>
+            </li>
+            <li class="nav-item">
+              <a id="direccioninstagram" href="" target="_blank"  class="textoenbarra "><img id="logoinstagram" class="lead ml-2"
+                  src="img/logoinstagram.png" alt="facebook"></a>
+            </li>
+            <li class="nav-item">
+              <a id="direccionfacebook" href="" target="_blank"  class="textoenbarra "><img id="logofacebook" class="lead ml-2" src="img/logo-facebook.png"
+                  alt="facebook"></a>
+            </li>
+        </ul>
         
-    </div>
+      </div>
+      </nav>
       
       
     <!-- ----------------------------------------- FONDO Y LOGO  --------------------------------------- -->
@@ -103,7 +105,7 @@
     </section>
 
     <section id="seccionlogolocal" class="fixed-top text-center mt-5 pt-8">
-      <img class="img-fluid rounded-top" src="img/logoempresa.png" alt="Empresa" width="13%" height="auto">
+      <img id="imagenlogoempresa" class="img-fluid rounded-top" src="img/logoempresa.png" alt="Empresa" >
     </section>
     
     <!-- ----------------------------------------- TRANSPARENTE --------------------------------------- -->
@@ -195,7 +197,7 @@
     <!-- ------------------------------------------- LIBRERIAS PROPIAS --------------------------------->
 
     <script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
-    <script src="js/funciones.js"></script>
+    <script src="funciones.js"></script>
     <script src="js/subscriptionPopup.js"></script>
     <script src="establecerparametrosweb.js"></script>
 
