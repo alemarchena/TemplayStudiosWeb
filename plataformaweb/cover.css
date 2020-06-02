@@ -38,11 +38,7 @@ body {
 }
 /* ------------------------TARJETAS DE PUBLICACION ----------------------------- */
 
-.tamaimagen{ 
-  width: auto; 
-  height: 180px; 
-  padding-top: 1em;
-}
+
 
 #titulotarjeta{
   font-size: 1.1em;
@@ -253,31 +249,47 @@ hr{
 }
 
 /* -------------------- Media Queries ------------------------------- */
- @media (min-width:  769px) and (max-width: 2000px) {
+ @media (min-width:  1253px) {
 
     #seccioncontenidos{
       height: 30em!important;
 
     }
+
+    .tamaimagen{ 
+      width: auto; 
+      height: 180px; 
+      padding-top: 1em;
+    }
   }
 
-  @media (max-width:  768px) {
+ @media (min-width:  576px) and (max-width: 1252px)
+{
 
     #seccioncontenidos{
       height: 18em;
     }
-  }
+
+    .tamaimagen{ 
+      height: 180px; 
+      padding-top: 1em;
+      width: will-change;
+}
+}
+
+ 
+ 
 
   @media (min-width:  300px) and (max-width: 575px) {
   
     #imagenlogoempresa{
-      width: 17%;
+      width: 20%;
       height: auto;
     }
 
     #seccionlocal{
       z-index: -3!important;
-      
+      margin-top: 4em;
     }
 
     #seccionlogolocal{
@@ -289,5 +301,9 @@ hr{
       height: 20em;
     }
     
+    #cajabusqueda{
+     
+      width: 100%;
+    }
    
 }

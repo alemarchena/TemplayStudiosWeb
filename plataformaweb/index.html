@@ -65,6 +65,8 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+        <a id="tituloweb" class="navbar-brand" href="#"></a>
+
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-nav navbar-center">
@@ -125,17 +127,19 @@
 
     <div class="claseseccionnovedades">
     
-      <div class="d-flex justify-content-around text-center">
-        <div class="col-sm-4">
-          <button id="mayor" type="button" class="btn btn-warning" style="color: black;">Mayor a 18 años</button>
-        </div>
-        
-        <div class="col-sm-4"></div>
-
-        <div class="col-sm-4">
-          <button id="menor" type="button" class="btn btn-warning" style="color: black;">Menor a 18 años</button>
-        </div>
+    <div class="d-flex justify-content-around text-center">
+      <div class="col-sm-3" style="text-align: end;">
+        <button id="mayor" type="button" class="btn btn-warning" style="color: black;">+ de 18</button>
       </div>
+    
+      <div class="col-sm-3">
+        <p class="text-center text-muted py-2"><small></small>Declara tu edad</small></p>
+      </div>
+    
+      <div class="col-sm-3" style="text-align: start;">
+        <button id="menor" type="button" class="btn btn-warning" style="color: black;">- de 18</button>
+      </div>
+    </div>
 
     </div>
 
@@ -219,7 +223,7 @@
           customClass: {
             cancelButton: 'btn btn-danger'
           },
-          buttonsStyling: false
+          buttonsStyling: true
         })
         
         swalWithBootstrapButtons.fire({
@@ -287,7 +291,7 @@
     $("#footer").load("footer.html");
 
     $("#menuofertas").click(function () {
-      //versimuestra("ofertas");
+      versimuestra("ofertas");
       var alturamenu = $('.menu').outerHeight(true);
       var iraqui = $("#seccionpromociones").offset().top - alturamenu;
       $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);

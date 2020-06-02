@@ -29,111 +29,130 @@ function muestrabuscar(){
     
 }
     function buscarproductos(tipoconsulta, e) {
-        var bdd = conexionbddpaginaweb;
-        var rutadeimagenes = rutaimagenespaginaweb;
-        var tabla = tablaanunciospaginaweb;
-        var tabladerubros = tablarubrospaginaweb;
 
-        //Tamañio de la imagen del anuncio
-        tamanioimagen = 150;
-        anchocard = 200;
+        var isVisible = $("#vervineria").is(":visible");
+        if (!isVisible) {
 
-        var textobuscado = $("#cajabusqueda").val();
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            })
 
-        //Lista con filtros
-        var filtro = [];
-        filtro.push( textobuscado );
-        
-        var t = null;
-        var id = 0;
+            swalWithBootstrapButtons.fire({
+                text: 'Por favor declare su edad!!!',
+                icon: 'warning'
+            })
 
-        var itemanuncio = new Object();
-        itemanuncio.bdd = bdd;
-        itemanuncio.tabla = tabla;
-        itemanuncio.tablarubros = tabladerubros;
-        itemanuncio.tipo = tipoconsulta;
-        itemanuncio.id = id;
-        itemanuncio.rutaimagenes = rutadeimagenes;
-        itemanuncio.filtro = filtro;
+        } else {
 
-        var objetoanuncio = JSON.stringify(itemanuncio);
+            var bdd = conexionbddpaginaweb;
+            var rutadeimagenes = rutaimagenespaginaweb;
+            var tabla = tablaanunciospaginaweb;
+            var tabladerubros = tablarubrospaginaweb;
 
-        sn= $('#seccionnovedades div');
-        sn.each(function () {
-            $(this).remove();
-        });
+            //Tamañio de la imagen del anuncio
+            tamanioimagen = 150;
+            anchocard = 200;
 
-        t = $('#seccionbuscados');
-        
-''
-        $(".hijos").remove();
+            var textobuscado = $("#cajabusqueda").val();
 
-        var trabajacomonovedad = false;
+            //Lista con filtros
+            var filtro = [];
+            filtro.push( textobuscado );
+            
+            var t = null;
+            var id = 0;
 
-        $.ajax({
-            url: "consultaanuncios.php",
+            var itemanuncio = new Object();
+            itemanuncio.bdd = bdd;
+            itemanuncio.tabla = tabla;
+            itemanuncio.tablarubros = tabladerubros;
+            itemanuncio.tipo = tipoconsulta;
+            itemanuncio.id = id;
+            itemanuncio.rutaimagenes = rutadeimagenes;
+            itemanuncio.filtro = filtro;
 
-            data: { objetoanuncio: objetoanuncio },
-            type: "post",
+            var objetoanuncio = JSON.stringify(itemanuncio);
 
-            success: function (data) {
+            sn= $('#seccionnovedades div');
+            sn.each(function () {
+                $(this).remove();
+            });
 
-        
-                if (data != '[]') {
+            t = $('#seccionbuscados');
+            
+    ''
+            $(".hijos").remove();
 
-                    dd = JSON.parse(data); //data decodificado
-                    var cuenta = 0;
+            var trabajacomonovedad = false;
 
-                    $.each(dd, function (key, value) {
+            $.ajax({
+                url: "consultaanuncios.php",
 
-                        cuenta = cuenta + 1;
+                data: { objetoanuncio: objetoanuncio },
+                type: "post",
 
-                        var parteobservacion = "";
-                        var partecomentarios = "";
-                        var colapsocomentarios = "";
-                        var colapsoobservaciones = "";
+                success: function (data) {
 
-                        if (dd[key].observaciones != "") {
-                            parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
-                            colapsoobservaciones = "<div class='collapse' id='collapseObservaciones" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].observaciones + "</div></div>";
-                        }
+            
+                    if (data != '[]') {
 
-                        if (dd[key].comentarios != "") {
-                            partecomentarios = "<div class='col'><p><a class='btn light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras' data-toggle='collapse' href='#collapseComentarios" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseComentarios" + cuenta + "'>Sugerencias</a></p></div>";
-                            colapsocomentarios = "<div class='collapse' id='collapseComentarios" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].comentarios + "</div></div>";
-                        }
+                        dd = JSON.parse(data); //data decodificado
+                        var cuenta = 0;
 
-                        if (dd[key].nopublicar == 0) {
-                            if (trabajacomonovedad == true) {
-                                if (dd[key].esnovedad == 1) {
-                                    var precio;
-                                    if (dd[key].precio > 0)
-                                        precio = "$ " + dd[key].precio;
-                                    else
-                                        precio = "Consultar Precio";
-                                    t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p><p class='card-text'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
-                                }
-                            } else {
-                                t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div><div class='row'> " + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                        $.each(dd, function (key, value) {
+
+                            cuenta = cuenta + 1;
+
+                            var parteobservacion = "";
+                            var partecomentarios = "";
+                            var colapsocomentarios = "";
+                            var colapsoobservaciones = "";
+
+                            if (dd[key].observaciones != "") {
+                                parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
+                                colapsoobservaciones = "<div class='collapse' id='collapseObservaciones" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].observaciones + "</div></div>";
                             }
-                        }
-                    });
-                     imageneszoom();
-                } else {
-                    Swal.fire({
-                        closeOnEsc: false,
-                        title: 'No hay artículos para esta búsqueda !!!',
-                    })
+
+                            if (dd[key].comentarios != "") {
+                                partecomentarios = "<div class='col'><p><a class='btn light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras' data-toggle='collapse' href='#collapseComentarios" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseComentarios" + cuenta + "'>Sugerencias</a></p></div>";
+                                colapsocomentarios = "<div class='collapse' id='collapseComentarios" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].comentarios + "</div></div>";
+                            }
+
+                            if (dd[key].nopublicar == 0) {
+                                if (trabajacomonovedad == true) {
+                                    if (dd[key].esnovedad == 1) {
+                                        var precio;
+                                        if (dd[key].precio > 0)
+                                            precio = "$ " + dd[key].precio;
+                                        else
+                                            precio = "Consultar Precio";
+                                        t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p><p class='card-text'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                    }
+                                } else {
+                                    t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div><div class='row'> " + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                }
+                            }
+                        });
+                        imageneszoom();
+                    } else {
+                        Swal.fire({
+                            closeOnEsc: false,
+                            title: 'No hay artículos para esta búsqueda !!!',
+                        })
+                    }
+                },
+                error: function (e) {
+                    console.log("Error de comunicación");
                 }
-            },
-            error: function (e) {
-                console.log("Error de comunicación");
-            }
-        });
-        resetopciones();
-        var alturamenu = $('.menu').outerHeight(true);
-        var iraqui = $("#seccionnovedades").offset().top - alturamenu;
-        $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+            });
+            resetopciones();
+            var alturamenu = $('.menu').outerHeight(true);
+            var iraqui = $("#seccionnovedades").offset().top - alturamenu;
+            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+        }
     }
 
     function validarenter(e)
@@ -165,10 +184,12 @@ function muestrabuscar(){
 
     $(document).ready(function () {
         $("#consulta").click(function () {
-            buscarproductos("consultafiltros");
-            muestrabuscar();
-            $(".navbar-collapse").collapse("hide");
 
+            
+                buscarproductos("consultafiltros");
+                muestrabuscar();
+                $(".navbar-collapse").collapse("hide");
+            
         });
 
         
