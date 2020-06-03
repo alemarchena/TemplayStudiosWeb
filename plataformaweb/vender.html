@@ -240,14 +240,20 @@ $(document).ready(function ()
     function colocafechaactual() {
 
 
+         
         var f = new Date();
         var mes = f.getMonth() + 1;
+        var dia = f.getDay();
 
+        if (dia < 10) {
+            dia = "0" + dia;
+        }
         if (mes < 10) {
             mes = "0" + mes;
         }
 
-        var fechaactual = f.getDate() + "-" + mes + "-" + f.getFullYear();
+        var fechaactual = dia + "-" + mes + "-" + f.getFullYear();
+        
         document.getElementById("fechaventa").value = fechaactual;
 
         consultaventadiaactual();

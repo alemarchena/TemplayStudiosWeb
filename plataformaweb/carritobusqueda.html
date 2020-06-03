@@ -65,7 +65,6 @@
 
 <script>
 
-    consultaranuncioscatalogo("consultatodosanunciosoferta","seccionpromociones");
 
     
 
@@ -298,20 +297,25 @@
 
         });
 
+
         $("#opcioneslista").on('change',function(){
+
 
             $("#criterios_productos .btn").each(function () {
                 $(this).remove();
             });
 
             consultaranuncioscatalogo("consultarubros","tarjetaanuncios");
+
             M.toast(
                 {
-                html: '...Buscando',
+                html: 'Buscando !',
                 displayLength: '1000'
             });
         });
         
+    consultaranuncioscatalogo("consultatodosanunciosoferta", "seccionpromociones");
+
     });
     
     var af = $("#criterios_productos");
@@ -326,7 +330,7 @@
             document.getElementById("filtro_productos").value = "";
 
             consultaranuncioscatalogo("consultafiltros","tarjetaanuncios");
-            
+        
             M.toast(
                 {
                     html: 'Buscando productos filtrados...',

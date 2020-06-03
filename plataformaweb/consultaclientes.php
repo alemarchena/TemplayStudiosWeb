@@ -32,7 +32,7 @@
     //-------------------------------- Acciones --------------------------
 
 
-    if($tipo == "consultatodosanuncios" || $tipo == "consulta" || $tipo == "consultaclienteenventa")
+    if($tipo == "consultatodosanuncios" || $tipo == "consulta" || $tipo == "consultaclienteenventa" || $tipo == "verificar")
     {
         if($tipo == "consultatodosanuncios")
             $sql = "Select * from " .$tabla. " where 1 order by nombrecliente desc";
@@ -40,6 +40,10 @@
             $sql = "Select * from " .$tabla. " where idcliente =" . $id . " order by nombrecliente desc";
         }else if( $tipo == "consultaclienteenventa" ){
             $sql = "Select * from " .$tablaventas. " where idcliente =" . $id . " order by nombrecliente desc";
+        }else if( $tipo == "verificar" ){
+            $sql = "Select * from " .$tabla. " where email = '" . $emailcliente . "'";
+            // echo $sql;
+            
         }
 
         $resultado  = $mysqli->query($sql);
@@ -56,7 +60,7 @@
         {
             echo "consultavacia";
         }
-    }else if($tipo == "alta" || $tipo == "baja")
+    }else if($tipo == "alta" || $tipo == "baja" || $tipo == "bajaxemail")
     {
         if($tipo == "alta")
         {
@@ -66,15 +70,19 @@
                 {
                     $sql = "INSERT INTO " .$tabla. "(nombrecliente,direccion,telefono,email) 
                     values('$nombrecliente','$direccioncliente','$telefonocliente','$emailcliente')";
-                   
                 }
             }else{
                 $sql = "update " .$tabla. " set nombrecliente = '$nombrecliente',direccion = '$direccioncliente',telefono = '$telefonocliente',email= '$emailcliente',bonus='$bonus' where idcliente= $id";
             }
-        }else
+        }else if( $tipo == "baja")
         {
             $sql = "delete from " .$tabla. " where idcliente = $id";
+        }else if ($tipo == "bajaxemail")
+        {
+            $sql = "delete from " .$tabla. " where emailcliente = $emailcliente";
         }
+
+
         $resultado = $mysqli->query($sql);
         if($resultado)
         {

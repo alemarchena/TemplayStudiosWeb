@@ -3,6 +3,7 @@
 var empresa                 = "templay";
 var tablaanunciospaginaweb  = empresa + "_anuncios";
 var tablarubrospaginaweb    = empresa + "_rubros";
+var tablaclientespaginaweb  = empresa + "_clientes";
 var conexionbddpaginaweb    = "conexiones/parametros.php";
 var rutaimagenespaginaweb   = "imagenes/";
 

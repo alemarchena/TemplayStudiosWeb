@@ -90,7 +90,7 @@ function consultacajaenterdias()
     var fechaventahasta = $("#fechaventahasta").val();
     fechaventaenviadahasta = conviertefechaastringdmy(fechaventahasta);
    
-  
+    
     consultacaja(fechaventaenviadadesde, fechaventaenviadahasta);
 }
 
@@ -127,15 +127,21 @@ $(document).ready(function ()
         
         var f = new Date();
         var mes = f.getMonth() + 1;
-       
+        var dia = f.getDay();
+        
+        if(dia<10)
+        {
+            dia = "0" + dia;
+        }
         if(mes<10){
             mes = "0" + mes;
         }
         
-        var fechaactual =  f.getDate() + "-" + mes + "-" + f.getFullYear();
+        var fechaactual = dia + "-" + mes + "-" + f.getFullYear();
         document.getElementById("fechaventadesde").value= fechaactual;
         document.getElementById("fechaventahasta").value = fechaactual;
 
+       
         consultacajaenterdias();
 
     }
