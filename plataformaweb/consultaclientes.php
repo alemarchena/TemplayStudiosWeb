@@ -60,17 +60,17 @@
         {
             echo "consultavacia";
         }
-    }else if($tipo == "alta" || $tipo == "baja" || $tipo == "bajaxemail")
+    }else if($tipo == "alta" || $tipo == "baja" || $tipo == "bajaxemail" || $tipo == "actualizaemail")
     {
         if($tipo == "alta")
         {
             if($id==0)
             {
-                if($nombrecliente != "")
-                {
+                // if($nombrecliente != "")
+                // {
                     $sql = "INSERT INTO " .$tabla. "(nombrecliente,direccion,telefono,email) 
                     values('$nombrecliente','$direccioncliente','$telefonocliente','$emailcliente')";
-                }
+                // }
             }else{
                 $sql = "update " .$tabla. " set nombrecliente = '$nombrecliente',direccion = '$direccioncliente',telefono = '$telefonocliente',email= '$emailcliente',bonus='$bonus' where idcliente= $id";
             }
@@ -80,6 +80,9 @@
         }else if ($tipo == "bajaxemail")
         {
             $sql = "delete from " .$tabla. " where emailcliente = $emailcliente";
+        }else if ($tipo == "actualizaemail")
+        {
+            $sql = "update " .$tabla. " set  email= '$emailcliente' where id = $id";
         }
 
 

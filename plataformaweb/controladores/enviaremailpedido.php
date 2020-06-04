@@ -17,7 +17,7 @@
 	$subtitulo = "Detalle del Carrito";
 	
 
-	$cuerpo = "Nota: " . $nota . "\n Dirección: " . $direccion . "\n Apellido: " . $apellido . " - Email: " . $email . ", Telefono: " . $telefono . "\n Pedido: " . $mensaje . "\n";
+	$cuerpo = "\n Nota: " . $nota . "\n Dirección: " . $direccion . "\n Apellido: " . $apellido . " - Email: " . $email . ",\n Telefono: " . $telefono . "\n Pedido: \n" . $mensaje . "\n";
 	
 	mail($emailtemplay, $titulo , $subtitulo . $cuerpo);
 
@@ -30,7 +30,7 @@
 	
 	if($email != "")
 	{
-		$mensajealcliente = "Muchas gracias por contactarnos, por favor no conteste este mensaje, en breve nos comunicaremos con usted. Saludos cordiales.";
+		$mensajealcliente = "Muchas gracias por su Pedido, le copiamos aqué el detalle: \n" . $mensaje . "\n, por favor no conteste este mensaje, en breve nos comunicaremos con usted. Saludos cordiales.";
 		$subtituloalcliente = "Respuesta automática.";
 		$tituloalcliente = "Contacto con " .$nombreempresa. ".";
 		mail($email, $tituloalcliente , $subtituloalcliente . $mensajealcliente);

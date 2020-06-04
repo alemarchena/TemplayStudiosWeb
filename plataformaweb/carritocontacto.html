@@ -1,14 +1,18 @@
 <div class="col-sm-12 ">
 	
 		<div class="form-row justify-content-center">
-			
+			<div class="col-sm-1">
+				<label class="contacto" for="idcliente">Id</label>
+				<input id="idcliente" type="text" aria-label="Last name" class="form-control "
+					placeholder="Id" readonly>
+			</div>
 			<div class="col-sm-2">
 				<label class="contacto" for="apellido">Nombre y Apellido</label>
 				<input maxlength="50" id="apellido" type="text" aria-label="Last name" class="form-control " placeholder="Nombre y Apellido">
 			</div>
 			<div class="col-sm-2">
 				<label class="contacto" for="email">Email</label>
-				<input maxlength="50" id="email" type="email" class="form-control " placeholder="Email">
+				<input maxlength="50" id="email" type="email" class="form-control " placeholder="Email" readonly>
 			</div>
 			<div class="col-sm-2">
 				<label class="contacto" for="celular">Teléfono</label>
@@ -45,6 +49,10 @@
 	
 	
 	$("#enviar").click(function(){
+
+		var idcliente = $("#idcliente").val();
+		idcliente = idcliente.trim();
+
 		var telefono = $("#celular").val();
 		apellido = telefono.trim();
 		
@@ -150,5 +158,15 @@
 	});
 	
 	calculatotal();
+	function llenacampos()
+	{
 
+		$("#idcliente").val(idclienteini);
+		$("#celular").val(telefonoclienteini);
+		$("#apellido").val(nombreclienteini);
+		$("#email").val(emailclienteini);
+		$("#direccion").val(direccionclienteini);
+	}
+
+	llenacampos();
 </script>

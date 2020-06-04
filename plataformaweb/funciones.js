@@ -3465,7 +3465,6 @@ function intentaEliminarcliente(idpasado)
     datosclientes.bonus = "";
 
     var cliente = JSON.stringify(datosclientes);
-
     $.ajax({
 
         url: "consultaclientes.php",
@@ -3475,7 +3474,7 @@ function intentaEliminarcliente(idpasado)
 
         success: function (data) 
         {
-            if (data == "[]" ) 
+            if (data == "[]" || data == "consultavacia") 
             {
                 eliminarcliente(id);
             }else if (data != "[]" && data != "consultavacia") {

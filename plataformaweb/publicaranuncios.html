@@ -35,6 +35,9 @@
                             
                                         <div class="card-body">
                                             <div class="row">
+                                                <p><small>Lo que escribes en el título y la descripción será encontrado por el buscador de la página web</small></p>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm-5">
                             
                                                     <!-- Imagen -->
@@ -94,7 +97,7 @@
                                                         <div class="col-sm-12">
                                                             <input onKeyDown="return validartecla(event,this.value,50)"
                                                                 onKeyUp="return validartecla(event,this.value,50)" id="titulo" name="titulo"
-                                                                type="text" class="validate border border-success">
+                                                                type="text" class="validate border border-success" placeholder="Dale un título al producto">
                                                             <label class="colorletras" for="titulo">Título</label>
                                                         </div>
                                                     </div>
@@ -108,7 +111,7 @@
                                                             <textarea onKeyDown="return validartecla(event,this.value,200)"
                                                                 onKeyUp="return validartecla(event,this.value,200)" class="form-control"
                                                                 id="descripcion" name="descripcion" aria-label="descripcion" style="height: 180px;"
-                                                                class="border border-success"></textarea>
+                                                                class="border border-success" placeholder="Describe el producto"></textarea>
                                                         </div>
                                                     </div>
                                                     <!-- Botones de Observaciones y Comentarios-->
@@ -117,13 +120,13 @@
                                                             <label for="botonobservaciones">Agregue una explicación al producto</label>
                                                             <a id="botonobservaciones" class="btn" data-toggle="collapse"
                                                                 href="#collapseDescripcion" role="button" aria-expanded="false"
-                                                                aria-controls="collapseDescripcion">Saber mas</a>
+                                                                aria-controls="collapseDescripcion" placeholder="Extiende la descripción">Saber mas</a>
                                                         </div>
                                                         <div class="col">
                                                             <label for="botoncomentarios">Agregue mas información al producto</label>
                                                             <button id="botoncomentarios" class="btn" type="button" data-toggle="collapse"
                                                                 data-target="#collapseComentarios" aria-expanded="false"
-                                                                aria-controls="collapseComentarios">Sugerencias</button>
+                                                                aria-controls="collapseComentarios" placeholder="Brinda un valor agregado">Sugerencias</button>
                                                         </div>
                                                     </div>
                                                 </div>

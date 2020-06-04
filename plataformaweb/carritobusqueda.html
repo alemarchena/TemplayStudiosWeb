@@ -221,15 +221,16 @@
 
                     imageneszoom();
                         
-                }else{
-                   
-                    Swal.fire({
-                        closeOnEsc: false,
-                        title: 'No hay artículos para esta búsqueda !!!',
-
-                    })
-                    
                 }
+                // else{
+                   
+                    // Swal.fire({
+                    //     closeOnEsc: false,
+                    //     title: 'No hay artículos para esta búsqueda !!!',
+
+                    // })
+                    
+                // }
             },
                 error: function (e) {
 
@@ -326,7 +327,7 @@
         var af = $("#criterios_productos");
         
         if (identi != "") {
-            af.append("<a onclick='eliminarEtiqueta_productos(\"" + identi + "\")' id='" + identi + "' class='btn chip' href='#' role='button'>" + $("#filtro_productos").val() + "</a>");
+            af.append("<a onclick='eliminaretiqueta(\"" + identi + "\")' id='" + identi + "' class='btn chip waves-effect  orange green-4' href='#' role='button'>" + $("#filtro_productos").val() + "</a>");
             document.getElementById("filtro_productos").value = "";
 
             consultaranuncioscatalogo("consultafiltros","tarjetaanuncios");
@@ -339,6 +340,11 @@
             }
     }
 
+    function eliminaretiqueta(identificacion){
+
+        eliminarEtiqueta_productos(identificacion);
+        consultaranuncioscatalogo("consultafiltros", "tarjetaanuncios");
+    }
     function validarfiltro(e) {
         var key = window.event ? e.which : e.keyCode;
         

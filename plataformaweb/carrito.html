@@ -46,11 +46,11 @@
         <script src="configuracion.js"></script>
        
         <script type="text/javascript">
-            idcliente           = "";
-            nombrecliente       = "";
-            telefonocliente     = "";
-            direccioncliente    = "";
-            emailcliente        = "";
+            idclienteini           = "";
+            nombreclienteini       = "";
+            telefonoclienteini     = "";
+            direccionclienteini    = "";
+            emailclienteini        = "";
         </script>
 
         <title>Carrito de Pedidos</title>
@@ -90,19 +90,19 @@
     </div>
     
     <div id="sectorbusqueda" style="z-index:-1; margin-top: 3em;margin-bottom: 2em;">
-        <div class="row justify-content-center align-items-center bd-highlight">
+        <div class="row justify-content-center align-items-top bd-highlight">
             
             <div class="col-sm-3 center" >
                 <div class="row justify-content-center ">
-                    <h3>Te enviamos el pedido que prepares aquí</h3>
+                    <h3>Carrito de compras</h3>
                 </div>
 
                 <div class="row justify-content-center ">
-                    <p class="blue-text text-darken-4"><b>Encuentra productos</b></p>
+                    <p class="blue-text text-darken-4"><b>Crea tu cuenta</b></p>
                 </div>
 
                 <div class="row justify-content-center ">
-                    <p><small>Puedes buscar por rubro / o filtrar con palabras por ej : una marca</small></p>
+                    <p><small>Al registrarte por primera vez, te enviaremos un email para que confirmemos que eres el propietario de la cuenta de correo</small></p>
                 </div>
 
             </div>
@@ -116,12 +116,8 @@
                                     Autenticación
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title">Ingreso</h5>
-                                    <div class="d-flex justify-content-center mt-4 row">
-                                        <input class="mdl-textfield__input center" onKeyUp="return verificaenter(event)" style="display:inline;width:65%;"
-                                            type="text" id="nombre" name="nombre" placeholder="Nombre" />
-                                        &nbsp;&nbsp;&nbsp;
-                                    </div>
+                                    <h5 class="card-title">Ingresa tus datos</h5>
+                                   
                                     <div class="d-flex justify-content-center mt-4 row">
                                         <input class="mdl-textfield__input center" onKeyUp="return verificaenter(event)"
                                             style="display:inline;width:65%;" type="text" id="email" name="email" placeholder="Email" />
@@ -147,32 +143,29 @@
                 
                                     <div class="d-flex justify-content-center row">
                                         <button class="mdl-button mdl-js-button mdl-button--raised" disabled
-                                            id="quickstart-verify-email" name="verify-email" style="visibility: hidden;">Verificar
-                                            cuenta</button>
+                                            id="quickstart-verify-email" name="verify-email" style="visibility: hidden;">Enviarme email de Verificación</button>
                                         &nbsp;&nbsp;&nbsp;
                                     </div>
                                     <div class="d-flex justify-content-center mt-1 row">
                                         <!-- <a class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">¿Has olvidado tu contraseña?</a> -->
                                         <a class="btn-link blue-text text-darken-2" id="quickstart-password-reset"
-                                            name="verify-email">¿Has
-                                            olvidado tu contraseña?</a>
+                                            name="verify-email"><small> ¿Has
+                                            olvidado tu contraseña?</small></a>
                 
                                     </div>
                 
                                 </div>
-                                <div class="card-footer text-muted">
-                                    <div class="d-flex justify-content-center row">
-                                        <p id="textoexplicacion" style="visibility: hidden;">Por seguridad te enviamos un correo para
-                                            que
-                                            verifiquemos que es tuya la cuenta.</p>
-                                    </div>
-                                    <!-- Container where we'll display the user details -->
-                                    <div class="quickstart-user-details-container">
-                                        Estado de conexión: <span id="quickstart-sign-in-status">Desconocido</span>
-                
-                                        <pre><code id="quickstart-account-details"> </code></pre>
-                                    </div>
-                
+                            </div>
+                            <div class="card-footer text-muted">
+                                
+                                <!-- Container where we'll display the user details -->
+                                <div class="quickstart-user-details-container"><small></small><span id="quickstart-sign-in-status">Desconocido</span></small>
+            
+                                    <pre><code id="quickstart-account-details"> </code></pre>
+                                </div>
+                                <div class="d-flex justify-content-center row">
+                                    <p id="textoexplicacion" style="visibility: hidden;color: red;"><small>Por seguridad te enviamos un correo para
+                                            que verifiquemos que es tuya la cuenta.</small></p>
                                 </div>
                             </div>
                         </div>
@@ -183,8 +176,9 @@
                 </div>
             </div>
             <div class="col-sm-3 center">
-                <p class="blue-text text-darken-4"><b>Añade al carrito</b></p>
-                <p>En el carrito puedes modificar las cantidades</p>
+                <p class="blue-text text-darken-4"><b>¿ Como comprar ?</b></p>
+                <p><small>Ingresas, buscas el producto y lo añades</small></p>
+                <p><small>En el carrito puedes modificar las cantidades y pagar</small></p>
             </div>
         </div>
         
@@ -259,17 +253,11 @@
         if (firebase.auth().currentUser) {
             // [START signout]
             firebase.auth().signOut();
-
             // [END signout]
         } else {
-            var nombre = document.getElementById('nombre').value;
-            nombre = nombre.trim();
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-            if (nombre.length < 1) {
-                swal("Atención", "Ingrese su nombre !");
-                return;
-            }
+           
             if (email.length < 4) {
                 swal("Atención", "Ingrese una dirección de email!");
                 return;
@@ -302,17 +290,15 @@
     function consultarusuario() {
 
         var email = document.getElementById('email').value;
-        var nombre = document.getElementById('nombre').value;
 
         objeto = new Object();
         objeto.bdd = conexionbddpaginaweb;
         objeto.tabla = tablaclientespaginaweb;
         objeto.tipo = "verificar";
         objeto.emailcliente = email.trim();
-        objeto.nombrecliente = nombre.trim();
+        objeto.nombrecliente = "";
         var cliente = JSON.stringify(objeto);
 
-        console.log("Consultando.." + cliente);
         $.ajax({
 
             url: "consultaclientes.php",
@@ -321,7 +307,6 @@
             
             success: function (data) {
                 
-                console.log("De vuelta.." + data);
 
                 if (data == "consultavacia" || data == "[]") {
                     crearusuario();
@@ -330,7 +315,15 @@
 
                 } else if (data >= "1") {
 
-                    //crearusuario();
+                    var dd = JSON.parse(data);
+                    var idencontrado=0;
+
+                    $.each(dd, function (key) {
+                        idencontrado = dd[key].idcliente;
+                    });
+
+                    actualizaemailusuario(idencontrado);
+                    console.log("Encontro el id " + idencontrado);
                     // swal("Usuario!", "Ya existe alguien con este email!");
 
                 } else {
@@ -345,33 +338,22 @@
         });
     }
 
-    function crearusuario() {
+    
+    
+    function actualizaemailusuario(idpasado) {
 
         var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        var nombre = document.getElementById('nombre').value;
-
-        if (email.length < 4) {
-            swal("Email", "Por favor ingrese una dirección de correo.");
-            return;
-        }
-        if (password.length < 4) {
-            swal("Contraseña", "Ingrese una clave de al menos 4 digitos");
-            return;
-        }
-
-        
-        emailcliente = email;
+      
         objeto = new Object();
         objeto.bdd = conexionbddpaginaweb;
         objeto.tabla = tablaclientespaginaweb;
         objeto.emailcliente = email.trim();
-        
-        objeto.id = 0;
-        objeto.nombrecliente=nombre.trim();
+
+        objeto.id = idpasado;
+        objeto.nombrecliente = "";
         objeto.direccioncliente = "";
         objeto.telefonocliente = "";
-        objeto.tipo = "alta";
+        objeto.tipo = "actualizaemail";
         var cliente = JSON.stringify(objeto);
 
 
@@ -409,12 +391,75 @@
 
     }
 
-    tuvoerror = 0;
+    function crearusuario() {
+
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        
+
+        if (email.length < 4) {
+            swal("Email", "Por favor ingrese una dirección de correo.");
+            return;
+        }
+        if (password.length < 4) {
+            swal("Contraseña", "Ingrese una clave de al menos 4 digitos");
+            return;
+        }
+
+        
+      
+        objeto = new Object();
+        objeto.bdd = conexionbddpaginaweb;
+        objeto.tabla = tablaclientespaginaweb;
+        objeto.emailcliente = email.trim();
+        
+        objeto.id = 0;
+        objeto.direccioncliente = "";
+        objeto.telefonocliente = "";
+        objeto.tipo = "alta";
+        var cliente = JSON.stringify(objeto);
+
+        console.log("Alta al cliente en base mia " + cliente);
+
+        M.toast({ html: 'Trabajando...' });
+
+        $.ajax({
+
+            url: "consultaclientes.php",
+            data: { cliente: cliente },
+            type: "post",
+
+            success: function (data) {
+
+                console.log("Viene de crear " + data);
+
+                if (data == "nobdd") {
+                    console.log("No se conecto a la base de  datos");
+
+                } else if (data == "1") {
+                    console.log("Usuario creado");
+                    M.toast({ html: 'Guardando...' });
+
+                    //handleSignUp();
+                    //swal("Usuario Creado!", "Presione 'Verificar cuenta' para continuar!");
+
+
+                } else {
+                    console.log("Otro error " + data);
+                }
+            },
+            error: function (e) {
+                console.log("Error:" + e);
+            }
+        });
+
+    }
+
 
     function handleSignUp() {
 
-        tuvoerror = 0;
 
+       
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
         document.getElementById('textoexplicacion').style.visibility = "visible";
@@ -428,24 +473,23 @@
                 document.getElementById('textoexplicacion').style.visibility = "hidden";
 
                 swal("Contraseña", "La clave es demasiado débil.");
-                tuvoerror = 1;
 
 
-            } else {
+            } else if(errorcode == 'auth/email-already-in-use'){
                 document.getElementById('textoexplicacion').style.visibility = "hidden";
-                tuvoerror = 1;
-
-                swal("Error", errorMessage);
+                swal("Error" , errorMessage);
+               
+                console.log("Resultado:" + errorCode);
             }
-            console.log("Resultado:" + error);
-        });
 
-        mensajeok(email);
+        });
+        mensajeok(email, password);
     }
 
-    function mensajeok(email) {
+    function mensajeok(email, password) {
 
-        if (tuvoerror == 0)
+        
+        if (email.length >= 4 && password.length >= 4)
         {
 
         
@@ -459,7 +503,7 @@
 
             swalWithBootstrapButtons.fire({
                 title: 'Usuario Creado!',
-                text: "Está a un solo paso, enviaremos un email para verificar que es el propietario de la cuenta!",
+                text: "Te Enviaremos un email para verificar que es el propietario de la cuenta!",
                 icon: 'warning',
                 showCancelButton: false,
                 confirmButtonText: 'OK',
@@ -489,10 +533,11 @@
      */
     function sendEmailVerification() {
         firebase.auth().currentUser.sendEmailVerification().then(function () {
-            swal("Genial!", "Estamos felices que quieras estar con nosotros! ya tienes un enlace en tu email");
-
+            
         });
         document.getElementById('quickstart-verify-email').style.visibility = "hidden";
+        swal("Genial!", "Ya tienes un enlace de verificación en tu email");
+
         firebase.auth().signOut();
     }
 
@@ -545,7 +590,8 @@
                 var providerData = user.providerData;
 
                 document.getElementById('quickstart-sign-in-status').textContent = 'Conectado';
-                document.getElementById('quickstart-sign-in').textContent = 'Salir';
+                document.getElementById('quickstart-sign-in').textContent = 'Reintentar';
+               
 
                 // document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
 
@@ -648,15 +694,15 @@
 
             sumatotal = sumatotal + parseInt(arreglocarrito[indice].subtotal);
             men.value = men.value + "\n" + 
-                        "Cant:" + arreglocarrito[indice].cantidad + "-" + 
-                        arreglocarrito[indice].titulo + "-" + 
-                        "$ " + arreglocarrito[indice].precio + "-" + 
+                        "Cantidad :" + arreglocarrito[indice].cantidad + " " + 
+                        arreglocarrito[indice].titulo + " " + 
+                        "$ " + arreglocarrito[indice].precio + " " + 
                         "subtotal $ " + arreglocarrito[indice].subtotal;
                         men.value = men.value + "\n";
         });
 
         var totcarrito = document.getElementById('totalcarrito');
-        totcarrito.value = "Total $ " + sumatotal;
+        totcarrito.value = "\n \n Total $ " + sumatotal;
         men.value = men.value + " * Total * $ " + totcarrito.value;
 
     }
@@ -709,7 +755,7 @@
             objeto.bdd = conexionbddpaginaweb;
             objeto.tabla = tablaclientespaginaweb;
             objeto.tipo = "verificar";
-            objeto.email = email.trim();
+            objeto.emailcliente = email.trim();
             var cliente = JSON.stringify(objeto);
             M.toast({ html: 'Autenticando...', displayLength: '1000', classes: 'rounded' });
 
@@ -721,17 +767,17 @@
 
                 success: function (data) {
 
-                    if (data != "consultavacia") {
+                    if (data != "consultavacia" && data != "[]") {
 
                         var dd = JSON.parse(data);
                         
                         $.each(dd, function (key) {
 
-                            idcliente = dd[key].idcliente;
-                            nombrecliente = dd[key].nombrecliente;
-                            telefonocliente = dd[key].telefono;
-                            direccioncliente = dd[key].direccion;
-                            emailcliente = dd[key].email;
+                            idclienteini = dd[key].idcliente;
+                            nombreclienteini = dd[key].nombrecliente;
+                            telefonoclienteini = dd[key].telefono;
+                            direccionclienteini = dd[key].direccion;
+                            emailclienteini = dd[key].email;
                         });
 
                         carritobusqueda();
@@ -740,6 +786,11 @@
 
                     } else {
                         console.log("Otro error " + data);
+                        // swal("El propietario del sitio a restringido el permiso de ingreso");
+                        consultarusuario();
+
+                        firebase.auth().signOut();
+
                     }
 
 
