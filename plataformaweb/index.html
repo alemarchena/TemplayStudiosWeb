@@ -36,7 +36,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet"> -->
     <!-- materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- iconos materialize -->
@@ -126,20 +126,20 @@
     <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
 
     <div class="claseseccionnovedades">
-    
-    <div class="d-flex justify-content-around text-center">
-      <div class="col-sm-3" style="text-align: end;">
-        <button id="mayor" type="button" class="btn btn-warning" style="color: black;">+ de 18</button>
+      
+      <div id="declaracion" class="d-flex justify-content-around text-center">
+        <div class="col-sm-3" style="text-align: end;">
+          <button id="mayor" type="button" class="btn btn-warning" style="color: black;">+ de 18</button>
+        </div>
+      
+        <div class="col-sm-3">
+          <p class="text-center text-muted py-2"><small></small>Declara tu edad</small></p>
+        </div>
+      
+        <div class="col-sm-3" style="text-align: start;">
+          <button id="menor" type="button" class="btn btn-warning" style="color: black;">- de 18</button>
+        </div>
       </div>
-    
-      <div class="col-sm-3">
-        <p class="text-center text-muted py-2"><small></small>Declara tu edad</small></p>
-      </div>
-    
-      <div class="col-sm-3" style="text-align: start;">
-        <button id="menor" type="button" class="btn btn-warning" style="color: black;">- de 18</button>
-      </div>
-    </div>
 
     </div>
 
@@ -190,7 +190,7 @@
           <script type="text/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
           <!-- MDB core JavaScript -->
-          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+          <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script> -->
           <!-- Compiled and minified JavaScript -->
           <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
           <!-- para mostrar la tabla -->
@@ -260,15 +260,16 @@
     $("#seccionpromociones").load("anuncios_ofertas.html");
     $("#seccionbusqueda").load("buscador.html");
     
-
+    
     $("#mayor").click(function () 
     {
+      
       $('#vervineria').show();
       $("#seccionnovedades").load("anuncios_tarjeta_conprecio.html");
       $('li.nav-item').removeClass("active");
-    
+      
       $("#menuproductos").parent().addClass("active");
-
+      
       setCookie("checkCookieTabaqueria", 1, 365);
     });
 

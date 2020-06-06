@@ -8,8 +8,7 @@ function checkCookietabaqueria(nombre, consinprecio) {
     return;
   }else
   {
-
-
+    
     M.toast(
       {
         html: 'Por favor declare su edad!!!',
@@ -20,15 +19,25 @@ function checkCookietabaqueria(nombre, consinprecio) {
 }
 
 function abreTabaqueria(consinprecio) {
-  if (consinprecio == "conprecio")
-    $("#seccionnovedades").load("anuncios_tarjeta_conprecio.html");
-  else
-    $("#seccionnovedades").load("anuncios_tarjeta.html");
+  
 
+  if (consinprecio == "conprecio"){
+
+    $("#seccionnovedades").load("anuncios_tarjeta_conprecio.html");
+  }
+  else{
+    $("#seccionnovedades").load("anuncios_tarjeta.html");
+  }
+  document.getElementById("declaracion").style.visibility = "hidden";
+
+  
 }
 
 function ocultatabaqueria() {
+
   $("#vervineria").hide();
+  document.getElementById("declaracion").style.visibility = "visible";
+
 }
 
 function getCookie(cname) {
@@ -52,6 +61,8 @@ function setCookie(cname, cvalue, exdays) {
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   var expires = "expires="+ d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  $("#declaracion").hide();
+
 }
 
 

@@ -82,15 +82,19 @@
                         
                         dd = JSON.parse(data); //data decodificado
                         var cuenta = 0;
+                        var parteobservacion = "";
+                        var partecomentarios = "";
+                        var colapsocomentarios = "";
+                        var colapsoobservaciones = "";
 
                         $.each(dd, function (key, value) 
                         {
                             cuenta = cuenta + 1;
 
-                            var parteobservacion = "";
-                            var partecomentarios = "";
-                            var colapsocomentarios="";
-                            var colapsoobservaciones="";
+                            parteobservacion = "";
+                            partecomentarios = "";
+                            colapsocomentarios="";
+                            colapsoobservaciones="";
 
                             if (dd[key].observaciones != ""){
                                 parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
@@ -118,7 +122,9 @@
                         });
 
                         imageneszoom();
-                    }else{
+                    }
+                    else
+                    {
                         if(seleccionrubro!="Seleccione un rubro")
                         {
                             Swal.fire({
