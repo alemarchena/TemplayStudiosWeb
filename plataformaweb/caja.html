@@ -127,12 +127,13 @@ $(document).ready(function ()
         
         var f = new Date();
         var mes = f.getMonth() + 1;
-        var dia = f.getDay();
-        
+        var dia = f.getDate();
+
         if(dia<10)
         {
             dia = "0" + dia;
         }
+
         if(mes<10){
             mes = "0" + mes;
         }

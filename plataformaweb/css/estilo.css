@@ -86,6 +86,11 @@ p.textoexplicativo{
   font-size: 15px;
 }
 
+.colorletrasresaltado{
+  color: red;
+  font-size: 15px;
+}
+
 .datepicker{
   background-color: rgb(191, 255, 216)!important;
   -moz-border-radius: 5% 5%!important;

@@ -23,12 +23,12 @@ function abreTabaqueria(consinprecio) {
 
   if (consinprecio == "conprecio"){
 
-    $("#seccionnovedades").load("anuncios_tarjeta_conprecio.html");
+    $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
   }
   else{
-    $("#seccionnovedades").load("anuncios_tarjeta.html");
+    $("#seccionbuscados").load("anuncios_tarjeta.html");
   }
-  document.getElementById("declaracion").style.visibility = "hidden";
+  document.getElementById("declaracion").style.display = "none";
 
   
 }
@@ -56,12 +56,22 @@ function getCookie(cname) {
   return "";
 }
 
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue, exdays, consinprecio) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   var expires = "expires="+ d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  $("#declaracion").hide();
+  document.getElementById("declaracion").style.display = "none";
+
+  if (consinprecio == "conprecio") {
+
+    $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
+  }
+  else {
+    $("#seccionbuscados").load("anuncios_tarjeta.html");
+  }
+
+
 
 }
 

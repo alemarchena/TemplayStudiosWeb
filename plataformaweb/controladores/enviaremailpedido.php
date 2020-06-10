@@ -30,7 +30,7 @@
 	
 	if($email != "")
 	{
-		$mensajealcliente = "Muchas gracias por su Pedido, le copiamos aqué el detalle: \n" . $mensaje . "\n, por favor no conteste este mensaje, en breve nos comunicaremos con usted. Saludos cordiales.";
+		$mensajealcliente = "Muchas gracias por su Pedido, le copiamos aquí el detalle: \n" . $mensaje . "\n, por favor no conteste este mensaje, en breve nos comunicaremos con usted. Saludos cordiales.";
 		$subtituloalcliente = "Respuesta automática.";
 		$tituloalcliente = "Contacto con " .$nombreempresa. ".";
 		mail($email, $tituloalcliente , $subtituloalcliente . $mensajealcliente);

@@ -75,8 +75,7 @@
             <button class="btn waves-effect  orange green-4 tooltipped" data-position="bottom" data-tooltip="Buscar productos"
             type="button" id="verbusqueda" name="verbusqueda"><i class="fas fa-search"></i> Seguir buscando</button>
             
-            <button class="btn waves-effect  orange green-4 tooltipped" data-position="bottom" data-tooltip="Ver Carrito"
-            type="button" id="vercarrito" name="vercarrito"><i class="fas fa-shopping-cart"></i> Ver Carrito</button>
+            <button class="btn waves-effect  orange green-4" type="button" id="vercarrito" name="vercarrito"><i class="fas fa-shopping-cart"></i> Ver Carrito</button>
             <span class="nav-item ml-1" id="btncantidadcarrito" ></span>
         </form>
     </nav>
@@ -176,9 +175,21 @@
                 </div>
             </div>
             <div class="col-sm-3 center">
+                <div class="row justify-content-center ">
                 <p class="blue-text text-darken-4"><b>¿ Como comprar ?</b></p>
-                <p><small>Ingresas, buscas el producto y lo añades</small></p>
-                <p><small>En el carrito puedes modificar las cantidades y pagar</small></p>
+                </div>
+                <div class="row justify-content-center ">
+                    <p><small>Ingresas, buscas el producto y lo añades</small></p>
+                    <p><small>En el carrito puedes modificar las cantidades y enviar</small></p>
+                </div>
+
+                <div class="row justify-content-center ">
+                    <p class="blue-text text-darken-4"><b>¿ Como Sigue ?</b></p>
+                </div>
+                <div class="row justify-content-center ">
+                    <p><small>Te contactamos para coordinar el envío</small></p>
+                    <p><small>Puedes pagar con Mercado pago o en efectivo al recibir</small></p>
+                </div>
             </div>
         </div>
         
@@ -239,7 +250,8 @@
 
 <script type="text/javascript">
 
-
+    var sumatotal = 0;
+    
     function ocultabotones() {
 
         $("#botonescarrito").hide();
@@ -686,7 +698,7 @@
 
     function calculatotal() {
 
-        var sumatotal = 0;
+        sumatotal = 0;
         var men = document.getElementById("mensaje");
         men.value = "";
 

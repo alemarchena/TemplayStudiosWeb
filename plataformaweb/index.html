@@ -2,172 +2,173 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- CAMBIAME 1 seguimiento por google -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20425306-10"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20425306-10"></script>
     <script>
-      // window.dataLayer = window.dataLayer || [];
-      // function gtag() { dataLayer.push(arguments); }
-      // gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
 
-      // gtag('config', 'UA-20425306-10');
-    </script>
+      gtag('config', 'UA-20425306-10');
+    </script> -->
 
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="0">
-    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-    <meta http-equiv="Pragma" content="no-cache">
+
 
     <link rel="icon" type="img/png" href="img/logoempresa.png"/>
     <meta name="description" content="">
+    <title></title>
 
-    <title></title> 
-
-    <link href="https://fonts.googleapis.com/css?family=Kulim+Park&display=swap" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet"> -->
-
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet"> -->
-    <!-- materialize -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- iconos materialize -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-    <!-- mensajes de sweetalert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <!-- <link rel="icon" type="image/png" href="imagenessitio/favicon.png"> -->
-    <link rel="icon" href="/img/logoempresa.png" type="image/png">
-    <!-- <link rel="stylesheet" type="text/css" href="css/estilo.css"> -->
-    <link href="cover.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="animate.css">
-    <script src="configuracion.js"></script>
-    <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=Kulim+Park&display=swap" rel="stylesheet">
   
-  </head>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- materialize -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- iconos materialize -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- datatable -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+  <!-- mensajes de sweetalert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+  <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
+
+  <link href="cover.css" rel="stylesheet">
+   
+  <link rel="stylesheet" type="text/css" href="animate.css">
+
+  <script src="configuracion.js"></script>
+    
+    
+</head>
   <body>
-
+    
+    
+      <!-- -------------------------------------BARRA MENU -------------------------------------------- -->
       <div id="seccionbusqueda" class="fixed-top "></div>
 
       <nav id="navegar" class="navbar navbar-expand-lg navbar-light menu fixed-top">
- 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <a id="tituloweb" class="navbar-brand" href="#"></a>
-
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="nav navbar-nav navbar-center">
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="nav navbar-nav navbar-center">
+            <li class="nav-item">
+              <a id="menugaleria" class="textoenbarra" href="#">Galería</a>
+            </li>
             <li class="nav-item">
               <a id="menuofertas" class="textoenbarra" href="#">Promociones</a>
             </li>
             <li class="nav-item">
-              <a id="menuproductos" class="textoenbarra" href="#">Novedades</a>
+              <a id="menuproductos" class="textoenbarra" href="#">Productos</a>
             </li>
             <li class="nav-item">
               <a id="menuubicacion" class="textoenbarra" href="#">Ubicación</a>
             </li>
             <li class="nav-item">
-              <a id="menucontacto" class="textoenbarra " href="#">Delivery</a>
+              <a id="menucontacto" class="textoenbarra" href="#">Delivery</a>
             </li>
-
+      
             <li class="nav-item">
               <a class="textoenbarra" id="telefono_en_barra" href="" target="_BLANK"></a>
             </li>
             <li class="nav-item">
-              <a id="direccioninstagram" href="" target="_blank"  class="textoenbarra "><img id="logoinstagram" class="lead ml-2"
-                  src="img/logoinstagram.png" alt="facebook"></a>
+              <a id="direccioninstagram" href="" target="_blank" class="textoenbarra"><img id="logoinstagram"
+                  class="lead ml-2" src="img/logoinstagram.png" alt="instagram" style="width: 40px; height: 40px;"></a>
             </li>
             <li class="nav-item">
-              <a id="direccionfacebook" href="" target="_blank"  class="textoenbarra "><img id="logofacebook" class="lead ml-2" src="img/logo-facebook.png"
-                  alt="facebook"></a>
+              <a id="direccionfacebook" href="" target="_blank" class="textoenbarra" ><img id="logofacebook" class="lead ml-2"
+                  src="img/logo-facebook.png" alt="facebook" style="width: 40px; height: 40px;"></a>
             </li>
-        </ul>
-        
-      </div>
-      </nav>
+          </ul>
       
-      
-    <!-- ----------------------------------------- FONDO Y LOGO  --------------------------------------- -->
-    
-    <section id="seccionlocal" class="fixed-top text-center mt-5">
-      <img id="fondo" src="img/fondofondo.jpg" style="width: 100%;">
-    </section>
-
-    <section id="seccionlogolocal" class="fixed-top text-center mt-5 pt-8">
-      <img id="imagenlogoempresa" class="img-fluid rounded-top" src="img/logoempresa.png" alt="Empresa" >
-    </section>
-    
-    <!-- ----------------------------------------- TRANSPARENTE --------------------------------------- -->
-    <section id="seccioncontenidos"></section>
-
-    <!-- --------------------------------------------------- NEGOCIO ------------------------------------------------- -->
-
-    <div id="seccionfotoslocal">
-      <div class="d-flex flex-row justify-content-center align-items-center bd-highlight">
-        <div class="col-sm-12 center">
-          <p id="slogan" class="pt-2"></p>
         </div>
+      </nav>
+
+   
+
+  
+  <section id="seccionlocal" class="fixed-top text-center mt-4">
+    <img id="fondo" src="img/fondofondo.jpg" style="width: 100%;">
+  </section>
+
+  <section id="seccionlogolocal" class="fixed-top text-center mt-5 pt-8">
+    <img id="imagenlogoempresa" class="img-fluid rounded-top" src="img/logoempresa.png" alt="Empresa" >
+  </section>
+
+  </section>
+
+  <!-- seccion transparente-->
+    <section id="seccioncontenidos">
+
+    </section>
+
+<!-- --------------------------------------------------- NEGOCIO ------------------------------------------------- -->
+
+  <div id="seccionfotoslocal"  class="border-top border-warning lime lighten-5">
+    <div class="d-flex flex-row justify-content-center align-items-center bd-highlight">
+      <div class="col-sm-12 center">
+        <p id="slogan"  style="font-size: 20px;"></p>
       </div>
     </div>
-    
+  </div>
+
     <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
 
-    <div class="claseseccionnovedades">
-      
-      <div id="declaracion" class="d-flex justify-content-around text-center">
-        <div class="col-sm-3" style="text-align: end;">
-          <button id="mayor" type="button" class="btn btn-warning" style="color: black;">+ de 18</button>
-        </div>
-      
-        <div class="col-sm-3">
-          <p class="text-center text-muted py-2"><small></small>Declara tu edad</small></p>
-        </div>
-      
-        <div class="col-sm-3" style="text-align: start;">
-          <button id="menor" type="button" class="btn btn-warning" style="color: black;">- de 18</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
-    <div id="vervineria" class="claseseccionnovedades">
-      <div id="seccionnovedades">
-
-      </div>
-      
-      <div id="seccionbuscados" class="card-deck row">
-
-      </div>
+  <div class="claseseccionnovedades">
   
-      <div id="divpromociones" class="d-flex flex-row justify-content-center align-items-center"><small><h5>Promociones</h5></small></div>
-      
-      <div id="seccionpromociones" class="p-3">
-
+    <div id="declaracion" class="d-flex justify-content-around text-center" style="visibility: hidden;">
+      <div class="col-sm-3" style="text-align: end;">
+        <button id="mayor" type="button" class="btn btn-warning" style="color: black;">+ de 18</button>
+      </div>
+    
+      <div class="col-sm-3">
+        <p class="text-center text-muted py-2"><small></small>Declara tu edad</small></p>
+      </div>
+    
+      <div class="col-sm-3" style="text-align: start;">
+        <button id="menor" type="button" class="btn btn-warning" style="color: black;">- de 18</button>
       </div>
     </div>
+
+  </div>
+
+  <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
+  <div id="vervineria" class="claseseccionnovedades">
+
+    <div id="seccionnovedades">
     
+    </div>
+    <div id="seccionbuscados" >
 
-    <!-- --------------------------------------------------- CONTACTO ------------------------------------------------- -->
+    </div>
 
-    <section id="seccioncontacto" >
-      <div id="subcontenedorcontacto" ></div>
-    </section>
-        
-    <!-- --------------------------------------------------- MAPA ------------------------------------------------- -->
+    <div id="seccionpromociones" class="p-3">
+
+    </div>
+  </div>
+  
+</div>
+<!-- --------------------------------------------------- CONTACTO ------------------------------------------------- -->
+
+<section id="seccioncontacto" >
+  <div id="subcontenedorcontacto" >
+    
+  </div>
+</section>
+<!-- --------------------------------------------------- MAPA ------------------------------------------------- -->
 
     <section id="seccionubicacion" class="container jumbotron">
       <h5>Ubicación</h5>
@@ -176,36 +177,44 @@
         width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
     </section>
 
-    <footer id="footer" class="footer"></footer>
+      
 
+    <footer id="footer" class="footer"></footer>
+    
     <div id="direccioncatalogoweb"></div>
 
-    <!-- ------------------------------------------- LIBRERIAS NECESARIAS --------------------------------->
-    
-    <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-          <!-- Bootstrap core JavaScript -->
-          <script type="text/javascript"
+        <!-- LIBRERIAS NECESARIAS -->
+        
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-          <!-- MDB core JavaScript -->
-          <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script> -->
-          <!-- Compiled and minified JavaScript -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-          <!-- para mostrar la tabla -->
-          <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-          <!-- para mostrar los toast -->
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
-          
-    <!-- ------------------------------------------- LIBRERIAS PROPIAS --------------------------------->
+        <!-- MDB core JavaScript -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script> -->
+        
+        
+        
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        
+        <!-- para mostrar la tabla -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+        
+        <!-- para mostrar los toast -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
 
-    <script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
-    <script src="funciones.js"></script>
-    <script src="js/subscriptionPopup.js"></script>
-    <script src="establecerparametrosweb.js"></script>
 
-  </body>
+  <script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
+  <script src="funciones.js"></script>
+  <script src="js/subscriptionPopup.js"></script>
+  <script src="establecerparametrosweb.js"></script>
+
+
+
+</body>
 </html>
 
 <script type="text/javascript">
@@ -213,6 +222,8 @@
   function animarrubro(){
       $("#seccionnovedades").addClass('bounceIn animated');
   } 
+
+  var consinprecio = "conprecio";
 
 
   function versimuestra(quemuestra) {
@@ -235,7 +246,11 @@
       {
         if(quemuestra=="productos")
         {
-          $("#seccionnovedades").load("anuncios_tarjeta.html");
+            if (consinprecio == "conprecio") {
+              $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
+            } else {
+              $("#seccionbuscados").load("anuncios_tarjeta.html");
+            }  
         }else if (quemuestra == "galeria")
         {
           $("#seccionnovedades").load("galeria.html");
@@ -253,24 +268,26 @@
     var velocidad= 500;
     var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
 
-    var consinprecio = "conprecio";
+
+
     checkCookietabaqueria("checkCookieTabaqueria", consinprecio);
 
-    
     $("#seccionpromociones").load("anuncios_ofertas.html");
     $("#seccionbusqueda").load("buscador.html");
-    
-    
-    $("#mayor").click(function () 
+          
+
+    $("#mayor").click(function (e) 
     {
-      
       $('#vervineria').show();
-      $("#seccionnovedades").load("anuncios_tarjeta_conprecio.html");
       $('li.nav-item').removeClass("active");
-      
+    
       $("#menuproductos").parent().addClass("active");
-      
-      setCookie("checkCookieTabaqueria", 1, 365);
+
+      setCookie("checkCookieTabaqueria", 1, 365, consinprecio);
+      $("#navbar-collapse").collapse("hide");
+      var poscontacto = $("#seccionbuscados").offset().top - alturamenu; 
+      e.preventDefault(); 
+      $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
     });
 
     $("#menor").click(function () {
@@ -294,7 +311,7 @@
     $("#menuofertas").click(function () {
       versimuestra("ofertas");
       var alturamenu = $('.menu').outerHeight(true);
-      var iraqui = $("#seccionpromociones").offset().top - alturamenu;
+      var iraqui = $("#divpromociones").offset().top - alturamenu;
       $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
     });
       

@@ -80,10 +80,31 @@
     <p id="res"></p>
     <footer class="page-footer">
         <div class="footer-copyright">
-            <div class="container">
-                © 2020 Copyright
-                <a class="grey-text text-lighten-4 right" href="http://www.templaystudios.com" target="_BLANK">Creado por
-                    Templay Studios</a>
+            <div class="container row">
+                <div class="col-sm-4">
+                    © 2020 Copyright
+                    <a class="grey-text text-lighten-4 right" href="http://www.templaystudios.com" target="_BLANK">Creado por
+                        Templay Studios</a>
+                </div>
+                
+                <div class="col-sm-4"></div>
+                
+                <div class="col-sm-4">
+                    <button id="clear" class="btn btn-primary">Limpiar cookies</button>
+                    <script>
+                        function eliminarCookies() {
+                            document.cookie.split(";").forEach(function (c) {
+                                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                            });
+                            console.log(dominioruta);
+                            window.location.replace(dominioruta + "panelpublicacion.php");
+                            return false;
+                        }
+                        $('#clear').click(function () {
+                            eliminarCookies();
+                        })
+                    </script>
+                </div>
             </div>
         </div>
     </footer>

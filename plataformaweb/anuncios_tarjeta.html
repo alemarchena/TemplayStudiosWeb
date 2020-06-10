@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<div id="tarjetaanuncios" class="row"> 
+<div id="buscadosenprecios" class="row justify-content-center"> 
     
 </div>
 <script>
@@ -20,19 +20,16 @@
     {
         var trabajacomonovedad = false;
         var seleccion = document.getElementById("opciones");
-        var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
+        // var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
         
         var seleccionidrubro = document.getElementById("opciones").value;
     
 
-        if (seleccionrubro != "Seleccione un rubro")
+        if (seleccionidrubro != "")
         {
             var tipo;
 
-            if(seleccionrubro == "Todos")
-                tipo = "consultatodosanuncios";
-            else
-                tipo = "consultarubros";
+            tipo = "consultarubros";
 
             var t=null;
             var id="";
@@ -66,7 +63,13 @@
 
             var objetoanuncio = JSON.stringify(itemanuncio);
 
-            t = $('#tarjetaanuncios');
+             sn = $('#buscadosenprecios div');
+            sn.each(function () {
+                $(this).remove();
+            });
+
+            
+            t = $('#buscadosenprecios');
             $(".hijos").remove();
 
             $.ajax({
@@ -128,7 +131,7 @@
                         $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
                         
                     }else{
-                        if(seleccionrubro!="Seleccione un rubro")
+                        if(seleccionidrubro!="")
                         {
                             Swal.fire({
                                 closeOnEsc: false,
@@ -149,6 +152,10 @@
                 }
             });
         }
+
+        $("#navbar-collapse").collapse("hide");
+        var poscontacto = $("#buscadosenprecios").offset().top - alturamenu;
+        $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
     }
 
     $(document).ready(function ()

@@ -96,6 +96,10 @@ li.active{
 
 }
 
+#declaracion{
+  margin-top: 0em!important;
+  margin-bottom: 0em!important;
+}
 /* ---------------------------Imagen fondo superior------------------------  */
 
 #seccionlocal{

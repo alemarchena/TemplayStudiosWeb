@@ -28,6 +28,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="cover.css">
     <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
 
     <!-- autenticacion -->
