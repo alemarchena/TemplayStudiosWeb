@@ -1,32 +1,25 @@
 <div class="d-flex flex-row justify-content-center bd-highlight mt-1 ">
     <a href="">
         <img id="menunegocio" src="img/logoempresa.png" alt="Empresa" 
-         style="height: 40px ;width :40px;color: rgb(216, 216, 216);margin: 10px 30px 0px 30px; "
+         style="height: 40px ;width :40px;color: rgb(216, 216, 216);margin: 10px 15px 0px 15px; "
             onmouseout="this.src='img/logoempresa.png';" onmouseover="this.src='img/logoempresa1.png';" class="p2">
     </a>
     
-    <input id="cajabusqueda" class="border-right-0 border-top-0 border border-success rounded ml-5" style="background-color: white;opacity: 90%;" onkeyup="validarenter(event)" type="text" placeholder="BUSCA PRODUCTOS, MARCAS Y MAS.. ">
-    <a id="consulta"><i class='fas fa-search' style="font-size:25px;height: 50px;margin: 10px 30px 0px 30px;"></i></a>
-    
+    <input id="cajabusqueda" class="border-right-0 border-top-0 border border-success rounded " style="background-color: white;opacity: 90%;" onkeyup="validarenter(event)" type="text" placeholder="BUSCA PRODUCTOS, MARCAS Y MAS.. ">
+    <a id="consulta"><i class='fas fa-search' style="font-size:25px;height: 50px;margin: 10px 15px 0px 15px;"></i></a>
 </div>
 
 <script>
 
-function muestrabuscar(){
+function muestrabuscar()
+{
     if ($("#cajabusqueda").val() != "") {
         M.toast(
             {
                 html: '...Buscando',
                 displayLength: '3000'
             });
-    } else {
-        M.toast(
-            {
-                html: '...Buscando',
-                displayLength: '5000'
-            });
-    }
-    
+    } 
 }
     function buscarproductos(tipoconsulta, e) {
 
@@ -47,6 +40,17 @@ function muestrabuscar(){
 
         } else {
 
+             var textobuscado = $("#cajabusqueda").val();
+
+            if (textobuscado == "") {
+
+                Swal.fire({
+                    closeOnEsc: false,
+                    title: 'Escriba lo que desea encontrar!',
+                })
+                return false;
+            }
+
             var bdd = conexionbddpaginaweb;
             var rutadeimagenes = rutaimagenespaginaweb;
             var tabla = tablaanunciospaginaweb;
@@ -56,8 +60,7 @@ function muestrabuscar(){
             tamanioimagen = 150;
             anchocard = 200;
 
-            var textobuscado = $("#cajabusqueda").val();
-
+           
             //Lista con filtros
             var filtro = [];
             filtro.push( textobuscado );
@@ -76,19 +79,26 @@ function muestrabuscar(){
 
             var objetoanuncio = JSON.stringify(itemanuncio);
 
-            sn= $('#seccionnovedades div');
+            sn= $('#seccionbuscados div');
             sn.each(function () {
                 $(this).remove();
             });
 
-            t = $('#seccionbuscados');
-            
-    ''
+            if (consinprecio == "conprecio") {
+                $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
+            } else {
+                $("#seccionbuscados").load("anuncios_tarjeta.html");
+            }  
+
+            t = $('#seccionbuscadosbuscador');
+    
             $(".hijos").remove();
 
             // var trabajacomonovedad = false;
             var seveelprecio = true;
 
+            document.getElementById("cajabusqueda").value = "";
+            
             $.ajax({
                 url: "consultaanuncios.php",
 
@@ -139,44 +149,7 @@ function muestrabuscar(){
 
                                 }
                             }
-                            // cuenta = cuenta + 1;
-
-                            // parteobservacion = "";
-                            // partecomentarios = "";
-                            // colapsocomentarios = "";
-                            // colapsoobservaciones = "";
-
-                            // if (dd[key].observaciones != "") {
-                            //     parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
-                            //     colapsoobservaciones = "<div class='collapse' id='collapseObservaciones" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].observaciones + "</div></div>";
-                            // }
-
-                            // if (dd[key].comentarios != "") {
-                            //     partecomentarios = "<div class='col'><p><a class='btn light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras' data-toggle='collapse' href='#collapseComentarios" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseComentarios" + cuenta + "'>Sugerencias</a></p></div>";
-                            //     colapsocomentarios = "<div class='collapse' id='collapseComentarios" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].comentarios + "</div></div>";
-                            // }
-
-
-                            // if (dd[key].nopublicar == 0) {
-                            //     if (trabajacomonovedad == true) {
-                            //         if (dd[key].esnovedad == 1) {
-                                        
-                            //             if (dd[key].precio > 0)
-                            //                 precio = "$ " + dd[key].precio;
-                            //             else
-                            //                 precio = "Consultar Precio";
-                            //             t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p><p class='card-text'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
-                            //         }
-                            //     } else {
-                                    
-                            //         if (dd[key].precio > 0)
-                            //             precio = "$ " + dd[key].precio;
-                            //         else
-                            //             precio = "Consultar Precio";
-
-                            //         t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p><p class='card-text'>" + precio + "</p></div><div class='row'> " + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
-                            //     }
-                            // }
+                           
                         });
                         imageneszoom();
                     } else {
@@ -192,7 +165,7 @@ function muestrabuscar(){
             });
             resetopciones();
             var alturamenu = $('.menu').outerHeight(true);
-            var iraqui = $("#seccionnovedades").offset().top - alturamenu;
+            var iraqui = $("#seccionbuscadosbuscador").offset().top - alturamenu;
             $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
         }
     }
@@ -245,4 +218,6 @@ function muestrabuscar(){
         $("html, body").animate({ scrollTop: 0 }, velocidadscroll * 1.2);
         $(".navbar-collapse").collapse("hide");
     });
+
+     
 </script>

@@ -214,7 +214,7 @@
                                     precio = "Consultar Precio";
 
                                 idproducto = dd[key].id;
-                                t.append("<div class='col-sm-3 " + clasehijo + "'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><button onclick='agregame(" + idproducto + ")' id='btnagregar_" + cuenta + "' class='btn waves-effect  orange green-4'><i class='fas fa-cart-plus'></i></button><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><p class='card-text center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                t.append("<div class='col-sm-3 " + clasehijo + "'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><button onclick='agregame(" + idproducto + "," + cuenta + ")' id='btnagregar_" + cuenta + "' class='btn waves-effect  orange green-4'><i class='fas fa-cart-plus'></i></button><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><p class='card-text center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
 
                             }
                         }
@@ -223,15 +223,7 @@
                     imageneszoom();
                         
                 }
-                // else{
-                   
-                    // Swal.fire({
-                    //     closeOnEsc: false,
-                    //     title: 'No hay artículos para esta búsqueda !!!',
-
-                    // })
-                    
-                // }
+               
             },
                 error: function (e) {
 
@@ -240,9 +232,9 @@
         });
     }
 
-   
 
-    function agregame(idproducto)
+
+    function agregame(idproducto,cuenta)
     {
         var esta = false;
 
@@ -283,11 +275,12 @@
                
                 }
             });
+            
         }
   
     }
 
-
+   
 
     $(document).ready(function ()
     {

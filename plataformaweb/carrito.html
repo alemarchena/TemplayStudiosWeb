@@ -101,7 +101,15 @@
                 </div>
 
                 <div class="row justify-content-center ">
-                    <p><small>Al registrarte por primera vez, te enviaremos un email para que confirmemos que eres el propietario de la cuenta de correo</small></p>
+                    <p><small>Completas nombre y clave por única vez.</small></p>
+                    <p><small>Recibes un email de confirmación en el correo.</small></p>
+                    <p><small>Le das clic y listo, ya podrás ingresar al carrito !!!</small></p>
+                    
+                </div>
+
+                <div class="row justify-content-center ">
+                    <button id = "ingreso" class="btn">Tengo mi cuenta</button>
+                    <button id = "registro" class="btn">Quiero registrarme</button>
                 </div>
 
             </div>
@@ -109,7 +117,7 @@
                 <div id="logincliente" class="d-flex flex-row justify-content-center align-items-center bd-highlight ">
                     <div id="plataforma" class="row justify-content-center">
                         <!-- <form method=post action=""> -->
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <div id="tarjeta" class="card text-center">
                                 <div class="card-header">
                                     Autenticación
@@ -129,13 +137,14 @@
                                         <br /><br />
                                     </div>
                 
-                                    <div class="d-flex justify-content-center mt-4 row">
-                                        <button disabled class="mdl-button mdl-js-button mdl-button--raised amber"
-                                            id="quickstart-sign-in" name="signin">Ingresar</button>
+                                    <div class="d-flex justify-content-center mt-3 row">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised amber"
+                                        id="quickstart-sign-in" name="signin">Ingresar</button>
                                         &nbsp;&nbsp;&nbsp;
-                
-                                        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up"
-                                            name="signup">Registrarse</button>
+                                    </div>
+                                    <div class="d-flex justify-content-center mt-1 row">
+                                        <button class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-up"
+                                            name="signup" style="visibility: hidden">Registrarse</button>
                                         &nbsp;&nbsp;&nbsp;
                                     </div>
                 
@@ -150,23 +159,15 @@
                                         <a class="btn-link blue-text text-darken-2" id="quickstart-password-reset"
                                             name="verify-email"><small> ¿Has
                                             olvidado tu contraseña?</small></a>
-                
                                     </div>
                 
                                 </div>
                             </div>
-                            <div class="card-footer text-muted">
-                                
-                                <!-- Container where we'll display the user details -->
+                            <!-- <div class="card-footer text-muted">
                                 <div class="quickstart-user-details-container"><small></small><span id="quickstart-sign-in-status">Desconocido</span></small>
-            
                                     <pre><code id="quickstart-account-details"> </code></pre>
                                 </div>
-                                <div class="d-flex justify-content-center row">
-                                    <p id="textoexplicacion" style="visibility: hidden;color: red;"><small>Por seguridad te enviamos un correo para
-                                            que verifiquemos que es tuya la cuenta.</small></p>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- </form> -->
                 
@@ -192,12 +193,7 @@
                 </div>
             </div>
         </div>
-        
-        <!-- <div class="d-flex flex-row justify-content-center align-items-center bd-highlight mt-5 pt-3">
-            <div class="col-sm-12 center">
-                <button class="btn waves-effect btn-primary" type="button" id="entendido" name="entendido">Entendido</button>
-            </div>
-        </div> -->
+       
     </div>
     
     
@@ -234,15 +230,11 @@
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script> -->
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- para mostrar la tabla -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    <!-- para mostrar los toast -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script> -->
-
+    
     <script src=funciones.js> </script> 
 
     
@@ -388,10 +380,6 @@
                     console.log("Usuario creado");
                     M.toast({ html: 'Guardando...' });
 
-                    //handleSignUp();
-                    //swal("Usuario Creado!", "Presione 'Verificar cuenta' para continuar!");
-
-
                 } else {
                     console.log("Otro error " + data);
                 }
@@ -452,10 +440,6 @@
                     console.log("Usuario creado");
                     M.toast({ html: 'Guardando...' });
 
-                    //handleSignUp();
-                    //swal("Usuario Creado!", "Presione 'Verificar cuenta' para continuar!");
-
-
                 } else {
                     console.log("Otro error " + data);
                 }
@@ -474,28 +458,33 @@
        
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
-        document.getElementById('textoexplicacion').style.visibility = "visible";
 
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        
+        .then(function (firebaseUser) {
+            mensajeok(email, password);
+        })
 
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-
+        .catch(function (error) 
+        {
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode == 'auth/weak-password') {
-                document.getElementById('textoexplicacion').style.visibility = "hidden";
 
-                swal("Contraseña", "La clave es demasiado débil.");
+                swal("Contraseña", "La clave es muy débil, utilice números y letras");
 
 
-            } else if(errorcode == 'auth/email-already-in-use'){
-                document.getElementById('textoexplicacion').style.visibility = "hidden";
-                swal("Error" , errorMessage);
+            } else if(errorCode == 'auth/email-already-in-use'){
+                swal("Error" , "Este usuario ya existe");
                
-                console.log("Resultado:" + errorCode);
+                console.log("Resultado:" + errorCode + ",Mensaje error" + errorMessage);
+            }else if(errorCode == 'auth/invalid-email'){
+                swal("Error", "Utilice una dirección de correo válida");
+
             }
 
         });
-        mensajeok(email, password);
+      
     }
 
     function mensajeok(email, password) {
@@ -561,9 +550,10 @@
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode == 'auth/invalid-email') {
-                swal("Error", errorMessage);
+
+                swal("Error", "Ingrese un email válido");
             } else if (errorCode == 'auth/user-not-found') {
-                swal("Error", errorMessage);
+                swal("Error", "No encontramos éste usuario");
             }
             console.log(error);
         });
@@ -588,8 +578,6 @@
     function initApp() {
         // Listening for auth state changes.
         firebase.auth().onAuthStateChanged(function (user) {
-            document.getElementById('quickstart-verify-email').disabled = true;
-
 
             if (user) {
                 // User is signed in.
@@ -601,12 +589,7 @@
                 var uid = user.uid;
                 var providerData = user.providerData;
 
-                document.getElementById('quickstart-sign-in-status').textContent = 'Conectado';
-                document.getElementById('quickstart-sign-in').textContent = 'Reintentar';
-               
-
-                // document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-
+              
                 if (!emailVerified) {
                     document.getElementById('quickstart-verify-email').disabled = false;
 
@@ -615,16 +598,10 @@
                 } else {
                     document.getElementById('quickstart-password-reset').style.visibility = "visible";
                     document.getElementById('quickstart-verify-email').style.visibility = "hidden";
-                    document.getElementById('textoexplicacion').style.visibility = "hidden";
 
                     verificarusuario();
                 }
-            } else {
-                document.getElementById('quickstart-sign-in-status').textContent = 'Desconectado';
-                document.getElementById('quickstart-sign-in').textContent = 'Ingresar';
-                document.getElementById('quickstart-account-details').textContent = '';
-            }
-            document.getElementById('quickstart-sign-in').disabled = false;
+            } 
         });
 
         document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
@@ -651,13 +628,7 @@
             vercantidad();
     }
     
-    
-    //  $("#entendido").click(function () {
-         
-    //         if (quecargo != "busqueda") {
-    //             carritobusqueda();
-    //         }
-    //     });
+ 
     $("#verbusqueda").click(function () {
 
         $("html, body").animate({ scrollTop: 0 }, 50);
@@ -691,8 +662,14 @@
     }
     establecevaloresvariables();
 
+    function efectocantidad() {
+        $("#vercarrito").addClass('animate__animated animate__heartBeat');
+        setTimeout(function () { $("#vercarrito").removeClass('animate__animated animate__heartBeat'); }, 1000);
+    }
+
     function vercantidad(){
         document.getElementById("btncantidadcarrito").innerText = cantidadcarrito + " artículos";
+        efectocantidad();
     }
     vercantidad();
 
@@ -817,4 +794,51 @@
         function habilitabotones(){
             $("#botonescarrito").show();
         }
+
+        function efectoshake()
+        {
+            $("#logincliente").addClass('animate__animated animate__shakeY');
+            setTimeout(function () { $("#logincliente").removeClass('animate__animated animate__shakeY'); }, 1000);
+        }
+
+        $("#ingreso").click(function(){
+            
+            document.getElementById('quickstart-sign-in').style.visibility = "visible";
+            document.getElementById('quickstart-sign-up').style.visibility = "hidden";
+            
+            efectoshake();
+        });
+        
+
+        $("#registro").click(function(){
+            
+            document.getElementById('quickstart-sign-in').style.visibility = "hidden";
+            document.getElementById('quickstart-sign-up').style.visibility = "visible";
+            
+            efectoshake();
+
+        });
+
+        $("#quickstart-sign-up").click(function () {
+            if(document.getElementById('email').value == "")
+            {
+                swal("Atención", "Ingrese una dirección de email!");
+                return;
+            }
+            if (document.getElementById('password').value == "") {
+                swal("Atención", "Ingrese una clave !");
+                return;
+            }
+        });
+
+          $("#quickstart-sign-in").click(function () {
+            if (document.getElementById('email').value == "") {
+                swal("Atención", "Ingrese una dirección de email!");
+                return;
+            }
+            if (document.getElementById('password').value == "") {
+                swal("Atención", "Ingrese una clave !");
+                return;
+            }
+        });
 </script>

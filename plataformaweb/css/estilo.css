@@ -9,6 +9,16 @@
   padding-left: 3px;
 }
 
+/* decora el titulo
+y el color de la fila */
+.tituloconfondo{
+  color: white;
+}
+.filafondo{
+  background-color: #2E9AFE;
+
+}
+/* ----------------------------- */
 
 p.textoexplicativo{
   

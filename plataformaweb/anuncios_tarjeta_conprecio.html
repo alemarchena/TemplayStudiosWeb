@@ -9,6 +9,11 @@
 
 </div>
 
+
+
+
+
+
 <script>
 
     var bdd = conexionbddpaginaweb;
@@ -99,6 +104,8 @@
                             partecomentarios = "";
                             colapsocomentarios="";
                             colapsoobservaciones="";
+                            // botoncarrito = "<a href ='" + dominioruta + "carrito.html' target='_blank' class='btn waves-effect  orange green-4' type='button' id='vercarrito'" + cuenta + "  name='vercarrito'" + cuenta + "><i class='fas fa-shopping-cart'></i></a>"
+                            botoncarrito = "";
 
                             if (dd[key].observaciones != ""){
                                 parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
@@ -119,8 +126,9 @@
                                         precio = "$ " + dd[key].precio;
                                     else
                                         precio = "Consultar Precio";
-                                        t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><p id='preciotarjeta' class='center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                        // t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><p id='preciotarjeta' class='center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
                                     
+                                        t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><div class='row justify-content-center'><div class='col-sm-4 '><p id='filapreciotarjeta preciotarjeta' class='center'>" + precio + "</p></div><div class='col-sm-4'>" + botoncarrito + "</div><div class='col-sm-4'></div></div></div><div class='row'>" + parteobservacion + partecomentarios + "</div><div class='row'>" + colapsoobservaciones + "</div><div class='row'>" + colapsocomentarios + "</div></div></div> ");
                                 }
                             }
                         });

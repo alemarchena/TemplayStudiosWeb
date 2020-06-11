@@ -55,12 +55,21 @@ body {
 
 #preciotarjeta{
   font-size: 1.2em;
-  color: #56167e!important;
+  color: #56167e;
 }
 
-p{
-  
+.preciotarjeta{
+  font-size: 1.2em;
+  color: red!important;
+  font-weight: bold;
+}
 
+.filapreciotarjeta{
+ background-color:white!important;
+}
+
+/* ------------------------------------------------------------- */
+p{
   font-family: 'Kulim Park', sans-serif;
 
    font-size: 18px;

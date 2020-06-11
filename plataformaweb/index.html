@@ -61,7 +61,10 @@
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        
         <a id="tituloweb" class="navbar-brand" href="#"></a>
+        <a id="botoncarrito" href='' target='_blank' class='btn waves-effect  orange green-4' type='button'><i
+            class='fas fa-shopping-cart'></i></a>
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="nav navbar-nav navbar-center">
@@ -148,16 +151,27 @@
   <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
   <div id="vervineria" class="claseseccionnovedades">
 
-    <div id="seccionnovedades">
     
+    <div id="seccionbuscados">
+
     </div>
-    <div id="seccionbuscados" >
+    
+    <div id="seccionbuscadosbuscador" class="row justify-content-center">
 
     </div>
 
     <div id="seccionpromociones" class="p-3">
 
     </div>
+
+    <div id="seccionnovedades">
+    
+    </div>
+
+    <div id="secciongaleria">
+    
+    </div>
+
   </div>
   
 </div>
@@ -223,10 +237,11 @@
       $("#seccionnovedades").addClass('bounceIn animated');
   } 
 
-  var consinprecio = "conprecio";
+  consinprecio = "conprecio";
 
 
-  function versimuestra(quemuestra) {
+  function versimuestra(quemuestra) 
+  {
       var isVisible = $("#vervineria").is(":visible");
       if (!isVisible) {
         
@@ -244,21 +259,23 @@
 
       } else 
       {
-        if(quemuestra=="productos")
-        {
-            if (consinprecio == "conprecio") {
-              $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
-            } else {
-              $("#seccionbuscados").load("anuncios_tarjeta.html");
-            }  
-        }else if (quemuestra == "galeria")
-        {
-          $("#seccionnovedades").load("galeria.html");
-        }
-       
-        
+          if(quemuestra=="productos")
+          {
+              if (consinprecio == "conprecio") {
+                $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
+              } else {
+                $("#seccionbuscados").load("anuncios_tarjeta.html");
+              }  
+          }else if (quemuestra == "novedades")
+          {
+            // $("#seccionnovedades").load("galeria.html");
+
+          
+          }else if (quemuestra == "galeria") {
+            $("#secciongaleria").load("galeria.html");
+          }
       }
-    }
+  }
 
     
   
@@ -311,7 +328,7 @@
     $("#menuofertas").click(function () {
       versimuestra("ofertas");
       var alturamenu = $('.menu').outerHeight(true);
-      var iraqui = $("#divpromociones").offset().top - alturamenu;
+      var iraqui = $("#seccionpromociones").offset().top - alturamenu;
       $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
     });
       
@@ -322,10 +339,21 @@
 
     $("#menugaleria").click(function () {
       versimuestra("galeria");
+      var alturamenu = $('.menu').outerHeight(true);
+      var iraqui = $("#secciongaleria").offset().top - alturamenu;
+      $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
     });
       
 
 
     animarrubro();
   });
+
+  function asignarrutacarrito() {
+
+      document.getElementById("botoncarrito").href = dominioruta + "carrito.html";
+
+    }
+
+    asignarrutacarrito();
 </script>

@@ -753,8 +753,6 @@ function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,
     document.getElementById('precioantes').value = pea;
     document.getElementById("muestra").src = "imagenes/" + ima; //vista previa de la imagen
     
-    //vista previa
-    document.getElementById('preciotarjetaprevia').value = arreglo[indice].pre;
 
     //barra de progreso
     document.getElementById("barra").value = 100;
@@ -808,10 +806,7 @@ function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,
             
             document.getElementById('comentarios').value = arreglo[indice].comentarios;
             
-            document.getElementById('titulotarjetaprevia').value = arreglo[indice].titulo;
-            document.getElementById('descripciontarjetaprevia').value = arreglo[indice].descripcion;
-            document.getElementById('collapseObservacionesprevia').value = arreglo[indice].observaciones;
-            document.getElementById('collapseComentariosprevia').value = arreglo[indice].comentarios;
+          
 
         }
     });
