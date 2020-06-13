@@ -18,16 +18,16 @@
             <div id="collapseCli" class="collapse" aria-labelledby="headingCli" data-parent="#accordionClientes">
                 <div class="card-body">
                    <!-- Nuevos clientes -->
-                    <div class="row">
+                    <div class="row justify-content-center">
 
                         <!-- Columna de tarjeta de clientes -->
-                        <div class="col-sm-10 offset-sm-1">
+                        <div class="col-sm-10">
                             <div class="card text-center">
                                 
                                 <div class="card-body">
                         
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-12">
                         
                                             <div class="row">
                                                 <div class="col-sm-2 offset-sm-1">
@@ -84,16 +84,34 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3">
+                                        
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-4">
+                                            <div class="row justify-content-center">
+                                                
+                                                <div class="col-sm-6">
+                                                    <label for="bonus" style="font-weight: bold;">Bonus actual</label>
+                                                </div>
+                                                
+                                                <div class="col-sm-6">
+                                                    <input id="bonus" class="center" value="" name="bonus" type="text" readonly>
+                                                </div>
+                                                
+                                            </div>
+                                            <hr>
                                             <div class="row">
-                                                <!-- BONUS -->
-                                                <label for="bonus" style="font-weight: bold;">Bonus</label>
-                                                <input id="bonus" class="center" value="" name="bonus" type="text" readonly>
+                                                <p>Selecciona el cliente</p>
+                                            </div>
+                                            <div class="row">
+                                                <p>Ingresa la cantidad de bonus</p>
+                                            </div>
+                                            <div class="row">
+                                                <p>Clickea (-) para restarlo al cliente y (+) para sumarle </p>
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <button id="restarbonus" type="button"
-                                                        class="btn-floating btn-small waves-effect pink darken-2" disabled><i
+                                                    <button id="restarbonus" type="button" class="btn-floating btn-small waves-effect pink darken-2" disabled><i
                                                             class=material-icons>remove_circle_outline</i>
                                                 </div>
                                                 <div class="col">
@@ -102,14 +120,12 @@
                                                         onKeyUp='return validarnumero(event, this.value, 6)' type="text">
                                                 </div>
                                                 <div class="col">
-                                                    <button id="sumarbonus" type="button"
-                                                        class="btn-floating btn-small waves-effect green darken-4" disabled><i
+                                                    <button id="sumarbonus" type="button" class="btn-floating btn-small waves-effect green darken-4" disabled><i
                                                             class=material-icons>add_circle_outline</i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                        
                                 </div>
                                 <a href="" target="_blank"></a>
                             </div>

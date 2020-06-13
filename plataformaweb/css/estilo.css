@@ -19,6 +19,9 @@ y el color de la fila */
 
 }
 /* ----------------------------- */
+.row{
+  margin-bottom: 10px!important;
+}
 
 p.textoexplicativo{
   

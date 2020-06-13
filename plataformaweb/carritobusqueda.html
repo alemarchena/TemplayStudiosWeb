@@ -194,6 +194,31 @@
                         var colapsocomentarios = "";
                         var colapsoobservaciones = "";
 
+                        // if (dd[key].observaciones != "") {
+                        //     parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
+                        //     colapsoobservaciones = "<div class='collapse' id='collapseObservaciones" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].observaciones + "</div></div>";
+                        // }
+
+                        // if (dd[key].comentarios != "") {
+                        //     partecomentarios = "<div class='col'><p><a class='btn light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras' data-toggle='collapse' href='#collapseComentarios" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseComentarios" + cuenta + "'>Sugerencias</a></p></div>";
+                        //     colapsocomentarios = "<div class='collapse' id='collapseComentarios" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].comentarios + "</div></div>";
+                        // }
+                        botonbonus = "";
+
+                        if (dd[key].tieneventaja) {
+
+                            tituloventaja = dd[key].tituloventaja;
+                            precioventaja = "$ " + dd[key].precioventaja;
+
+                            if (tituloventaja.trim() == "" || precioventaja == 0) {
+                                tituloventaja = "";
+                                precioventaja = "";
+                            }
+                        } else {
+                            tituloventaja = "";
+                            precioventaja = "";
+                        }
+
                         if (dd[key].observaciones != "") {
                             parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
                             colapsoobservaciones = "<div class='collapse' id='collapseObservaciones" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].observaciones + "</div></div>";
@@ -212,12 +237,24 @@
                                     precio = "$ " + dd[key].precio;
                                 else
                                     precio = "Consultar Precio";
-
-                                idproducto = dd[key].id;
-                                t.append("<div class='col-sm-3 " + clasehijo + "'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><button onclick='agregame(" + idproducto + "," + cuenta + ")' id='btnagregar_" + cuenta + "' class='btn waves-effect  orange green-4'><i class='fas fa-cart-plus'></i></button><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><p class='card-text center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+                                t.append("<div class='col-sm-3 " + clasehijo + "'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class=''><h5 id='titulotarjeta' class='center m-1'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row justify-content-center'><div class='col-sm-8 '><p id='preciotarjeta' class='center filapreciotarjeta preciotarjeta'>" + precio + "</p></div><div class='col-sm-4'>" + botonbonus + "</div></div><div class='row justify-content-center'><div class='col-sm-4 '><p id='titventaja' class='center tituloventaja'>" + tituloventaja + "</p></div><div class='col-sm-4'><p id='preventaja' class='center precioventaja'><del>" + precioventaja + "</del></p></div><div class='col-sm-4'></div></div></div><div class='row'>" + parteobservacion + partecomentarios + "</div><div class='row'>" + colapsoobservaciones + "</div><div class='row'>" + colapsocomentarios + "</div></div></div>");
 
                             }
                         }
+                        // if (dd[key].nopublicar == 0) {
+                        //     if (seveelprecio == true) {
+
+                        //         var precio;
+                        //         if (dd[key].precio > 0)
+                        //             precio = "$ " + dd[key].precio;
+                        //         else
+                        //             precio = "Consultar Precio";
+
+                        //         idproducto = dd[key].id;
+                        //         t.append("<div class='col-sm-3 " + clasehijo + "'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><button onclick='agregame(" + idproducto + "," + cuenta + ")' id='btnagregar_" + cuenta + "' class='btn waves-effect  orange green-4'><i class='fas fa-cart-plus'></i></button><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><p class='card-text center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
+
+                        //     }
+                        // }
                     });
 
                     imageneszoom();

@@ -1,383 +1,332 @@
 
 <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
-    <div id="accordionAnuncios">
-
-        <div class="card">
-            <div class="card-header" id="headinPub">
-                <h5 class="m-0">
-                    <button class="btn btn-primary" data-toggle="collapse" data-target="#collapsePub" aria-expanded="true"
-                        aria-controls="collapsePub">
-                        Nuevos productos<i class="fas fa-address-card ml-1"></i>
-                    </button>
-                </h5>
-                <p class="p-1">Aquí creas y modificas los productos que tendrás en el sitio web</p>
-            </div>
-            
-           
-            <!-- -------------------------------------------------------------- -->
-            <div id="collapsePub" class="collapse" aria-labelledby="headinPub" data-parent="#accordionAnuncios">
-                    
-                <!-- Nuevos productos -->
-                <div id="filatarjeta" class="row justify-content-center pt-1">
-                    <!-- Columna de tarjeta de anuncio -->
-                    <div class="col-sm-12 ">
-                        
-                        <div class="row justify-content-center">
-                            <div class="col-sm-4  pt-2">
-                                <div class="row justify-content-center filafondo">
-                                    <h5 class="tituloconfondo">Vista del anuncio</h5>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <p>El Título y la descripción definen como encuentran los productos los clientes</p>
-                                </div>
-
-                                <div class="card-deck row justify-content-center">
-                                    <!-- imagen previa -->
-                                    <div class='col-sm-12'>
-                                        <div class='card'>
-                                            <div class='row'>
-                                                <img id="muestra" src='imagenessitio/agregarimagen.jpg' class='card-img-top materialboxed center-align mt-1 ' style="width: 180px; height: auto;" alt='...'></img>
-                                            </div>
-
-                                            <div class='card-body'>
-                                                <div class="row justify-content-center">
-
-                                                    <label class="colorletras" for="titulo">Título</label>
-                                                    <input onKeyDown="return validartecla(event,this.value,50)"
-                                                    onKeyUp="return validartecla(event,this.value,50)" id="titulo" name="titulo" style="font-size: 1.2em;"
-                                                    type="text" class="validate border border-success center" placeholder="Ej: Pantalón elastizado">
-                                                    
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                        <span class="input-group-text">Descripción</span>
-                                                    </div>
-                                                    <textarea onKeyDown="return validartecla(event,this.value,200)" onKeyUp="return validartecla(event,this.value,200)"
-                                                    class="form-control" id="descripcion" name="descripcion" aria-label="descripcion" style="height: 180px;"
-                                                        class="border border-success"
-                                                        placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <hr>
-                                                <div class="row justify-content-center">
-                                                    <!-- precio venta -->
-                                                    <div class="col-sm-4 ">
-                                                        <p class=" filapreciotarjeta preciotarjeta">$ Venta</p>
-                                                        <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                                                            id="precio" name="precio" type="number" class="validate border border-success center filapreciotarjeta preciotarjeta">
-                                                    </div>
-                                                    <!-- icono carrito -->
-                                                    <div class="col-sm-4">
-
-                                                    </div>
-                                                    <!-- icono bonus -->
-                                                    <div class="col-sm-4">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class='row'>
-                                                <div class='col'>
-                                                    <a id="botonobservaciones" class="btn light-green lighten-3 text-green darken-4 textobotonextras" data-toggle="collapse" href="#collapseDescripcion" role="button"
-                                                        aria-expanded="false" aria-controls="collapseDescripcion" >Saber mas
-                                                    </a>
-                                                </div>
-                                           
-                                                <div class='col'>
-                                                    <button id="botoncomentarios" class="btn  light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras" type="button" data-toggle="collapse" data-target="#collapseComentarios"
-                                                        aria-expanded="false" aria-controls="collapseComentarios" >Sugerencias
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class='collapse' id='collapseDescripcion'>
-                                                <textarea rows="10" onKeyDown="return validartecla(event,this.value,1000)"
-                                                    onKeyUp="return validartecla(event,this.value,1000)" class="form-control" id="observaciones" name="observaciones" 
-                                                    aria-label="observaciones" placeholder="Extienda la descripción de su producto!"></textarea>
-                                            </div>
-                                            
-                                            <div class='collapse' id='collapseComentarios'>
-                                                 <textarea rows="6" onKeyDown="return validartecla(event,this.value,1000)"
-                                                        onKeyUp="return validartecla(event,this.value,1000)"
-                                                        class="form-control" id="comentarios" name="comentarios"
-                                                        aria-label="comentarios" placeholder="Agregue valor sugiriendo algo mas sobre el producto!"></textarea>
-                                            </div>
-                                
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    
+    <!-- Nuevos productos -->
+    <div id="filatarjeta" class="row justify-content-center pt-1">
+        <!-- Columna de tarjeta de anuncio -->
+        <div class="col-sm-12 ">
         
-                            <div class="col-sm-4 center pt-2">
-                                <div class="row justify-content-center filafondo">
-                                    <h5 class="tituloconfondo">Datos del producto</h5>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="z-depth-2 grey lighten-3 pt-2">
-                                
-                                        <div class="grey lighten-3 ">
-                                            <div class="row">
-                                                <!-- Cargador de imagen -->
-                                                <div class="col-sm-12">
-                                                    <label class="colorletras p-1" for="imagen">Selecciona una imagen para el
-                                                        anuncio</label>
-                                                    <div class="form-group">
-                                                        <input class="colorletras grey lighten-3 pt-2" value="Ninguna imagen cargada"
-                                                            class="form-control" type="file" id="imagen" name="imagen" required>
-                                                        <progress class="progress" id="barra" value="0" max="100">0%</progress>
-                                                        <label class="colorletras" for="" id="valorbarra">0%</label>
-                                                        <p class="red-text accent-4" id="aviso"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                
-                                    </div>
-                                </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6  pt-2">
+                    <div class="row justify-content-center filafondo">
+                        <h5 class="tituloconfondo">Vista del anuncio</h5>
+                    </div>
+                    <div class="row justify-content-center" style="margin-bottom: 0em;">
+                        <p>El Título y la descripción definen como encuentran los productos los clientes</p>
+                        <a id="nuevoanuncio" class="btn btn-success">Nuevo</a>
+                    </div>
 
-                                <div class="row justify-content-center">
-                                    <!-- ------------------ rubro ----------------- -->
-                                    <label class="colorletras" for="">Asigne un Rubro al producto</label>
-                                    
-                                    <!-- ------------------------------------------------------- -->
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class=" col-sm-1">
-                                        <!-- rubro -->
-                                        <input style="display: none;" onKeyDown="return validartecla(event,this.value,50)"
-                                            onKeyUp="return validartecla(event,this.value,50)" id="rubro" name="rubro" type="text"
-                                            class="validate border border-success">
-                                    </div>
-
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="opciones" name="opciones">
-
-                                            <!-- aca se inserta la consulta de rubros -->
-
-                                        </select>
-                                    </div>
-                                    <div class=" col-sm-1"></div>
-
-                                </div>
-
-                                <div class="row justify-content-center">
-                                    <div class="col-sm-6 center">
-                                        <label class="colorletras" for="costo">Indique el $ Costo</label>
-                                        <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                                            id="costo" name="costo" type="number" class="validate border border-success center">
-                                    </div>
-                                  
-                                </div>
-
-
-                                <!-- --------------------------- SECCIONES ---------------------- -->
-                                <div class="row justify-content-center filafondo">
-                                    <h5 class="tituloconfondo">Secciones de publicación</h5>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <p>Defina las secciones en donde aparece el producto</p>
-                                </div>
-                                
-                                <div class="row justify-content-start">
-                                    <!-- ------- Check de opcion es oferta ------- -->
-                                    <p>
-                                        <label>
-                                            <input id="esoferta" type="checkbox" class="filled-in" />
-                                            <span class="colorletras">Mostrar en Promociones</span>
-                                        </label>
-                                    </p>
-                                </div>
-                                <div class="row justify-content-start">
-                                    <!-- ------- Check de opcion es novedad ------- -->
-                                    <p>
-                                        <label>
-                                            <input id="esnovedad" type="checkbox" class="filled-in" />
-                                            <span class="colorletras">Mostrar en Novedades</span>
-                                        </label>
-                                    </p>
-                                </div>
-                                
-                               <!-- ------- Check de opcion no publica en la web ------- -->
-                               <div class="row justify-content-start">
-                                   <label>
-                                       <input id="opcionnopublicar" type="checkbox" class="filled-in" />
-                                       <span class="" style="color: red;"> No publicar en la web</span>
-                                    </label>
-                                </p>
-                                </div>
-                                <div class="row justify-content-start">
-                                    <p style="color: red;">Queda guardado pero no se ve públicamente en el sitio
-                                </div>
-
-                            </div>
-        
-                            <div class=" col-sm-4 z-depth-2 grey lighten-3 pt-2">
-                                <div class="row justify-content-center filafondo">
-                                    <h5 class="tituloconfondo">Estrategias de Marketing</h5>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <p>Atrae al cliente a comprar</p>
-                                </div>
+                    <div class="card-deck row justify-content-center" style="margin-top: 0em;">
+                        <!-- imagen previa -->
+                        <div class='col-sm-12'>
+                            <div class='card'>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <p>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <!-- <span class="input-group-text" id="inputGroupFileAddon01">Subir imagen</span> -->
+                                                <label class="custom-file-label" for="inputGroupFileAddon01">Seleccionar Imagen</label>
+                                            </div>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="imagen" name="imagen"
+                                                    aria-describedby="inputGroupFileAddon01">
+                                            </div>
+                                        </div>
+                                        <progress class="progress" id="barra" value="0" max="100">0%</progress>
+                                        <label class="colorletras" for="" id="valorbarra">0%</label>
+                                        <p class="red-text accent-4" id="aviso"></p>
+                                    
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <img id="muestra" src='imagenessitio/agregarimagen.jpg' class='card-img-top center-align mt-1 ' style="width: 220px; height: auto;" alt='...'></img>
+                                </div>
+
+                                <div class='card-body'>
+                                    <div class="row justify-content-center">
+                                        <input onKeyDown="return validartecla(event,this.value,50)"
+                                        onKeyUp="return validartecla(event,this.value,50)" id="titulo" name="titulo" style="font-size: 1.2em;"
+                                        type="text" class="validate border border-success center" placeholder="TITULO Ej: Pantalón elastizado">
+                                        
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text">Descripción</span>
+                                        </div>
+                                        <textarea onKeyDown="return validartecla(event,this.value,200)" onKeyUp="return validartecla(event,this.value,200)"
+                                        class="form-control" id="descripcion" name="descripcion" aria-label="descripcion" style="height: 180px;"
+                                            class="border border-success"
+                                            placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr>
+                                    <div class="row justify-content-center">
+                                        <!-- precio venta -->
+                                        <div class="col-sm-4 ">
+                                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
+                                                id="precio" name="precio" type="number" placeholder="Precio de venta" class="validate border border-success center filapreciotarjeta preciotarjeta">
+                                        </div>
+                                        <!-- icono carrito -->
+                                        <div class="col-sm-4">
+
+                                        </div>
+                                        <!-- icono bonus -->
+                                        <div class="col-sm-4">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row justify-content-center">
+                                        <!-- titulo precio tachado -->
+                                        <div class="col-sm-4 ">
+                                            
+                                            <input onKeyDown="return validartecla(event,this.value,30)" onKeyUp="return validartecla(event,this.value,30)"
+                                                id="tituloantes" name="tituloantes" type="text" class="validate border border-danger center"
+                                                placeholder="Título del precio tachado">
+                                            <p id='tituloantesprevia' class='right'>"Ej: Precio anterior"</p>
+                                            <p></p>
                                             <label for="opcionantes">
                                                 <input id="opcionantes" type="checkbox" class="filled-in" />
                                                 <span class="colorletrasresaltado">Ventaja comercial</span>
                                             </label>
-                                            <input onKeyDown="return validartecla(event,this.value,30)"
-                                                onKeyUp="return validartecla(event,this.value,30)" id="tituloantes" name="tituloantes" type="text"
-                                                class="validate border border-danger center" placeholder="Título del precio tachado">
-                                
-                                            <label class="colorletrasresaltado" for="precioantes">$ Precio tachado</label>
-                                            <input onKeyDown="return validarnumero(event,this.value,6)"
-                                                onKeyUp="return validarnumero(event,this.value,6)" id="precioantes" name="precioantes" type="number"
-                                                class="validate border border-danger center"><del>Ej: $ 1000</del>
-                                        </p>
-                                
+                                            </p>
+                                        </div>
+                                    
+                                        <!-- precio tachado-->
+                                        <div class="col-sm-4">
+                                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
+                                                id="precioantes" name="precioantes" type="number" class="validate border border-danger center"><del></del>
+                                                <p class='left'>Ej<del id='precioantesprevia'>$ 30000</del></p>
+                                        </div>
+                                        
+                                        <!-- icono bonus -->
+                                        <div class="col-sm-4">
+                                    
+                                        </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- ------- Check de opcion es producto para bonus ------- -->
-                                        <p>
-                                            <label for="opcionbonus">
-                                                <input id="opcionbonus" type="checkbox" class="filled-in" />
-                                                <span class="colorletras">Es Bonus</span>
-                                            </label>
-                                    </div>
-                                
-                                    <div class="col-sm-6">
-                                        <label class="colorletras" for="bonus">Cantidad</label>
-                                        <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                                            id="bonus" name="bonus" type="number" class="validate border border-success center">
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr>
-                               
-                            </div>
-                        </div>
-                 
-                        <hr>
 
-                        <div class="row justify-content-center">
-                            <!-- Boton publicar -->
-                            <div class="col-sm-6 center">
-                                <button class="btn waves-effect  orange green-4" type="button" id="enviar"
-                                    name="enviar">Guardar
+                                <div class='row'>
+                                    <div class='col'>
+                                        <a id="botonobservaciones" class="btn light-green lighten-3 text-green darken-4 textobotonextras" data-toggle="collapse" href="#collapseDescripcion" role="button"
+                                            aria-expanded="false" aria-controls="collapseDescripcion" >Saber mas
+                                        </a>
+                                    </div>
+                                
+                                    <div class='col'>
+                                        <button id="botoncomentarios" class="btn  light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras" type="button" data-toggle="collapse" data-target="#collapseComentarios"
+                                            aria-expanded="false" aria-controls="collapseComentarios" >Sugerencias
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class='collapse' id='collapseDescripcion'>
+                                    <textarea rows="10" onKeyDown="return validartecla(event,this.value,1000)"
+                                        onKeyUp="return validartecla(event,this.value,1000)" class="form-control" id="observaciones" name="observaciones" 
+                                        aria-label="observaciones" placeholder="Extienda la descripción de su producto!"></textarea>
+                                </div>
+                                
+                                <div class='collapse' id='collapseComentarios'>
+                                        <textarea rows="6" onKeyDown="return validartecla(event,this.value,1000)"
+                                            onKeyUp="return validartecla(event,this.value,1000)"
+                                            class="form-control" id="comentarios" name="comentarios"
+                                            aria-label="comentarios" placeholder="Agregue valor sugiriendo algo mas sobre el producto!"></textarea>
+                                </div>
+                    
                             </div>
                         </div>
-                       
-                        <div class="row justify-content-center">
-                            <div class="col-sm-6 center">
-                                <!-- ------- Check de opcion no borrar ------- -->
-                                <p>
-                                    <label>
-                                        <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
-                                        <span class="colorletras">No limpiar formulario al guardar </span>
-                                    </label>
-                                </p>
-                                <!-- id -->
-                                <input id="id" disabled value="" name="id" type="text">
-                            </div>
-                        </div>
-                    
-                              
-                    
                     </div>
                 </div>
-                <!-- Fin Nuevos productos -->
-                
-            </div>
-        </div>
 
-        <div class="card">
-            <div class="card-header" id="headingLista">
-                <h5 class="m-0">
-                    <button class="btn collapsed" data-toggle="collapse" data-target="#collapseLista"
-                        aria-expanded="false" aria-controls="collapseLista">
-                        Editar/Eliminar productos
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseLista" class="collapse" aria-labelledby="headingLista" data-parent="#accordionAnuncios">
-                <div class="card-body">
-                        <!-- Editar/Eliminar productos -->
-                        <div class="text-center grey lighten-3">
-                                                      
-                            <div class="row justify-content-center">
-                            
-                                <!-- Columna de lista de anuncios -->
-                                <div class="col-sm-12 center">
-                                    <div class="row justify-content-center">
-                                        <div class="col-sm-6 center">
-                                            <label for="opcioneslista">Selecciona un Rubro a buscar</label>
-                                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="table-responsive">
-                                            <table id="tablaanuncios" class="display table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Editar</th>
-                                                        <th>Imagen</th>
-                                                        <th>Rubro</th>
-                                                        <th>Título</th>
-                                                        <th>Descripción</th>
-                                                        <th>Precio Vta</th>
-                                                        <th>Costo</th>
-                                                        <th>Es Promo?</th>
-                                                        <th>Es Novedad?</th>
-                                                        <th>se publica?</th>
-                                                        <th>Es Bonus?</th>
-                                                        <th>Cantidad Bonus</th>
-                                                        <th>Ventaja comercial</th>
-                                                        <th>Titulo Ventaja</th>
-                                                        <th>Precio tachado</th>
-                                                        <th>Eliminar</th>
-                                
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                            </div>
+                <!-- --------------------------------------------------------- -->
+
+                <div class="col-sm-4 center pt-2">
+                    <div class="row justify-content-center filafondo">
+                        <h5 class="tituloconfondo">Datos del producto</h5>
+                    </div>
+                    
+                    <div class="row justify-content-center">
+                        <!-- ------------------ rubro ----------------- -->
+                        <label class="colorletras" for="">Asigne un Rubro al producto</label>
+                        
+                        <!-- ------------------------------------------------------- -->
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class=" col-sm-1">
+                            <!-- rubro -->
+                            <input style="display: none;" onKeyDown="return validartecla(event,this.value,50)"
+                                onKeyUp="return validartecla(event,this.value,50)" id="rubro" name="rubro" type="text"
+                                class="validate border border-success">
                         </div>
 
-                    <!-- Fin Editar/Eliminar productos -->
+                        <div class="col-sm-10">
+                            <select class="form-control" id="opciones" name="opciones">
+
+                                <!-- aca se inserta la consulta de rubros -->
+
+                            </select>
+                        </div>
+                        <div class=" col-sm-1"></div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6 center">
+                            <label class="colorletras" for="costo">Indique el $ Costo</label>
+                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
+                                id="costo" name="costo" type="number" class="validate border border-success center">
+                        </div>
+                        
+                    </div>
+
+
+                    <!-- --------------------------- SECCIONES ---------------------- -->
+                    <div class="row justify-content-center filafondo">
+                        <h5 class="tituloconfondo">Secciones de publicación</h5>
+                    </div>
+                    <div class="row justify-content-center">
+                        <p>Defina las secciones en donde aparece el producto</p>
+                    </div>
+                    
+                    <div class="row justify-content-start">
+                        <!-- ------- Check de opcion es oferta ------- -->
+                        <p>
+                            <label>
+                                <input id="esoferta" type="checkbox" class="filled-in" />
+                                <span class="colorletras">Mostrar en Promociones</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="row justify-content-start">
+                        <!-- ------- Check de opcion es novedad ------- -->
+                        <p>
+                            <label>
+                                <input id="esnovedad" type="checkbox" class="filled-in" />
+                                <span class="colorletras">Mostrar en Novedades</span>
+                            </label>
+                        </p>
+                    </div>
+
+                    <div class="row justify-content-start">
+                        <!-- ------- Check de opcion es producto para bonus ------- -->
+                        <div class="col-sm-8 m0 p0">
+                            <label for="opcionbonus" class="left">
+                                <input id="opcionbonus" type="checkbox" class="filled-in" />
+                                <span class="colorletras">Tiene Bonus : </span>
+                            </label>
+                            <label class="colorletras" for="bonus">Cantidad</label>
+                        </div>
+                        <div class="col-sm-4 ">
+                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
+                                id="bonus" name="bonus" type="number" class="validate border border-success center">
+                        </div>
+                    </div>
+                    <!-- ------- Check de opcion no publica en la web ------- -->
+                    <div class="row justify-content-start">
+                        <label>
+                            <input id="opcionnopublicar" type="checkbox" class="filled-in" />
+                            <span class="" style="color: red;"> No publicar en la web</span>
+                        </label>
+                        
+                    </div>
+                    <div class="row justify-content-start">
+                        <p style="color: red;">Queda guardado pero no se ve públicamente en el sitio
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <!-- Boton publicar -->
+                        <div class="col-sm-6 center">
+                            <button class="btn waves-effect" type="button" id="enviar" name="enviar">Guardar
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6 center">
+                            <!-- ------- Check de opcion no borrar ------- -->
+                            <p>
+                                <label>
+                                    <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
+                                    <span class="colorletras">No limpiar formulario al guardar </span>
+                                </label>
+                            </p>
+                            <!-- id -->
+                            <input id="id" disabled value="" name="id" type="text">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
+  
+                
+    <div class="text-center grey lighten-3">
+                                    
+        <div class="row justify-content-center">
+        
+            <!-- Columna de lista de anuncios -->
+            <div class="col-sm-12 center">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 center">
+                        <label for="opcioneslista">Selecciona un Rubro a buscar</label>
+                        <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-responsive">
+                        <table id="tablaanuncios" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Editar</th>
+                                    <th>Imagen</th>
+                                    <th>Rubro</th>
+                                    <th>Título</th>
+                                    <th>Descripción</th>
+                                    <th>Precio Vta</th>
+                                    <th>Costo</th>
+                                    <th>Es Promo?</th>
+                                    <th>Es Novedad?</th>
+                                    <th>se publica?</th>
+                                    <th>Es Bonus?</th>
+                                    <th>Cantidad Bonus</th>
+                                    <th>Ventaja comercial</th>
+                                    <th>Titulo Ventaja</th>
+                                    <th>Precio tachado</th>
+                                    <th>Eliminar</th>
+            
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+           
+      
 </form>
 
 <script>
@@ -407,6 +356,11 @@
         inicioconsulta(); //trae los anuncios al cargar la pagina
 
         $("#enviar").click(function () {
+            M.toast(
+            {
+                html: 'Procesando...',
+                displayLength: '2000'
+            });
             EnviarFormulario();
         });
 
@@ -436,6 +390,11 @@
         
     });
 
+    $("#nuevoanuncio").click(function(){
+        $('#opcionnoguardar').prop('checked',false);
+         limpiarformulario();
+         $('#opcionnoguardar').prop('checked',true);
+    });
    
      $("#opcioneslista").on('change', function () {
 
@@ -447,5 +406,10 @@
         });
     });
 
-    
+
+
+    $("#precioantes").keyup(function(){
+        document.getElementById("precioantesprevia").innerText = "$ " + document.getElementById("precioantes").value;
+    });
+
 </script>

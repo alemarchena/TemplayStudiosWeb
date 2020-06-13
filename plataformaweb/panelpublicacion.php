@@ -22,8 +22,8 @@
 
 
     <!-- estilos -->
-    <link rel="stylesheet" type="text/css" href="css/estilo.css">
-    <link rel="stylesheet" type="text/css" href="cover.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css?20130620">
+    <link rel="stylesheet" type="text/css" href="cover.css?20130620">
 
     <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
     <link rel="icon" href="/img/logoempresa.png" type="image/png">

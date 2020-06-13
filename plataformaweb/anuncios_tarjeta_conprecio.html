@@ -1,3 +1,6 @@
+<head>
+    <link href="cover.css" rel="stylesheet">
+</head>
 <div class="d-flex flex-row justify-content-center bd-highlight mb-5">
     <div class="col-sm-4">
         <label style="color: #260909!important;" for="opcionesconprecio">Encontrá aquí nuestros productos</label>
@@ -9,10 +12,7 @@
 
 </div>
 
-
-
-
-
+                                        
 
 <script>
 
@@ -105,7 +105,22 @@
                             colapsocomentarios="";
                             colapsoobservaciones="";
                             // botoncarrito = "<a href ='" + dominioruta + "carrito.html' target='_blank' class='btn waves-effect  orange green-4' type='button' id='vercarrito'" + cuenta + "  name='vercarrito'" + cuenta + "><i class='fas fa-shopping-cart'></i></a>"
-                            botoncarrito = "";
+                            botonbonus = "";
+
+                            if(dd[key].tieneventaja){
+                                
+                                tituloventaja = dd[key].tituloventaja;
+                                precioventaja = "$ " + dd[key].precioventaja;
+                                 
+                                if (tituloventaja.trim() == "" || precioventaja == 0)
+                                {
+                                    tituloventaja = "";
+                                    precioventaja = "";    
+                                }
+                            }else{
+                                tituloventaja = "";
+                                precioventaja = "";
+                            }
 
                             if (dd[key].observaciones != ""){
                                 parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
@@ -126,9 +141,10 @@
                                         precio = "$ " + dd[key].precio;
                                     else
                                         precio = "Consultar Precio";
-                                        // t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><p id='preciotarjeta' class='center'>" + precio + "</p></div> <div class='row'>" + parteobservacion + partecomentarios + "</div> <div class='row'>" + colapsoobservaciones + "</div> <div class='row'>" + colapsocomentarios + "</div> </div></div>");
-                                    
-                                        t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><div class='row justify-content-center'><div class='col-sm-4 '><p id='filapreciotarjeta preciotarjeta' class='center'>" + precio + "</p></div><div class='col-sm-4'>" + botoncarrito + "</div><div class='col-sm-4'></div></div></div><div class='row'>" + parteobservacion + partecomentarios + "</div><div class='row'>" + colapsoobservaciones + "</div><div class='row'>" + colapsocomentarios + "</div></div></div> ");
+                                        //t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><div class='row justify-content-center'><div class='col-sm-4 '><p id='preciotarjeta' class='center filapreciotarjeta preciotarjeta'>" + precio + "</p></div><div class='col-sm-4'>" + botoncarrito + "</div><div class='col-sm-4'></div></div></div><div class='row'>" + parteobservacion + partecomentarios + "</div><div class='row'>" + colapsoobservaciones + "</div><div class='row'>" + colapsocomentarios + "</div></div></div> ");
+                                        
+                                        t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class=''><h5 id='titulotarjeta' class='center m-1'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row justify-content-center'><div class='col-sm-8 '><p id='preciotarjeta' class='center filapreciotarjeta preciotarjeta'>" + precio + "</p></div><div class='col-sm-4'>" + botonbonus + "</div></div><div class='row justify-content-center'><div class='col-sm-4 '><p id='titventaja' class='right  tituloventaja'>" + tituloventaja + "</p></div><div class='col-sm-4'><p id='preventaja' class='left precioventaja'><del>" + precioventaja + "</del></p></div><div class='col-sm-4'></div></div></div><div class='row'>" + parteobservacion + partecomentarios + "</div><div class='row'>" + colapsoobservaciones + "</div><div class='row'>" + colapsocomentarios + "</div></div></div>");
+
                                 }
                             }
                         });

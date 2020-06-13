@@ -17,6 +17,8 @@ function posicioninicial() {
  
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+
+   
 }
 
 function configuracalendario() {
@@ -113,12 +115,13 @@ function limpiarformulario() {
         document.getElementById('tituloantes').value = "";
         document.getElementById('precioantes').value = "";
 
+        $('#opcionbonus').prop('checked', false);
+        $('#opcionantes').prop('checked', false);
+        $('#esnovedad').prop('checked', false);
+        $('#esoferta').prop('checked', false);
     }
 
     $('#opcionnopublicar').prop('checked',false);
-    $('#opcionbonus').prop('checked', false);
-    $('#opcionantes').prop('checked', false);
-    
 
     posicioninicial();
 }
@@ -809,9 +812,10 @@ function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,
           
 
         }
+        posicioninicial();
     });
 
-    $('#collapsePub').collapse('toggle');
+    // $('#collapsePub').collapse('toggle');
 
  
 }
