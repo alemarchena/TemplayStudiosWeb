@@ -13,16 +13,16 @@
                 <table id="tablacarrito" class="display table table-striped">
                     <thead>
                         <tr>
-                            <th>Quitar</th>
-                            <th></th>
-                            <th>Id</th>
                             <th>Titulo</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
                             <th>Menos</th>
                             <th>Cantidad</th>
                             <th>Mas</th>
+                            <th>Precio</th>
+                            <th></th>
                             <th>Subtotal</th>
+                            <th>Descripción</th>
+                            <th class="masmenoscolumna">Quitar</th>
+                            <th>Id</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +35,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
+                            <td class="masmenoscolumna"></td>
                             <td></td>
                         </tr>
     
@@ -117,16 +117,17 @@ function consultaranuncioscarrito(e) {
 
                 t.row.add([
                
-                    "<a data-position='right'  data-tooltip='Quitar del carrito' onclick='quitardelcarrito(\"" + di + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  red darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
-                    "<img class='materialboxed center-align' width='65%' src=" + "'" + im + "'></img>",
-                    di,
                     ti,
-                    de,
-                    pr,
                     "<a onclick='menosunoencarro(\"" + di + "\",\"" + pr + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                    "<input  onFocusOut ='validarlostfocuscarritos(event, this.value," + di +")'  onKeyDown='return validarnumero(event, this.value, 6)' onKeyUp ='return validarnumerocarrito(event, this.value," + di + "," + pr + ",6)' id ='cantidad_" + di + "' name ='cantidad_" + di + "'  type ='text' class='cajacantidad validate masmenoscolumna'></input>",
+                    "<input  onFocusOut ='validarlostfocuscarritos(event, this.value," + di + ")'  onKeyDown='return validarnumero(event, this.value, 6)' onKeyUp ='return validarnumerocarrito(event, this.value," + di + "," + pr + ",6)' id ='cantidad_" + di + "' name ='cantidad_" + di + "'  type ='text' class='cajacantidad validate masmenoscolumna'></input>",
                     "<a onclick='masunoencarro(\"" + di + "\",\"" + pr + "\")' class=" + "\"btn-floating btn-small waves-effect   green darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
-                    "<a id='subtotal_" + di + "'>" + "$ " + su + "</a >"
+                    pr,
+                    "<img class='materialboxed center-align' width='65%' src=" + "'" + im + "'></img>",
+                    "<a id='subtotal_" + di + "'>" + "$ " + su + "</a >",
+                    de,
+                    "<a data-position='right'  data-tooltip='Quitar del carrito' onclick='quitardelcarrito(\"" + di + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  red darken-2 masmenoscolumna tooltipped" + "\"><i class=" + "\"material-icons md-18\"" + ">delete</i>",
+                    di
+                    
                 ]).draw(false);
 
                 verificacantidadcero(di);
