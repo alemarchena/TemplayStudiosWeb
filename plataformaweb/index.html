@@ -1,357 +1,300 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20425306-10"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+    <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kulim+Park&display=swap" rel="stylesheet">
 
-      gtag('config', 'UA-20425306-10');
-    </script> -->
-
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-    <link rel="icon" type="img/png" href="img/logoempresa.png"/>
-    <meta name="description" content="">
-    <title></title>
-
-  <link href="https://fonts.googleapis.com/css?family=Kulim+Park&display=swap" rel="stylesheet">
-  
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- materialize -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <!-- iconos materialize -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <!-- datatable -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-  <!-- mensajes de sweetalert -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
-  <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
-
-  <link href="cover.css?20130620" rel="stylesheet">
-   
-  <link rel="stylesheet" type="text/css" href="animate.css">
-
-  <script src="configuracion.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
+    <link href="cover.css?20130620" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="animate.css">
+
+    <script src="configuracion.js"></script>
+
+    <title>Templay Studios</title>
 </head>
-  <body>
-    
-    
-      <!-- -------------------------------------BARRA MENU -------------------------------------------- -->
-      <div id="seccionbusqueda" class="fixed-top "></div>
+<body>
+    <div class="navbar-fixed">
 
-      <nav id="navegar" class="navbar navbar-expand-lg navbar-light menu fixed-top">
-      
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <a id="tituloweb" class="navbar-brand" href="#"></a>
-        <a id="botoncarrito" href='' target='_blank' class='btn waves-effect  orange green-4' type='button'><i
-            class='fas fa-shopping-cart'></i></a>
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="nav navbar-nav navbar-center">
-            <li class="nav-item">
-              <a id="menugaleria" class="textoenbarra" href="#">Galería</a>
-            </li>
-            <li class="nav-item">
-              <a id="menuofertas" class="textoenbarra" href="#">Promociones</a>
-            </li>
-            <li class="nav-item">
-              <a id="menuproductos" class="textoenbarra" href="#">Productos</a>
-            </li>
-            <li class="nav-item">
-              <a id="menuubicacion" class="textoenbarra" href="#">Ubicación</a>
-            </li>
-            <li class="nav-item">
-              <a id="menucontacto" class="textoenbarra" href="#">Delivery</a>
-            </li>
-      
-            <li class="nav-item">
-              <a class="textoenbarra" id="telefono_en_barra" href="" target="_BLANK"></a>
-            </li>
-            <li class="nav-item">
-              <a id="direccioninstagram" href="" target="_blank" class="textoenbarra"><img id="logoinstagram"
-                  class="lead ml-2" src="img/logoinstagram.png" alt="instagram" style="width: 40px; height: 40px;"></a>
-            </li>
-            <li class="nav-item">
-              <a id="direccionfacebook" href="" target="_blank" class="textoenbarra" ><img id="logofacebook" class="lead ml-2"
-                  src="img/logo-facebook.png" alt="facebook" style="width: 40px; height: 40px;"></a>
-            </li>
-          </ul>
-      
+        <nav class="menu">
+            <div class="nav-wrapper">
+                <a href="">
+                    <img id="menunegocio" src="img/logoempresa.png" alt="Empresa"
+                        style="height: 40px ;width :40px;color: rgb(216, 216, 216);margin: 10px 15px 0px 15px; "
+                        onmouseout="this.src='img/logoempresa.png';" onmouseover="this.src='img/logoempresa1.png';" class="p2">
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a id="tituloweb" class="navbar-brand" href="#"></a>
+                
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li class="tab"><a id="menugaleria" href="#">Galería</a></li>
+                    <li class="tab"><a id="menuofertas" href="#">Promociones</a></li>
+                    <li class="tab"><a id="menuproductos" href="#">Productos</a></li>
+                    <li class="tab"><a id="menuubicacion" href="#">Ubicación</a></li>
+                    <li class="tab"><a id="menucontacto" href="#">Delivery</a></li>
+                    <li class="tab"><a id="botoncarrito" href='#' target='_blank' class='waves-effect text-orange'><small><i class='small fas fa-shopping-cart'></i></small></a></li>
+                    <li class="tab"><a class="textoenbarra" id="telefono_en_barra" href="" target="_BLANK"><i class="fab fa-whatsapp"></i></a></li>
+                    <li class="tab"><a id="direccioninstagram" href="" target="_blank" class="icon-instagram"><i class="fab fa-instagram"></i></a>
+                    </li>
+                    <li class="tab"><a id="direccionfacebook"  href="" target="_blank" class="icon-facebook"><i class="fab fa-facebook-f"></i></a></li>
+                </ul>
+                
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li class="tab"><a id="menugaleriao" href="#">Galería</a></li>
+            <li class="tab"><a id="menuofertaso" href="#">Promociones</a></li>
+            <li class="tab"><a id="menuproductoso" href="#">Productos</a></li>
+            <li class="tab"><a id="menuubicaciono" href="#">Ubicación</a></li>
+            <li class="tab"><a id="menucontactoo" href="#">Delivery</a></li>
+        </ul>
+       
+    </div>
+    
+    <!-- barra de busqueda -->
+    <section id="seccionbusqueda"></section> 
+    <!-- carrusel de publicidad  -->
+    <section id="seccionpublicidad"></section>
+    <!-- slogan del negocio -->
+    <div><p id="slogan" class="center-align"></p></div>
+  
+    <!-- seccion transparente-->
+    <!-- <section id="seccioncontenidos">
+    
+   
+    
+    <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
+    
+    <div class="claseseccionnovedades">
+    
+        <div id="declaracion" class="row" style="visibility: hidden;">
+            <div class="col s4" style="text-align: end;">
+                <button id="mayor" type="button" class="btn btn-warning" style="color: black;">+ de 18</button>
+            </div>
+    
+            <div class="col s4" style="text-align: center;">
+                <p class="text-center text-muted py-2"><small></small>Declara tu edad</small></p>
+            </div>
+    
+            <div class="col s4" style="text-align: start;">
+                <button id="menor" type="button" class="btn btn-warning" style="color: black;">- de 18</button>
+            </div>
         </div>
-      </nav>
+    
+    </div>
+    
+    <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
+    <div id="vervineria" class="claseseccionnovedades">
+    
+    
+        <div id="seccionbuscados">
+    
+        </div>
+    
+        <div id="seccionbuscadosbuscador" class="row">
+    
+        </div>
+    
+        <div id="seccionpromociones">
+    
+        </div>
+    
+        <div id="seccionnovedades">
+    
+        </div>
+    
+        <div id="secciongaleria" class="container">
+    
+        </div>
+    
+    </div>
+    
+    </div>
+    <!-- --------------------------------------------------- CONTACTO ------------------------------------------------- -->
+    
+    <section id="seccioncontacto">
+        <div id="subcontenedorcontacto">
+    
+        </div>
+    </section>
+    <!-- --------------------------------------------------- MAPA ------------------------------------------------- -->
+    
+    <section id="seccionubicacion" class="container">
+        <h5>Ubicación</h5>
+        <iframe id="direcciongoogle" src="" width="100%" height="450" frameborder="0" style="border:0;"
+            allowfullscreen=""></iframe>
+    </section>
+
 
    
-
-  
-  <section id="seccionlocal" class="fixed-top text-center mt-4">
-    <img id="fondo" src="img/fondofondo.jpg" style="width: 100%;">
-  </section>
-
-  <section id="seccionlogolocal" class="fixed-top text-center mt-5 pt-8">
-    <img id="imagenlogoempresa" class="img-fluid rounded-top" src="img/logoempresa.png" alt="Empresa" >
-  </section>
-
-  </section>
-
-  <!-- seccion transparente-->
-    <section id="seccioncontenidos">
-
-    </section>
-
-<!-- --------------------------------------------------- NEGOCIO ------------------------------------------------- -->
-
-  <div id="seccionfotoslocal"  class="border-top border-warning lime lighten-5">
-    <div class="d-flex flex-row justify-content-center align-items-center bd-highlight">
-      <div class="col-sm-12 center">
-        <p id="slogan"  style="font-size: 20px;"></p>
-      </div>
-    </div>
-  </div>
-
-    <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
-
-  <div class="claseseccionnovedades">
-  
-    <div id="declaracion" class="d-flex justify-content-around text-center" style="visibility: hidden;">
-      <div class="col-sm-3" style="text-align: end;">
-        <button id="mayor" type="button" class="btn btn-warning" style="color: black;">+ de 18</button>
-      </div>
-    
-      <div class="col-sm-3">
-        <p class="text-center text-muted py-2"><small></small>Declara tu edad</small></p>
-      </div>
-    
-      <div class="col-sm-3" style="text-align: start;">
-        <button id="menor" type="button" class="btn btn-warning" style="color: black;">- de 18</button>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
-  <div id="vervineria" class="claseseccionnovedades">
-
-    
-    <div id="seccionbuscados">
-
-    </div>
-    
-    <div id="seccionbuscadosbuscador" class="row justify-content-center">
-
-    </div>
-
-    <div id="seccionpromociones" class="p-3">
-
-    </div>
-
-    <div id="seccionnovedades">
-    
-    </div>
-
-    <div id="secciongaleria">
-    
-    </div>
-
-  </div>
-  
-</div>
-<!-- --------------------------------------------------- CONTACTO ------------------------------------------------- -->
-
-<section id="seccioncontacto" >
-  <div id="subcontenedorcontacto" >
-    
-  </div>
-</section>
-<!-- --------------------------------------------------- MAPA ------------------------------------------------- -->
-
-    <section id="seccionubicacion" class="container jumbotron">
-      <h5>Ubicación</h5>
-      <iframe id="direcciongoogle"
-        src=""
-        width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-    </section>
-
-      
-
     <footer id="footer" class="footer"></footer>
     
     <div id="direccioncatalogoweb"></div>
-
-        <!-- LIBRERIAS NECESARIAS -->
-        
-        <!-- JQuery -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script> -->
-        
-        
-        
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        
-        <!-- para mostrar la tabla -->
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-        
-        <!-- para mostrar los toast -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
 
 
-  <script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
-  <script src="funciones.js"></script>
-  <script src="js/subscriptionPopup.js"></script>
-  <script src="establecerparametrosweb.js"></script>
 
-
+<script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
+<script src="funciones.js"></script>
+<script src="js/subscriptionPopup.js"></script>
+<script src="establecerparametrosweb.js"></script>
 
 </body>
 </html>
 
+
 <script type="text/javascript">
-  
-  function animarrubro(){
-      $("#seccionnovedades").addClass('bounceIn animated');
-  } 
 
-  consinprecio = "conprecio";
+    function animarrubro() {
+        $("#seccionnovedades").addClass('bounceIn animated');
+    }
+
+    consinprecio = "conprecio";
 
 
-  function versimuestra(quemuestra) 
-  {
-      var isVisible = $("#vervineria").is(":visible");
-      if (!isVisible) {
-        
-        const swalWithBootstrapButtons = Swal.mixin({
-          customClass: {
-            cancelButton: 'btn btn-danger'
-          },
-          buttonsStyling: true
-        })
-        
-        swalWithBootstrapButtons.fire({
-          text: 'Por favor declare su edad!!!',
-           icon: 'warning'
-        })
+    function versimuestra(quemuestra) {
+        var isVisible = $("#vervineria").is(":visible");
+        if (!isVisible) {
 
-      } else 
-      {
-          if(quemuestra=="productos")
-          {
-              if (consinprecio == "conprecio") {
-                $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
-              } else {
-                $("#seccionbuscados").load("anuncios_tarjeta.html");
-              }  
-          }else if (quemuestra == "novedades")
-          {
-            // $("#seccionnovedades").load("galeria.html");
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            })
 
-          
-          }else if (quemuestra == "galeria") {
-            $("#secciongaleria").load("galeria.html");
-          }
-      }
-  }
+            swalWithBootstrapButtons.fire({
+                text: 'Por favor declare su edad!!!',
+                icon: 'warning'
+            })
+
+        } else {
+            if (quemuestra == "productos") {
+                if (consinprecio == "conprecio") {
+                    $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
+                } else {
+                    $("#seccionbuscados").load("anuncios_tarjeta.html");
+                }
+            } else if (quemuestra == "novedades") {
+                // $("#seccionnovedades").load("galeria.html");
+
+
+            } else if (quemuestra == "galeria") {
+                $("#secciongaleria").load("galeria.html");
+            }
+        }
+    }
+
 
     
-  
-
-  $(document).ready(function()
-  {
-    var velocidad= 500;
-    var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
-
-
-
-    checkCookietabaqueria("checkCookieTabaqueria", consinprecio);
-
-    $("#seccionpromociones").load("anuncios_ofertas.html");
-    $("#seccionbusqueda").load("buscador.html");
-          
-
-    $("#mayor").click(function (e) 
+    
+    $(document).ready(function () 
     {
-      $('#vervineria').show();
-      $('li.nav-item').removeClass("active");
-    
-      $("#menuproductos").parent().addClass("active");
+        $('.sidenav').sidenav();
+        $('.pushpin').pushpin();
+        $('input.autocomplete').autocomplete({
+            data: {
+                "Apple": null,
+                "Microsoft": null,
+                "Google": 'https://placehold.it/250x250'
+            },
+        });
 
-      setCookie("checkCookieTabaqueria", 1, 365, consinprecio);
-      $("#navbar-collapse").collapse("hide");
-      var poscontacto = $("#seccionbuscados").offset().top - alturamenu; 
-      e.preventDefault(); 
-      $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+        $("#seccionbusqueda").load("buscador.html");
+        $("#seccionpublicidad").load("publicidad.html");
+        
+        $("#footer").load("footer.html");
+        $("#subcontenedorcontacto").load("contacto.html");
+        $("#secciongaleria").load("galeria.html");
+        $("#seccionpromociones").load("anuncios_ofertas.html");
+        
+        var velocidad = 500;
+        var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
+
+        checkCookietabaqueria("checkCookieTabaqueria", consinprecio);
+
+
+
+        $("#mayor").click(function (e) {
+            $('#vervineria').show();
+            $('li.nav-item').removeClass("active");
+
+            $("#menuproductos").parent().addClass("active");
+
+            setCookie("checkCookieTabaqueria", 1, 365, consinprecio);
+            var poscontacto = $("#seccionbuscados").offset().top - alturamenu;
+            e.preventDefault();
+            $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+        });
+
+        $("#menor").click(function () {
+            ocultatabaqueria();
+        });
+
+        //--------------------------------------------------
+
+        $('li.nav-item').click(function () {
+            $('li.nav-item').removeClass("active");
+            $(this).addClass("active");
+        });
+
+        //para el boton de venta flotante
+        $('.fixed-action-btn').floatingActionButton();
+        $('.tooltipped').tooltip();
+
+       
+
+        $("#menuofertas").click(function () {
+            versimuestra("ofertas");
+            var alturamenu = $('.menu').outerHeight(true);
+            var iraqui = $("#seccionpromociones").offset().top - alturamenu;
+            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+        });
+        $("#menuofertaso").click(function () {
+            versimuestra("ofertas");
+            var alturamenu = $('.menu').outerHeight(true);
+            var iraqui = $("#seccionpromociones").offset().top - alturamenu;
+            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+        });
+
+        $("#menuproductos").click(function () {
+            versimuestra("productos");
+        });
+        $("#menuproductoso").click(function () {
+            versimuestra("productos");
+        });
+
+        $("#menugaleria").click(function () {
+            versimuestra("galeria");
+            var alturamenu = $('.menu').outerHeight(true);
+            var iraqui = $("#secciongaleria").offset().top - alturamenu;
+            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+        });
+        $("#menugaleriao").click(function () {
+            versimuestra("galeria");
+            var alturamenu = $('.menu').outerHeight(true);
+            var iraqui = $("#secciongaleria").offset().top - alturamenu;
+            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+        });
+
+
+        animarrubro();
     });
 
-    $("#menor").click(function () {
-      ocultatabaqueria();
-    });
-    
-    //--------------------------------------------------
+    function asignarrutacarrito() {
 
-    $('li.nav-item').click(function () {
-      $('li.nav-item').removeClass("active");
-      $(this).addClass("active");
-    });
-
-    //para el boton de venta flotante
-    $('.fixed-action-btn').floatingActionButton();
-    $('.tooltipped').tooltip();
-
-    $("#subcontenedorcontacto").load("contacto.php");
-    $("#footer").load("footer.html");
-
-    $("#menuofertas").click(function () {
-      versimuestra("ofertas");
-      var alturamenu = $('.menu').outerHeight(true);
-      var iraqui = $("#seccionpromociones").offset().top - alturamenu;
-      $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
-    });
-      
-
-    $("#menuproductos").click(function () {
-      versimuestra("productos");
-    });
-
-    $("#menugaleria").click(function () {
-      versimuestra("galeria");
-      var alturamenu = $('.menu').outerHeight(true);
-      var iraqui = $("#secciongaleria").offset().top - alturamenu;
-      $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
-    });
-      
-
-
-    animarrubro();
-  });
-
-  function asignarrutacarrito() {
-
-      document.getElementById("botoncarrito").href = dominioruta + "carrito.html";
+        document.getElementById("botoncarrito").href = dominioruta + "carrito.html";
 
     }
 

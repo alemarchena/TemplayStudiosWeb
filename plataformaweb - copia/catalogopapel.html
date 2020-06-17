@@ -1,0 +1,414 @@
+<!doctype html>
+<div lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- fuentes de google -->
+        <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
+        <!-- materialize -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- iconos materialize -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- datatable -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <!-- mensajes de sweetalert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/estilo.css">
+        <link rel="icon" href="img/icono_catalogo.png" type="image/png" sizes="16x16">
+       
+        <title>Catálogo en papel</title>
+    </head>
+<body>
+        
+    <div class="d-flex flex-row justify-content-center align-items-center bd-highlight ">
+        <div class="col-sm-4 ml-1 mt-2">
+            <img style="width: 25%;" src="img/logoempresa.png" alt="Catalogo">
+        </div>
+        <div class="col-sm-4 center mt-2">
+            <h5 id="tituloweb"></h5>
+            <div class="row justify-content-center">
+                <p id="direccionfisica"></p>
+            </div>
+            <div class="row justify-content-center">
+                <p id="telefono_en_barra"></p>
+            </div>
+        </div>
+        <div class="col-sm-4 center mt-2">
+            <div class="d-flex flex-row justify-content-center">
+                <h5>Catálogo </h5>
+                <div class="d-flex flex-row justify-content-center">
+                    <a id="ocultar"><i class="fas fa-low-vision"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- ----------------------------- Componentes de busqueda --------------------------- -->
+    <div id="componentes">
+        <div class="row justify-content-center bd-highlight">
+            <div class="col-sm-4 center">
+                <h5>Estilo de catálogo</h5>
+            </div>
+            <div class="col-sm-4 center">
+                <select class="form-control" id="estilocatalogo" name="estilocatalogo"></select>
+            </div>
+            <div class="col-sm-4 center">
+            </div>
+        </div>
+        <div class="accordion" id="accordionBuscadorRubroFiltro">
+            <div class="row justify-content-center p-4">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-header " id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseBuscaxRubro" aria-expanded="true" aria-controls="collapseBuscaxRubro">
+                                    Consultar por rubro
+                                </button>
+                            </h2>
+                        </div>
+        
+                        <div id="collapseBuscaxRubro" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionBuscadorRubroFiltro">
+                            
+                                <!-- consultar por rubros -->
+        
+                                <div class="d-flex flex-row justify-content-center bd-highlight my-5">
+        
+                                    <div class="col-sm-12">
+                                        <label for="opcioneslista">Selecciona un Rubro a buscar</label>
+                                        <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                                    </div>
+                                </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="card-header " id="headingTwo">
+                            <h2 class="mb-0">
+                                <button id="btnconsultaxrubro" class="btn btn-block collapsed" type="button"
+                                    data-toggle="collapse" data-target="#collapseFiltro" aria-expanded="false"
+                                    aria-controls="collapseFiltro">
+                                    Consultar por productos
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseFiltro" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionBuscadorRubroFiltro">
+                                <!-- consultar con filtros -->
+                                <div class="d-flex flex-row justify-content-center py-1">
+        
+                                    <div class="col-sm-11">
+                                        <div class="d-flex flex-row justify-content-center bd-highligh">
+                                            <div id="criterios_productos" class="col-sm-6">
+        
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="filtro_productos">Filtro</label> <input id="filtro_productos"
+                                                    name="filtro_productos" type="text" class="validate"
+                                                    onKeyUp="validarfiltro(event)"
+                                                    placeholder="Escribe una palabra a buscar y da Enter">
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-sm-1 ">
+                                        <a id="agregar_filtro_productos"><i class='fas fa-search' style="font-size:40px;"></i></a>
+                                    </div>
+        
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center" >
+        <div id="tarjetaanuncios" class="card-group col-sm-12">
+           
+        </div>
+    </div>
+<!-- <div class="card-group ">
+    <div id="tarjetaanuncios" class="row justify-content-center">
+
+    </div>
+</div> -->
+    
+    <!-- --------------------------------------- LIBRERIAS NECESARIAS ---------------------------------- -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- para mostrar la tabla -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <!-- para mostrar los toast -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.3/dist/sweetalert2.all.min.js"></script>
+    <script src=configuracion.js> </script>
+
+    <script src=funciones.js> </script> 
+    <!-- <script src=js/funcionesrubros.js> </script> -->
+</body>
+
+
+<script>
+
+    function consultaranuncioscatalogo(tipoconsulta,e)
+    {
+        var bdd = conexionbddpaginaweb;
+        var rutadeimagenes = rutaimagenespaginaweb;
+        var tabla = tablaanunciospaginaweb;
+        var tabladerubros = tablarubrospaginaweb;
+
+        //Tamañio de la imagen del anuncio
+        tamanioimagen = 150;
+        anchocard = 200;
+
+        var estilocat = document.getElementById("estilocatalogo").selectedIndex;
+
+        //lista de rubros
+        var seleccionidrubro = document.getElementById("opcioneslista").value;
+
+        //Lista con filtros
+        var filtro = []; 
+        $("#criterios_productos .btn").each(function () 
+        {
+            filtro.push( $(this).text() );
+        });
+
+        //tipo de consulta
+        var tipo;
+        
+        tipo = tipoconsulta;
+
+        var t=null;
+        var id="";
+
+        if (id == "") id = 0;
+        else id = id;
+
+        var itemanuncio = new Object();
+
+        itemanuncio.bdd = bdd;
+        itemanuncio.tabla = tabla;
+        itemanuncio.tablarubros = tabladerubros;
+
+        itemanuncio.tipo = tipo;
+        itemanuncio.id = id;
+
+        itemanuncio.titulo = "";
+        itemanuncio.descripcion = "";
+        itemanuncio.precio = "";
+        itemanuncio.costo = "";
+        itemanuncio.esnovedad = "";
+        itemanuncio.esoferta = "";
+        itemanuncio.nopublicar = "";
+        itemanuncio.observaciones = "";
+        itemanuncio.comentarios = "";
+
+        itemanuncio.rutaimagenes = rutadeimagenes;
+        itemanuncio.idrubro = seleccionidrubro;
+        itemanuncio.imagen = "";
+        itemanuncio.filtro = filtro;
+
+        var objetoanuncio = JSON.stringify(itemanuncio);
+
+        t = $('#tarjetaanuncios');
+        $(".hijos").remove();
+
+        var contador=0;
+
+
+        $.ajax({
+            url: "consultaanuncios.php",
+
+            data: { objetoanuncio: objetoanuncio},
+            type: "post",
+
+            success: function (data)
+            {
+                if (data != '[]') {
+                   
+                    dd = JSON.parse(data); //data decodificado
+
+                    
+                    $.each(dd, function (key, value) 
+                    {
+                        if(estilocat==0) //estilo fijo
+                            t.append("<div class='hijos row justify-content-center'><div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col center '> <div class='card' style='width:" + anchocard + "px'><div class='row'><div class='col-sm-12'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top center-align pt-3' style='width:" + tamanioimagen + "px' alt='...'></img></div></div><div ><p class= 'titulo'>" + dd[key].titulo + "</p><p class='textos'>" + dd[key].descripcion + "</p></div ></div > </div></div>");
+                        else if (estilocat == 1) //estilo 3 columnas
+                            t.append("<div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col-sm-4 center hijos  '> <div class='card' ><img class='card-img-top' src='" + rutadeimagenes + dd[key].imagen + "' align-self:center'  alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div> </div>");
+                        else if (estilocat == 2) //estilo 4 columnas
+                            t.append("<div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col-sm-3 center hijos '> <div class='card' ><img class='card-img-top' src='" + rutadeimagenes + dd[key].imagen + "' align-self:center'  alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div> </div>");
+                        else if (estilocat == 3) //estilo ajustable
+                            t.append("<div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col center hijos '> <div class='card' ><img class='card-img-top' src='" + rutadeimagenes + dd[key].imagen + "' align-self:center'  alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div> </div>");
+
+                        contador = contador + 1;
+                    });
+
+                   
+                }else{
+                   
+                    Swal.fire({
+                        closeOnEsc: false,
+                        title: 'No hay artículos para esta búsqueda !!!',
+
+                    })
+                    
+                }
+            },
+                error: function (e) {
+
+                console.log("Error de comunicación");
+            }
+        });
+    }
+
+    
+
+    $(document).ready(function ()
+    {
+      
+
+        $("#agregar_filtro_productos").click(function () {
+            agregarfiltroproducto();
+            // consultaranuncioscatalogo("consultarubros");
+        });
+
+        window.addEventListener("load", iniciocatalogo);
+
+
+        function iniciocatalogo()
+        {
+            consultarubros_seleccion_listapaginaweb();
+           
+        }
+  
+        consultarubros_seleccion_listapaginaweb();
+
+        function AgregarEstilosLista() 
+        {
+            var a = [];
+            a.push('<option value = "" selected >Estilo fijo</option >');
+            a.push('<option value = "" selected >Estilo 3 columnas</option >');
+            a.push('<option value = "" selected >Estilo 4 columnas</option >');
+            a.push('<option value = "" selected >Estilo ajustable</option >');
+
+            $("#estilocatalogo").append(a);
+
+            //selecciona el primer item
+            $("#estilocatalogo option:selected").prop("selected", false);
+            $("#estilocatalogo").prop("selected", true);
+
+        }
+        AgregarEstilosLista();
+ 
+
+
+        $("#opcioneslista").on('change',function(){
+
+            $("#criterios_productos .btn").each(function () {
+                $(this).remove();
+            });
+
+            consultaranuncioscatalogo("consultarubros");
+            M.toast(
+            {
+                html: '...Buscando',
+                displayLength: '3000'
+            });
+        });
+
+        $("#estilocatalogo").on('change',function(){
+            
+             $("#criterios_productos .btn").each(function () {
+                $(this).remove();
+            });
+
+            consultaranuncioscatalogo("consultarubros");
+            M.toast(
+            {
+                html: 'Buscando por rubro',
+                displayLength: '3000'
+            });
+        });
+
+             
+    });
+
+    var af = $("#criterios_productos");
+
+    
+    function agregarfiltroproducto() {
+        var identi = $("#filtro_productos").val();
+        var af = $("#criterios_productos");
+
+        if (identi != "") {
+            af.append("<a onclick='eliminarEtiqueta_productos(\"" + identi + "\")' id='" + identi + "' class='btn chip' href='#' role='button'>" + $("#filtro_productos").val() + "</a>");
+            document.getElementById("filtro_productos").value = "";
+
+            consultaranuncioscatalogo("consultafiltros");
+
+            M.toast(
+                {
+                    html: 'Buscando productos filtrados...',
+                    displayLength: '3000'
+                });
+        }
+    }
+
+    function validarfiltro(e) {
+        var key = window.event ? e.which : e.keyCode;
+
+        if (key == 13) {
+            agregarfiltroproducto();
+        }
+    }
+
+    $("#ocultar").click(function(){
+
+        if ($('#componentes').is(':visible')) {
+            $('#componentes').hide();
+        } else {
+            $('#componentes').show();
+        }
+    });
+
+    function eliminarEtiqueta(identificacion) {
+        var id = document.getElementById(identificacion);
+        id.remove();
+    }
+
+    
+
+    function establecevaloresvariables() {
+        document.getElementById("tituloweb").innerText = tituloweb;
+        document.getElementById("telefono_en_barra").innerText = telefono_en_barra;
+        document.getElementById("direccionfisica").innerText = direccionfisica;
+
+    }
+    establecevaloresvariables();
+    
+</script>

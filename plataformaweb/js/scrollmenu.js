@@ -20,89 +20,100 @@ $("#menunegocio").on('click', function(e) {
 	$("html, body").animate({ scrollTop: 0}, velocidadscroll * 1.2);
 	$(".navbar-collapse").collapse("hide");
 });
+
+
+$("#tituloweb").on('click', function (e) {
+
+	e.preventDefault();
+	$("html, body").animate({ scrollTop: 0 }, velocidadscroll * 1.2);
+});
 $("#menuubicacion").on('click', function(e) {
 	var posclientes = $("#seccionubicacion").offset().top - alturamenu; 
 	e.preventDefault(); 
 	$("HTML, BODY").animate({ scrollTop: posclientes}, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 $("#menucontacto").on('click', function(e) {var poscontacto = $("#seccioncontacto").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto}, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 $("#menuanuncios").on('click', function (e) {
 	var poscontacto = $("#seccionnovedades").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 $("#menuproductos").on('click', function (e) {
-	var poscontacto = $("#vervineria").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
+	var poscontacto = $("#seccionbuscados").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
 
 $("#menugaleria").on('click', function (e) {
-	var poscontacto = $("#seccionnovedades").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
+	var poscontacto = $("#secciongaleria").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
 
 
 $("#menuofertas").on('click', function (e) {
-	var poscontacto = $("#seccionnovedades").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
+	var poscontacto = $("#seccionpromociones").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
+
+
+
+// ------------------------------------------------------ menu oculto ------------------------------------
+$("#menugaleriao").on('click', function (e) {
+	var poscontacto = $("#secciongaleria").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
+$("#menuofertaso").on('click', function (e) {
+	var poscontacto = $("#seccionpromociones").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
+$("#menuproductoso").on('click', function (e) {
+	var poscontacto = $("#seccionbuscados").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
+$("#menuubicaciono").on('click', function (e) {
+	var posclientes = $("#seccionubicacion").offset().top - alturamenu;
+	e.preventDefault();
+	$("HTML, BODY").animate({ scrollTop: posclientes }, velocidadscroll);
+});
+$("#menucontactoo").on('click', function (e) {
+	var poscontacto = $("#seccioncontacto").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
 //----------------------------------------------------- PANEL PUBLICACION -------------------------------------------------
 $("#botpublicar").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 $("#bottarjeta").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 
 $("#botlista").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 $("#botrubro").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 $("#botproveedores").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 $("#botclientes").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 $("#botvender").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 $("#botmovimientos").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 $("#botlistastock").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 
 
 $("#botcaja").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 $("#botbonus").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-	$(".navbar-collapse").collapse("hide");
 });
 
 $("#botonobservaciones").on('click', function (e) {

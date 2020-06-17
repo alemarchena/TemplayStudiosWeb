@@ -1,8 +1,8 @@
-<div id="divpromociones" class="d-flex flex-row justify-content-center align-items-center"><small>
+<div id="divpromociones" class="center-align"><small>
         <h5>Promociones</h5>
     </small></div>
     
-<div id="ofertasanuncios" class="row justify-content-center">
+<div id="ofertasanuncios" class="row">
 
 
 </div> 
@@ -67,64 +67,95 @@
             success: function (data)
             {
 
-                dd = JSON.parse(data); //data decodificado
-                var cuenta = 0;
-                var parteobservacion = "";
-                var partecomentarios = "";
-                var colapsocomentarios = "";
-                var colapsoobservaciones = "";
+                if (data != '[]') {
 
-                $.each(dd, function (key, value) {
-                    cuenta = cuenta + 1;
+                    dd = JSON.parse(data); //data decodificado
+                    var cuenta = 0;
+                    var parteobservacion = "";
+                    var partecomentarios = "";
+                    var colapsocomentarios = "";
+                    var colapsoobservaciones = "";
+                    var valorbonus = "";
 
-                    parteobservacion = "";
-                    partecomentarios = "";
-                    colapsocomentarios = "";
-                    colapsoobservaciones = "";
-                    // botoncarrito = "<a href ='" + dominioruta + "carrito.html' target='_blank' class='btn waves-effect  orange green-4' type='button' id='vercarrito'" + cuenta + "  name='vercarrito'" + cuenta + "><i class='fas fa-shopping-cart'></i></a>"
-                    botonbonus = "";
+                    $.each(dd, function (key, value) {
+                        cuenta = cuenta + 1;
 
-                    if (dd[key].tieneventaja) {
+                        parteobservacion = "";
+                        partecomentarios = "";
+                        listaobservacioncomentario = "";
 
-                        tituloventaja = dd[key].tituloventaja;
-                        precioventaja = "$ " + dd[key].precioventaja;
+                        // botoncarrito = "<a href ='" + dominioruta + "carrito.html' target='_blank' class='btn waves-effect  orange green-4' type='button' id='vercarrito'" + cuenta + "  name='vercarrito'" + cuenta + "><i class='fas fa-shopping-cart'></i></a>"
+                        if (dd[key].productobonus == 1) {
+                            valorbonus = "Cange por " + dd[key].bonus + " bonus";
+                        } else {
+                            valorbonus = "";
+                        }
 
-                        if (tituloventaja.trim() == "" || precioventaja == 0) {
+
+                        if (dd[key].tieneventaja) {
+
+                            tituloventaja = dd[key].tituloventaja;
+                            precioventaja = "$ " + dd[key].precioventaja;
+
+                            if (tituloventaja.trim() == "" || precioventaja == 0) {
+                                tituloventaja = "";
+                                precioventaja = "";
+                            }
+                        } else {
                             tituloventaja = "";
                             precioventaja = "";
                         }
-                    } else {
-                        tituloventaja = "";
-                        precioventaja = "";
-                    }
 
-                    if (dd[key].observaciones != "") {
-                        parteobservacion = "<div class='col'><p><a class='btn light-green lighten-3 text-green darken-4 textobotonextras' data-toggle='collapse' href='#collapseObservaciones" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseObservaciones" + cuenta + "'>Saber mas...</a></p></div>";
-                        colapsoobservaciones = "<div class='collapse' id='collapseObservaciones" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].observaciones + "</div></div>";
-                    }
-
-                    if (dd[key].comentarios != "") {
-                        partecomentarios = "<div class='col'><p><a class='btn light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras' data-toggle='collapse' href='#collapseComentarios" + cuenta + "' role='button' aria-expanded='false' aria-controls='collapseComentarios" + cuenta + "'>Sugerencias</a></p></div>";
-                        colapsocomentarios = "<div class='collapse' id='collapseComentarios" + cuenta + "'><div class='card card-body extradescripcion'>" + dd[key].comentarios + "</div></div>";
-                    }
-
-                    if (dd[key].nopublicar == 0) {
-                        if (seveelprecio == true) {
-
-                            var precio;
-                            if (dd[key].precio > 0)
-                                precio = "$ " + dd[key].precio;
-                            else
-                                precio = "Consultar Precio";
-                            //t.append("<div class='col-sm-3 hijos'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class='card-body'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center'>" + dd[key].descripcion + "</p><hr><div class='row justify-content-center'><div class='col-sm-4 '><p id='preciotarjeta' class='center filapreciotarjeta preciotarjeta'>" + precio + "</p></div><div class='col-sm-4'>" + botoncarrito + "</div><div class='col-sm-4'></div></div></div><div class='row'>" + parteobservacion + partecomentarios + "</div><div class='row'>" + colapsoobservaciones + "</div><div class='row'>" + colapsocomentarios + "</div></div></div> ");
-
-                            t.append("<div class='col-sm-3 hijosofer'><div class='card'><div class='row'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top materialboxed center-align tamaimagen' alt='...'></img></div><div class=''><h5 id='titulotarjeta' class='center m-1'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row justify-content-center'><div class='col-sm-8 '><p id='preciotarjeta' class='left ml-3 filapreciotarjeta preciotarjeta'>" + precio + "</p></div><div class='col-sm-4'>" + botonbonus + "</div></div><div class='row justify-content-center'><div class='col-sm-4 '><p id='titventaja' class='left tituloventaja mb-0 ml-3'>" + tituloventaja + "</p></div><div class='col-sm-4'><p id='preventaja' class='left ml-2 precioventaja'><del>" + precioventaja + "</del></p></div><div class='col-sm-4'></div></div></div><div class='row'>" + parteobservacion + partecomentarios + "</div><div class='row'>" + colapsoobservaciones + "</div><div class='row'>" + colapsocomentarios + "</div></div></div>");
+                        // Observaciones y comentarios
+                        if (dd[key].observaciones != "") {
+                            parteobservacion = "<li class=''> <div class='collapsible-header'><i class='material-icons icosabermas'>chrome_reader_mode</i>Saber mas...</div><div class='collapsible-body'><span>" + dd[key].observaciones + "</span></div></li>";
+                        } else {
+                            parteobservacion = "";
 
                         }
-                    }
-                });
 
-                imageneszoom();
+                        if (dd[key].comentarios != "") {
+                            partecomentario = "<li class=''> <div class='collapsible-header'><i class='material-icons icosugerencias'>comment</i>Sugerencias</div><div class='collapsible-body'><span>" + dd[key].comentarios + "</span></div></li>"
+                        } else {
+                            partecomentario = ""
+
+                        }
+
+                        var agregado = "";
+                        var iconomasinfo = "";
+
+                        if (parteobservacion != "" || partecomentario != "") {
+
+                            listaobservacioncomentario = "<ul class='collapsible'>" + parteobservacion + partecomentario + "</ul> ";
+                            agregado = "<div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Información<i class='material-icons right'>close</i></span>" + listaobservacioncomentario + "</div>"
+                            iconomasinfo = "<i class='material-icons right'>more_vert</i>";
+                        }
+                            // -----------------------------
+
+                        if (dd[key].nopublicar == 0) {
+                            if (seveelprecio == true) {
+
+                                var precio;
+                                if (dd[key].precio > 0) {
+                                    precio = "$ " + dd[key].precio;
+                                } else {
+                                    precio = "Consultar Precio";
+                                    tituloventaja = "";
+                                    precioventaja = "";
+                                }
+                                t.append("<div class='col s12 m6 l3 hijosofer'><div class='card'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta preciotarjeta'>" + precio + "</p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p><a href='#'>Link de pago</a></p></div></div></div>" + agregado + "</div></div>");
+
+                                // t.append("<div class='col s12 m6 l3  hijosofer'><div class='card'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta preciotarjeta'>" + precio + "</p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p><a href='#'>Link de pago</a></p></div></div></div>" + listaobservacioncomentario + "</div></div>");
+                            }
+                        }
+                    });
+
+                    imageneszoom();
+
+                    $('.collapsible').collapsible();
+
+                }
+
             },
                 error: function (e) 
                 {

@@ -1,0 +1,318 @@
+<div class="row justify-content-center p-5">
+    <button class="btn " id="ConsultarPrecios">Lista de Precios</button>
+    <button class="btn " id="ConsultarClientes">Lista de Clientes</button>
+    <button class="btn " id="ConsultarStock">Lista de Stock</button>
+    
+    <button class="btn waves-effect  orange green-4 " id="exportararchivo">Exportar a Excel</button>
+</div>
+<div class="col-sm-12">
+    <div class="table-responsive">
+        <table id="tablalista">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script></script>
+<script>
+    var nombrearchivo = '';
+
+    $("#exportararchivo").click(function()
+    {
+        if(nombrearchivo != ''){
+            exportTableToExcel('tablalista',nombrearchivo);
+             Swal.fire(
+                'Excelente',
+                'Ya tienes la descarga!!!',
+
+            )
+        }else{
+            
+            Swal.fire(
+                'Atención!',
+                'Seleccione primero una consulta.',
+                
+            )
+        }
+
+    });
+
+    function vaciartabla(){
+
+        var table = document.getElementById("tablalista");
+
+        var rowCount = table.rows.length;
+        for (var i = 0; i < rowCount; i++) {
+            table.deleteRow(0);
+            
+        }
+
+    }
+
+     $("#ConsultarStock").click(function () {
+        consultaranunciosstock_exportar();
+    });
+
+    function consultaranunciosstock_exportar(e) {
+
+        nombrearchivo = "stock";
+        vaciartabla();
+
+        var bdd = conexionbddpaginaweb;
+        var tabla = tablaanunciospaginaweb;
+        var tabladerubros = tablarubros;
+        var tabladecompras = tablacompras;
+        var tabladeventas = tablaventas;
+        var tabladeajustes = tablaajustes;
+        var tabladeproveedores = tablaproveedores;
+        var tabladeproveedoresanuncios = tablaproveedoresanuncios;
+        var tipo = "consultafiltros";
+        var filtro = [];
+       
+        id = 0;
+       
+        var itemanuncio = new Object();
+        itemanuncio.bdd = bdd;
+        itemanuncio.tabla = tabla;
+        itemanuncio.tablarubros = tabladerubros;
+        itemanuncio.tablacompras = tabladecompras;
+        itemanuncio.tablaventas = tabladeventas;
+        itemanuncio.tablaajustes = tabladeajustes;
+        itemanuncio.tablaproveedores = tabladeproveedores;
+        itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
+        itemanuncio.tipo = tipo;
+        itemanuncio.id = id;
+        itemanuncio.filtro = filtro;
+
+        var objetoanuncio = JSON.stringify(itemanuncio);
+   
+        $.ajax({
+
+            url: "consultastock.php",
+
+            data: { objetoanuncio: objetoanuncio },
+            type: "post",
+
+            success: function (data) {
+
+                if (data != "consultavacia") 
+                {
+                    dd = JSON.parse(data); //data decodificado
+                    var table = document.getElementById("tablalista");
+
+                    var row = table.insertRow(0);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+                    var cell6 = row.insertCell(5);
+                    var cell7 = row.insertCell(6);
+
+                    $.each(dd, function (key, value) {
+                        row = table.insertRow(0);
+                        cell1 = row.insertCell(0);
+                        cell2 = row.insertCell(1);
+                        cell3 = row.insertCell(2);
+                        cell4 = row.insertCell(3);
+                        cell5 = row.insertCell(4);
+                        cell6 = row.insertCell(5);
+                        cell7 = row.insertCell(6);
+
+                        cell1.innerHTML = dd[key].titulo;
+                        cell2.innerHTML = dd[key].descripcion;
+                        cell3.innerHTML = dd[key].precio;
+                        cell4.innerHTML = dd[key].costo;
+                        cell5.innerHTML = dd[key].stock;
+                        cell6.innerHTML = dd[key].nombreproveedor;
+                        cell7.innerHTML = dd[key].rubro;
+                    });
+
+                    cell1.innerHTML = "Titulo";
+                    cell2.innerHTML = "Descripcion";
+                    cell3.innerHTML = "Precio";
+                    cell4.innerHTML = "Costo";
+                    cell5.innerHTML = "Stock";
+                    cell6.innerHTML = "Proveedor";
+                    cell7.innerHTML = "Rubro";
+                    
+                }else {
+                    M.toast(
+                    {
+                        html: 'No hay datos para mostrar!',
+                        displayLength: '1500'
+                    });
+                }
+            },
+            error: function (e) {
+                M.toast(
+                {
+                    html: 'No hay buena conexión!',
+                    displayLength: '4000'
+                });
+                console.log("Error de comunicación");
+            }
+        });
+
+    }   
+    
+    function consultartodosanuncios(e) 
+    {
+        nombrearchivo = "productos";
+        vaciartabla();
+        var bdd = conexionbddpaginaweb;
+        var tabla = tablaanunciospaginaweb;
+        var tabladerubros = tablarubros;
+        var tipo = "consultatodosanuncios";
+       
+        var itemanuncio = new Object();
+        itemanuncio.bdd = bdd;
+        itemanuncio.tabla = tabla;
+        itemanuncio.tablarubros = tabladerubros;
+        itemanuncio.tipo = tipo;
+        var objetoanuncio = JSON.stringify(itemanuncio);
+
+        $.ajax({
+
+            url: "consultaanuncios.php",
+
+            data: { objetoanuncio: objetoanuncio },
+            type: "post",
+
+            success: function (data) {
+                if (data != "consultavacia") {
+                    dd = JSON.parse(data); //data decodificado
+                    var table = document.getElementById("tablalista");
+
+                    var row = table.insertRow(0);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+                    var cell6 = row.insertCell(5);
+
+                    $.each(dd, function (key, value) 
+                    {
+                        row = table.insertRow(0);
+                        cell1 = row.insertCell(0);
+                        cell2 = row.insertCell(1);
+                        cell3 = row.insertCell(2);
+                        cell4 = row.insertCell(3);
+                        cell5 = row.insertCell(4);
+                        cell6 = row.insertCell(5);
+
+                        cell1.innerHTML = dd[key].id;
+                        cell2.innerHTML = dd[key].precio;
+                        cell3.innerHTML = dd[key].titulo;
+                        cell4.innerHTML = dd[key].descripcion;
+                        cell5.innerHTML = dd[key].idrubro;
+                        cell6.innerHTML = dd[key].rubro;  
+                    });
+
+                    cell1.innerHTML = "Id";
+                    cell2.innerHTML = "Precio";
+                    cell3.innerHTML = "Titulo";
+                    cell4.innerHTML = "Descripcion";
+                    cell5.innerHTML = "Id Rubro";
+                    cell6.innerHTML = "Rubro";
+                   
+                } else {
+                    M.toast(
+                        {
+                            html: 'No hay datos para mostrar!',
+                            displayLength: '1500'
+                        });
+                }
+            },
+            error: function (e) {
+                console.log("Error de comunicación");
+            }
+        });
+    }
+
+    $("#ConsultarPrecios").click(function(){
+        consultartodosanuncios();
+    });
+  
+    
+    function consultatodosclientes(e) 
+    {
+        nombrearchivo = "clientes";
+
+        vaciartabla();
+        var bdd = conexionbdd;
+        var tabla = tablaclientes;
+        var tipo = "consultatodosanuncios";
+
+        id = 0;
+        
+        var datosclientes = new Object();
+        datosclientes.bdd = bdd;
+        datosclientes.tabla = tabla;
+        datosclientes.tipo = tipo;
+        var cliente = JSON.stringify(datosclientes);
+        $.ajax({
+
+            url: "consultaclientes.php",
+            data: { cliente: cliente },
+
+            type: "post",
+
+            success: function (data) {
+                if (data != "consultavacia") {
+                    dd = JSON.parse(data); //data decodificado
+
+                    var table = document.getElementById("tablalista");
+
+                    var row = table.insertRow(0);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+                    var cell6 = row.insertCell(5);
+
+                    $.each(dd, function (key, value) {
+
+                        row = table.insertRow(0);
+                        cell1 = row.insertCell(0);
+                        cell2 = row.insertCell(1);
+                        cell3 = row.insertCell(2);
+                        cell4 = row.insertCell(3);
+                        cell5 = row.insertCell(4);
+                        cell6 = row.insertCell(5);
+
+                        cell1.innerHTML = dd[key].idcliente,
+                        cell2.innerHTML = dd[key].nombrecliente,
+                        cell3.innerHTML = dd[key].direccion,
+                        cell4.innerHTML = "'" + dd[key].telefono,
+                        cell5.innerHTML = dd[key].email,
+                        cell6.innerHTML = dd[key].bonus
+                    });
+                    
+                     cell1.innerHTML = "Id";
+                    cell2.innerHTML = "Nombre";
+                    cell3.innerHTML = "Dirección";
+                    cell4.innerHTML = "Teléfono";
+                    cell5.innerHTML = "email";
+                    cell6.innerHTML = "bonus";
+                }
+            },
+            error: function (e) {
+                alert("Error en la consulta." + e.value);
+            }
+        });
+    }
+
+    $("#ConsultarClientes").click(function () {
+        consultatodosclientes();
+    });
+</script>

@@ -1,0 +1,245 @@
+<div class="col-sm-12 ">
+	
+		<div class="form-row justify-content-center">
+			<div class="col-sm-1">
+				<label class="contacto" for="idcliente">Id</label>
+				<input id="idcliente" type="text" aria-label="Last name" class="form-control "
+					placeholder="Id" readonly>
+			</div>
+			<div class="col-sm-2">
+				<label class="contacto" for="apellido">Nombre y Apellido</label>
+				<input maxlength="50" id="apellido" type="text" aria-label="Last name" class="form-control " placeholder="Nombre y Apellido">
+			</div>
+			<div class="col-sm-2">
+				<label class="contacto" for="email">Email</label>
+				<input maxlength="50" id="email" type="email" class="form-control " placeholder="Email" readonly>
+			</div>
+			<div class="col-sm-2">
+				<label class="contacto" for="celular">Teléfono</label>
+				<input maxlength="30" id="celular" type="text" class="form-control " placeholder="Teléfono">
+			</div>
+			<div class="col-sm-2">
+				<label class="contacto" for="nota">Nota u observación</label>
+				<input maxlength="150" id="nota" type="text" aria-label="Last name" class="form-control " placeholder="Escriba una observación">
+			</div>
+			
+		</div>
+		<div class="form-row justify-content-center">
+			
+			<div class="col-sm-2"></div>
+			
+			<div class="col-sm-4 center">
+				<label class="direccion" for="nota">Dirección</label>
+				<input maxlength="300" id="direccion" type="text" aria-label="Last name" class="form-control "
+					placeholder="Dirección de envío">
+			</div>
+			<div class="col-sm-2 right">
+				<input id="totalcarrito" readonly type="text" class="form-control " placeholder="Total $ "
+					style="color: red;"><b></b>
+			</div>
+			<div class="col-sm-4">
+				<button id="enviar" type="submit" class="btn btn-primary" style="font-size: 1em">Enviar</button>
+			</div>
+		</div>
+		
+	</div>
+	<textarea style="visibility: hidden;" id="mensaje" class="form-control contactoplaceholder" aria-label="With textarea" placeholder="Escriba su mensaje"></textarea>
+
+
+<script>
+
+	function envioconfirmado( apellido, email, telefono, direccion){
+		
+		
+		var idcliente = $("#idcliente").val();
+		idcliente = idcliente.trim();
+
+		
+		var mensaje = $("#mensaje").val();
+		mensaje = mensaje.trim();
+
+
+		var nota = $("#nota").val();
+
+
+		
+
+
+		document.getElementById("enviar").disabled = true;
+
+		
+		M.toast(
+		{
+			html: 'Enviando mensaje...',
+			displayLength: '1500'
+		});
+
+		$.ajax({
+
+			url: "controladores/enviaremailpedido.php",
+			data: { nota: nota, apellido: apellido, email: email, telefono: telefono, mensaje: mensaje, direccion: direccion },
+			type: "post",
+			success: function (data) {
+				if (data == "Enviado correctamente") {
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'Muchas Gracias, tienes una copia del pedido en el correo, nos pondremos en contacto',
+						showConfirmButton: false,
+						timer: 3500
+					});
+					console.log("Enviado ok");
+				}
+				document.getElementById("enviar").disabled = false;
+				limpiarcarrito();
+			},
+			error: function (e) {
+				alert("Error al Enviar");
+				document.getElementById("enviar").disabled = false;
+
+			}
+
+
+		});
+	}
+	
+	$("#enviar").click(function(){
+
+				
+		if (sumatotal == 0) {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Su carrito está vacío',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+		
+		var telefono = $("#celular").val();
+		telefono = telefono.trim();
+
+		var apellido = $("#apellido").val();
+		apellido = apellido.trim();
+
+		var email = $("#email").val();
+		email = email.trim();
+
+		var direccion = $("#direccion").val();
+		direccion = direccion.trim();
+		
+		if (apellido == "") {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Ingrese su nombre y apellido',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+		if (email == "") {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Ingrese su email',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+		if (telefono == "") {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Ingrese el número de teléfono',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+
+		if (direccion == "") {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Ingrese su dirección',
+				showConfirmButton: false,
+				timer: 1500
+			});
+			return false;
+		}
+		
+		const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: 'btn btn-success',
+				cancelButton: 'btn btn-danger'
+			},
+			buttonsStyling: false
+		})
+
+		swalWithBootstrapButtons.fire({
+			title: "Confimación",
+			text: "Seguro envia el pedido ",
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonText: 'Si',
+			cancelButtonText: 'No, Cancelar!',
+			reverseButtons: true
+		}).then((result) => {
+			if (result.value) {
+				envioconfirmado(apellido, email, telefono, direccion);
+			
+			} else if (
+				/* Read more about handling dismissals below */
+				result.dismiss === Swal.DismissReason.cancel
+				) {
+				swalWithBootstrapButtons.fire(
+					'Perfecto',
+					'Sigue todo como estaba :)'
+				)
+			}
+		})
+
+
+	});
+	
+
+	function limpiarcarrito(){
+
+		var t;
+
+		if ($.fn.dataTable.isDataTable('#tablacarrito')) {
+			t = $('#tablacarrito').DataTable();
+		}
+
+		t.clear().draw(true);
+		arreglocarrito = [];
+		var sumatotal = 0;
+		var men = document.getElementById("mensaje");
+		men.value = "";
+    	cantidadcarrito = 0;
+		vercantidad();
+        carritobusqueda();
+    	consultaranuncioscatalogo("consultatodosanunciosoferta", "seccionpromociones");
+	
+	}
+
+
+	calculatotal();
+	function llenacampos()
+	{
+
+		$("#idcliente").val(idclienteini);
+		$("#celular").val(telefonoclienteini);
+		$("#apellido").val(nombreclienteini);
+		$("#email").val(emailclienteini);
+		$("#direccion").val(direccionclienteini);
+	}
+
+	llenacampos();
+</script>

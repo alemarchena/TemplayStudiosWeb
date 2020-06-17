@@ -371,7 +371,7 @@ function EnviarFormulario()
 
 
     // validaciones de campos
-    if (rnombre == "" ){ mostrarToastError("Rubro"); return; }
+    if (rnombre == "") { mostrarToastError("Categoría"); return; }
     if (t == "") { mostrarToastError("Titulo"); return; }
     if (d == ""){ mostrarToastError("Descripción"); return; }
     if (p == "" || p < 0) { mostrarToastError("Precio"); return; }
@@ -900,7 +900,7 @@ function EnviarFormularioRubro() {
     var r = document.getElementById('nombrerubro').value;
 
     // validaciones de campos
-    if (r == "") { mostrarToastError("Rubro"); return; }
+    if (r == "") { mostrarToastError("Categoría"); return; }
 
     //guardar el anuncio en la base de datos
     altarubro(id, r);
@@ -1061,7 +1061,7 @@ function consultarubros_seleccion(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione un rubro</option >');
+                a.push('<option value = "" selected >Seleccione una categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -1074,7 +1074,7 @@ function consultarubros_seleccion(e) {
 
                 $(this).prop("selected", true);
             } else {
-                M.toast({ html: 'No hay novedades para este rubro.' });
+                M.toast({ html: 'No hay novedades para esta categoría.' });
             }
         },
         error: function (e) {
@@ -1128,7 +1128,7 @@ function consultarubros_seleccionconprecio(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione un rubro</option >');
+                a.push('<option value = "" selected >Seleccione una categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -1141,7 +1141,7 @@ function consultarubros_seleccionconprecio(e) {
 
                 $(this).prop("selected", true);
             } else {
-                M.toast({ html: 'No hay novedades para este rubro.' });
+                M.toast({ html: 'No hay novedades para esta categoría.' });
             }
         },
         error: function (e) {
@@ -1194,7 +1194,7 @@ function consultarubros_seleccion_lista(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione un rubro</option >');
+                a.push('<option value = "" selected >Seleccione una categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -1207,7 +1207,7 @@ function consultarubros_seleccion_lista(e) {
 
                 $(this).prop("selected", true);
             } else {
-                M.toast({ html: 'No hay novedades para este rubro.' });
+                M.toast({ html: 'No hay novedades para esta categoría.' });
 
 
             }
@@ -1249,7 +1249,7 @@ function eliminarr(id) {
         ) {
             swalWithBootstrapButtons.fire(
                 'Perfecto',
-                'Su rubro permanece guardado :)'
+                'Su categoría permanece guardada :)'
             )
         }
     })
@@ -1295,7 +1295,7 @@ function intentaEliminarRubro(idpasado){
                 Swal.fire({
                     position: 'top-end',
                     icon: 'warning',
-                    title: 'Este rubro está usado en un artículo, no puede ser eliminado',
+                    title: 'Esta categoría está usada en un artículo, no puede ser eliminada',
                     showConfirmButton: false,
                     timer: 2500
                 })
@@ -1342,7 +1342,7 @@ function eliminarrubro(idpasado) {
             if (data != "consultavacia") {
                 Swal.fire(
                     'Eliminado!',
-                    'El rubro fué borrado.',
+                    'La categoría fué borrada.',
                     'success'
                 )
             } else {
@@ -2566,7 +2566,7 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
             Swal.fire({
                 position: 'top-end',
                 icon: 'warning',
-                title: 'Selecciona un rubro!!!',
+                title: 'Selecciona una categoría!!!',
                 showConfirmButton: false,
                 timer: 2500
             })
@@ -2953,7 +2953,7 @@ function agregaquitatodosprovanun(altabaja){
         Swal.fire({
             position: 'top-end',
             icon: 'warning',
-            title: 'Debe seleccionar un proveedor y rubro antes de esta acción!',
+            title: 'Debe seleccionar un proveedor y categoría antes de esta acción!',
             showConfirmButton: false,
             timer: 2500
         })
@@ -4821,7 +4821,7 @@ function consultaranunciosstock_rubros(e) {
     var seleccionidrubro = document.getElementById("opcioneslista").value;
 
 
-    if (seleccionrubro != "Seleccione un rubro") {
+    if (seleccionrubro != "Seleccione una categoría") {
         $('#collapseBuscaxRubro').collapse('toggle');
         
         var bdd = conexionbdd;
@@ -5329,7 +5329,7 @@ function consultarubros_seleccion_listapaginaweb(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione un rubro</option >');
+                a.push('<option value = "" selected >Seleccione una categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -5342,7 +5342,7 @@ function consultarubros_seleccion_listapaginaweb(e) {
 
                 $(this).prop("selected", true);
             } else {
-                M.toast({ html: 'No hay novedades para este rubro.' });
+                M.toast({ html: 'No hay novedades para esta categoría.' });
 
 
             }
@@ -5399,7 +5399,7 @@ function consultarubros_seleccionpaginaweb(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione un rubro</option >');
+                a.push('<option value = "" selected >Seleccione una categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -5412,7 +5412,7 @@ function consultarubros_seleccionpaginaweb(e) {
 
                 $(this).prop("selected", true);
             } else {
-                M.toast({ html: 'No hay novedades para este rubro.' });
+                M.toast({ html: 'No hay novedades para esta categoría.' });
             }
         },
         error: function (e) {
@@ -5465,20 +5465,21 @@ function consultarubros_seleccionconpreciopaginaweb(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione un rubro</option >');
+                a.push('<option value = "" selected >Seleccione una categoría</option >');
 
                 $.each(dd, function (key, value) {
-                    a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
+                    a = a.concat('<option value = ' + dd[key].idrubro + ' style=z-index: 50;> ' + dd[key].nombrerubro + '</option>');
                 });
 
                 $("#opcionesconprecio").append(a);
 
+                $("#opcionesconprecio").trigger('contentChanged');
                 //selecciona el primer item
                 $("#opcionesconprecio option:selected").prop("selected", false);
 
                 $(this).prop("selected", true);
             } else {
-                M.toast({ html: 'No hay novedades para este rubro.' });
+                M.toast({ html: 'No hay novedades para esta categoría.' });
             }
         },
         error: function (e) {

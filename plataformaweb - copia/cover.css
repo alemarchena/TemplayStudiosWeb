@@ -1,0 +1,334 @@
+
+html,
+body {
+  font-size: 16px;
+  font-family: 'Kulim Park', sans-serif;
+
+  color: #2E2E2E;
+
+  height: 100%;
+
+}
+/* --------------------- Barra de navegacion --------------- */
+
+.textoenbarra {
+  color: rgb(105, 105, 105)!important;
+  background-color:#fff159 ;
+}
+
+
+
+#seccionbusqueda{
+  background-color:#fff159 ;
+}
+.menu{
+  margin-top: 60px;
+  width: 100%;
+  background-color:#fff159 ;
+}
+
+#telefono_en_barra{
+  color: rgb(105, 105, 105)!important;
+  
+
+  font-family: 'Kulim Park', sans-serif;
+
+  font-size: 14px;
+
+}
+.row{
+  margin-bottom: 10px!important;
+}
+/* ------------------------TARJETAS DE PUBLICACION ----------------------------- */
+
+
+
+#titulotarjeta{
+  font-size: 1.1em;
+  color: rgb(26, 26, 26);
+}
+#cajabusqueda{
+  height: 35px;
+  margin-top: 1em;
+  width: 70%;
+}
+#descripciontarjeta{
+  font-size: 0.9em;
+}
+
+.preciotarjeta{
+  font-size: 1.2em;
+  color: red!important;
+  font-weight: bold;
+}
+
+.filapreciotarjeta{
+ background-color:white!important;
+}
+
+.precioventaja{
+  font-size: 0.9em;
+  color: grey!important;
+}
+.tituloventaja{
+  font-size: 0.9em;
+  color: rgb(158, 158, 158)!important;
+
+}
+
+.valorbonus{
+  font-size: 0.8em;
+  color: rgb(60, 69, 146)!important;
+}
+/* ------------------------------------------------------------- */
+p{
+  font-family: 'Kulim Park', sans-serif;
+
+   font-size: 18px;
+}
+li.active{
+  background-color:#fff159!important;
+
+}
+#slogan{
+   font-size: 18px;
+   padding-top: 1em;
+}
+
+#logoinstagram{
+  background-color:#fff159 ;
+
+}
+
+#logofacebook{
+  background-color:#fff159 ;
+
+}
+.navbar-nav.navbar-center {
+    position: relative;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+#seccionnovedades{
+
+  background-color: rgb(235, 235, 235);
+  opacity: 95%;
+
+}
+
+#declaracion{
+  margin-top: 0em!important;
+  margin-bottom: 0em!important;
+}
+/* ---------------------------Imagen fondo superior------------------------  */
+
+#seccionlocal{
+  z-index: -3;
+  padding-top: 3em;
+}
+#seccionlogolocal{
+  z-index: -2;
+  padding-top: 12em;
+ 
+}
+ /* ---------------------------Parte transparente------------------------  */
+#seccioncontenidos{
+  opacity: 0;
+  z-index: -1;
+}
+
+/* ---------------------------------------------------------------------------- */
+#seccionfotoslocal{
+  background-color: rgb(235, 235, 235);
+  opacity: 95%;
+
+}
+
+#imagenlogoempresa{
+  width: 13%;
+  height: auto;
+}
+
+.claseseccionnovedades{
+  background-color:  rgb(235, 235, 235);
+  opacity: 95%;
+
+}
+
+#seccionutilidad{
+  background-color:  rgb(235, 235, 235);
+  opacity: 95%;
+
+}
+
+.seccioncategoria{
+  padding: 1em;
+  background-color:  rgb(235, 235, 235);
+  opacity: 0.95;
+
+}
+
+#seccionnovedades{
+
+}
+
+#seccionbuscados{
+
+}
+
+#divpromociones{
+  height: 3em;
+  color: white!important;
+  background-color: #24b3a7!important;
+}
+
+#divgaleria{
+  height: 3em;
+  color: white!important;
+  background-color: #24b3a7!important;
+}
+
+#seccionpromociones{
+
+}
+
+
+#subcontenedorcontacto{
+
+  padding-top: 3%;
+  padding-left: 3%;
+  padding-right: 3%;
+  background-color:   rgb(235, 235, 235);
+}
+
+#seccioncontacto{
+
+ 
+  opacity: 95%;
+}
+
+#enviar{
+  color: black!important;
+  background-color: #ffa726!important;
+}
+#seccionubicacion{
+    margin-top: 30px;
+}
+
+#seccionubicacion>h5{
+  color: rgb(105, 105, 105)!important;
+}
+
+
+hr{
+  border-color: #fff159;
+}
+
+/* ---------- configuracion de las cartas -----------------*/
+.card-text{
+  color: rgb(105, 105, 105)!important;
+  size: 16px;
+}
+.card{
+  background-color: white;
+  color: rgb(105, 105, 105)!important;
+  size: 16px;
+}
+.carta{
+  color:#686c4b;
+}
+.card-body{
+  background-color: #e8f5e9    ;
+  padding: 1rem;
+}
+
+.card-title{
+  /* color: rgb(105, 105, 105)!important; */
+}
+
+.describir{
+  background-color:#24b3a7;
+  color: 3f3f3f;
+}
+.describir:hover{
+  background-color:grey;
+  color: 3f3f3f;
+}
+/* --------------------------------------------------------*/
+.footer {
+
+  font-family: 'Kulim Park', sans-serif;
+ 
+
+  background-color: #fff159 ;
+  color: rgb(105, 105, 105)!important;
+}
+
+.footer > div.container {
+  padding: 30px;
+}
+
+.slidecontainer {
+  width: 100%;
+}
+
+/* -------------------- Media Queries ------------------------------- */
+ @media (min-width:  1253px) {
+
+    #seccioncontenidos{
+      height: 30em!important;
+
+    }
+
+    .tamaimagen{ 
+      width: auto; 
+      height: 180px; 
+      padding-top: 1em;
+    }
+  }
+
+ @media (min-width:  576px) and (max-width: 1252px)
+{
+
+    #seccioncontenidos{
+      height: 18em;
+    }
+
+    .tamaimagen{ 
+      height: 180px; 
+      padding-top: 1em;
+      width: will-change;
+}
+}
+
+ 
+ 
+
+  @media (min-width:  300px) and (max-width: 575px) {
+  
+    #imagenlogoempresa{
+      width: 20%;
+      height: auto;
+    }
+
+    #seccionlocal{
+      z-index: -3!important;
+      margin-top: 4em;
+    }
+
+    #seccionlogolocal{
+      z-index: -2;
+      padding-top: 8em;
+    }
+
+    #seccioncontenidos{
+      height: 20em;
+    }
+    
+    #cajabusqueda{
+     
+      width: 100%;
+    }
+   
+}
