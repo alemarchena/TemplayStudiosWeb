@@ -1,9 +1,9 @@
-function checkCookietabaqueria(nombre, consinprecio) {
+function checkCookietabaqueria(nombre, conprecio) {
   var name = nombre;
   var cuqui = getCookie(name);
   if (cuqui == 1) {
     setTimeout(function () {
-      abreTabaqueria(consinprecio);
+      abreTabaqueria(conprecio);
     }, 500);
     return;
   }else
@@ -18,10 +18,10 @@ function checkCookietabaqueria(nombre, consinprecio) {
   }
 }
 
-function abreTabaqueria(consinprecio) {
+function abreTabaqueria(conprecio) {
   
 
-  if (consinprecio == "conprecio"){
+  if (conprecio == "si"){
 
     $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
   }
@@ -56,14 +56,14 @@ function getCookie(cname) {
   return "";
 }
 
-function setCookie(cname, cvalue, exdays, consinprecio) {
+function setCookie(cname, cvalue, exdays, conprecio) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   var expires = "expires="+ d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   document.getElementById("declaracion").style.display = "none";
 
-  if (consinprecio == "conprecio") {
+  if (conprecio == "si") {
 
     $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
   }

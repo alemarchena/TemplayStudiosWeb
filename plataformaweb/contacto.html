@@ -1,84 +1,103 @@
 
-<form id="formulariocontacto " class="m-2">
-	<div class="row" id="contenidoformulariocontacto">
-		<div class="col s12 m8 offset-m2 l6 offset-l3">
-			
+<!-- <form id="formulariocontacto "> -->
+
+	<div class="row">
+		<div class="col s12 m6 offset-m3 l6 offset-l3 ">
 			<p class="contacto center-align">Envíenos su inquietud</p>
-			
+		</div>
+	</div>
 
-			<div class="row">
-				<div class="col s10">
-					<div class="row">
-						<div class="col s3 center ">
-							<label class="contacto" for="nombre">Nombre</label>
-							<input id="nombre" type="text" aria-label="Last name" class="form-control " placeholder="Escriba su Nombre">
-						</div>
-						<div class="col s3">
-							<label class="contacto" for="apellido">Apellido</label>
-							<input id="apellido" type="text" aria-label="Last name" class="form-control " placeholder="Escriba su Apellido">
-						</div>
-						<div class="col s3">
-							<label class="contacto" for="email">Email</label>
-							<input id="email" type="email" class="form-control " placeholder="Ingrese su email">
-						</div>
-						<div class="col s3">
-							<label class="contacto" for="celular">Teléfono</label>
-							<input id="celular" type="text" class="form-control " placeholder="Ingrese su teléfono">
-						</div>
-					</div>
-					
-				<div>
-			</div>
+	<div class="row">
+		
+		<div class="col s8 offset-s2  m4 offset-m4 l4 offset-l4 center-align">
+			<i class="material-icons prefix">child_care</i>
+			<input id="nombreyapellido" type="text" aria-label="nombreyapellido" class="form-control " placeholder="Nombre y Apellido">
+			<label class="contacto" for="nombreyapellido">Apellido</label>
+		</div>
+	</div>
 
-			<div class="row">
-				<div class="col s8">
-						<label class="contacto center-align" style="padding-top: 1em;" for="mensaje">Mensaje</label>
-						<textarea id="mensaje"  rows="5" class="form-control contactoplaceholder" aria-label="With textarea" placeholder="Escriba su mensaje"></textarea>
-						<br>
-						<button id="enviar" type="submit" class="btn describir" style="font-size: 1em">Enviar</button>
-				</div>
-			</div>
-		</div>	
+	<div class="row">
+		<div class="col s6 m4 offset-m2 l3 offset-l3 center-align">
+			<i class="material-icons prefix">email</i>
+			<input id="email" type="email" class="form-control " placeholder="Ingrese su email">
+			<label class="contacto" for="email">Email</label>
+
+		</div>
+		<div class="col s6 m4 l3 center-align">
+			<i class="material-icons prefix">phone_android</i>
+			<input id="celular" type="text" class="form-control " placeholder="Ingrese su teléfono">
+			<label class="contacto" for="celular">Teléfono</label>
+		</div>
 
 	</div>
-</form>
+
+	<div class="row">
+		<form class="col s12">
+			<div class="row">
+				<div class="input-field col s10 offset-s1 m10 offset-1 l8 offset-l2 center-align">
+					<i class="material-icons prefix">mode_edit</i>
+					<textarea id="mensaje"  class="materialize-textarea"></textarea>
+					<label for="mensaje">Mensaje</label>
+				</div>
+			</div>
+		</form>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col s10 offset-s1 m10 offset-1 l8 offset-l2 center-align">
+			<a id="enviar" class="btn waves-effect text-orange" style="font-size: 1em">Enviar</a>
+		</div>
+	</div>
+
+<!-- </form> -->
 <script>
 	
-	$("#enviar").click(function(){
-		var telefono = $("#celular").val();
-
-
-		var nombre = $("#nombre").val();
-		var apellido = $("#apellido").val();
-		var email = $("#email").val();
-		var mensaje = $("#mensaje").val();
-
-		Swal.fire({
-			position: 'top-end',
-			icon: 'success',
-			title: 'Gracias por enviar su mensaje',
-			showConfirmButton: false,
-			timer: 1500
-		});
-
+	$(document).ready(function () {
+		$('input#input_text, textarea#textarea2').characterCounter();
+	});
 	
+	$("#enviar").click(function(){
+
+		var telefono = document.getElementById("celular");
+		var nombreyapellido = document.getElementById("nombreyapellido").value;
+		var email = document.getElementById("email").value;
+		var mensaje = document.getElementById("mensaje").value;
+
+
+		if(telefono.value == "" || nombreyapellido.value == "" || email.value == "" || mensaje.value == "")
+		{
+			Swal.fire({
+				position: 'top-end',
+				icon: 'warning',
+				title: 'Por favor complete toda la información',
+				showConfirmButton: false,
+				timer: 1500
+			});
+		}
+		
 
 		$.ajax({
 
 			url:"controladores/enviaremail.php",
-			data:{nombre:nombre,apellido:apellido,email:email,telefono:telefono,mensaje:mensaje},
+			data:{nombreyapellido: nombreyapellido.value,email:email.value,telefono:telefono.value,mensaje:mensaje.value},
 			type:"post",
 			success:function(data)
 			{
 				if(data=="Enviado correctamente")
 				{
 					
-						
-					nombre = $("#nombre").val("");
-					apellido = $("#apellido").val("");
-					email = $("#email").val("");
-					telefono = $("#telefono").val("");
-					mensaje = $("#mensaje").val("");
+					nombreyapellido.value 	="";
+					email.value 			="";
+					telefono.value			="";
+					mensaje.value 			="";
+
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'Gracias por enviar su mensaje',
+						showConfirmButton: false,
+						timer: 1500
+					});
 	            }
 			},
 			error:function(e){

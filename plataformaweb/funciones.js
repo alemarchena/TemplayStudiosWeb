@@ -5468,7 +5468,7 @@ function consultarubros_seleccionconpreciopaginaweb(e) {
                 a.push('<option value = "" selected >Seleccione una categoría</option >');
 
                 $.each(dd, function (key, value) {
-                    a = a.concat('<option value = ' + dd[key].idrubro + ' style=z-index: 50;> ' + dd[key].nombrerubro + '</option>');
+                    a = a.concat('<option value = ' + dd[key].idrubro + '> ' + dd[key].nombrerubro + '</option>');
                 });
 
                 $("#opcionesconprecio").append(a);
@@ -5586,4 +5586,277 @@ function exportTableToExcel(tableID, filename){
         //triggering the function
         downloadLink.click();
     }
+}
+
+// -----------------Consulta de anuncio-------------------
+
+function inicializaselect(){
+    $('select').formSelect();
+}
+
+function declaracollapsible(){
+
+    $('.collapsible').collapsible();
+}
+
+function verificamayoriaedad()
+{
+        var isVisible = $("#vervineria").is(":visible");
+        if (!isVisible) {
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            })
+
+            swalWithBootstrapButtons.fire({
+                text: 'Por favor declare su edad!!!',
+                icon: 'warning'
+            })
+            return false;
+        } 
+}
+
+function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
+
+
+   
+
+
+    var bdd = conexionbddpaginaweb;
+    var rutadeimagenes = rutaimagenespaginaweb;
+    var tabla = tablaanunciospaginaweb;
+    var tabladerubros = tablarubrospaginaweb;
+
+    var seleccion="";
+    var seleccionidrubro="";
+    var filtro ="";
+    var textobuscado="";
+
+    //Verifico quien llama a la busqueda
+    if(tipo == "consultarubros")
+    {
+        verificamayoriaedad();
+        
+        seleccion = document.getElementById(opcion);
+        seleccionidrubro = document.getElementById(opcion).value;
+
+        if (seleccionidrubro == "") 
+        {
+            return false;
+        }
+    }else if (tipo == "consultatodosanunciosoferta")
+    {
+
+    }else if (tipo == "consultafiltros")
+    {
+
+        verificamayoriaedad();
+
+        textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
+
+        if (textobuscado == "") {
+            return false;
+        }
+
+        filtro = [];
+        filtro.push( textobuscado );
+
+    }else
+    {
+
+        return false;
+    }
+    
+
+    var t = null;
+    var id = "";
+
+    if (id == "") id = 0;
+    else id = id;
+
+    var itemanuncio = new Object();
+
+    itemanuncio.bdd = bdd;
+    itemanuncio.tabla = tabla;
+    itemanuncio.tablarubros = tabladerubros;
+
+    itemanuncio.tipo = tipo;
+    itemanuncio.id = id;
+
+    itemanuncio.titulo = "";
+    itemanuncio.descripcion = "";
+    itemanuncio.precio = "";
+    itemanuncio.costo = "";
+    itemanuncio.esnovedad = "";
+    itemanuncio.esoferta = "";
+    itemanuncio.nopublicar = "";
+    itemanuncio.observaciones = "";
+    itemanuncio.comentarios = "";
+
+    itemanuncio.rutaimagenes = rutadeimagenes;
+    itemanuncio.idrubro = seleccionidrubro;
+    itemanuncio.imagen = "";
+    itemanuncio.filtro = filtro;
+
+    var objetoanuncio = JSON.stringify(itemanuncio);
+
+    if(tipo == "consultarubros")
+    {
+
+        sn = $('#seccionbuscadosbuscador div');
+        sn.each(function () {
+            $(this).remove();
+        });
+    
+        t = $('#seccionbuscadosbuscador');
+        $(".hijos").remove();
+
+        nombrehijo = "hijos";
+
+    } else if (tipo == "consultatodosanunciosoferta")
+    {
+        t = $('#ofertasanuncios');
+        $(".hijosofer").remove();
+
+        nombrehijo = "hijosofer";
+
+    }else  if (tipo == "consultafiltros")
+    {
+        t = $('#seccionbuscadosbuscador');
+
+        $(".hijos").remove();   
+
+        nombrehijo = "hijos";
+
+    }
+
+    M.toast(
+    {
+        html: '...Buscando',
+        displayLength: '3000'
+    });
+    
+    $.ajax({
+        url: "consultaanuncios.php",
+
+        data: { objetoanuncio: objetoanuncio },
+        type: "post",
+
+        success: function (data) 
+        {
+
+            if (data != '[]') {
+
+                dd = JSON.parse(data); //data decodificado
+                var cuenta = 0;
+                var parteobservacion = "";
+                var partecomentarios = "";
+                var valorbonus = "";
+
+                $.each(dd, function (key, value) {
+                    cuenta = cuenta + 1;
+
+                    parteobservacion = "";
+                    partecomentarios = "";
+                    listaobservacioncomentario = "";
+
+                    if (dd[key].productobonus == 1) {
+                        valorbonus = "Cange por " + dd[key].bonus + " bonus";
+                    } else {
+                        valorbonus = "";
+                    }
+
+
+                    if (dd[key].tieneventaja) {
+
+                        tituloventaja = dd[key].tituloventaja;
+                        precioventaja = "$ " + dd[key].precioventaja;
+
+                        if (tituloventaja.trim() == "" || precioventaja == 0) {
+                            tituloventaja = "";
+                            precioventaja = "";
+                        }
+                    } else {
+                        tituloventaja = "";
+                        precioventaja = "";
+                    }
+
+                    // Observaciones y comentarios
+                    if (dd[key].observaciones != "") {
+                        parteobservacion = "<li class=''> <div class='collapsible-header'><i class='material-icons icosabermas'>chrome_reader_mode</i>Saber mas...</div><div class='collapsible-body'><span>" + dd[key].observaciones + "</span></div></li>";
+                    } else {
+                        parteobservacion = "";
+
+                    }
+
+                    if (dd[key].comentarios != "") {
+                        partecomentario = "<li class=''> <div class='collapsible-header'><i class='material-icons icosugerencias'>comment</i>Sugerencias</div><div class='collapsible-body'><span>" + dd[key].comentarios + "</span></div></li>"
+                    } else {
+                        partecomentario = ""
+
+                    }
+
+                    var agregado = "";
+                    var iconomasinfo = "";
+                    var verpreciotarjeta="";
+                    if (parteobservacion != "" || partecomentario != "") {
+
+                        listaobservacioncomentario = "<ul class='collapsible'>" + parteobservacion + partecomentario + "</ul> ";
+                        agregado = "<div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Información<i class='material-icons right'>close</i></span>" + listaobservacioncomentario + "</div>"
+                        iconomasinfo = "<i class='material-icons right'>more_vert</i>";
+                    }
+                    // -----------------------------
+
+                    if (dd[key].nopublicar == 0) {
+                        if (tarjetaconprecio  == "si") {
+
+                            var precio;
+                            if (dd[key].precio > 0) {
+                                precio = "$ " + dd[key].precio;
+                                verpreciotarjeta = "preciotarjeta";
+                            } else {
+                                precio = "Consultar Precio";
+                                tituloventaja = "";
+                                precioventaja = "";
+                                verpreciotarjeta = "preciotarjetaconsultar";
+
+                            }
+
+                            t.append("<div class='col s12 m6 l3 " +  nombrehijo + "'><div class='card large'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p><a href='#'>Link de pago</a></p></div></div></div>" + agregado + "</div></div>");
+                        }
+                    }
+                });
+
+                imageneszoom();
+                declaracollapsible();
+                inicializaselect();
+
+               
+            }
+            else {
+                if (seleccionidrubro != "") {
+                    Swal.fire({
+                        closeOnEsc: false,
+                        title: 'No hay novedades para esta categoría!',
+
+                    })
+                }
+            }
+        },
+        error: function (e) {
+            M.toast(
+                {
+                    html: 'No hay buena conexión!',
+                    displayLength: '4000'
+                });
+            console.log("Error de comunicación");
+        }
+    });
+
+    
+        
 }

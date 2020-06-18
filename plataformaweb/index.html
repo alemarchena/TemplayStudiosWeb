@@ -12,63 +12,74 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
-    <link href="cover.css?20130620" rel="stylesheet">
+    <link href="cover.css?20170620" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="animate.css">
 
     <script src="configuracion.js"></script>
 
-    <title>Templay Studios</title>
+    <title></title>
 </head>
 <body>
+  
+    
     <div class="navbar-fixed">
 
-        <nav class="menu">
+        <nav id="menu" class="menu">
             <div class="nav-wrapper">
                 <a href="">
                     <img id="menunegocio" src="img/logoempresa.png" alt="Empresa"
                         style="height: 40px ;width :40px;color: rgb(216, 216, 216);margin: 10px 15px 0px 15px; "
                         onmouseout="this.src='img/logoempresa.png';" onmouseover="this.src='img/logoempresa1.png';" class="p2">
                 </a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <!-- icono para mobile -->
+                <a href="#" data-target="barralateral" data-activates="barralateral" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
                 <a id="tituloweb" class="navbar-brand" href="#"></a>
                 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li class="tab"><a id="menugaleria" href="#">Galería</a></li>
                     <li class="tab"><a id="menuofertas" href="#">Promociones</a></li>
                     <li class="tab"><a id="menuproductos" href="#">Productos</a></li>
+                    <li class="tab"><a id="menucontacto" href="#">Contacto</a></li>
                     <li class="tab"><a id="menuubicacion" href="#">Ubicación</a></li>
-                    <li class="tab"><a id="menucontacto" href="#">Delivery</a></li>
                     <li class="tab"><a id="botoncarrito" href='#' target='_blank' class='waves-effect text-orange'><small><i class='small fas fa-shopping-cart'></i></small></a></li>
                     <li class="tab"><a class="textoenbarra" id="telefono_en_barra" href="" target="_BLANK"><i class="fab fa-whatsapp"></i></a></li>
                     <li class="tab"><a id="direccioninstagram" href="" target="_blank" class="icon-instagram"><i class="fab fa-instagram"></i></a>
                     </li>
                     <li class="tab"><a id="direccionfacebook"  href="" target="_blank" class="icon-facebook"><i class="fab fa-facebook-f"></i></a></li>
+                   
                 </ul>
                 
             </div>
         </nav>
-
-        <ul class="sidenav" id="mobile-demo">
-            <li class="tab"><a id="menugaleriao" href="#">Galería</a></li>
-            <li class="tab"><a id="menuofertaso" href="#">Promociones</a></li>
-            <li class="tab"><a id="menuproductoso" href="#">Productos</a></li>
-            <li class="tab"><a id="menuubicaciono" href="#">Ubicación</a></li>
-            <li class="tab"><a id="menucontactoo" href="#">Delivery</a></li>
-        </ul>
-       
     </div>
-    
+
+        
+    <ul class="sidenav" id="barralateral">
+        <li class="tab"><a class="sidenav-close" id="menugaleriao" href="#">Galería</a></li>
+        <li class="tab"><a class="sidenav-close" id="menuofertaso" href="#">Promociones</a></li>
+        <li class="tab"><a class="sidenav-close" id="menuproductoso" href="#">Productos</a></li>
+        <li class="tab"><a class="sidenav-close" id="menucontactoo" href="#">Contacto</a></li>
+        <li class="tab"><a class="sidenav-close" id="menuubicaciono" href="#">Ubicación</a></li>
+    </ul>
+       
+  
     <!-- barra de busqueda -->
     <section id="seccionbusqueda"></section> 
+
+    <!-- lista con rubros -->
+    <div id="containercategoria" class="row">
+        <div id="seccionbuscados" class="col s12 m4 offset-m4 l4 offset-l4">
+
+        </div>
+    </div>
+    
     <!-- carrusel de publicidad  -->
     <section id="seccionpublicidad"></section>
+    
     <!-- slogan del negocio -->
     <div><p id="slogan" class="center-align"></p></div>
   
-    <!-- seccion transparente-->
-    <!-- <section id="seccioncontenidos">
-    
-   
     
     <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
     
@@ -93,10 +104,6 @@
     <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
     <div id="vervineria" class="claseseccionnovedades">
     
-    
-        <div id="seccionbuscados">
-    
-        </div>
     
         <div id="seccionbuscadosbuscador" class="row">
     
@@ -145,9 +152,9 @@
 
 
 
-<script src="js/scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
+<script src="scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
 <script src="funciones.js"></script>
-<script src="js/subscriptionPopup.js"></script>
+<script src="subscriptionPopup.js"></script>
 <script src="establecerparametrosweb.js"></script>
 
 </body>
@@ -156,17 +163,16 @@
 
 <script type="text/javascript">
 
-    function animarrubro() {
-        $("#seccionnovedades").addClass('bounceIn animated');
-    }
-
-    consinprecio = "conprecio";
+    conprecio = "si";
+    var posicionadonde="";
 
 
-    function versimuestra(quemuestra) {
+    function versimuestra() {
+
         var isVisible = $("#vervineria").is(":visible");
-        if (!isVisible) {
 
+        if (!isVisible) 
+        {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     cancelButton: 'btn btn-danger'
@@ -178,21 +184,6 @@
                 text: 'Por favor declare su edad!!!',
                 icon: 'warning'
             })
-
-        } else {
-            if (quemuestra == "productos") {
-                if (consinprecio == "conprecio") {
-                    $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
-                } else {
-                    $("#seccionbuscados").load("anuncios_tarjeta.html");
-                }
-            } else if (quemuestra == "novedades") {
-                // $("#seccionnovedades").load("galeria.html");
-
-
-            } else if (quemuestra == "galeria") {
-                $("#secciongaleria").load("galeria.html");
-            }
         }
     }
 
@@ -201,41 +192,28 @@
     
     $(document).ready(function () 
     {
-        $('.sidenav').sidenav();
         $('.pushpin').pushpin();
-        $('input.autocomplete').autocomplete({
-            data: {
-                "Apple": null,
-                "Microsoft": null,
-                "Google": 'https://placehold.it/250x250'
-            },
-        });
+        $('.sidenav').sidenav();
 
-        $("#seccionbusqueda").load("buscador.html");
-        $("#seccionpublicidad").load("publicidad.html");
+        $("#seccionbusqueda").load("buscador.html");            //ubicacion de la  caja de busqueda
+        $("#seccionpublicidad").load("publicidad.html");        //imagenes carrusel
         
         $("#footer").load("footer.html");
-        $("#subcontenedorcontacto").load("contacto.html");
-        $("#secciongaleria").load("galeria.html");
-        $("#seccionpromociones").load("anuncios_ofertas.html");
+        $("#subcontenedorcontacto").load("contacto.html");      //contacto
+        $("#secciongaleria").load("galeria.html");              //galeria de imagenes
+        $("#seccionpromociones").load("anuncios_ofertas.html"); //ofertas y promociones
         
         var velocidad = 500;
         var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
 
-        checkCookietabaqueria("checkCookieTabaqueria", consinprecio);
+        checkCookietabaqueria("checkCookieTabaqueria", conprecio);
 
 
 
         $("#mayor").click(function (e) {
             $('#vervineria').show();
             $('li.nav-item').removeClass("active");
-
-            $("#menuproductos").parent().addClass("active");
-
-            setCookie("checkCookieTabaqueria", 1, 365, consinprecio);
-            var poscontacto = $("#seccionbuscados").offset().top - alturamenu;
-            e.preventDefault();
-            $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+            setCookie("checkCookieTabaqueria", 1, 365, conprecio);
         });
 
         $("#menor").click(function () {
@@ -254,49 +232,35 @@
         $('.tooltipped').tooltip();
 
        
+        $("#menuproductos").click(function () {
+            versimuestra();
+        });
 
         $("#menuofertas").click(function () {
-            versimuestra("ofertas");
-            var alturamenu = $('.menu').outerHeight(true);
-            var iraqui = $("#seccionpromociones").offset().top - alturamenu;
-            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+            versimuestra();
         });
-        $("#menuofertaso").click(function () {
-            versimuestra("ofertas");
-            var alturamenu = $('.menu').outerHeight(true);
-            var iraqui = $("#seccionpromociones").offset().top - alturamenu;
-            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
-        });
-
-        $("#menuproductos").click(function () {
-            versimuestra("productos");
-        });
-        $("#menuproductoso").click(function () {
-            versimuestra("productos");
-        });
-
+        
         $("#menugaleria").click(function () {
-            versimuestra("galeria");
-            var alturamenu = $('.menu').outerHeight(true);
-            var iraqui = $("#secciongaleria").offset().top - alturamenu;
-            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+            versimuestra();
         });
+        
+        
+        $("#menuproductoso").click(function () {
+            versimuestra();
+        });
+        
+        $("#menuofertaso").click(function () {
+            versimuestra();
+        });
+
         $("#menugaleriao").click(function () {
-            versimuestra("galeria");
-            var alturamenu = $('.menu').outerHeight(true);
-            var iraqui = $("#secciongaleria").offset().top - alturamenu;
-            $("HTML, BODY").animate({ scrollTop: iraqui }, velocidadscroll);
+            versimuestra();
         });
-
-
-        animarrubro();
+        
     });
 
     function asignarrutacarrito() {
-
         document.getElementById("botoncarrito").href = dominioruta + "carrito.html";
-
     }
-
     asignarrutacarrito();
 </script>

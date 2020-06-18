@@ -3,17 +3,25 @@ html,
 body {
   font-size: 16px;
   font-family: 'Kulim Park', sans-serif;
-
   color: #2E2E2E;
-
   height: 100%;
-
+  /* background-color: #2E9AFE; */
 }
 /* --------------------- Barra de navegacion --------------- */
+
+.card.large .card-image + .card-content
+{
+  max-height: 70%!important;
+}
+
 
 .textoenbarra {
   color: rgb(105, 105, 105)!important;
   background-color:#fff159 ;
+}
+
+#tituloweb{
+  color: rgb(105, 105, 105)!important;
 }
 
 .navbar-brand{
@@ -23,7 +31,10 @@ body {
 nav a {
     color: #2E2E2E!important;
 }
+.nav{
+  background-color:#fff159 ;
 
+}
 #seccionbusqueda{
   background-color:#fff159 ;
 }
@@ -63,7 +74,7 @@ nav a {
   color: rgb(26, 26, 26);
 }
 #cajabusqueda{
- background-color: rgb(238, 238, 238);
+ background-color:white;
 }
 
 .contenedorbusqueda{
@@ -88,7 +99,11 @@ nav a {
   color: red!important;
   font-weight: bold;
 }
-
+.preciotarjetaconsultar{
+  font-size: 0.9em;
+  color: rgb(97, 52, 156)!important;
+  font-weight: bold;
+}
 .filapreciotarjeta{
  background-color:white!important;
 }
@@ -131,6 +146,14 @@ li.active{
   background-color:#fff159 ;
 
 }
+#containercategoria{
+  background-color:#fff159!important ;
+
+}
+#seccionbuscados{
+  background-color:#fff159 ;
+
+}
 
 #declaracion{
   margin-top: 0em!important;
@@ -139,7 +162,6 @@ li.active{
 /* ---------------------------Imagen fondo superior------------------------  */
 
 #seccionpublicidad{
-  z-index: -3;
 
 }
 
@@ -162,18 +184,7 @@ li.active{
 
 }
 
-#opcionesconprecio{
-  z-index: 10;
-
-}
-
-#seccionbuscados{
-  z-index: 10;
-
-}
-
 #seccionbuscadosbuscador{
-  z-index: 10;
   position: relative;
   
 }
@@ -218,11 +229,9 @@ li.active{
 
 #subcontenedorcontacto{
 
-  padding-top: 3%;
-  padding-left: 3%;
-  padding-right: 3%;
-  background-color:   rgb(235, 235, 235);
-  position: relative;
+  padding: 2%;
+  background-color:   rgb(255, 255, 255);
+  /* position: relative; */
 
 }
 
@@ -271,16 +280,6 @@ hr{
   padding: 1rem;
 }
 
-
-
-.describir{
-  background-color:#24b3a7;
-  color: 3f3f3f;
-}
-.describir:hover{
-  background-color:grey;
-  color: 3f3f3f;
-}
 /* --------------------------------------------------------*/
 .footer {
 
@@ -321,7 +320,5 @@ hr{
 
   @media (min-width:  300px) and (max-width: 575px) {
   
-    #seccionpublicidad{
-      z-index: -3!important;
-    }
+   
 }

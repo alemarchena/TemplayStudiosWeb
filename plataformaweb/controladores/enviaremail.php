@@ -6,8 +6,8 @@
 	error_reporting( E_ALL );
 
 
-	$nombre = $_POST["nombre"];
-	$apellido = $_POST["apellido"];
+	$nombreyapellido = $_POST["nombreyapellido"];
+	
 	$email = $_POST["email"];
 	$telefono = $_POST["telefono"];
 	$mensaje = $_POST["mensaje"];
@@ -16,7 +16,7 @@
 	$subtitulo = "Contacto online de un visitante";
 	
 
-	$cuerpo = " Nombre: " . $nombre . ", Apellido: " . $apellido . " - Email: " . $email . ", Telefono: " . $telefono . " - Mensaje: " . $mensaje;
+	$cuerpo = " Nombre: " . $nombreyapellido . "\nEmail: " . $email . "\nTelefono: " . $telefono . "\nMensaje: " . $mensaje;
 	
 	mail($emailtemplay, $titulo , $subtitulo . $cuerpo);
 
