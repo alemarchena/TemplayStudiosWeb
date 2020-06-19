@@ -1061,7 +1061,7 @@ function consultarubros_seleccion(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione una categoría</option >');
+                a.push('<option value = "" selected >Categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -1128,7 +1128,7 @@ function consultarubros_seleccionconprecio(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione una categoría</option >');
+                a.push('<option value = "" selected >Categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -1194,7 +1194,7 @@ function consultarubros_seleccion_lista(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione una categoría</option >');
+                a.push('<option value = "" selected >Categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -4821,7 +4821,7 @@ function consultaranunciosstock_rubros(e) {
     var seleccionidrubro = document.getElementById("opcioneslista").value;
 
 
-    if (seleccionrubro != "Seleccione una categoría") {
+    if (seleccionrubro != "Categoría") {
         $('#collapseBuscaxRubro').collapse('toggle');
         
         var bdd = conexionbdd;
@@ -5329,7 +5329,7 @@ function consultarubros_seleccion_listapaginaweb(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione una categoría</option >');
+                a.push('<option value = "" selected >Categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -5399,7 +5399,7 @@ function consultarubros_seleccionpaginaweb(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione una categoría</option >');
+                a.push('<option value = "" selected >Categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + ' > ' + dd[key].nombrerubro + '</option>');
@@ -5465,7 +5465,7 @@ function consultarubros_seleccionconpreciopaginaweb(e) {
                 dd = JSON.parse(data); //data decodificado
 
                 var a = [];
-                a.push('<option value = "" selected >Seleccione una categoría</option >');
+                a.push('<option value = "" selected >Categoría</option >');
 
                 $.each(dd, function (key, value) {
                     a = a.concat('<option value = ' + dd[key].idrubro + '> ' + dd[key].nombrerubro + '</option>');
@@ -5621,10 +5621,6 @@ function verificamayoriaedad()
 
 function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
-
-   
-
-
     var bdd = conexionbddpaginaweb;
     var rutadeimagenes = rutaimagenespaginaweb;
     var tabla = tablaanunciospaginaweb;
@@ -5667,7 +5663,6 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
     }else
     {
-
         return false;
     }
     
@@ -5807,7 +5802,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
                         listaobservacioncomentario = "<ul class='collapsible'>" + parteobservacion + partecomentario + "</ul> ";
                         agregado = "<div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Información<i class='material-icons right'>close</i></span>" + listaobservacioncomentario + "</div>"
-                        iconomasinfo = "<i class='material-icons right'>more_vert</i>";
+                        iconomasinfo = "<i class='material-icons right'>pageview</i>";
                     }
                     // -----------------------------
 

@@ -12,21 +12,21 @@
 		<div class="col s8 offset-s2  m4 offset-m4 l4 offset-l4 center-align">
 			<i class="material-icons prefix">child_care</i>
 			<input id="nombreyapellido" type="text" aria-label="nombreyapellido" class="form-control " placeholder="Nombre y Apellido">
-			<label class="contacto" for="nombreyapellido">Apellido</label>
+			<label class="contacto" style="display: contents;" for="nombreyapellido">Nombre y Apellido</label>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col s6 m4 offset-m2 l3 offset-l3 center-align">
 			<i class="material-icons prefix">email</i>
-			<input id="email" type="email" class="form-control " placeholder="Ingrese su email">
-			<label class="contacto" for="email">Email</label>
+			<input id="email" type="email" class="form-control " placeholder="Su dirección de correo">
+			<label class="contacto" style="display: contents;" for="email">Email</label>
 
 		</div>
 		<div class="col s6 m4 l3 center-align">
 			<i class="material-icons prefix">phone_android</i>
-			<input id="celular" type="text" class="form-control " placeholder="Ingrese su teléfono">
-			<label class="contacto" for="celular">Teléfono</label>
+			<input id="celular" type="text" class="form-control " placeholder="Su número de whatsapp">
+			<label class="contacto" style="display: contents;" for="celular">Teléfono</label>
 		</div>
 
 	</div>
@@ -36,19 +36,19 @@
 			<div class="row">
 				<div class="input-field col s10 offset-s1 m10 offset-1 l8 offset-l2 center-align">
 					<i class="material-icons prefix">mode_edit</i>
-					<textarea id="mensaje"  class="materialize-textarea"></textarea>
-					<label for="mensaje">Mensaje</label>
+					<textarea id="mensaje"  class="materialize-textarea" placeholder="Su mensaje pedido o consulta nos llega a nuestro correo"></textarea>
+					<label for="mensaje" style="display: contents;">Mensaje</label>
 				</div>
 			</div>
 		</form>
 	</div>
-	<hr>
 	<div class="row">
 		<div class="col s10 offset-s1 m10 offset-1 l8 offset-l2 center-align">
 			<a id="enviar" class="btn waves-effect text-orange" style="font-size: 1em">Enviar</a>
 		</div>
 	</div>
-
+	
+	<hr>
 <!-- </form> -->
 <script>
 	
@@ -58,11 +58,14 @@
 	
 	$("#enviar").click(function(){
 
-		var telefono = document.getElementById("celular");
-		var nombreyapellido = document.getElementById("nombreyapellido").value;
-		var email = document.getElementById("email").value;
-		var mensaje = document.getElementById("mensaje").value;
+		document.getElementById("enviar").disabled = true;
 
+		var telefono = document.getElementById("celular");
+		var nombreyapellido = document.getElementById("nombreyapellido");
+		var email = document.getElementById("email");
+		var mensaje = document.getElementById("mensaje");
+
+	
 
 		if(telefono.value == "" || nombreyapellido.value == "" || email.value == "" || mensaje.value == "")
 		{
@@ -73,23 +76,29 @@
 				showConfirmButton: false,
 				timer: 1500
 			});
+			return false;
 		}
+
+		var tel = telefono.value;
+		var nya = nombreyapellido.value;
+		var ema = email.value;
+		var men = mensaje.value;
 		
+		document.getElementById("celular").value = "";
+		document.getElementById("nombreyapellido").value = "";
+		document.getElementById("email").value = "";
+		document.getElementById("mensaje").value = "";
 
 		$.ajax({
 
 			url:"controladores/enviaremail.php",
-			data:{nombreyapellido: nombreyapellido.value,email:email.value,telefono:telefono.value,mensaje:mensaje.value},
+			data:{nombreyapellido: nya, email: ema, telefono: tel, mensaje: men},
 			type:"post",
 			success:function(data)
 			{
+
 				if(data=="Enviado correctamente")
 				{
-					
-					nombreyapellido.value 	="";
-					email.value 			="";
-					telefono.value			="";
-					mensaje.value 			="";
 
 					Swal.fire({
 						position: 'top-end',
@@ -98,6 +107,8 @@
 						showConfirmButton: false,
 						timer: 1500
 					});
+			document.getElementById("enviar").disabled = false;
+
 	            }
 			},
 			error:function(e){

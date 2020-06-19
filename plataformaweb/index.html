@@ -12,7 +12,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
-    <link href="cover.css?20170620" rel="stylesheet">
+    <link href="cover.css?201806205" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="animate.css">
 
     <script src="configuracion.js"></script>
@@ -20,12 +20,15 @@
     <title></title>
 </head>
 <body>
-  
+    
+    
+    <section id="seccionbusqueda" ></section>
     
     <div class="navbar-fixed">
-
+        
         <nav id="menu" class="menu">
             <div class="nav-wrapper">
+
                 <a href="">
                     <img id="menunegocio" src="img/logoempresa.png" alt="Empresa"
                         style="height: 40px ;width :40px;color: rgb(216, 216, 216);margin: 10px 15px 0px 15px; "
@@ -37,13 +40,13 @@
                 <a id="tituloweb" class="navbar-brand" href="#"></a>
                 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><div id="seccionbuscados"></div></li>
                     <li class="tab"><a id="menugaleria" href="#">Galería</a></li>
                     <li class="tab"><a id="menuofertas" href="#">Promociones</a></li>
-                    <li class="tab"><a id="menuproductos" href="#">Productos</a></li>
                     <li class="tab"><a id="menucontacto" href="#">Contacto</a></li>
                     <li class="tab"><a id="menuubicacion" href="#">Ubicación</a></li>
                     <li class="tab"><a id="botoncarrito" href='#' target='_blank' class='waves-effect text-orange'><small><i class='small fas fa-shopping-cart'></i></small></a></li>
-                    <li class="tab"><a class="textoenbarra" id="telefono_en_barra" href="" target="_BLANK"><i class="fab fa-whatsapp"></i></a></li>
+                    <li class="tab"><a id="telefono_en_barra" href="" target="_BLANK"><i class="fab fa-whatsapp"></i></a></li>
                     <li class="tab"><a id="direccioninstagram" href="" target="_blank" class="icon-instagram"><i class="fab fa-instagram"></i></a>
                     </li>
                     <li class="tab"><a id="direccionfacebook"  href="" target="_blank" class="icon-facebook"><i class="fab fa-facebook-f"></i></a></li>
@@ -56,26 +59,17 @@
 
         
     <ul class="sidenav" id="barralateral">
-        <li class="tab"><a class="sidenav-close" id="menugaleriao" href="#">Galería</a></li>
-        <li class="tab"><a class="sidenav-close" id="menuofertaso" href="#">Promociones</a></li>
-        <li class="tab"><a class="sidenav-close" id="menuproductoso" href="#">Productos</a></li>
-        <li class="tab"><a class="sidenav-close" id="menucontactoo" href="#">Contacto</a></li>
-        <li class="tab"><a class="sidenav-close" id="menuubicaciono" href="#">Ubicación</a></li>
+        <li class="tab"><a class="sidenav-close" id="menuhomeo"         href="#">Inicio <i class="material-icons">home</i></a></li>
+        <li class="tab"><a class="sidenav-close" id="menugaleriao"      href="#">Galería <i class="material-icons">collections</i></a></li>
+        <li class="tab"><a class="sidenav-close" id="menuofertaso"      href="#">Promociones <i class="material-icons">card_giftcard</i></a></li>
+        <li class="tab"><a class="sidenav-close" id="menucontactoo"     href="#">Contacto <i class="material-icons">contact_mail</i></a></li>
+        <li class="tab"><a class="sidenav-close" id="menuubicaciono"    href="#">Ubicación <i class="material-icons">location_on</i></a></li>
+        <li class="tab"><a class="sidenav-close" id="volver"            href="#">Volver <i class="material-icons">arrow_back</i></a></li>
     </ul>
        
-  
-    <!-- barra de busqueda -->
-    <section id="seccionbusqueda"></section> 
-
-    <!-- lista con rubros -->
-    <div id="containercategoria" class="row">
-        <div id="seccionbuscados" class="col s12 m4 offset-m4 l4 offset-l4">
-
-        </div>
-    </div>
-    
+   
     <!-- carrusel de publicidad  -->
-    <section id="seccionpublicidad"></section>
+    <section id="seccionpublicidad" class="row"></section>
     
     <!-- slogan del negocio -->
     <div><p id="slogan" class="center-align"></p></div>
@@ -188,6 +182,12 @@
     }
 
 
+    function posicionarinicio() {
+
+        $('html, body').animate({ scrollTop: 0 }, 600);
+        return false;
+    }
+
     
     
     $(document).ready(function () 
@@ -207,6 +207,7 @@
         var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
 
         checkCookietabaqueria("checkCookieTabaqueria", conprecio);
+        posicionarinicio();
 
 
 
@@ -214,6 +215,7 @@
             $('#vervineria').show();
             $('li.nav-item').removeClass("active");
             setCookie("checkCookieTabaqueria", 1, 365, conprecio);
+
         });
 
         $("#menor").click(function () {
@@ -231,10 +233,7 @@
         $('.fixed-action-btn').floatingActionButton();
         $('.tooltipped').tooltip();
 
-       
-        $("#menuproductos").click(function () {
-            versimuestra();
-        });
+     
 
         $("#menuofertas").click(function () {
             versimuestra();
@@ -243,11 +242,7 @@
         $("#menugaleria").click(function () {
             versimuestra();
         });
-        
-        
-        $("#menuproductoso").click(function () {
-            versimuestra();
-        });
+    
         
         $("#menuofertaso").click(function () {
             versimuestra();
@@ -263,4 +258,6 @@
         document.getElementById("botoncarrito").href = dominioruta + "carrito.html";
     }
     asignarrutacarrito();
+
+
 </script>

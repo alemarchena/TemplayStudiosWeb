@@ -9,11 +9,42 @@ body {
 }
 /* --------------------- Barra de navegacion --------------- */
 
-.card.large .card-image + .card-content
-{
-  max-height: 70%!important;
+.slider .slides {
+  background-color: transparent;
+  margin: 0;
 }
 
+.slider .slides li img {
+  height: 100%!important;
+  width: 100%!important;
+  background-position: center!important;
+  background-size:100% auto!important;
+  background-repeat: no-repeat!important;
+}
+
+.card.large .card-image + .card-content
+{
+max-height: 70%!important;
+}
+
+.input-field{
+margin-top: 0em!important;
+margin-bottom: 0em!important;
+margin-right: 1em;
+}
+
+.select-wrapper input.select-dropdown{
+display: inline!important;
+}
+
+.content li>span
+{
+  font-size: 0.8em;
+}
+
+.select-dropdown{
+  text-align: center;
+}
 
 .textoenbarra {
   color: rgb(105, 105, 105)!important;
@@ -61,10 +92,7 @@ nav a {
 
 }
 
-.row{
-  margin-bottom: 10px!important;
-  
-}
+
 /* ------------------------TARJETAS DE PUBLICACION ----------------------------- */
 
 
@@ -148,20 +176,24 @@ li.active{
 }
 #containercategoria{
   background-color:#fff159!important ;
-
 }
-#seccionbuscados{
+
+#containercategoria>.row{
+  margin-bottom: 0em!important;
+}
+/* #seccionbuscados{
   background-color:#fff159 ;
 
-}
+} */
 
 #declaracion{
   margin-top: 0em!important;
   margin-bottom: 0em!important;
 }
-/* ---------------------------Imagen fondo superior------------------------  */
 
-#seccionpublicidad{
+#opcionesconprecio{
+  font-size: 0.5em;
+  color: #2E2E2E;
 
 }
 
@@ -299,26 +331,87 @@ hr{
 }
 
 /* -------------------- Media Queries ------------------------------- */
- @media (min-width:  1253px) {
+ @media (min-width:  1041px){
+    .tamaimagen{ 
+      height: 200px; 
+      width: auto!important;
+      padding-top: 1em;
+    }
+
+   .slider {
+    height: 480px!important;
+     resize: vertical;
+   }
+   .slides {
+    height: 440px!important;
+     resize: vertical;
+   }
+ }
+
+ @media (min-width:  993px)  and (max-width: 1040px){
 
     .tamaimagen{ 
       height: 200px; 
       width: auto!important;
-
       padding-top: 1em;
     }
-  }
 
- @media (min-width:  576px) and (max-width: 1252px)
+    .slider {
+    height: 480px!important;
+      resize: vertical;
+    }
+    .slides {
+    height: 440px!important;
+      resize: vertical;
+    }
+
+    .nav-wrapper{
+      text-align: right!important;
+    }
+    #nav-mobile{
+    position: absolute!important;
+    top: 0em!important;
+    }
+    #tituloweb{
+      margin-right: 0.5em;
+    }
+    #menunegocio{
+      margin: 10px 5px 0px 5px!important;
+    }
+}
+
+ @media (min-width:  576px) and (max-width: 992px)
 {
     .tamaimagen{ 
       height: 180px!important; 
       padding-top: 1em;
       width: auto!important;
     }
+    
+    .slider {
+      height: 350px!important;
+       resize: vertical;
+    }
+    .slides {
+      height: 350px!important;
+       resize: vertical;
+    }
+  
 }
 
-  @media (min-width:  300px) and (max-width: 575px) {
-  
+@media (min-width:  200px) and (max-width: 575px) 
+{
+  .slider {
+    height: 220px!important;
+     resize: vertical;
+   }
+   .slides {
+    height: 200px!important;
+     resize: vertical;
+   }
    
+   .slides li div h3{
+     font-size: 1.92em!important;
+   }
+
 }

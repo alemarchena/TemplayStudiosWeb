@@ -4,13 +4,19 @@ var velocidadscroll = 600;
 
 
 //-------------------------------------------controla lo que aparece o no segun el scroll ----------------------
-// $(window).on('scroll', function () {
+$(window).on('scroll', function () {
 
-// 	if ($(window).scrollTop() > 350) 
-// 		$("#seccionbusqueda").css("display", "none");
-// 	else
-// 		$("#seccionbusqueda").css("display", "block");
-// });
+	if ($(window).scrollTop() > 64) 
+	{
+		$(".navbar-fixed").css("position", "absolute");
+		$(".navbar-fixed").css("top", "0px");	
+	}	
+	else
+	{
+		$(".navbar-fixed").css("position", "relative");
+	}
+
+});
 //--------------------------SCROLL DEL MENU ----------------------------------------------
 $("#inicio").on('click', function (e) { 
 	e.preventDefault();
@@ -45,6 +51,8 @@ $("#tituloweb").on('click', function (e) {
 	return false;
 });
 
+
+
 $("#menuubicacion").on('click', function(e) {
 	var posclientes = $("#seccionubicacion").offset().top - alturamenu; 
 	e.preventDefault(); 
@@ -58,10 +66,7 @@ $("#menuanuncios").on('click', function (e) {
 	var poscontacto = $("#seccionnovedades").offset().top - alturamenu; 
 	e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
-$("#menuproductos").on('click', function (e) {
-	$('html, body').animate({ scrollTop: 0 }, 600);
-	return false;
-});
+
 $("#menuofertas").on('click', function (e) {
 	var poscontacto = $("#seccionpromociones").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
@@ -70,9 +75,12 @@ $("#menugaleria").on('click', function (e) {
 });
 
 
-$("#menuproductoso").on('click', function (e) {
+$("#menuhomeo").on('click', function (e) {
+	e.preventDefault();
 	$('html, body').animate({ scrollTop: 0 }, 600);
 });
+
+
 $("#menuofertaso").on('click', function (e) {
 	var poscontacto = $("#seccionpromociones").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
