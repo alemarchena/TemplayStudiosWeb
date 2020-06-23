@@ -9,6 +9,13 @@ body {
 }
 /* --------------------- Barra de navegacion --------------- */
 
+.tamaimagen{ 
+    height: 200px; 
+    width: auto!important;
+    padding-top: 1em;
+  }
+  
+
 .slider .slides {
   background-color: transparent;
   margin: 0;
@@ -25,6 +32,11 @@ body {
 .card.large .card-image + .card-content
 {
 max-height: 70%!important;
+}
+
+.card.large 
+{
+  height: 500px;
 }
 
 .input-field{
@@ -98,7 +110,7 @@ nav a {
 
 
 #titulotarjeta{
-  font-size: 1.1em;
+  font-size: 0.8em;
   color: rgb(26, 26, 26);
 }
 #cajabusqueda{
@@ -136,6 +148,16 @@ nav a {
  background-color:white!important;
 }
 
+.filamercado{
+  background-color: #009ee3!important;
+}
+
+.textofilamercado
+{
+  color: #ffffff!important;
+}
+
+
 .precioventaja{
   font-size: 0.9em;
   color: grey!important;
@@ -149,6 +171,11 @@ nav a {
 .valorbonus{
   font-size: 0.8em;
   color: rgb(60, 69, 146)!important;
+}
+
+.enlaceespecial{
+  font-size: 0.8em;
+  color:#009ee3!important;
 }
 /* ------------------------------------------------------------- */
 p{
@@ -332,6 +359,12 @@ hr{
 
 /* -------------------- Media Queries ------------------------------- */
  @media (min-width:  1041px){
+
+     .card.large 
+  {
+    height: 550px!important;
+  }
+
     .tamaimagen{ 
       height: 200px; 
       width: auto!important;
@@ -349,6 +382,11 @@ hr{
  }
 
  @media (min-width:  993px)  and (max-width: 1040px){
+
+    .card.large 
+  {
+    height: 550px!important;
+  }
 
     .tamaimagen{ 
       height: 200px; 
@@ -382,6 +420,11 @@ hr{
 
  @media (min-width:  576px) and (max-width: 992px)
 {
+  .card.large 
+  {
+    height: 450px!important;
+  }
+
     .tamaimagen{ 
       height: 180px!important; 
       padding-top: 1em;
@@ -399,8 +442,50 @@ hr{
   
 }
 
-@media (min-width:  200px) and (max-width: 575px) 
+@media (min-width:  451px) and (max-width: 575px) 
 {
+
+  .card.large 
+  {
+    height: 450px!important;
+  }
+
+  .tamaimagen{ 
+      height: 200px!important; 
+      padding-top: 1em;
+      width: auto!important;
+    }
+
+  .slider {
+    height: 220px!important;
+     resize: vertical;
+   }
+   .slides {
+    height: 200px!important;
+     resize: vertical;
+   }
+   
+   .slides li div h3{
+     font-size: 1.92em!important;
+   }
+
+}
+
+
+@media (min-width:  200px) and (max-width: 450px) 
+{
+
+  .card.large 
+  {
+    height: 500px!important;
+  }
+
+  .tamaimagen{ 
+      height: 200px!important; 
+      padding-top: 1em;
+      width: auto!important;
+    }
+
   .slider {
     height: 220px!important;
      resize: vertical;

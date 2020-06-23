@@ -51,8 +51,8 @@
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     
-   
-    <script src="configuracion.js"></script>
+    <script>r = Math.random();</script>
+    <script src="configuracion.js?" + r></script>
 
     <script type="text/javascript">
    

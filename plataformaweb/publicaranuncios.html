@@ -8,30 +8,43 @@
    
 
     <div class='row justify-content-center'>
-        <div class="col-sm-4 border mt-1">
+        <div class="col-sm-3 border mt-1">
             <div class="row justify-content-center" style="margin-bottom: 0em;">
                 <a id="nuevoanuncio" class="btn btn-success">Nuevo</a>
             </div>
             
             <div class="row justify-content-center" style="margin-bottom: 0em;">
-                <img id="muestra" src='imagenessitio/agregarimagen.jpg' class='card-img-top center-align mt-1 '
-                    style="width: 220px; height: auto;" alt='...'></img>
-            
-                <div class="input-group">
+                <img id="muestra" src='img/agregarimagen.jpg' class='materialboxed card-img-top center-align mt-1 tamaimagen '
+                    alt='...'></img>
+            <!-- style="width: 220px; height: auto;" -->
+
+                    <form action="#">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>Imagen</span>
+                                <input id="imagen" name="imagen"  type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input  class="file-path validate" type="text" placeholder="Seleccione una imagen para subir">
+                            </div>
+                        </div>
+                    </form>
+
+                <!-- <div class="input-group">
                     <div class="input-group-prepend">
                         <label class="custom-file-label" for="inputGroupFileAddon01">Seleccionar Imagen</label>
                     </div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="imagen" name="imagen" aria-describedby="inputGroupFileAddon01">
                     </div>
-                </div>
+                </div> -->
                 <progress class="progress" id="barra" value="0" max="100">0%</progress>
                 <label class="colorletras" for="" id="valorbarra">0%</label>
                 <p class="red-text accent-4" id="aviso"></p>
             </div>
         </div>
 
-        <div class="col-sm-4 border mt-1">
+        <div class="col-sm-3 border mt-1">
             <div class="row justify-content-center">
                 <input style="display: none;" onKeyDown="return validartecla(event,this.value,50)"
                     onKeyUp="return validartecla(event,this.value,50)" id="rubro" name="rubro" type="text"
@@ -44,7 +57,7 @@
             </div>
             <div class="row justify-content-center">
                 <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
-                id="titulo" name="titulo" style="font-size: 1.2em;" type="text" class="validate border border-success center"
+                id="titulo" name="titulo" style="font-size: 1.2em;" type="text" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Título de la publicación"
                 placeholder="TITULO Ej: Pantalón elastizado">
             </div>
             <div class="row justify-content-center">
@@ -53,22 +66,22 @@
                         <span class="input-group-text">Descripción</span>
                     </div>
                     <textarea onKeyDown="return validartecla(event,this.value,200)" onKeyUp="return validartecla(event,this.value,200)"
-                        class="form-control" id="descripcion" name="descripcion" aria-label="descripcion" style="height: 100px;"
+                        class="form-control tooltipped" data-position="top" data-tooltip="Descripción del producto" id="descripcion" name="descripcion" aria-label="descripcion" style="height: 100px;"
                         class="border border-success"
                         placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
                 </div>
             </div>
             <div class='row justify-content-center'>
                 <div class="col">
-                    <textarea rows="5" onKeyDown="return validartecla(event,this.value,1000)"
-                        onKeyUp="return validartecla(event,this.value,1000)" class="form-control" id="observaciones"
+                    <textarea rows="7" onKeyDown="return validartecla(event,this.value,1000)"
+                        onKeyUp="return validartecla(event,this.value,1000)" class="form-control tooltipped" data-position="top" data-tooltip="Amplia la descripción" id="observaciones"
                         name="observaciones" aria-label="observaciones"
                         placeholder="SABER MAS : Esta sección permite extender la descripción de su producto"></textarea>
                 </div>
             
                 <div class="col">
-                    <textarea rows="5" onKeyDown="return validartecla(event,this.value,1000)"
-                        onKeyUp="return validartecla(event,this.value,1000)" class="form-control" id="comentarios"
+                    <textarea rows="7" onKeyDown="return validartecla(event,this.value,1000)"
+                        onKeyUp="return validartecla(event,this.value,1000)" class="form-control tooltipped" data-position="top" data-tooltip="Info que da valor agregado" id="comentarios"
                         name="comentarios" aria-label="comentarios"
                         placeholder="SUGERENCIAS : Esta sección le agrega valor sugiriendo algo mas sobre el producto"></textarea>
                 </div>
@@ -82,12 +95,12 @@
                     <div class="row justify-content-center">
                         <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
                             id="precio" name="precio" type="number" placeholder="$ Precio de venta"
-                            class="validate border border-success center filapreciotarjeta preciotarjeta">
+                            class="validate border border-success center tooltipped" data-position="top" data-tooltip="Precio de venta">
                     </div>
                     <div class="row justify-content-center">
                         <!-- <label class="colorletras" for="costo">Indique el $ Costo</label> -->
                         <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                            id="costo" name="costo" type="number" class="validate border border-success center"  placeholder="$ Costo">
+                            id="costo" name="costo" type="number" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Costo del producto"  placeholder="$ Costo">
                     </div>
                     <div class="row justify-content-center">
                         <label for="opcionantes">
@@ -97,9 +110,8 @@
                     </div>
                     <div class="row justify-content-center">
                         <input onKeyDown="return validartecla(event,this.value,30)" onKeyUp="return validartecla(event,this.value,30)"
-                        id="tituloantes" name="tituloantes" type="text" class="validate border border-danger center"
+                        id="tituloantes" name="tituloantes" type="text" class="validate border border-danger center tooltipped" data-position="top" data-tooltip="Ej: Precio anterior"
                         placeholder="Título del precio tachado">
-                        <p id='tituloantesprevia' class='right'>"Ej: Precio anterior"</p>
                     </div>
                     <div class="row justify-content-center">
                         <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
@@ -116,7 +128,7 @@
                         <p>
                             <label>
                                 <input id="esoferta" type="checkbox" class="filled-in" />
-                                <span class="colorletras">Ver en Promociones</span>
+                                <span class="colorletras">Ver en Promos</span>
                             </label>
                         </p>
                     </div>
@@ -125,7 +137,7 @@
                         <p>
                             <label>
                                 <input id="esnovedad" type="checkbox" class="filled-in" />
-                                <span class="colorletras">Mostrar en Novedades</span>
+                                <span class="colorletras">Ver en Novedad</span>
                             </label>
                         </p>
                     </div>
@@ -143,7 +155,7 @@
                 
                     <div class="row justify-content-start">
                         <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                        id="bonus" name="bonus" type="number" class="validate border border-success center" placeholder="Cantidad de bonus">
+                        id="bonus" name="bonus" type="number" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Por cuantos puntos bonus puede canjearse" placeholder="Cantidad de bonus">
                     </div>
 
                     <div class="row justify-content-start">
@@ -154,12 +166,27 @@
                     
                     </div>
                     <div class="row justify-content-start">
-                        <p style="color: red;">Queda guardado pero no se ve públicamente en el sitio
+                        <p style="color: red;">Queda guardado pero no se ve en la web
                     </div>
                     
                 </div>
             </div>
 
+        </div>
+        <div class="col-sm-2 border mt-1">
+            <div class="row justify-content-center">
+                <p class='center'>Link a sitio externo</p>
+            </div>
+            <div class="row justify-content-center">
+                <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
+                    id="textolinkexterno" name="textolinkexterno" type="text" class="validate border border-success center  tooltipped" data-position="top" data-tooltip="Texto a un link externo"
+                    placeholder="Ej:Link de Pago">
+            </div>
+            <div class="row justify-content-center">
+                <input onKeyDown="return validartecla(event,this.value,200)" onKeyUp="return validartecla(event,this.value,200)"
+                    id="linkexterno" name="linkexterno" type="text" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Pegar el enlace"
+                    placeholder="Link al sitio externo">
+            </div>
         </div>
     </div>
    
@@ -191,13 +218,16 @@
                 
     <div class="text-center grey lighten-3">
                                     
+        <div class="row justify-content-center filamercado">
+            <h5 class="textofilamercado"><small>MODIFICAR PRODUCTOS</small></h5>
+        </div>
+
         <div class="row justify-content-center">
         
             <!-- Columna de lista de anuncios -->
             <div class="col-sm-12 center">
                 <div class="row justify-content-center">
                     <div class="col-sm-6 center">
-                        <label for="opcioneslista">Selecciona un Rubro a buscar</label>
                         <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
                     </div>
                 </div>
@@ -264,6 +294,8 @@
     
     $(document).ready(function () 
     {
+        $('.tooltipped').tooltip();
+
         consultarubros_seleccion_lista(); //llena la lista del buscador
         imageneszoom(); //habilita el zoom para las imagenes
         validarcambioimagen(); //verifica cuando se elige otra imagen en la tarjeta
@@ -342,260 +374,3 @@
     });
 
 </script>
-
-<!-- Nuevos productos -->
-<!-- <div id="filatarjeta" class="row justify-content-center pt-1"> -->
-<!-- Columna de tarjeta de anuncio -->
-<!-- <div class="col-sm-12 ">
-        
-            <div class="row justify-content-center">
-                <div class="col-sm-6  pt-2">
-                    <div class="row justify-content-center filafondo">
-                        <h5 class="tituloconfondo">Vista del anuncio</h5>
-                    </div>
-                    <div class="row justify-content-center" style="margin-bottom: 0em;">
-                        <p>El Título y la descripción definen como encuentran los productos los clientes</p>
-                        <a id="nuevoanuncio" class="btn btn-success">Nuevo</a>
-                    </div>
-
-                    <div class="card-deck row justify-content-center" style="margin-top: 0em;"> -->
-<!-- imagen previa -->
-<!-- <div class='col-sm-12'>
-                            <div class='card'>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <label class="custom-file-label" for="inputGroupFileAddon01">Seleccionar Imagen</label>
-                                            </div>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="imagen" name="imagen"
-                                                    aria-describedby="inputGroupFileAddon01">
-                                            </div>
-                                        </div>
-                                        <progress class="progress" id="barra" value="0" max="100">0%</progress>
-                                        <label class="colorletras" for="" id="valorbarra">0%</label>
-                                        <p class="red-text accent-4" id="aviso"></p>
-                                    
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <img id="muestra" src='imagenessitio/agregarimagen.jpg' class='card-img-top center-align mt-1 ' style="width: 220px; height: auto;" alt='...'></img>
-                                </div>
-
-                                <div class='card-body'>
-                                    <div class="row justify-content-center">
-                                        <input onKeyDown="return validartecla(event,this.value,50)"
-                                        onKeyUp="return validartecla(event,this.value,50)" id="titulo" name="titulo" style="font-size: 1.2em;"
-                                        type="text" class="validate border border-success center" placeholder="TITULO Ej: Pantalón elastizado">
-                                        
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                            <span class="input-group-text">Descripción</span>
-                                        </div>
-                                        <textarea onKeyDown="return validartecla(event,this.value,200)" onKeyUp="return validartecla(event,this.value,200)"
-                                        class="form-control" id="descripcion" name="descripcion" aria-label="descripcion" style="height: 180px;"
-                                            class="border border-success"
-                                            placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
-                                        </div>
-                                        
-                                    </div>
-                                    <hr>
-                                    <div class="row justify-content-center"> -->
-<!-- precio venta -->
-<!-- <div class="col-sm-4 ">
-                                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                                                id="precio" name="precio" type="number" placeholder="Precio de venta" class="validate border border-success center filapreciotarjeta preciotarjeta">
-                                        </div> -->
-<!-- icono carrito -->
-<!-- <div class="col-sm-4">
-
-                                        </div> -->
-<!-- icono bonus -->
-<!-- <div class="col-sm-4">
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row justify-content-center"> -->
-<!-- titulo precio tachado -->
-<!-- <div class="col-sm-4 ">
-                                            
-                                            <input onKeyDown="return validartecla(event,this.value,30)" onKeyUp="return validartecla(event,this.value,30)"
-                                                id="tituloantes" name="tituloantes" type="text" class="validate border border-danger center"
-                                                placeholder="Título del precio tachado">
-                                            <p id='tituloantesprevia' class='right'>"Ej: Precio anterior"</p>
-                                            <p></p>
-                                            <label for="opcionantes">
-                                                <input id="opcionantes" type="checkbox" class="filled-in" />
-                                                <span class="colorletrasresaltado">Ventaja comercial</span>
-                                            </label>
-                                            </p>
-                                        </div> -->
-
-<!-- precio tachado-->
-<!-- <div class="col-sm-4">
-                                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                                                id="precioantes" name="precioantes" type="number" class="validate border border-danger center"><del></del>
-                                                <p class='left'>Ej<del id='precioantesprevia'>$ 30000</del></p>
-                                        </div>
-                                         -->
-<!-- icono bonus -->
-<!-- <div class="col-sm-4">
-                                    
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class='row'>
-                                    <div class='col'>
-                                        <a id="botonobservaciones" class="btn light-green lighten-3 text-green darken-4 textobotonextras" data-toggle="collapse" href="#collapseDescripcion" role="button"
-                                            aria-expanded="false" aria-controls="collapseDescripcion" >Saber mas
-                                        </a>
-                                    </div>
-                                
-                                    <div class='col'>
-                                        <button id="botoncomentarios" class="btn  light-green lighten-3 yellow-text text-lighten-5 brown darken-1 textobotonextras" type="button" data-toggle="collapse" data-target="#collapseComentarios"
-                                            aria-expanded="false" aria-controls="collapseComentarios" >Sugerencias
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <div class='collapse' id='collapseDescripcion'>
-                                    <textarea rows="10" onKeyDown="return validartecla(event,this.value,1000)"
-                                        onKeyUp="return validartecla(event,this.value,1000)" class="form-control" id="observaciones" name="observaciones" 
-                                        aria-label="observaciones" placeholder="Extienda la descripción de su producto!"></textarea>
-                                </div>
-                                
-                                <div class='collapse' id='collapseComentarios'>
-                                        <textarea rows="6" onKeyDown="return validartecla(event,this.value,1000)"
-                                            onKeyUp="return validartecla(event,this.value,1000)"
-                                            class="form-control" id="comentarios" name="comentarios"
-                                            aria-label="comentarios" placeholder="Agregue valor sugiriendo algo mas sobre el producto!"></textarea>
-                                </div>
-                    
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-<!-- --------------------------------------------------------- -->
-
-<!-- <div class="col-sm-4 center pt-2">
-                    <div class="row justify-content-center filafondo">
-                        <h5 class="tituloconfondo">Datos del producto</h5>
-                    </div>
-                    
-                    <div class="row justify-content-center"> -->
-<!-- ------------------ rubro ----------------- -->
-<!-- <label class="colorletras" for="">Asigne un Rubro al producto</label> -->
-
-<!-- ------------------------------------------------------- -->
-<!-- </div>
-                    <div class="row justify-content-center">
-                        <div class=" col-sm-1"> -->
-<!-- rubro -->
-<!-- <input style="display: none;" onKeyDown="return validartecla(event,this.value,50)"
-                                onKeyUp="return validartecla(event,this.value,50)" id="rubro" name="rubro" type="text"
-                                class="validate border border-success">
-                        </div>
-
-                        <div class="col-sm-10">
-                            <select class="form-control" id="opciones" name="opciones"> -->
-
-<!-- aca se inserta la consulta de rubros -->
-
-<!-- </select>
-                        </div>
-                        <div class=" col-sm-1"></div>
-
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-sm-6 center">
-                            <label class="colorletras" for="costo">Indique el $ Costo</label>
-                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                                id="costo" name="costo" type="number" class="validate border border-success center">
-                        </div>
-                        
-                    </div> -->
-
-
-<!-- --------------------------- SECCIONES ---------------------- -->
-<!-- <div class="row justify-content-center filafondo">
-                        <h5 class="tituloconfondo">Secciones de publicación</h5>
-                    </div>
-                    <div class="row justify-content-center">
-                        <p>Defina las secciones en donde aparece el producto</p>
-                    </div>
-                    
-                    <div class="row justify-content-start"> -->
-<!-- ------- Check de opcion es oferta ------- -->
-<!-- <p>
-                            <label>
-                                <input id="esoferta" type="checkbox" class="filled-in" />
-                                <span class="colorletras">Mostrar en Promociones</span>
-                            </label>
-                        </p>
-                    </div>
-                    <div class="row justify-content-start"> -->
-<!-- ------- Check de opcion es novedad ------- -->
-<!-- <p>
-                            <label>
-                                <input id="esnovedad" type="checkbox" class="filled-in" />
-                                <span class="colorletras">Mostrar en Novedades</span>
-                            </label>
-                        </p>
-                    </div>
-
-                    <div class="row justify-content-start"> -->
-<!-- ------- Check de opcion es producto para bonus ------- -->
-<!-- <div class="col-sm-8 m0 p0">
-                            <label for="opcionbonus" class="left">
-                                <input id="opcionbonus" type="checkbox" class="filled-in" />
-                                <span class="colorletras">Tiene Bonus : </span>
-                            </label>
-                            <label class="colorletras" for="bonus">Cantidad</label>
-                        </div>
-                        <div class="col-sm-4 ">
-                            <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                                id="bonus" name="bonus" type="number" class="validate border border-success center">
-                        </div>
-                    </div> -->
-<!-- ------- Check de opcion no publica en la web ------- -->
-<!-- <div class="row justify-content-start">
-                        <label>
-                            <input id="opcionnopublicar" type="checkbox" class="filled-in" />
-                            <span class="" style="color: red;"> No publicar en la web</span>
-                        </label>
-                        
-                    </div>
-                    <div class="row justify-content-start">
-                        <p style="color: red;">Queda guardado pero no se ve públicamente en el sitio
-                    </div>
-
-                    <div class="row justify-content-center"> -->
-<!-- Boton publicar -->
-<!-- <div class="col-sm-6 center">
-                            <button class="btn waves-effect" type="button" id="enviar" name="enviar">Guardar
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-sm-6 center"> -->
-<!-- ------- Check de opcion no borrar ------- -->
-<!-- <p>
-                                <label>
-                                    <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
-                                    <span class="colorletras">No limpiar formulario al guardar </span>
-                                </label>
-                            </p> -->
-<!-- id -->
-<!-- <input id="id" disabled value="" name="id" type="text">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->

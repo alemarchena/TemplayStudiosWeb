@@ -94,7 +94,7 @@ function limpiarformulario() {
     document.getElementById('id').value = "";
 
     //imagen
-    document.getElementById("muestra").src = "imagenessitio/agregarimagen.jpg";
+    document.getElementById("muestra").src = "img/agregarimagen.jpg";
     document.getElementById("barra").value = 0;
     document.getElementById("valorbarra").innerHTML = "0%";
 
@@ -114,6 +114,10 @@ function limpiarformulario() {
         document.getElementById('bonus').value = "";
         document.getElementById('tituloantes').value = "";
         document.getElementById('precioantes').value = "";
+
+        document.getElementById('textolinkexterno').value = "";
+        document.getElementById('linkexterno').value = "";
+        
 
         $('#opcionbonus').prop('checked', false);
         $('#opcionantes').prop('checked', false);
@@ -323,6 +327,8 @@ function EnviarFormulario()
     var bonus = document.getElementById('bonus').value;
     var tia = document.getElementById('tituloantes').value;
     var pea = document.getElementById('precioantes').value;
+    var tle = document.getElementById('textolinkexterno').value;
+    var le = document.getElementById('linkexterno').value;
 
     var observacion = document.getElementById('observaciones').value;
     var o = observacion.trim();
@@ -378,6 +384,18 @@ function EnviarFormulario()
     if (c == "" || c < 0) { mostrarToastError("Costo"); return; }
     if (pb == 1 && (bonus == "" || bonus == 0)) { mostrarToastError("Bonus"); return; }
     if (oa == 1 && (pea == "" || pea == 0)) { mostrarToastError("Precio tachado"); return; }
+    if (tle!="" || le != "")
+    {
+        if(tle == "")
+        {
+            mostrarToastError("Texto link externo"); return; 
+        }
+        
+        if(le == "")
+        {
+            mostrarToastError("Link externo"); return; 
+        }
+    }
 
 
     if (imagen.files.length == 0)
@@ -389,7 +407,7 @@ function EnviarFormulario()
         }else
         {//esta modificando pero dejo la misma imagen
             var i = "";
-            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea);
+            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le);
             // limpiarformulario();
 
         }
@@ -418,7 +436,7 @@ function EnviarFormulario()
 
 }
 
-function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea)
+function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le)
 {
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
@@ -453,7 +471,9 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
     itemanuncio.opcionantes = oa;
     itemanuncio.tituloantes = tia;
     itemanuncio.precioantes = pea;
-
+    itemanuncio.textolinkexterno = tle;
+    itemanuncio.linkexterno = le;
+    
     itemanuncio.rutaimagenes = "";
     itemanuncio.filtro = "";
 
@@ -605,7 +625,7 @@ function consultaranuncios(e)
 
                     tanuncios.row.add( [
                         dd[key].id,
-                        "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].precioventaja + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
+                        "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].precioventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
                         "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
                         dd[key].rubro,
                         dd[key].titulo,
@@ -729,7 +749,7 @@ function eliminaranuncio(idpasado,i)
 
 }
 
-function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea)
+function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea,tle,le)
 {
    
     
@@ -755,7 +775,8 @@ function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,
     document.getElementById('tituloantes').value = tia;
     document.getElementById('precioantes').value = pea;
     document.getElementById("muestra").src = "imagenes/" + ima; //vista previa de la imagen
-    
+    document.getElementById('textolinkexterno').value = tle;
+    document.getElementById('linkexterno').value = le;
 
     //barra de progreso
     document.getElementById("barra").value = 100;
@@ -5749,14 +5770,16 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                 dd = JSON.parse(data); //data decodificado
                 var cuenta = 0;
                 var parteobservacion = "";
-                var partecomentarios = "";
+                var partecomentario = "";
                 var valorbonus = "";
+                var textolinkexterno = "";
+                var linkexterno= "";
 
                 $.each(dd, function (key, value) {
                     cuenta = cuenta + 1;
 
                     parteobservacion = "";
-                    partecomentarios = "";
+                    partecomentario = "";
                     listaobservacioncomentario = "";
 
                     if (dd[key].productobonus == 1) {
@@ -5779,6 +5802,9 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                         tituloventaja = "";
                         precioventaja = "";
                     }
+
+                    textolinkexterno = dd[key].textolinkexterno;
+                    linkexterno = dd[key].linkexterno;
 
                     // Observaciones y comentarios
                     if (dd[key].observaciones != "") {
@@ -5821,7 +5847,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
                             }
 
-                            t.append("<div class='col s12 m6 l3 " +  nombrehijo + "'><div class='card large'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p><a href='#'>Link de pago</a></p></div></div></div>" + agregado + "</div></div>");
+                            t.append("<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card large'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p><a class='enlaceespecial' href='" +  linkexterno + "'>" + textolinkexterno + "</a></p></div></div></div>" + agregado + "</div></div>");
                         }
                     }
                 });

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20425306-11"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // gtag('config', 'UA-20425306-11');
+    </script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width = device-width, initial-scale = 1">
     <!-- Compiled and minified CSS -->
@@ -11,11 +22,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
-    <link href="cover.css?201806205" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" type="text/css" href="animate.css">
-
-    <script src="configuracion.js"></script>
+    
+    <script>r = Math.random();</script>
+    <link rel="stylesheet" href="cover.css?" + r>
+    <script src="configuracion.js?" + r></script>
 
     <title></title>
 </head>
@@ -40,7 +52,6 @@
                 <a id="tituloweb" class="navbar-brand" href="#"></a>
                 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><div id="seccionbuscados"></div></li>
                     <li class="tab"><a id="menugaleria" href="#">Galería</a></li>
                     <li class="tab"><a id="menuofertas" href="#">Promociones</a></li>
                     <li class="tab"><a id="menucontacto" href="#">Contacto</a></li>
@@ -59,6 +70,7 @@
 
         
     <ul class="sidenav" id="barralateral">
+        <li><div id="seccionbuscadoslista"></div></li>
         <li class="tab"><a class="sidenav-close" id="menuhomeo"         href="#">Inicio <i class="material-icons">home</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menugaleriao"      href="#">Galería <i class="material-icons">collections</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menuofertaso"      href="#">Promociones <i class="material-icons">card_giftcard</i></a></li>
@@ -73,7 +85,13 @@
     
     <!-- slogan del negocio -->
     <div><p id="slogan" class="center-align"></p></div>
-  
+           
+    <div class="container row">
+        <div class="col s12 m6 offset-m3 l4 offset-l4">
+            <div class="pink-text text-darken-4" id="seccionbuscados"></div>
+        </div>
+    </div>
+    
     
     <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
     
@@ -146,10 +164,10 @@
 
 
 
-<script src="scrollmenu.js"></script> <!-- codigo que permite el scroll de menu-->
-<script src="funciones.js"></script>
-<script src="subscriptionPopup.js"></script>
-<script src="establecerparametrosweb.js"></script>
+<script src="scrollmenu.js?" + r ></script> <!-- codigo que permite el scroll de menu-->
+<script src="funciones.js?" + r ></script>
+<script src="subscriptionPopup.js?" + r ></script>
+<script src="establecerparametrosweb.js?" + r ></script>
 
 </body>
 </html>

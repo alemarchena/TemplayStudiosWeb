@@ -24,6 +24,7 @@ function abreTabaqueria(conprecio) {
   if (conprecio == "si"){
 
     $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
+
   }
   else{
     $("#seccionbuscados").load("anuncios_tarjeta.html");
@@ -66,6 +67,7 @@ function setCookie(cname, cvalue, exdays, conprecio) {
   if (conprecio == "si") {
 
     $("#seccionbuscados").load("anuncios_tarjeta_conprecio.html");
+
   }
   else {
     $("#seccionbuscados").load("anuncios_tarjeta.html");
