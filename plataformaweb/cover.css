@@ -31,7 +31,7 @@ body {
 
 .card.large .card-image + .card-content
 {
-max-height: 70%!important;
+  max-height: 75%!important;
 }
 
 .card.large 
@@ -126,7 +126,7 @@ nav a {
 }
 
 #descripciontarjeta{
-  font-size: 0.9em;
+  font-size: 0.95em;
 }
 
 #tarjetaimagen
@@ -360,10 +360,11 @@ hr{
 /* -------------------- Media Queries ------------------------------- */
  @media (min-width:  1041px){
 
-     .card.large 
+  .card.large 
   {
-    height: 550px!important;
+    height: 470px!important;
   }
+
 
     .tamaimagen{ 
       height: 200px; 
@@ -385,7 +386,7 @@ hr{
 
     .card.large 
   {
-    height: 550px!important;
+    height: 510px!important;
   }
 
     .tamaimagen{ 
@@ -422,7 +423,7 @@ hr{
 {
   .card.large 
   {
-    height: 450px!important;
+    height: 430px!important;
   }
 
     .tamaimagen{ 
@@ -439,7 +440,7 @@ hr{
       height: 350px!important;
        resize: vertical;
     }
-  
+    
 }
 
 @media (min-width:  451px) and (max-width: 575px) 
@@ -447,7 +448,7 @@ hr{
 
   .card.large 
   {
-    height: 450px!important;
+    height: 455px!important;
   }
 
   .tamaimagen{ 
@@ -466,9 +467,9 @@ hr{
    }
    
    .slides li div h3{
-     font-size: 1.92em!important;
+     font-size: 1.5em!important;
    }
-
+ 
 }
 
 
@@ -496,7 +497,29 @@ hr{
    }
    
    .slides li div h3{
-     font-size: 1.92em!important;
+     font-size: 1em!important;
    }
 
+  #descripciontarjeta{
+    font-size: 0.80em;
+  }
+
+  
+  .precioventaja{
+    font-size: 0.8em!important;
+  }
+
+  #titulotarjeta{
+    font-size: 0.7em;
+  }
+
+  .preciotarjeta{
+    font-size: 1em;
+  }
+
+  .row{
+    margin-bottom: 0em!important;
+  }
+
+   
 }

@@ -3,6 +3,8 @@
 
 var arreglo = [];
 var arregloproveedoranuncio = [];
+arregloconsulta = []; //arreglo que guarda los anuncios de la consulta
+cantidadpaginador = 10; //cantidad de anuncios que entran en una pagina
 var muestrastockinicio = false;
 
 
@@ -5642,6 +5644,8 @@ function verificamayoriaedad()
 
 function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
+
+    var tamaniotarjeta = "large";
     var bdd = conexionbddpaginaweb;
     var rutadeimagenes = rutaimagenespaginaweb;
     var tabla = tablaanunciospaginaweb;
@@ -5688,7 +5692,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     }
     
 
-    var t = null;
+    // var t = null;
     var id = "";
 
     if (id == "") id = 0;
@@ -5720,31 +5724,32 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
     var objetoanuncio = JSON.stringify(itemanuncio);
 
+    var nombrehijo="";
     if(tipo == "consultarubros")
     {
 
-        sn = $('#seccionbuscadosbuscador div');
-        sn.each(function () {
-            $(this).remove();
-        });
+        // sn = $('#seccionbuscadosbuscador div');
+        // sn.each(function () {
+        //     $(this).remove();
+        // });
     
-        t = $('#seccionbuscadosbuscador');
-        $(".hijos").remove();
+        // t = $('#seccionbuscadosbuscador');
+        // $(".hijos").remove();
 
         nombrehijo = "hijos";
 
     } else if (tipo == "consultatodosanunciosoferta")
     {
-        t = $('#ofertasanuncios');
-        $(".hijosofer").remove();
+        // t = $('#ofertasanuncios');
+        // $(".hijosofer").remove();
 
         nombrehijo = "hijosofer";
 
     }else  if (tipo == "consultafiltros")
     {
-        t = $('#seccionbuscadosbuscador');
+        // t = $('#seccionbuscadosbuscador');
 
-        $(".hijos").remove();   
+        // $(".hijos").remove();   
 
         nombrehijo = "hijos";
 
@@ -5765,22 +5770,33 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         success: function (data) 
         {
 
+            
+
             if (data != '[]') {
 
                 dd = JSON.parse(data); //data decodificado
+                
                 var cuenta = 0;
                 var parteobservacion = "";
                 var partecomentario = "";
                 var valorbonus = "";
                 var textolinkexterno = "";
                 var linkexterno= "";
+                var descripcionacotada="";
+                
+                arregloconsulta = [];
+
 
                 $.each(dd, function (key, value) {
+
+
                     cuenta = cuenta + 1;
 
                     parteobservacion = "";
                     partecomentario = "";
                     listaobservacioncomentario = "";
+                    partemastexto = "";
+                    descripcionacotada = "";
 
                     if (dd[key].productobonus == 1) {
                         valorbonus = "Cange por " + dd[key].bonus + " bonus";
@@ -5821,12 +5837,25 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
                     }
 
+                    descripcionacotada = dd[key].descripcion;
+                    
+                    if(descripcionacotada.length > 85)
+                    {
+                        partemastexto = "<p>" + descripcionacotada + "</p>";
+                        descripcionacotada = descripcionacotada.slice(0,85) + " . . .";
+                    }else
+                    {
+                        partemastexto = "";
+                    }
+
+
                     var agregado = "";
                     var iconomasinfo = "";
                     var verpreciotarjeta="";
-                    if (parteobservacion != "" || partecomentario != "") {
 
-                        listaobservacioncomentario = "<ul class='collapsible'>" + parteobservacion + partecomentario + "</ul> ";
+                    if ( "" != partemastexto || parteobservacion != "" || partecomentario != "") {
+
+                        listaobservacioncomentario = partemastexto + "<ul class='collapsible'>" + parteobservacion + partecomentario + "</ul> ";
                         agregado = "<div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Información<i class='material-icons right'>close</i></span>" + listaobservacioncomentario + "</div>"
                         iconomasinfo = "<i class='material-icons right'>pageview</i>";
                     }
@@ -5847,14 +5876,35 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
                             }
 
-                            t.append("<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card large'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + dd[key].descripcion + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p><a class='enlaceespecial' href='" +  linkexterno + "'>" + textolinkexterno + "</a></p></div></div></div>" + agregado + "</div></div>");
+                            var objeto = new Object();
+                            objeto.insercion = "<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>";
+                            arregloconsulta.push(objeto);
+
+                            // t.append("<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>");
                         }
                     }
                 });
 
-                imageneszoom();
-                declaracollapsible();
-                inicializaselect();
+                if(cuenta>0) //osea si hay registros para mostrar
+                {
+                    //coloco la cantidad de 
+                    var cantidadpaginas=0;
+                    var resto =  cuenta % cantidadpaginas; 
+                    if( resto > 0)
+                        cantidadpaginas = Math.floor(cuenta / cantidadpaginador) + 1;
+                    else
+                        cantidadpaginas = cuenta / cantidadpaginador;
+                        
+
+                    muestraanuncionarreglo(tipo,cantidadpaginas);   //inserto los anuncios del resultado
+
+                    imageneszoom();
+                    declaracollapsible();
+                    inicializaselect();
+                }else
+                {
+                    resetearseccion(tipo, cuenta); //limpia la seccion de la web para la que fue consultada
+                }
 
                
             }
@@ -5881,3 +5931,330 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     
         
 }
+
+
+
+
+function insertapaginador(nombrelista, cantidadpaginas)
+{
+    //inserta el boton <<
+    var liizquierda=document.createElement('li');
+    liizquierda.innerHTML = "<li id='izquierdo' class='disabled'><a href='#!'><i class='material-icons'>chevron_left</i></a></li>";
+    document.getElementById(nombrelista).appendChild(liizquierda);
+
+
+    // Creo un elemento en la lista para cada pagina
+
+    for (var a = 1; a <= cantidadpaginas; a++) 
+    {
+        var li=document.createElement('li');
+        li.id = "pagina" + a + nombrelista; 
+
+        if(1==a)
+            li.innerHTML="<li onclick='irapagina(" + a + ")' class='active'><a href='#!'>" + a  + "</a></li>";
+        else
+            li.innerHTML="<li onclick='irapagina(" + a + ")' class='waves-effect'><a href='#!'>" + a + "</a></li>";
+
+        document.getElementById(nombrelista).appendChild(li);
+    }
+
+    var liderecha=document.createElement('li');
+    liderecha.innerHTML = "<li class='waves-effect'><a href='#!'><i class='material-icons'>chevron_right</i></a></li>";
+    document.getElementById(nombrelista).appendChild(liderecha);
+
+}
+
+
+
+function muestraanuncionarreglo(tipo, cantidadpaginas)
+{
+
+    var t = null;
+
+    if (tipo == "consultarubros") {
+        sn = $('#seccionbuscadosbuscador div');
+        sn.each(function () {
+            $(this).remove();
+        });
+
+        t = $('#seccionbuscadosbuscador');
+        $(".hijos").remove();
+
+        if (cantidadpaginas > 0) {
+            $("#seccionbuscadosbuscador li").remove();
+            insertapaginador("listaencontradosbuscador",cantidadpaginas);
+        }
+
+    } else if (tipo == "consultatodosanunciosoferta") {
+        t = $('#ofertasanuncios');
+        $(".hijosofer").remove();
+
+        if (cantidadpaginas > 0) {
+            $("#listaencontradospromociones li").remove();
+            insertapaginador("listaencontradospromociones",cantidadpaginas);
+        }
+
+    } else if (tipo == "consultafiltros") {
+        t = $('#seccionbuscadosbuscador');
+        $(".hijos").remove();
+
+        if (cantidadpaginas > 0) {
+            $("#listaencontradosbuscador li").remove();
+            insertapaginador("listaencontradosbuscador", cantidadpaginas);
+        }
+    }
+
+    for(var a = 0;a < arregloconsulta.length;a++)
+    {
+        t.append(arregloconsulta[a].insercion);
+    }
+
+}
+
+// function consultabusqueda(tipo, opcion, tarjetaconprecio) {
+
+//     var tamaniotarjeta = "large";
+//     var bdd = conexionbddpaginaweb;
+//     var rutadeimagenes = rutaimagenespaginaweb;
+//     var tabla = tablaanunciospaginaweb;
+//     var tabladerubros = tablarubrospaginaweb;
+
+//     var seleccion = "";
+//     var seleccionidrubro = "";
+//     var filtro = "";
+//     var textobuscado = "";
+
+//     //Verifico quien llama a la busqueda
+//     if (tipo == "consultarubros") {
+//         verificamayoriaedad();
+
+//         seleccion = document.getElementById(opcion);
+//         seleccionidrubro = document.getElementById(opcion).value;
+
+//         if (seleccionidrubro == "") {
+//             return false;
+//         }
+//     } else if (tipo == "consultatodosanunciosoferta") {
+
+//     } else if (tipo == "consultafiltros") {
+
+//         verificamayoriaedad();
+
+//         textobuscado = $("#cajabusqueda").val();
+//         textobuscado = document.getElementById("cajabusqueda").value;
+
+//         if (textobuscado == "") {
+//             return false;
+//         }
+
+//         filtro = [];
+//         filtro.push(textobuscado);
+
+//     } else {
+//         return false;
+//     }
+
+
+//     var t = null;
+//     var id = "";
+
+//     if (id == "") id = 0;
+//     else id = id;
+
+//     var itemanuncio = new Object();
+
+//     itemanuncio.bdd = bdd;
+//     itemanuncio.tabla = tabla;
+//     itemanuncio.tablarubros = tabladerubros;
+
+//     itemanuncio.tipo = tipo;
+//     itemanuncio.id = id;
+
+//     itemanuncio.titulo = "";
+//     itemanuncio.descripcion = "";
+//     itemanuncio.precio = "";
+//     itemanuncio.costo = "";
+//     itemanuncio.esnovedad = "";
+//     itemanuncio.esoferta = "";
+//     itemanuncio.nopublicar = "";
+//     itemanuncio.observaciones = "";
+//     itemanuncio.comentarios = "";
+
+//     itemanuncio.rutaimagenes = rutadeimagenes;
+//     itemanuncio.idrubro = seleccionidrubro;
+//     itemanuncio.imagen = "";
+//     itemanuncio.filtro = filtro;
+
+//     var objetoanuncio = JSON.stringify(itemanuncio);
+
+//     if (tipo == "consultarubros") {
+
+//         sn = $('#seccionbuscadosbuscador div');
+//         sn.each(function () {
+//             $(this).remove();
+//         });
+
+//         t = $('#seccionbuscadosbuscador');
+//         $(".hijos").remove();
+
+//         nombrehijo = "hijos";
+
+//     } else if (tipo == "consultatodosanunciosoferta") {
+//         t = $('#ofertasanuncios');
+//         $(".hijosofer").remove();
+
+//         nombrehijo = "hijosofer";
+
+//     } else if (tipo == "consultafiltros") {
+//         t = $('#seccionbuscadosbuscador');
+
+//         $(".hijos").remove();
+
+//         nombrehijo = "hijos";
+
+//     }
+
+//     M.toast(
+//         {
+//             html: '...Buscando',
+//             displayLength: '3000'
+//         });
+
+//     $.ajax({
+//         url: "consultaanuncios.php",
+
+//         data: { objetoanuncio: objetoanuncio },
+//         type: "post",
+
+//         success: function (data) {
+
+//             if (data != '[]') {
+
+//                 dd = JSON.parse(data); //data decodificado
+//                 var cuenta = 0;
+//                 var parteobservacion = "";
+//                 var partecomentario = "";
+//                 var valorbonus = "";
+//                 var textolinkexterno = "";
+//                 var linkexterno = "";
+//                 var descripcionacotada = "";
+
+//                 $.each(dd, function (key, value) {
+//                     cuenta = cuenta + 1;
+
+//                     parteobservacion = "";
+//                     partecomentario = "";
+//                     listaobservacioncomentario = "";
+//                     partemastexto = "";
+//                     descripcionacotada = "";
+
+//                     if (dd[key].productobonus == 1) {
+//                         valorbonus = "Cange por " + dd[key].bonus + " bonus";
+//                     } else {
+//                         valorbonus = "";
+//                     }
+
+
+//                     if (dd[key].tieneventaja) {
+
+//                         tituloventaja = dd[key].tituloventaja;
+//                         precioventaja = "$ " + dd[key].precioventaja;
+
+//                         if (tituloventaja.trim() == "" || precioventaja == 0) {
+//                             tituloventaja = "";
+//                             precioventaja = "";
+//                         }
+//                     } else {
+//                         tituloventaja = "";
+//                         precioventaja = "";
+//                     }
+
+//                     textolinkexterno = dd[key].textolinkexterno;
+//                     linkexterno = dd[key].linkexterno;
+
+//                     // Observaciones y comentarios
+//                     if (dd[key].observaciones != "") {
+//                         parteobservacion = "<li class=''> <div class='collapsible-header'><i class='material-icons icosabermas'>chrome_reader_mode</i>Saber mas...</div><div class='collapsible-body'><span>" + dd[key].observaciones + "</span></div></li>";
+//                     } else {
+//                         parteobservacion = "";
+
+//                     }
+
+//                     if (dd[key].comentarios != "") {
+//                         partecomentario = "<li class=''> <div class='collapsible-header'><i class='material-icons icosugerencias'>comment</i>Sugerencias</div><div class='collapsible-body'><span>" + dd[key].comentarios + "</span></div></li>"
+//                     } else {
+//                         partecomentario = ""
+
+//                     }
+
+//                     descripcionacotada = dd[key].descripcion;
+
+//                     if (descripcionacotada.length > 85) {
+//                         partemastexto = "<p>" + descripcionacotada + "</p>";
+//                         descripcionacotada = descripcionacotada.slice(0, 85) + " . . .";
+//                     } else {
+//                         partemastexto = "";
+//                     }
+
+
+//                     var agregado = "";
+//                     var iconomasinfo = "";
+//                     var verpreciotarjeta = "";
+
+//                     if ("" != partemastexto || parteobservacion != "" || partecomentario != "") {
+
+//                         listaobservacioncomentario = partemastexto + "<ul class='collapsible'>" + parteobservacion + partecomentario + "</ul> ";
+//                         agregado = "<div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Información<i class='material-icons right'>close</i></span>" + listaobservacioncomentario + "</div>"
+//                         iconomasinfo = "<i class='material-icons right'>pageview</i>";
+//                     }
+//                     // -----------------------------
+
+//                     if (dd[key].nopublicar == 0) {
+//                         if (tarjetaconprecio == "si") {
+
+//                             var precio;
+//                             if (dd[key].precio > 0) {
+//                                 precio = "$ " + dd[key].precio;
+//                                 verpreciotarjeta = "preciotarjeta";
+//                             } else {
+//                                 precio = "Consultar Precio";
+//                                 tituloventaja = "";
+//                                 precioventaja = "";
+//                                 verpreciotarjeta = "preciotarjetaconsultar";
+
+//                             }
+
+//                             t.append("<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>");
+//                         }
+//                     }
+//                 });
+
+//                 imageneszoom();
+//                 declaracollapsible();
+//                 inicializaselect();
+
+
+//             }
+//             else {
+//                 if (seleccionidrubro != "") {
+//                     Swal.fire({
+//                         closeOnEsc: false,
+//                         title: 'No hay novedades para esta categoría!',
+
+//                     })
+//                 }
+//             }
+//         },
+//         error: function (e) {
+//             M.toast(
+//                 {
+//                     html: 'No hay buena conexión!',
+//                     displayLength: '4000'
+//                 });
+//             console.log("Error de comunicación");
+//         }
+//     });
+
+
+
+// }

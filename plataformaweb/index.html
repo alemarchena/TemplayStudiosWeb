@@ -14,7 +14,9 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <!-- Compiled and minified CSS -->
+    
+<!-- Compiled and minified CSS -->
+    <script src="https://kit.fontawesome.com/153d9eb44c.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Kulim+Park&display=swap" rel="stylesheet">
 
@@ -52,15 +54,16 @@
                 <a id="tituloweb" class="navbar-brand" href="#"></a>
                 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li class="tab"><a id="menugaleria" href="#">Galería</a></li>
+                    <!-- <li class="tab"><a id="menugaleria" href="#">Galería</a></li> -->
+                    <li class="tab"><a id="menucategorias" href="#">Categorías</a></li>
                     <li class="tab"><a id="menuofertas" href="#">Promociones</a></li>
                     <li class="tab"><a id="menucontacto" href="#">Contacto</a></li>
                     <li class="tab"><a id="menuubicacion" href="#">Ubicación</a></li>
-                    <li class="tab"><a id="botoncarrito" href='#' target='_blank' class='waves-effect text-orange'><small><i class='small fas fa-shopping-cart'></i></small></a></li>
-                    <li class="tab"><a id="telefono_en_barra" href="" target="_BLANK"><i class="fab fa-whatsapp"></i></a></li>
-                    <li class="tab"><a id="direccioninstagram" href="" target="_blank" class="icon-instagram"><i class="fab fa-instagram"></i></a>
-                    </li>
+                    <li class="tab"><a id="botoncarrito" href='#' target='_blank' class='waves-effect '><small><i class='small fas fa-shopping-cart' style='color:rgb(4, 179, 33)'></i></small></a></li>
+                    <li class="tab"><a id="telefono_en_barra" href="" target="_BLANK"><i class="fas fa-whatsapp fa-lg"></i></a></li>
+                    <li class="tab"><a id="direccioninstagram" href="" target="_blank" class="icon-instagram"><i class="fab fa-instagram"></i></a></li>
                     <li class="tab"><a id="direccionfacebook"  href="" target="_blank" class="icon-facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li class="tab"><a id="home"  href=""><i class='fas fa-home' style='font-size:24px'></i></a></li>
                    
                 </ul>
                 
@@ -72,7 +75,8 @@
     <ul class="sidenav" id="barralateral">
         <li><div id="seccionbuscadoslista"></div></li>
         <li class="tab"><a class="sidenav-close" id="menuhomeo"         href="#">Inicio <i class="material-icons">home</i></a></li>
-        <li class="tab"><a class="sidenav-close" id="menugaleriao"      href="#">Galería <i class="material-icons">collections</i></a></li>
+        <li class="tab"><a class="sidenav-close" id="menucategoriaso"   href="#">Categorías <i class="material-icons">class</i></a></li>
+        <!-- <li class="tab"><a class="sidenav-close" id="menugaleriao"      href="#">Galería <i class="material-icons">collections</i></a></li> -->
         <li class="tab"><a class="sidenav-close" id="menuofertaso"      href="#">Promociones <i class="material-icons">card_giftcard</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menucontactoo"     href="#">Contacto <i class="material-icons">contact_mail</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menuubicaciono"    href="#">Ubicación <i class="material-icons">location_on</i></a></li>
@@ -82,11 +86,11 @@
    
     <!-- carrusel de publicidad  -->
     <section id="seccionpublicidad" class="row"></section>
-    
+   
     <!-- slogan del negocio -->
-    <div><p id="slogan" class="center-align"></p></div>
+    <div style="display: none;"><p id="slogan" class="center-align"></p></div>
            
-    <div class="container row">
+    <div id="contenedorcategoria" class="container row">
         <div class="col s12 m6 offset-m3 l4 offset-l4">
             <div class="pink-text text-darken-4" id="seccionbuscados"></div>
         </div>
@@ -116,15 +120,38 @@
     <!-- --------------------------------------------------- NOVEDADES ------------------------------------------------- -->
     <div id="vervineria" class="claseseccionnovedades">
     
-    
+        <!-- buscados en el buscador -->
+        <div class="row" style="margin-bottom: 0em!important;">
+            <div class="col s12 m8 offset-m2 l6 offset-l3 center">
+                <ul id="listaencontradosbuscador" class="pagination">
+        
+                </ul>
+            </div>
+        </div>
         <div id="seccionbuscadosbuscador" class="row">
     
         </div>
     
+        <!-- Promociones -->
+        <div class="row" style="margin-bottom: 0em!important;">
+            <div class="col s12 m8 offset-m2 l6 offset-l3 center">
+                <ul id="listaencontradospromociones" class="pagination">
+                    
+                </ul>
+            </div>
+        </div>
         <div id="seccionpromociones">
-    
+            
         </div>
     
+        <!-- novedades -->
+        <div class="row" style="margin-bottom: 0em!important;" >
+            <div class="col s12 m8 offset-m2 l6 offset-l3 center">
+                <ul id="listaencontradosnovedades" class="pagination">
+        
+                </ul>
+            </div>
+        </div>
         <div id="seccionnovedades">
     
         </div>
@@ -163,11 +190,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
 
 
+<script>ra = Math.random();</script>
 
-<script src="scrollmenu.js?" + r ></script> <!-- codigo que permite el scroll de menu-->
-<script src="funciones.js?" + r ></script>
-<script src="subscriptionPopup.js?" + r ></script>
-<script src="establecerparametrosweb.js?" + r ></script>
+<script src="scrollmenu.js?" + ra ></script> <!-- codigo que permite el scroll de menu-->
+<script src="funciones.js?" + ra ></script>
+<script src="subscriptionPopup.js?" + ra ></script>
+<script src="establecerparametrosweb.js?" + ra ></script>
+
+
+
 
 </body>
 </html>
@@ -218,7 +249,9 @@
         
         $("#footer").load("footer.html");
         $("#subcontenedorcontacto").load("contacto.html");      //contacto
-        $("#secciongaleria").load("galeria.html");              //galeria de imagenes
+        
+        //galeria de imagenes
+        // $("#secciongaleria").load("galeria.html");
         $("#seccionpromociones").load("anuncios_ofertas.html"); //ofertas y promociones
         
         var velocidad = 500;
@@ -252,6 +285,7 @@
         $('.tooltipped').tooltip();
 
      
+        
 
         $("#menuofertas").click(function () {
             versimuestra();
