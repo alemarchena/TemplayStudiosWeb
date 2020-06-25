@@ -3,10 +3,15 @@
 
 var arreglo = [];
 var arregloproveedoranuncio = [];
-arregloconsulta = []; //arreglo que guarda los anuncios de la consulta
-cantidadpaginador = 10; //cantidad de anuncios que entran en una pagina
+cantidadporpagina = 10; //cantidad de anuncios que entran en una pagina
 var muestrastockinicio = false;
 
+arregloconsultaofertas = []; //arreglo que guarda los anuncios de la consulta
+arregloconsultabuscados = []; //arreglo que guarda los anuncios de la consulta
+paginaactualofertas = 0;
+paginaactualbuscados = 0;
+paginastotalesofertas = 0;
+paginastotalesbuscados = 0;
 
  function escrolear(claseelemento) {
 
@@ -5642,9 +5647,11 @@ function verificamayoriaedad()
         } 
 }
 
+
+
 function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
-
+    var tipoconsulta = tipo;
     var tamaniotarjeta = "large";
     var bdd = conexionbddpaginaweb;
     var rutadeimagenes = rutaimagenespaginaweb;
@@ -5668,8 +5675,10 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         {
             return false;
         }
+       
     }else if (tipo == "consultatodosanunciosoferta")
     {
+       
 
     }else if (tipo == "consultafiltros")
     {
@@ -5685,6 +5694,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
         filtro = [];
         filtro.push( textobuscado );
+        
 
     }else
     {
@@ -5727,32 +5737,17 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     var nombrehijo="";
     if(tipo == "consultarubros")
     {
-
-        // sn = $('#seccionbuscadosbuscador div');
-        // sn.each(function () {
-        //     $(this).remove();
-        // });
-    
-        // t = $('#seccionbuscadosbuscador');
-        // $(".hijos").remove();
-
         nombrehijo = "hijos";
-
+        arregloconsultabuscados = [];
     } else if (tipo == "consultatodosanunciosoferta")
     {
-        // t = $('#ofertasanuncios');
-        // $(".hijosofer").remove();
-
         nombrehijo = "hijosofer";
+        arregloconsultaofertas = [];
 
     }else  if (tipo == "consultafiltros")
     {
-        // t = $('#seccionbuscadosbuscador');
-
-        // $(".hijos").remove();   
-
         nombrehijo = "hijos";
-
+        arregloconsultabuscados = [];
     }
 
     M.toast(
@@ -5784,8 +5779,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                 var linkexterno= "";
                 var descripcionacotada="";
                 
-                arregloconsulta = [];
-
+                
 
                 $.each(dd, function (key, value) {
 
@@ -5878,9 +5872,14 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
                             var objeto = new Object();
                             objeto.insercion = "<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>";
-                            arregloconsulta.push(objeto);
-
-                            // t.append("<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>");
+                            
+                            if (tipo == "consultarubros" || tipo == "consultafiltros"){
+                                paginaactualbuscados = 1;
+                                arregloconsultabuscados.push(objeto);
+                            } else if (tipo == "consultatodosanunciosoferta") {
+                                paginaactualofertas = 1;
+                                arregloconsultaofertas.push(objeto);
+                            } 
                         }
                     }
                 });
@@ -5888,25 +5887,23 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                 if(cuenta>0) //osea si hay registros para mostrar
                 {
                     //coloco la cantidad de 
+                    var resto = cuenta % cantidadporpagina; 
+                    
                     var cantidadpaginas=0;
-                    var resto =  cuenta % cantidadpaginas; 
                     if( resto > 0)
-                        cantidadpaginas = Math.floor(cuenta / cantidadpaginador) + 1;
+                        cantidadpaginas = Math.floor(cuenta / cantidadporpagina) + 1;
                     else
-                        cantidadpaginas = cuenta / cantidadpaginador;
+                        cantidadpaginas = cuenta / cantidadporpagina;
                         
+                    
+                    crearpaginador(cantidadpaginas,tipoconsulta);
+                    muestraanuncionarreglo(1, tipoconsulta);   //inserto los anuncios del resultado
 
-                    muestraanuncionarreglo(tipo,cantidadpaginas);   //inserto los anuncios del resultado
-
-                    imageneszoom();
-                    declaracollapsible();
-                    inicializaselect();
+                    
                 }else
                 {
-                    resetearseccion(tipo, cuenta); //limpia la seccion de la web para la que fue consultada
+                    crearpaginador(cantidadpaginas,tipoconsulta)
                 }
-
-               
             }
             else {
                 if (seleccionidrubro != "") {
@@ -5932,82 +5929,174 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         
 }
 
+function crearpaginador(cantidadpaginas, tipoconsulta){
+    var t = null;
+
+    //segun quien es el objeto que busca, elimina los botones del paginador, de la busqueda anterior
+    if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros") {
+
+        $(".listaencontradosbuscador").remove();    
+        if (cantidadpaginas > 0) {
+            paginastotalesbuscados = cantidadpaginas;
+            insertabotonespaginas("listaencontradosbuscador", paginastotalesbuscados, tipoconsulta);
+        }
+
+    } else if (tipoconsulta == "consultatodosanunciosoferta") {
+
+        $(".listaencontradospromociones").remove();
+        if (cantidadpaginas > 0) {
+            paginastotalesofertas = cantidadpaginas;
+            insertabotonespaginas("listaencontradospromociones", paginastotalesofertas,tipoconsulta);
+        }
+    } 
+}
 
 
-
-function insertapaginador(nombrelista, cantidadpaginas)
+function insertabotonespaginas(nombrelista, cantidadpaginastotales, tipoconsulta)
 {
-    //inserta el boton <<
-    var liizquierda=document.createElement('li');
-    liizquierda.innerHTML = "<li id='izquierdo' class='disabled'><a href='#!'><i class='material-icons'>chevron_left</i></a></li>";
-    document.getElementById(nombrelista).appendChild(liizquierda);
+    if (cantidadpaginastotales > 1)
+    {
 
+        //inserta el boton <<
+        var liizquierda=document.createElement('li');
+        liizquierda.innerHTML = "<li id='izquierdo' onclick='iratras(\"" + tipoconsulta + "\")' class='" + nombrelista + " disabled'><a href='#!'><i class='material-icons'>chevron_left</i></a></li>";
+        document.getElementById(nombrelista).appendChild(liizquierda);
+    }
 
     // Creo un elemento en la lista para cada pagina
 
-    for (var a = 1; a <= cantidadpaginas; a++) 
+    for (var a = 1; a <= cantidadpaginastotales; a++) 
     {
         var li=document.createElement('li');
         li.id = "pagina" + a + nombrelista; 
 
-        if(1==a)
-            li.innerHTML="<li onclick='irapagina(" + a + ")' class='active'><a href='#!'>" + a  + "</a></li>";
+        if(1==a){
+            li.innerHTML = "<li onclick='irapagina(" + a + ",\"" + tipoconsulta + "\",\"" + nombrelista + "\")' class='" + nombrelista + " waves-effect'><a href='#!'>" + a  + "</a></li>";
+            li.classList.add("active"); 
+        }
         else
-            li.innerHTML="<li onclick='irapagina(" + a + ")' class='waves-effect'><a href='#!'>" + a + "</a></li>";
+            li.innerHTML = "<li onclick='irapagina(" + a + ",\"" +  tipoconsulta + "\",\"" + nombrelista + "\")' class='" + nombrelista + " waves-effect '><a href='#!'>" + a + "</a></li>";
 
         document.getElementById(nombrelista).appendChild(li);
     }
 
-    var liderecha=document.createElement('li');
-    liderecha.innerHTML = "<li class='waves-effect'><a href='#!'><i class='material-icons'>chevron_right</i></a></li>";
-    document.getElementById(nombrelista).appendChild(liderecha);
-
+    if (cantidadpaginastotales > 1)
+    {
+        var liderecha=document.createElement('li');
+        liderecha.innerHTML = "<li onclick='iradelante(\"" + tipoconsulta + "\")' class='" + nombrelista + " waves-effect'><a href='#!'><i class='material-icons'>chevron_right</i></a></li>";
+        document.getElementById(nombrelista).appendChild(liderecha);
+    }
 }
 
 
-
-function muestraanuncionarreglo(tipo, cantidadpaginas)
+function irapagina(pagina, tipoconsulta,nombrelista)
 {
+    
+    console.log("PAgina actual buscados " + paginaactualbuscados + "," + tipoconsulta + "," + nombrelista);
+    console.log("PAgina actual ofertas " + paginaactualofertas + "," + tipoconsulta + "," + nombrelista);
 
+    if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros" )
+    {
+        var pag = document.getElementById("pagina" + paginaactualbuscados + nombrelista);
+        pag.classList.remove("active"); 
+
+        paginaactualbuscados = pagina;
+        pag = document.getElementById("pagina" + paginaactualbuscados + nombrelista);
+        pag.classList.add("active"); 
+
+        muestraanuncionarreglo(paginaactualbuscados, tipoconsulta);
+    } else if (tipoconsulta == "consultatodosanunciosoferta")
+    {
+        var pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
+        pag.classList.remove("active"); 
+
+        paginaactualofertas = pagina;
+        pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
+        pag.classList.add("active"); 
+
+        muestraanuncionarreglo(paginaactualofertas, tipoconsulta);
+    }
+}
+
+function iradelante(tipoconsulta){
+
+    if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros")
+    {
+        if( paginaactualbuscados < paginastotalesbuscados)
+        {
+            paginaactualbuscados = paginaactualbuscados + 1;
+            muestraanuncionarreglo(paginaactualbuscados,tipoconsulta);
+        }
+    } else if (tipoconsulta == "consultatodosanunciosoferta")
+    {
+        if(paginaactualofertas < paginastotalesofertas)
+        {
+            paginaactualofertas = paginaactualofertas + 1;
+            muestraanuncionarreglo(paginaactualofertas, tipoconsulta);
+
+        }
+    }
+}
+
+function iratras(tipoconsulta)
+{
+ if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros")
+    {
+        if( paginaactualbuscados > 1)
+        {
+            paginaactualbuscados = paginaactualbuscados - 1;
+            muestraanuncionarreglo(paginaactualbuscados,tipoconsulta);
+        }
+    } else if (tipoconsulta == "consultatodosanunciosoferta")
+    {
+        if(paginaactualofertas > 1)
+        {
+            paginaactualofertas = paginaactualofertas - 1;
+            muestraanuncionarreglo(paginaactualofertas, tipoconsulta);
+        }
+    }
+}
+
+function muestraanuncionarreglo(numerodepagina, tipoconsulta)
+{
+    var arregloconsulta = [];
     var t = null;
 
-    if (tipo == "consultarubros") {
+    //segun quien es el objeto que busca, elimina los anuncios anteriores de la vista
+    if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros") 
+    {
         sn = $('#seccionbuscadosbuscador div');
         sn.each(function () {
             $(this).remove();
         });
 
         t = $('#seccionbuscadosbuscador');
+
         $(".hijos").remove();
 
-        if (cantidadpaginas > 0) {
-            $("#seccionbuscadosbuscador li").remove();
-            insertapaginador("listaencontradosbuscador",cantidadpaginas);
-        }
+        arregloconsulta = arregloconsultabuscados;
 
-    } else if (tipo == "consultatodosanunciosoferta") {
+    } else if (tipoconsulta == "consultatodosanunciosoferta") 
+    {
         t = $('#ofertasanuncios');
         $(".hijosofer").remove();
+        arregloconsulta = arregloconsultaofertas;
 
-        if (cantidadpaginas > 0) {
-            $("#listaencontradospromociones li").remove();
-            insertapaginador("listaencontradospromociones",cantidadpaginas);
-        }
+    } 
 
-    } else if (tipo == "consultafiltros") {
-        t = $('#seccionbuscadosbuscador');
-        $(".hijos").remove();
-
-        if (cantidadpaginas > 0) {
-            $("#listaencontradosbuscador li").remove();
-            insertapaginador("listaencontradosbuscador", cantidadpaginas);
-        }
-    }
+    //+1 porque el primer elemento a mostrar debe ser uno mas al registro del bloque anterior
+    var limite_inferior_amostrar = (cantidadporpagina * (numerodepagina - 1)) + 1; 
+    var limite_superior_amostrar = cantidadporpagina * numerodepagina;
 
     for(var a = 0;a < arregloconsulta.length;a++)
     {
-        t.append(arregloconsulta[a].insercion);
+        if(a >= limite_inferior_amostrar && a <= limite_superior_amostrar)
+            t.append(arregloconsulta[a].insercion);
     }
+
+    imageneszoom();
+    declaracollapsible();
+    inicializaselect();
 
 }
 
