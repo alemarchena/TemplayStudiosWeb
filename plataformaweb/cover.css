@@ -359,16 +359,40 @@ hr{
 }
 
 /* -------------------- Media Queries ------------------------------- */
- @media (min-width:  1041px){
+ @media (min-width:  1341px){
 
   .card.large 
   {
-    height: 470px!important;
+    height: 505px!important;
   }
 
 
     .tamaimagen{ 
-      height: 200px; 
+      height: 250px; 
+      width: auto!important;
+      padding-top: 1em;
+    }
+
+   .slider {
+    height: 480px!important;
+     resize: vertical;
+   }
+   .slides {
+    height: 440px!important;
+     resize: vertical;
+   }
+ }
+
+ @media (min-width:  1041px) and (max-width: 1340px){
+
+  .card.large 
+  {
+    height: 530px!important;
+  }
+
+
+    .tamaimagen{ 
+      height: 250px; 
       width: auto!important;
       padding-top: 1em;
     }
@@ -387,11 +411,11 @@ hr{
 
     .card.large 
   {
-    height: 510px!important;
+    height: 530px!important;
   }
 
     .tamaimagen{ 
-      height: 200px; 
+      height: 250px; 
       width: auto!important;
       padding-top: 1em;
     }
@@ -424,11 +448,11 @@ hr{
 {
   .card.large 
   {
-    height: 430px!important;
+    height: 455px!important;
   }
 
     .tamaimagen{ 
-      height: 180px!important; 
+      height: 220px!important; 
       padding-top: 1em;
       width: auto!important;
     }
@@ -449,11 +473,11 @@ hr{
 
   .card.large 
   {
-    height: 455px!important;
+    height: 475px!important;
   }
 
   .tamaimagen{ 
-      height: 200px!important; 
+      height: 250px!important; 
       padding-top: 1em;
       width: auto!important;
     }
@@ -483,7 +507,7 @@ hr{
   }
 
   .tamaimagen{ 
-      height: 200px!important; 
+      height: 250px!important; 
       padding-top: 1em;
       width: auto!important;
     }
