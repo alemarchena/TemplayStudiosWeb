@@ -1447,22 +1447,16 @@ function configuraciontablacaja(tabla) {
     });
 }
 
-function consultaranunciosvender(e) {
+function consultaranunciosvender(tipo) {
 
     if ($.fn.dataTable.isDataTable('#tablaanunciosvender')) {
         t = $('#tablaanunciosvender').DataTable();
     }
-    // var seleccion = document.getElementById("opcioneslista");
-    // var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
-
     var seleccionidrubro = document.getElementById("opcioneslista").value;
 
-
     var bdd = conexionbdd;
-
     var tabla = tablaanuncios;
     var tabladerubros = tablarubros;
-    var tipo = "consultarubros";
     var rutaimagenes = "imagenes/";
 
     var id;
@@ -1470,36 +1464,31 @@ function consultaranunciosvender(e) {
     if (document.getElementById('id')) {
         id = document.getElementById('id').value;
     } else
-        id = "";
-
-
-    if (id == "")
         id = 0;
-    else
-        id = id;
 
+    var filtro = [];
+    if(tipo == "consultafiltros"){
+
+        // si el tipo no es rubro va a buscar por filtro
+        var textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
+        
+        if (textobuscado == "") {
+            return false;
+        }
+        filtro.push( textobuscado );
+    }
+    
     var itemanuncio = new Object();
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
     itemanuncio.tablarubros = tabladerubros;
-
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
-
-    itemanuncio.titulo = "";
-    itemanuncio.descripcion = "";
-    itemanuncio.precio = "";
-    itemanuncio.costo = "";
-    itemanuncio.esnovedad = "";
-    itemanuncio.esoferta = "";
-    itemanuncio.nopublicar = "";
-    itemanuncio.observaciones = "";
-    itemanuncio.comentarios = "";
-
     itemanuncio.rutaimagenes = rutaimagenes;
     itemanuncio.idrubro = seleccionidrubro ;
-    itemanuncio.imagen = "";
-    itemanuncio.filtro = "";
+    itemanuncio.filtro = filtro;
+
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     t.clear().draw(true);
@@ -1518,7 +1507,7 @@ function consultaranunciosvender(e) {
                 $.each(dd, function (key, value) {
 
                     t.row.add([
-                        dd[key].observaciones,
+                        // dd[key].observaciones,
                         dd[key].titulo,
                         dd[key].descripcion,
                         dd[key].precio,
@@ -1528,7 +1517,7 @@ function consultaranunciosvender(e) {
                         "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='number' class='validate escampoprecio' value=" + "'" + dd[key].precio + "'></input>",
                         "<a data-position='right'  data-tooltip='Guardar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
-                        "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>"
+                        "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>"
                         
                     ]).draw(false);
                 });

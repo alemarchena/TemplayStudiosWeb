@@ -20,12 +20,14 @@
     <!-- datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
+    <script>r = Math.random();</script>
+
 
     <!-- estilos -->
-    <link rel="stylesheet" type="text/css" href="css/estilo.css?20130620">
-    <link rel="stylesheet" type="text/css" href="cover.css?20130620">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css?" + r>
+    <link rel="stylesheet" type="text/css" href="cover.css?" + r>
 
-    <link rel="icon" type="image/png" href="imagenessitio/favicon.png">
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="icon" href="/img/logoempresa.png" type="image/png">
 
 
@@ -50,10 +52,8 @@
 
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    
-    <script>r = Math.random();</script>
-    <script src="configuracion.js?" + r></script>
 
+    <script src="configuracion.js?" + r></script>
     <script type="text/javascript">
    
 

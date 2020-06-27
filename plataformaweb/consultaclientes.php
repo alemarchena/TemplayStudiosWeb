@@ -35,11 +35,11 @@
     if($tipo == "consultatodosanuncios" || $tipo == "consulta" || $tipo == "consultaclienteenventa" || $tipo == "verificar")
     {
         if($tipo == "consultatodosanuncios")
-            $sql = "Select * from " .$tabla. " where 1 order by nombrecliente desc";
+            $sql = "Select * from " .$tabla. " where 1 order by nombrecliente asc";
         else if( $tipo == "consulta" ){
-            $sql = "Select * from " .$tabla. " where idcliente =" . $id . " order by nombrecliente desc";
+            $sql = "Select * from " .$tabla. " where idcliente =" . $id . " order by nombrecliente asc";
         }else if( $tipo == "consultaclienteenventa" ){
-            $sql = "Select * from " .$tablaventas. " where idcliente =" . $id . " order by nombrecliente desc";
+            $sql = "Select * from " .$tablaventas. " where idcliente =" . $id . " order by nombrecliente asc";
         }else if( $tipo == "verificar" ){
             $sql = "Select * from " .$tabla. " where email = '" . $emailcliente . "'";
             // echo $sql;

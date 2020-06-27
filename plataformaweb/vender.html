@@ -4,15 +4,18 @@
             <div class="card">
                 
                 <!-- <h5>Ventas <i class="fas fa-shopping-cart"></i></h5> -->
-                <div class="row justify-content-center">
-                    
-                    <input id="fechaventa"  style="font-size: 1.3em;" type="text" class="datepicker center" readonly>
-                    
-                </div>
+                
 
-                <div class="row justify-content-center m-0 p-0">
+                <div class="row justify-content-center mt-2">
                     <div class="col-sm-4 m-0 p-0">
-                        <p >La lista inferior muestra las ventas del día para ver o eliminar</p>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="text" id="bonusestablecido" value="" class="center" readonly>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>Es el (porcentaje) % de bonus que obtiene cliente por cada compra</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-4">
                         <div id="headingVender">
@@ -20,38 +23,43 @@
                                     aria-expanded="true" aria-controls="collapseVenta">Vender <i class="fas fa-shopping-cart"></i></button>
                         </div>
                     </div>
-                    <div class="col-sm-4" style="text-align: end;">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <input type="text" id="bonusestablecido" value="" class="center" readonly>
-                            </div>
-
-                            <div class="col-sm-9">
-                                <p>Es el (porcentaje) % de bonus que obtiene cliente por cada compra</p>
-                            </div>
-
+                    <div class="col-sd-4 col-md-2 offset-md-2" style="text-align: end;">
+                        <div class="row justify-content-center">
+                            <input id="fechaventa"  style="font-size: 1.3em;" type="text" class="datepicker center" readonly>
                         </div>
                     </div>
                 </div>
                 
                 <div id="collapseVenta" class="collapse " aria-labelledby="headingVender" data-parent="#accordionVentas">
-                    <div class="card-body">
+                    
                         <!-- Vender -->
-                        <div class="row m-0 p-0">
+                        <div class="row">
                             <!-- Columna de lista de anuncios -->
                             <div class="col-sm-12">
-                                <div class="row justify-content-center bd-highlight cabecera mb-4 p-4">
-                                    <div class="col-sm-4">
-                                        <label for="opcioneslista" class="colorletras">Selecciona un Rubro a buscar</label>
-                                        <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                                <div class="row justify-content-center bd-highlight cabecera p-4">
+                                    <div class="col-sm-6">
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-5">
+                                                <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                                            </div>
+                                            <div class="col-sm-5" id="contenedorbusqueda">
+                                                <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="Encuentra marcas y productos aquí" class="form-control mr-sm-2" type="search" aria-label="Search">
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <i id="consulta" class="fas fa-search"></i>
+                                                
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label for="opcioneslistaclientes" class="colorletras">Selecciona un cliente</label>
-                                        <select class="form-control" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label for="opcioneslistatiposdepago" class="colorletras">Selecciona un tipo de pago</label>
-                                        <select class="form-control" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
+                                    <div class="col-sm-6">
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-6">
+                                                <select class="form-control" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-control" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class=" col-sm-2">
@@ -65,7 +73,7 @@
                                     <table id="tablaanunciosvender" class="display table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Observaciones</th>
+                                                <!-- <th>Observaciones</th> -->
 
                                                 <th class="titulocolumna">Título</th>
                                                 <th class="descripcioncolumna">Descripción</th>
@@ -81,7 +89,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
+                                                <!-- <td></td> -->
 
                                                 <td class="imagencolumna"></td>
                                                 <td class="titulocolumna"></td>
@@ -100,7 +108,7 @@
                             </div>
                         </div>
                         <!-- Fin vender -->
-                    </div>
+                    
                 </div>
             </div>
             <div class="card">
@@ -178,6 +186,27 @@ function consultaventadiaactual() {
     consultarventasdeldia(fechaventaenviada);
 }
 
+function validarenter(e) {
+    var key = window.event ? e.which : e.keyCode;
+
+    if (key == 13) {
+
+        textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
+
+        if (textobuscado == "") {
+            return false;
+        }
+
+        consultaranunciosvender("consultafiltros");
+        M.toast(
+        {
+            html: 'Buscando productos...',
+            displayLength: '3000'
+        });
+    }
+}
+
 $(document).ready(function () 
 {
     configuracalendario();
@@ -242,7 +271,16 @@ $(document).ready(function ()
     });
 
     
-
+    $("#consulta").click(function (e) 
+    {
+        consultaranunciosvender("consultafiltros");
+         M.toast(
+        {
+            html: 'Buscando productos...',
+            displayLength: '3000'
+        });
+    });
+    
     function colocafechaactual() {
 
 
@@ -270,7 +308,7 @@ $(document).ready(function ()
 
 
 $("#opcioneslista").on('change', function () {
-    consultaranunciosvender();
+    consultaranunciosvender("consultarubros");
     M.toast(
     {
         html: 'Buscando productos por rubro...',
