@@ -206,6 +206,8 @@ function validarnumero(e, contenido, caracteres)
     return false;
 }
 
+
+
 function validartecla(e, contenido, caracteres) {
 
     // obtenemos la tecla pulsada
@@ -1447,6 +1449,38 @@ function configuraciontablacaja(tabla) {
     });
 }
 
+
+function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,titulo)
+{
+    var key = window.event ? e.which : e.keyCode;
+
+    if (e.keyCode == 107) //tecla +
+    {
+
+       vender(id,idrubro,costo,titulo);
+       
+       return false;
+       
+    }
+    
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+        return true;
+    }
+
+
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
+    {
+        return true;
+    }
+    return false;
+
+}
+
+
+arregloitemsventa = [];
+
+
 function consultaranunciosvender(tipo) {
 
     if ($.fn.dataTable.isDataTable('#tablaanunciosvender')) {
@@ -1502,70 +1536,256 @@ function consultaranunciosvender(tipo) {
         success: function (data) {
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
-
-
+                
                 $.each(dd, function (key, value) {
 
                     t.row.add([
-                        // dd[key].observaciones,
-                        dd[key].titulo,
-                        dd[key].descripcion,
+
                         dd[key].precio,
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                        "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate masmenoscolumna'></input>",
+                        dd[key].descripcion,
+                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 6) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 6,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' value='1' type='text' class='validate masmenoscolumna saltacantidad'></input>",
+                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 6) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 6) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id     + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
+                        dd[key].titulo,
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
-                        "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='number' class='validate escampoprecio' value=" + "'" + dd[key].precio + "'></input>",
-                        "<a data-position='right'  data-tooltip='Guardar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
-
+                        "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
                         "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>"
                         
-                    ]).draw(false);
+                    ]).draw(true);
+                    
+
+                    
                 });
                 t.columns.adjust().draw();
                 reconocerTooltipped();
                 imageneszoom();
                 eligetipopago();
+                identificasaltainput('saltacantidad');
+                identificasaltainput('saltaprecio');
+              
+
+
             }
         },
         error: function (e) {
             console.log("Error en la consulta." + e.value);
         }
     });
+
+
 }
 
-function vender(id,idrubro,costo){
+
+function identificasaltainput(clase)
+{
+    var todos = $('.' + clase).length;
+    var indice=0;
+
+    $('.' + clase).on('keydown',function(e)
+    {
+        if(e.keyCode === 13 || e.keyCode === 40) 
+        {
+            e.preventDefault();
+            indice = $('.' + clase).index(this)+1;
+            if(indice == todos )
+                indice = 0;
+            $('.' + clase)[indice].focus();
+        }
+
+        if ( e.keyCode === 38 )
+        {
+            e.preventDefault();
+            indice = $('.' + clase).index(this) - 1;
+
+            if (indice == -1)
+                indice = todos-1;
+
+            $('.' + clase)[indice].focus();
+        } 
+        
+        
+        
+    });   
+    
+}
+
+//es el metodo que queda ligado al boton en la linea del producto
+function vender(id,idrubro,costo,titulo){
+
+    if(!id){
+        return false;
+    }
 
     if ($.fn.dataTable.isDataTable('#tablavender')) {
         tv = $('#tablavender').DataTable();
     }
+    
     var can = document.getElementById('cantidad_' + id);
+    var cantisinmas = can.value.replace('+','');
+    can.value = cantisinmas;
+
     var pre = document.getElementById('precio_' + id);
     var fechaventa = $("#fechaventa").val();
-    var nombrecliente = $("#clienteelegido").val();
-    var idclienteelegido = document.getElementById("opcioneslistaclientes").value;
     var porcentajebonus = $("#bonusestablecido").val();
-    var tipopagonombrecorto = document.getElementById("opcioneslistatiposdepago").value;
     var bonus = Math.round(can.value * (costo * porcentajebonus / 100));
 
-    if (parseInt(can.value, 10) > 0 && fechaventa != "" && nombrecliente != "Selecciona un cliente" && nombrecliente != "" && tipopagonombrecorto != "")
+    if (parseInt(can.value, 10) > 0 && fechaventa != "" )
     {
         fechaventa = conviertefechaastringdmy(fechaventa);
-        guardarventa(id, pre.value, costo, idrubro, fechaventa, can.value,idclienteelegido, bonus, tipopagonombrecorto);
+        reservaritemventa(id, pre.value, costo, idrubro, fechaventa, can.value, bonus,titulo);
         can.value = "";
 
-    }else
+    }else if (fechaventa == "" )
     {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Complete fecha, cantidad cliente y tipo de pago',
-            showConfirmButton: false,
-            timer: 2500
-        })
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
+            timer: 2500})
+    }else if (parseInt(can.value, 10) > 0 )
+    {
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete cantidad',showConfirmButton: false,
+            timer: 2500})
+    }
+
+}
+
+function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechaventa_riv, cantidad_riv, bonus_riv,titulo_riv) {
+
+    var objeto = new Object();
+
+    objeto.id = id_riv;
+    objeto.precio = precio_riv;
+    objeto.costo = costo_riv;
+    objeto.idrubro = idrubro_riv;
+    objeto.fechaventa = fechaventa_riv;
+    objeto.cantidad = cantidad_riv;
+    objeto.bonus = bonus_riv;
+    objeto.titulo = titulo_riv;
+    
+    //agrega el item en el objeto
+    arregloitemsventa.push(objeto);
+
+    //agrega visualmente el item en la pagina
+    agregaritemventa(id_riv, precio_riv, cantidad_riv, titulo_riv);
+}
+
+
+function agregaritemventa(id, precio, cantidad,titulo) {
+
+    var t;
+
+    if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
+        t = $('#tablaitemsventa').DataTable();
+    }
+   
+    var subtotal = precio * cantidad;
+
+    t.row.add([
+        id,
+        titulo,          
+        cantidad,
+        precio,
+        subtotal,
+        "<a class='borra' onclick='borrarfila(\"" + id + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+    ]);
+
+
+    t.columns.adjust().draw();
+    
+    M.toast(
+    {
+        html: 'Ok Agregado!',
+        displayLength: '1000'
+    });
+}
+
+function borrarfila(id)
+{
+    //borra la fila visualmente
+    $("#tablaitemsventa").on('click', '.borra', function () {
+        // $(this).parent().parent().remove().draw(false);
+        $(this).parent().parent().css('background-color', 'Red');
+        M.toast({ html: 'El item en rojo no se guardará!!!' })
+
+    }); 
+
+
+    //borra la fila del arreglo
+    for(var a = 0 ; a < arregloitemsventa.length ; a++)
+    {
+        if (arregloitemsventa[a].id == id)
+        {
+            arregloitemsventa.splice(a,1);
+        }
+    }
+
+    if(arregloitemsventa.lenght == 0)
+    {
+        if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
+            t = $('#tablaitemsventa').DataTable();
+        }else
+        {
+            t = $('#tablaitemsventa').DataTable();
+        }
+
+       t.clear().draw(false);
+       
     }
 }
 
-function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclienteelegido, bonus,tipopago) {
+
+
+
+
+
+// -------------------------------- Se procesa desde un boton en la pagina ---------------------
+function procesarventa(){
+    var nombrecliente = $("#clienteelegido").val();
+    var idclienteelegido = document.getElementById("opcioneslistaclientes").value;
+    var tipopagonombrecorto = document.getElementById("opcioneslistatiposdepago").value;
+
+     if (nombrecliente == "" || nombrecliente == "Selecciona un cliente")
+    {
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'Indique el cliente',showConfirmButton: false,
+            timer: 1500})
+        return false;
+     
+    }else  if (tipopagonombrecorto == ""){
+
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'Indique el tipo de pago',showConfirmButton: false,
+            timer: 1500})
+        return false;
+    }
+   if(arregloitemsventa.length <= 0)
+   {
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'Busque artículos y agregue al pedido',showConfirmButton: false,
+            timer: 1500})
+        return false;
+
+   }
+    var ar = arregloitemsventa;
+
+    //recorre el arreglo de items y los guarda
+    for (var a = 0; a < ar.length; a++)
+    {
+        guardarventa(ar[a].id, ar[a].precio, ar[a].costo, ar[a].idrubro, ar[a].fechaventa, ar[a].cantidad,idclienteelegido, ar[a].bonus, tipopagonombrecorto);
+    }
+    
+    var fechaventa = $("#fechaventa").val();
+    fechaventa = conviertefechaastringdmy(fechaventa);
+
+    setTimeout(function(){ consultarventasdeldia(fechaventa); }, 2000);
+
+    
+
+    arregloitemsventa = [];
+    ar = [];
+    var t = $("#tablaitemsventa").DataTable();
+    
+    t.clear().draw(true);
+
+
+}
+
+function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclienteelegido, bonus,tipopagonombrecorto) {
 
     var bdd = conexionbdd;
     var tabla = tablaventas;
@@ -1583,13 +1803,12 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
     itemventa.cantidad = cantidad;
     itemventa.idclienteelegido = idclienteelegido;
     itemventa.bonus = bonus;
-    itemventa.tipopago = tipopago;
+    itemventa.tipopago = tipopagonombrecorto;
     itemventa.fechaventa = fechaventa;
 
-    itemventa.fechaventadesde = "";
-    itemventa.fechaventahasta = "";
-
     var vendido = JSON.stringify(itemventa);
+
+    console.log("Ajax venta " + itemventa);
 
     $.ajax({
         url: "consultaventas.php",
@@ -1600,17 +1819,19 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
 
                 var tipobonus = "bonussumado";
                 guardarbonusencliente(idclienteelegido, bonus, tipobonus);
-                consultarventasdeldia(fechaventa);
 
                 M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
 
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
+
         },
         error: function (e) {
             M.toast({ html: 'Error al intentar guardar.' });
         }
+
+
     });
 }
 
@@ -1656,7 +1877,8 @@ function consultarventasdeldia(fechaventa,e) {
 
     if ($.fn.dataTable.isDataTable('#tablavender')) {
         tventas = $('#tablavender').DataTable();
-    }
+    }else
+        tventas = $('#tablavender').DataTable();
 
     var bdd = conexionbdd;
     var tabla = tablaventas;
@@ -1676,20 +1898,7 @@ function consultarventasdeldia(fechaventa,e) {
     itemventa.tipo = tipo;
 
     itemventa.fechaventa = fechaventa;
-    itemventa.fechaventadesde = "";
-    itemventa.fechaventahasta = "";
-    itemventa.id = "";
-    itemventa.titulo = "";
-    itemventa.precio = "";
-    itemventa.costo = "";
-    itemventa.descripcion = "";
-    itemventa.rubro = "";
-    itemventa.cantidad = "";
-    itemventa.nombrecliente = "";
-    itemventa.idclienteelegido = "";
-    itemventa.bonus = "";
-    itemventa.tipopago = "";
-
+    
     var vendido = JSON.stringify(itemventa);
     tventas.clear().draw(true);
 
@@ -1722,7 +1931,7 @@ function consultarventasdeldia(fechaventa,e) {
 
                     ]).draw(false);
                 });
-                tventas.columns.adjust().draw();
+                tventas.columns.adjust().draw(false);
 
             }
         },
@@ -1778,20 +1987,6 @@ function eliminaventa(idventa, idcliente, bonusventa)
     itemventa.tabla = tabla;
     itemventa.tipo = tipo;
     itemventa.id = id;
-
-    itemventa.fechaventa = "";
-    itemventa.fechaventadesde = "";
-    itemventa.fechaventahasta = "";
-    itemventa.titulo = "";
-    itemventa.precio = "";
-    itemventa.costo = "";
-    itemventa.descripcion = "";
-    itemventa.rubro = "";
-    itemventa.cantidad = "";
-    itemventa.nombrecliente = "";
-    itemventa.idclienteelegido = "";
-    itemventa.bonus = "";
-    itemventa.tipopago = "";
 
     var vendido = JSON.stringify(itemventa);
 
@@ -1884,6 +2079,18 @@ function configuraciontablaanunciosvender() {
     });
 }
 
+
+
+
+function configuraciontablaPedido() {
+    $('#tablaitemsventa').DataTable({
+        dom: '<"top"CRTl><"clear">rt<"bottom"ip><"clear">',
+       "paging":   false,
+        "ordering": false,
+        "info":     false
+    });   
+}
+
 function configuraciontablavender() {
     $('#tablavender').DataTable({
         "language": {
@@ -1905,7 +2112,7 @@ function configuraciontablavender() {
                 "sortAscending": "Ordenar columna ascendente",
                 "sortDescending": "Ordenar columna descendente"
             },
-            "pageLength": 10
+            "pageLength": -1
         },
         "lengthMenu": [
             [10, 25, 50, -1],
