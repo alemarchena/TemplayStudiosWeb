@@ -6,7 +6,7 @@ var velocidadscroll = 600;
 //-------------------------------------------controla lo que aparece o no segun el scroll ----------------------
 $(window).on('scroll', function () {
 
-	if ($(window).scrollTop() > 64) 
+	if ($(window).scrollTop() > 32) 
 	{
 		$(".navbar-fixed").css("position", "absolute");
 		$(".navbar-fixed").css("top", "0px");	

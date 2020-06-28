@@ -1479,6 +1479,7 @@ function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,ti
 
 
 arregloitemsventa = [];
+totalpedido = 0;
 
 
 function consultaranunciosvender(tipo) {
@@ -1533,7 +1534,9 @@ function consultaranunciosvender(tipo) {
         url: "consultaanuncios.php",
         data: { objetoanuncio: objetoanuncio },
         type: "post",
-        success: function (data) {
+        success: function (data)
+        {
+            
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
                 
@@ -1545,7 +1548,7 @@ function consultaranunciosvender(tipo) {
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
                         dd[key].descripcion,
                         "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 6) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 6,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' value='1' type='text' class='validate masmenoscolumna saltacantidad'></input>",
-                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 6) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 6) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id     + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
+                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 6) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 6,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='precio_"   + dd[key].id + "' name ='precio_"   + dd[key].id     + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
                         dd[key].titulo,
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                         "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
@@ -1563,8 +1566,7 @@ function consultaranunciosvender(tipo) {
                 identificasaltainput('saltacantidad');
                 identificasaltainput('saltaprecio');
               
-
-
+                hacefoco();
             }
         },
         error: function (e) {
@@ -1574,7 +1576,15 @@ function consultaranunciosvender(tipo) {
 
 
 }
+function hacefoco()
+{
+    $('.saltacantidad')[0].focus();
 
+    var alturamenu = $('.menu').outerHeight(true);
+    var posicion = $("#tablaanunciosvender").offset().top - alturamenu; 
+    $("HTML, BODY").animate({ scrollTop: posicion}, 600);
+    
+}
 
 function identificasaltainput(clase)
 {
@@ -1677,7 +1687,7 @@ function agregaritemventa(id, precio, cantidad,titulo) {
     }
    
     var subtotal = precio * cantidad;
-
+    console.log("Subtotal " + subtotal);
     t.row.add([
         id,
         titulo,          
@@ -1686,10 +1696,12 @@ function agregaritemventa(id, precio, cantidad,titulo) {
         subtotal,
         "<a class='borra' onclick='borrarfila(\"" + id + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
     ]);
-
-
     t.columns.adjust().draw();
     
+    // var totalanterior = parseInt($("#totalpedido").val());
+    totalpedido = totalpedido + subtotal;
+    document.getElementById("totalpedido").value = totalpedido;
+
     M.toast(
     {
         html: 'Ok Agregado!',
@@ -1697,25 +1709,31 @@ function agregaritemventa(id, precio, cantidad,titulo) {
     });
 }
 
+
+
 function borrarfila(id)
 {
     //borra la fila visualmente
     $("#tablaitemsventa").on('click', '.borra', function () {
-        // $(this).parent().parent().remove().draw(false);
-        $(this).parent().parent().css('background-color', 'Red');
-        M.toast({ html: 'El item en rojo no se guardará!!!' })
-
+        $(this).parent().parent().css('display', 'none');
     }); 
 
 
+    var subtotal = 0;
     //borra la fila del arreglo
     for(var a = 0 ; a < arregloitemsventa.length ; a++)
     {
         if (arregloitemsventa[a].id == id)
         {
+            subtotal = parseInt(arregloitemsventa[a].cantidad * arregloitemsventa[a].precio);
             arregloitemsventa.splice(a,1);
         }
     }
+
+    totalpedido = totalpedido - subtotal;
+
+    // var totalanterior = parseInt($("#totalpedido").val());
+    document.getElementById("totalpedido").value = totalpedido;
 
     if(arregloitemsventa.lenght == 0)
     {
@@ -1778,6 +1796,8 @@ function procesarventa(){
 
     arregloitemsventa = [];
     ar = [];
+    totalpedido = 0;
+    
     var t = $("#tablaitemsventa").DataTable();
     
     t.clear().draw(true);
