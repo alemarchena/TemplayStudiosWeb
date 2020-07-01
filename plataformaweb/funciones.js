@@ -3471,6 +3471,58 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
 
     
 }
+
+
+function verificaproveedoranuncio(idanuncio, seleccionidproveedor)
+{
+    var bdd = conexionbdd;
+    var tabla = tablaanuncios;
+    var tablarubros = "";
+    var tabladeproveedores = tablaproveedores;
+    var tabladeproveedoresanuncios = tablaproveedoresanuncios;
+
+    var itemanuncio = new Object();
+    itemanuncio.bdd = bdd;
+    itemanuncio.tabla = tabla;
+    itemanuncio.tablarubros = tablarubros;
+    itemanuncio.tablaproveedores = tabladeproveedores;
+    itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
+
+    itemanuncio.tipo = "verificar";
+    itemanuncio.idproveedor = seleccionidproveedor;
+    itemanuncio.id = idanuncio;
+    itemanuncio.idrubro = "";
+    itemanuncio.filtro = "";
+
+    var objetoanuncio = JSON.stringify(itemanuncio);
+
+
+
+    $.ajax({
+
+        url: "consultaproveedoranuncio.php",
+
+        data: { objetoanuncio: objetoanuncio },
+        type: "post",
+
+        success: function (data) {
+
+            if (data == "[]") {
+                altabajaproveedoranuncio(idanuncio, seleccionidproveedor, "alta", "Ok producto asociado al proveedor")
+            } 
+        },
+        error: function (e) {
+            M.toast(
+                {
+                    html: 'No hay buena conexión!',
+                    displayLength: '4000'
+                });
+                
+            console.log("Error de comunicación");
+        }
+    });
+
+}
 // ------------------------------------------------------------------------------------------------------------
 //------------------------------------------------ CLIENTES ----------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -4267,7 +4319,7 @@ function desdehastaajuste() {
     consultarajustesdeldia(fechamovimientoenviadadesde, fechamovimientoenviadahasta);
 }
 
-function consultaranunciosparamovimientos(e) {
+function consultaranunciosparamovimientos(tipo,e) {
 
     if ($.fn.dataTable.isDataTable('#tablaanunciosmovimientos')) {
         t = $('#tablaanunciosmovimientos').DataTable();
@@ -4281,7 +4333,6 @@ function consultaranunciosparamovimientos(e) {
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
     var tabladerubros = tablarubros;
-    var tipo = "consultarubros";
     var rutadeimagenes = rutaimagenes;
 
     var tabladecompras = tablacompras;
@@ -4303,6 +4354,19 @@ function consultaranunciosparamovimientos(e) {
     else
         id = id;
 
+    var filtro = [];
+    if(tipo == "consultafiltros"){
+
+        // si el tipo no es rubro va a buscar por filtro
+        var textobuscado = $("#cajabusquedacompras").val();
+        textobuscado = document.getElementById("cajabusquedacompras").value;
+        
+        if (textobuscado == "") {
+            return false;
+        }
+        filtro.push( textobuscado );
+    }
+
     var itemanuncio = new Object();
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
@@ -4317,20 +4381,10 @@ function consultaranunciosparamovimientos(e) {
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
 
-    itemanuncio.titulo = "";
-    itemanuncio.descripcion = "";
-    itemanuncio.precio = "";
-    itemanuncio.costo = "";
-    itemanuncio.esnovedad = "";
-    itemanuncio.esoferta = "";
-    itemanuncio.nopublicar = "";
-    itemanuncio.observaciones = "";
-    itemanuncio.comentarios = "";
-
     itemanuncio.rutaimagenes = rutadeimagenes;
     itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
-    itemanuncio.filtro = "";
+    itemanuncio.filtro = filtro;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     var opcioninicio;
@@ -4514,7 +4568,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                 dd = JSON.parse(data); //data decodificado
                 
                 fsi = "";
-                console.log(data);
+                // console.log(data);
                 $.each(dd, function (key, value) {
 
                     if (dd[key].fechastockinicio == "0000-00-00")
@@ -4626,6 +4680,7 @@ function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, f
 
                 M.toast({ html: 'Ok compra guardada', displayLength: '1000', classes: 'rounded' });
                 actualizapreciocostoyventa(id,precionuevo, precioactual, costonuevo,costoactual);
+                verificaproveedoranuncio(id, idproveedorelegido);
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }

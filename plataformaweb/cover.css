@@ -79,6 +79,15 @@ nav a {
   background-color:#fff159 ;
 
 }
+
+.nav-wrapper{
+  background-color:#fff159 ;
+}
+
+.nav{
+  background-color:#fff159 ;
+}
+
 #seccionbusqueda{
   background-color:#fff159 ;
 }
@@ -115,7 +124,10 @@ nav a {
   color: rgb(26, 26, 26);
 }
 #cajabusqueda{
- background-color:white;
+  background-color:white;
+  position: relative;
+  max-height: 60%;
+  top: 15px;
 }
 
 .contenedorbusqueda{
@@ -269,15 +281,17 @@ li.active{
 
 }
 #divpromociones{
-  height: 3em;
+  height: 4em;
   color: white!important;
-  background-color: #24b3a7!important;
+  background-color: #009ee3!important;
+  padding-top: 0.5em;
+
 }
 
 #divgaleria{
   height: 3em;
   color: white!important;
-  background-color: #24b3a7!important;
+  background-color: #009ee3!important;
 }
 
 
@@ -357,6 +371,7 @@ hr{
 .slidecontainer {
   width: 100%;
 }
+
 
 /* -------------------- Media Queries ------------------------------- */
  @media (min-width:  1341px){

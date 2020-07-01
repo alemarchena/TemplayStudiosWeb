@@ -3,7 +3,7 @@
 
     <body>
         
-        <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
+        <!-- <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data"> -->
            
             <div class="accordion" id="accordionExample">
 
@@ -47,12 +47,23 @@
                                     </div>
                                     <div class="d-flex flex-row justify-content-center bd-highlight cabecera mb-4 p-4">
                                         <div class="col-sm-4">
-                                            <label for="opcioneslista" class="colorletras">Selecciona un Rubro a buscar</label>
-                                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                                            <div class="row justify-content-center">
+                                                <label for="opcioneslista" class="colorletras">Selecciona una categoría</label>
+                                                <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-6" id="contenedorbusqueda">
+                                                    <input id="cajabusquedacompras" onkeydown="validarentercompras(event)" placeholder="Encuentra marcas y productos aquí"
+                                                        class="form-control mr-sm-2" type="search" aria-label="Search">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <button id="consultacompras" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-sm-4">
-                                            <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
-                                            <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
+                                                <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
+                                                <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="opcioneslistatiposmovimientostock" class="colorletras">Selecciona un tipo de movimiento</label>
@@ -238,12 +249,34 @@
                 </div>
 
             </div>
-        </form>
+        <!-- </form> -->
     </body>
 </html>
 
 
 <script>
+
+
+function validarentercompras(e) {
+    var key = window.event ? e.which : e.keyCode;
+
+    if (key == 13) {
+
+        textobuscado = $("#cajabusquedacompras").val();
+        textobuscado = document.getElementById("cajabusquedacompras").value;
+
+        if (textobuscado == "") {
+            return false;
+        }
+
+        consultaranunciosparamovimientos("consultafiltros");
+        M.toast(
+            {
+                html: 'Buscando productos...',
+                displayLength: '3000'
+            });
+    }
+}
 
 $(document).ready(function () 
 {
@@ -269,6 +302,8 @@ $(document).ready(function ()
     }
 
     inicioconsulta();
+
+
 
 
     $("#opciones").change(function () {
@@ -365,12 +400,21 @@ $(document).ready(function ()
 
 
 $("#opcioneslista").on('change', function () {
-    consultaranunciosparamovimientos();
+    consultaranunciosparamovimientos("consultarubros");
     M.toast(
     {
         html: 'Buscando productos por rubro...',
         displayLength: '3000'
     });
+});
+
+$("#consultacompras").click(function (e) {
+    consultaranunciosparamovimientos("consultafiltros");
+    M.toast(
+        {
+            html: 'Buscando productos...',
+            displayLength: '2000'
+        });
 });
 
 $(document).ready(function () {
