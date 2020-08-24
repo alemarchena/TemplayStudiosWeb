@@ -79,10 +79,10 @@
             $sql = "delete from " .$tabla. " where idcliente = $id";
         }else if ($tipo == "bajaxemail")
         {
-            $sql = "delete from " .$tabla. " where emailcliente = $emailcliente";
+            $sql = "delete from " .$tabla. " where email = $emailcliente";
         }else if ($tipo == "actualizaemail")
         {
-            $sql = "update " .$tabla. " set  email= '$emailcliente' where id = $id";
+            $sql = "update " .$tabla. " set  email= '$emailcliente' where idcliente = $id";
         }
 
 
@@ -91,7 +91,7 @@
         {
             echo $resultado;
         }else{
-            echo "consultavacia ".$sql;
+            echo "consultavacia";
         }
     }else if($tipo == "bonussumado")
     {

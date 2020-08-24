@@ -6,7 +6,7 @@
 	error_reporting( E_ALL );
 
 
-	$nombreyapellido = $_POST["nombreyapellido"];
+	$nombreyapellido = $_POST["nya"];
 	
 	$email = $_POST["email"];
 	$telefono = $_POST["telefono"];
@@ -18,11 +18,15 @@
 
 	$cuerpo = " Nombre: " . $nombreyapellido . "\nEmail: " . $email . "\nTelefono: " . $telefono . "\nMensaje: " . $mensaje;
 	
-	mail($emailtemplay, $titulo , $subtitulo . $cuerpo);
+	if($emailtemplay != "")
+		mail($emailtemplay, $titulo , $subtitulo . $cuerpo);
 
-
-	mail($emailempresa, $titulo , $subtitulo . $cuerpo);
-	mail($emailencargado, $titulo , $subtitulo . $cuerpo);
+	if($emailempresa != "")
+		mail($emailempresa, $titulo , $subtitulo . $cuerpo);
+	if($emailencargado != "")
+		mail($emailencargado, $titulo , $subtitulo . $cuerpo);
+	if($emailencargado1 != "")
+		mail($emailencargado1, $titulo , $subtitulo . $cuerpo);
 	
 	
 

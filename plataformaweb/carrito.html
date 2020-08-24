@@ -72,6 +72,11 @@
             <p id="direccionfisica" style="margin:0em 0em 0em 1em;font-size: 0.9em;"></p>
         </form>            
         
+        <form id="botonesingreso" class="form-inline justify-content-center" style="color: black;" >
+            <button id="ingreso" class="btn">Login</button>
+            <button id="registro" class="btn">Registrarme</button>
+        </form>
+
         <form class="form-inline justify-content-center" style="color: black;" id="botonescarrito" >
             <button class="btn waves-effect  orange green-4 tooltipped" data-position="bottom" data-tooltip="Buscar productos"
             type="button" id="verbusqueda" name="verbusqueda"><i class="fas fa-search"></i> Buscar más</button>
@@ -79,6 +84,8 @@
             <button class="btn waves-effect  orange green-4" type="button" id="vercarrito" name="vercarrito"><i class="fas fa-shopping-cart"></i> Ver Carrito</button>
             <span class="nav-item ml-1" id="btncantidadcarrito" ></span>
         </form>
+
+
     </nav>
 
       
@@ -94,7 +101,7 @@
             
             <div class="col-sm-3 center" >
                 <div class="row justify-content-center ">
-                    <h3>Carrito de compras</h3>
+                    <h3>Carrito de pedidos</h3>
                 </div>
 
                 <div class="row justify-content-center ">
@@ -108,10 +115,10 @@
                     
                 </div>
 
-                <div class="row justify-content-center ">
+                <!-- <div class="row justify-content-center ">
                     <button id = "ingreso" class="btn">Tengo mi cuenta</button>
                     <button id = "registro" class="btn">Quiero registrarme</button>
-                </div>
+                </div> -->
 
             </div>
             <div class="col-sm-6 center" >
@@ -120,10 +127,10 @@
                         <!-- <form method=post action=""> -->
                         <div class="col-sm-12">
                             <div id="tarjeta" class="card text-center">
-                                <div class="card-header">
+                                <div id="cabeceratarjeta" class="card-header">
                                     Autenticación
                                 </div>
-                                <div class="card-body">
+                                <div id="cuerpotarjeta" class="card-body">
                                     <h5 class="card-title">Ingresa tus datos</h5>
                                    
                                     <div class="d-flex justify-content-center mt-4 row">
@@ -164,11 +171,7 @@
                 
                                 </div>
                             </div>
-                            <!-- <div class="card-footer text-muted">
-                                <div class="quickstart-user-details-container"><small></small><span id="quickstart-sign-in-status">Desconocido</span></small>
-                                    <pre><code id="quickstart-account-details"> </code></pre>
-                                </div>
-                            </div> -->
+                           
                         </div>
                         <!-- </form> -->
                 
@@ -420,7 +423,7 @@
         objeto.tipo = "alta";
         var cliente = JSON.stringify(objeto);
 
-        console.log("Alta al cliente en base mia " + cliente);
+        // console.log("Alta al cliente en base mia " + cliente);
 
         M.toast({ html: 'Trabajando...' });
 
@@ -432,15 +435,15 @@
 
             success: function (data) {
 
-                console.log("Viene de crear " + data);
+                // console.log("Viene de crear " + data);
 
                 if (data == "nobdd") {
                     console.log("No se conecto a la base de  datos");
 
                 } else if (data == "1") {
                     console.log("Usuario creado");
-                    M.toast({ html: 'Guardando...' });
-
+                    M.toast({ html: 'Habilitando usuario..' });
+                    verificarusuario();
                 } else {
                     console.log("Otro error " + data);
                 }
@@ -641,8 +644,11 @@
     function carritobusqueda() {
         $("#sectorbusqueda").load("carritobusqueda.html");
         habilitabotones();
-                            
+        ocultabotonesingreso();
     }
+
+    function ocultabotonesingreso() { document.getElementById('botonesingreso').style.visibility = "hidden"; }
+
 
     $("#vercarrito").click(function () {
       

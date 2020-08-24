@@ -233,6 +233,8 @@ function validartecla(e, contenido, caracteres) {
         var d = document.getElementById('descripcion').value;
         var p = document.getElementById('precio').value;
         var c = document.getElementById('costo').value;
+        t = t.trim();
+        d= d.trim();
 
         if (c != "" && r != "" && t != "" && d != "" && p != "" && p >= 0)
         {
@@ -246,6 +248,7 @@ function validartecla(e, contenido, caracteres) {
 
     return true;
 }
+
 
 function validarcambioimagen(){
     //valida el cambio en el input de la imagen
@@ -389,8 +392,12 @@ function EnviarFormulario()
     if (rnombre == "") { mostrarToastError("Categoría"); return; }
     if (t == "") { mostrarToastError("Titulo"); return; }
     if (d == ""){ mostrarToastError("Descripción"); return; }
-    if (p == "" || p < 0) { mostrarToastError("Precio"); return; }
-    if (c == "" || c < 0) { mostrarToastError("Costo"); return; }
+    if (p == "" || p < 0) { 
+        p = 0; 
+    }
+    if (c == "" || c < 0) { 
+        c = 0;
+    }
     if (pb == 1 && (bonus == "" || bonus == 0)) { mostrarToastError("Bonus"); return; }
     if (oa == 1 && (pea == "" || pea == 0)) { mostrarToastError("Precio tachado"); return; }
     if (tle!="" || le != "")
@@ -6103,16 +6110,17 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                         }
 
                         descripcionacotada = dd[key].descripcion;
+                        partemastexto = "";
                         
-                        if(descripcionacotada.length > 85)
+                        if(descripcionacotada)
                         {
-                            partemastexto = "<p>" + descripcionacotada + "</p>";
-                            descripcionacotada = descripcionacotada.slice(0,85) + " . . .";
-                        }else
-                        {
-                            partemastexto = "";
+                            if(descripcionacotada.length > 85)
+                            {
+                                partemastexto = "<p>" + descripcionacotada + "</p>";
+                                descripcionacotada = descripcionacotada.slice(0,85) + " . . .";
+                            }
                         }
-
+                       
 
                         var agregado = "";
                         var iconomasinfo = "";

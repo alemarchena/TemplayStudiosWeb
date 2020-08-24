@@ -114,6 +114,11 @@ nav a {
 
 }
 
+/* -----------------------PAginador pagina web ----------------------------------*/
+
+.pagination li.active a{
+  background-color: #009ee3!important;
+}
 
 /* ------------------------TARJETAS DE PUBLICACION ----------------------------- */
 
@@ -334,6 +339,23 @@ hr{
   border-color: #fff159;
 }
 
+/*--------------------------Carrito-------------------------*/
+#cuerpotarjeta{
+  background-color: white!important;
+}
+
+#cabeceratarjeta{
+  background-color: #034d6d!important;
+  color: white!important;
+}
+
+#ingreso{
+  background-color: #009ee3!important;
+}
+
+#registro{
+  background-color: #009ee3!important;
+}
 /* ---------- configuracion de las cartas -----------------*/
 .card-text{
   color: rgb(105, 105, 105)!important;
