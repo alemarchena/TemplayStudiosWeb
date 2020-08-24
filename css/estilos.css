@@ -28,11 +28,6 @@ li a {
   text-decoration: none;
   border-radius: 25%;
 
-  -webkit-box-shadow: 1px 4px 43px 35px rgba(255,0,82,0.2);
-  -moz-box-shadow: 1px 4px 43px 35px rgba(255,0,82,0.2);
-  -o-box-shadow: 1px 4px 43px 35px rgba(255,0,82,0.2);
-
-  box-shadow: 1px 4px 43px 50px rgba(255,0,82,0.2);
 }
 
 li a:hover {
@@ -203,21 +198,14 @@ p.explicacion{
     margin: 2em;
     color: rgba(230, 230, 230, 0.7);
 }
-/* --------------------------- Footer ---------------------------*/
 
-.derechos{
-    font-size: 0.8em;
-    display: flex;
-    float:center;
-    justify-content: center;
-    color: rgba(230, 230, 230, 0.7);
-    margin-top: 10em;
-    top: 100px;
-}
 
 /*------------------------- Canvas para particulas ----------------*/
 
 canvas {
+    
+    margin: 0 auto;
+    display: block;
     position: absolute;
     z-index: -10;
     top: 200;
@@ -238,4 +226,58 @@ canvas {
 
 .blue-grey.darken-1{
     opacity: 0.8;
+}
+
+/*--------------------------- Media Query --------------------------------*/
+
+
+/* ---------------------------------------------------------------------------- */
+
+@media (max-width: 2000px) {
+
+
+}
+
+@media (max-width:  768px) {
+
+  #c{
+        width:40%!important;
+        height: auto;
+    }
+}
+
+@media (min-width:  200px) and (max-width: 668px) { 
+    .logopluma{
+        width: 50px;
+        height: 40%;
+    }
+    .logomartillo{
+        width: 120px;
+    }
+
+    .logonombre{
+        width: 280px;
+    }
+    
+    li {
+        float: left;
+    }
+
+    li a {
+    display:inline-flex;
+    color: rgb(168, 168, 168);
+    text-align: center;
+    padding: 5px 16px;
+    text-decoration: none;
+    
+    }
+
+    li a:hover {
+    background-color: rgb(255,255, 255,0.5)!important;
+    }
+
+    #c{
+        width:40%!important;
+        height: auto;
+    }
 }

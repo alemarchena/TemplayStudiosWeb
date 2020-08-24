@@ -17,6 +17,12 @@
 	</form>
 </div>
 <div class="row">
+	<div class="input-field col s12">
+		<input id="email" type="email" class="validate textoweb">
+		<label for="email">Email</label>
+	</div>
+</div>
+<div class="row">
 	<form class="col s12">
 		<div class="row">
 			<div class="input-field col s12">
@@ -34,37 +40,59 @@
 <script>
 	
 	$("#enviar").click(function(){
+
+
 		var nombre = $("#nombre").val();
+		if(nombre.trim() == "")
+		{
+			M.toast({ html: 'Por favor escriba su nombre', classes: 'rounded' });
+		}else
+		{
+			var email = $("#email").val();
+			if (email.trim() == "") {
+				M.toast({ html: 'Por favor escriba su email', classes: 'rounded' });
+			}else
+			{
+				var telefono = $("#telefono").val();
+				if (telefono.trim() == "") {
+					M.toast({ html: 'Por favor escriba su teléfono', classes: 'rounded' });
+				}else
+				{
+					var mensaje = $("#mensaje").val();
+					if (mensaje == "") {
+						M.toast({ html: 'Por favor escriba un mensaje', classes: 'rounded' });
+					}else
+					{
+						M.toast({ html: 'Enviando...', classes: 'rounded' });
+						$("#enviar").prop('disabled', true);
+						$.ajax({
 
-		var email = $("#email").val();
-		var telefono = $("#telefono").val();
-		var mensaje = $("#mensaje").val();
-		M.toast({ html: 'Enviando...', classes: 'rounded' });
-		$("#enviar").prop('disabled', true);
-		$.ajax({
+							url: "controladores/enviaremail.php",
+							data: { nombre: nombre, email: email, telefono: telefono, mensaje: mensaje },
+							type: "post",
+							success: function (data) {
+								if (data != "consultavacia") {
+									$("#enviar").prop('disabled', false);
 
-			url:"controladores/enviaremail.php",
-			data:{nombre:nombre,email:email,telefono:telefono,mensaje:mensaje},
-			type:"post",
-			success:function(data){
-				if(data!="consultavacia")
-	            {
-					$("#enviar").prop('disabled', false);
 
-		
-	            	nombre = $("#nombre").val("");
-					email = $("#email").val("");
-					telefono = $("#telefono").val("");
-					mensaje = $("#mensaje").val("");
-					M.toast({ html: 'Gracias por contactarnos!', classes: 'rounded' });
-	            }
-			},
-			error:function(e){
-				alert("Error al Enviar");
-				$("#enviar").prop('disabled', false);
+									nombre = $("#nombre").val("");
+									email = $("#email").val("");
+									telefono = $("#telefono").val("");
+									mensaje = $("#mensaje").val("");
+									M.toast({ html: 'Gracias por contactarnos!', classes: 'rounded' });
+								}
+							},
+							error: function (e) {
+								alert("Error al Enviar");
+								$("#enviar").prop('disabled', false);
 
+							}
+						});
+					}
+				}
 			}
-		});
+		}
+		
 	});
 	
 
