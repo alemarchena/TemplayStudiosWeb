@@ -32,45 +32,34 @@ function loadScript(src, callback) {
 }
 
 function CargarMaterilizeYcontacto(){
-    loadScript('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js');
 
+    
     $(document).ready(function () {
-       
-        $("#contactar").click(function () {
-            $("#contenedorcontactoacercade").load("contacto.html");
+
+        $("#plataforma").click(function () {
+            $("#seccionproyectos").load("explicaplataforma.html");
         });
-        $("#acercade").click(function () {
-            $("#contenedorcontactoacercade").load("acercade.html");
+        $("#paneldecontrol").click(function () {
+            $("#seccionproyectos").load("explicapanel.html");
         });
 
         function ira() {
-            var posproyectosweb = $("#contenedorcontactoacercade").offset().top;
+            var posproyectosweb = $("#seccionproyectos").offset().top;
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);
         }
-        $("#contactar").on('click', function (e) {
+        $("#plataforma").on('click', function (e) {
             ira();
         });
-        $("#acercade").on('click', function (e) {
+        $("#paneldecontrol").on('click', function (e) {
             ira();
         });
 
-        setTimeout(function () {
 
-            //Carga el archivo con las particulas
-            loadScript('js/dat.gui.min.js', function () { loadScript('js/particulas.js') });
-
-        }, 1200);
     });
 }
 
-addEvent(window, 'load', function () { loadScript('https://code.jquery.com/jquery-3.3.1.min.js',
-    function(){ 
-        //console.log("Jquery cargado");
-        CargarMaterilizeYcontacto();
-        
-        
-});
+addEvent(window, 'load', function () {
 
-
-
+    CargarMaterilizeYcontacto();
+    // loadScript('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js',function () {        });
 });

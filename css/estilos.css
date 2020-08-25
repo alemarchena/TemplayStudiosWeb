@@ -9,7 +9,7 @@ body{
 }
 ul {
   font-family: 'Noto Sans JP', sans-serif;
-  font-size:0.8em ;
+  font-size:0.9em ;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -30,10 +30,7 @@ li a {
 
 }
 
-li a:hover {
-  background-color: rgb(116, 21, 21,0.4);
-}
-/* -------------------------------------------------------------*/
+/* -------------------- Contenedores -------------------------------*/
 
 p, h1,h2,h3,h4{
     font-family: 'Noto Sans JP', sans-serif;
@@ -49,26 +46,53 @@ p, h1,h2,h3,h4{
     margin: 0em;
     padding: 0em;
     display: flex;
-    justify-content: center;
+    justify-content: center!important;
     background-color: rgba(0, 0, 0, 0.5);
-
+}
+.contenedorsimpleizquierda{
+    margin: 0em;
+    padding: 0em;
+    display: flex;
+    justify-content: left;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 .contenedorsinfondo{
     margin: 0em;
     padding: 0em;
     display: flex;
-    justify-content: center;
+    justify-content: center!important;
     
 }
-/*----------------------- Logos ---------------------------------*/
+/*----------------------- Logos estáticos ---------------------------------*/
+.logoplumaestatico{
+    width: 40px;
+    height: 30%;
+    position: relative;
+    border: 2px;
+    border-color: black;
+}
+
+.logomartilloestatico{
+    width: 120px;
+    height: auto;
+    position: relative;
+}
+
+.logonombreestatico{
+    width: 240px;
+    position : relative;
+}
+
+
+/*----------------------- Logos dinamicos ---------------------------------*/
 .logopluma{
     left: -1000px;
     width: 60px;
     height: 50%;
-    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) .5s;
-    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) .5s;
-    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) .5s;
-    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) .5s;
+    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
     
     position: relative;
     transform:translate(1000px,0);
@@ -80,10 +104,10 @@ p, h1,h2,h3,h4{
     left: 1000px;
     width: 140px;
     height: auto;
-    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.5s;
-    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.5s;
-    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.5s;
-    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.5s;
+    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
 
     position: relative;
     transform:translate(-1000px,0);
@@ -94,10 +118,10 @@ p, h1,h2,h3,h4{
 
     top: 2000px;
     width: 280px;
-    -webkit-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.75s;
-    -moz-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.75s;
-    -o-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.75s;
-    transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.75s;
+    -webkit-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+    -moz-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+    -o-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+    transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
 
     position : relative;
     transform: translate(0,-2000px);
@@ -130,29 +154,29 @@ p, h1,h2,h3,h4{
 @keyframes luzefecto{
 
     0%{
-    -webkit-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -moz-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -o-box-shadow: 1px 3px 43px 20px rgba(201, 0, 64, 0.76);
-    box-shadow: 1px 3px 43px 40px rgba(201, 0, 64, 0.75);
+    -webkit-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -moz-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -o-box-shadow: 1px 3px 43px 20px rgba(224, 0, 64, 0.9);
+    box-shadow: 1px 3px 43px 40px rgba(224, 0, 71,0.9);
     } 
 
     20%{
-    -webkit-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -moz-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -o-box-shadow: 1px 3px 43px 20px rgba(201, 0, 64, 0.76);
-    box-shadow: 1px 3px 43px 40px rgba(201, 0, 64, 0.75);
+    -webkit-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -moz-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -o-box-shadow: 1px 3px 43px 20px rgba(224, 0, 64, 0.9);
+    box-shadow: 1px 3px 43px 40px rgba(224, 0, 64, 0.9);
     } 
     40%{
-    -webkit-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -moz-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -o-box-shadow: 1px 3px 43px 20px rgba(201, 0, 64, 0.76);
-    box-shadow: 1px 3px 43px 40px rgba(201, 0, 64, 0.75);
+    -webkit-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -moz-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -o-box-shadow: 1px 3px 43px 20px rgba(224, 0, 64, 0.9);
+    box-shadow: 1px 3px 43px 40px rgba(224, 0, 64, 0.9);
     } 
     50%{
-    -webkit-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -moz-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
-    -o-box-shadow: 1px 3px 43px 20px rgba(201, 0, 64, 0.76);
-    box-shadow: 1px 3px 43px 40px rgba(201, 0, 64, 0.75);
+    -webkit-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -moz-box-shadow: 1px 3px 43px 20px  rgba(224, 0, 64, 0.9);
+    -o-box-shadow: 1px 3px 43px 20px rgba(224, 0, 64, 0.9);
+    box-shadow: 1px 3px 43px 40px rgba(224, 0, 64, 0.9);
     } 
     75%{
     -webkit-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
@@ -164,10 +188,15 @@ p, h1,h2,h3,h4{
     -webkit-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
     -moz-box-shadow: 1px 3px 43px 20px  rgba(201, 0, 64, 0.76);
     -o-box-shadow: 1px 3px 43px 20px rgba(201, 0, 64, 0.76);
-    box-shadow: 1px 1px 7px 10px rgb(121, 121, 121,0.5);
+    box-shadow: 1px 1px 5px 7px rgba(206, 206, 206, 0.7);
 
     }
     
+}
+
+/* ------------------------------- Texto Proyectos-------------------------*/
+.proyecto{
+    color: rgb(255,0,0,0.85);
 }
 /* ------------------------------- Texto -------------------------*/
 .titulo{
@@ -222,16 +251,16 @@ canvas {
 .seccioncontacto{
     top:110px;
     background-color: rgba(255,255,255,0.5s);
+    margin-bottom: 2em;
 }
 
 .blue-grey.darken-1{
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 /*--------------------------- Media Query --------------------------------*/
 
 
-/* ---------------------------------------------------------------------------- */
 
 @media (max-width: 2000px) {
 
@@ -247,16 +276,38 @@ canvas {
 }
 
 @media (min-width:  200px) and (max-width: 668px) { 
+
+    /*----------------------- Logos estáticos ---------------------------------*/
+    .logoplumaestatico{
+        width: 30px;
+        height: 20%;
+        position: relative;
+        border: 2px;
+        border-color: black;
+    }
+
+    .logomartilloestatico{
+        width: 100px;
+        height: auto;
+        position: relative;
+    }
+
+    .logonombreestatico{
+        width: 220px;
+        position : relative;
+    }
+
+
     .logopluma{
-        width: 50px;
-        height: 40%;
+        width: 40px;
+        height: 35%;
     }
     .logomartillo{
-        width: 120px;
+        width: 110px;
     }
 
     .logonombre{
-        width: 280px;
+        width: 240px;
     }
     
     li {
@@ -272,9 +323,7 @@ canvas {
     
     }
 
-    li a:hover {
-    background-color: rgb(255,255, 255,0.5)!important;
-    }
+
 
     #c{
         width:40%!important;

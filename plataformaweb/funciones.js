@@ -437,7 +437,7 @@ function EnviarFormulario()
             if (this.readyState == 4 && this.status == 200) {
                 console.log("ok");
                  //guardar el anuncio en la base de datos
-                altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,oa,tia,pea);
+                altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le);
                 // limpiarformulario();
 
             } else

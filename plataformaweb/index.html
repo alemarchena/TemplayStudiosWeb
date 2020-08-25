@@ -16,7 +16,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width = device-width, initial-scale = 1">
-    
+
 <!-- Compiled and minified CSS -->
     <script src="https://kit.fontawesome.com/153d9eb44c.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -35,9 +35,8 @@
 
     <title></title>
 </head>
-<body>
-    
-    
+<body >
+    <div id="contiene" style="visibility: hidden;">
     <section id="seccionbusqueda" ></section>
     
     <div class="navbar-fixed">
@@ -191,8 +190,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
-
-
+    
 <script>ra = Math.random();</script>
 
 <script src="scrollmenu.js?" + ra ></script> <!-- codigo que permite el scroll de menu-->
@@ -202,7 +200,7 @@
 
 
 
-
+</div>
 </body>
 </html>
 
@@ -244,6 +242,8 @@
     
     $(document).ready(function () 
     {
+        $("#contiene").css('visibility', 'visible');
+        
         $('.pushpin').pushpin();
         $('.sidenav').sidenav();
 
@@ -314,5 +314,5 @@
     }
     asignarrutacarrito();
 
-
+    
 </script>

@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    <script>r = Math.random();</script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <link rel="stylesheet" href="css/estilosproyectos.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.scss" />
+
+    
+    <title>Templay Studios</title>
+    <link rel="icon" type="image/png" href="images/logomartillo.png">
+    
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    
+    <script src="js/cargaasinc.js" type="text/javascript" async="async"></script>
+
+</head>
+<body>
+    <ul class="listamenu">
+        <li><a id="home" href="https://www.templaystudios.com/">Home</a></li>
+        <li><a href="https://www.templaystudios.com/plataformawebdemo/" target="_blank">Sitio web de muestra</a></li>
+        <li><a href="https://www.templaystudios.com/plataformawebdemo/panelpublicacion.php" target="_blank">Panel de control</a></li>
+    </ul>
+
+
+    <div id="container" class="container">
+        <div id="scene" class="scene">
+            <div data-depth="2"><img src="images/logopluma.png" class="logoplumaestatico"></div>
+            <div data-depth="2"><img src="images/logomartillo.png" class="logomartilloestatico"></div>
+        </div>
+    </div>
+    
+    
+    <div class="contenedorsimple">
+        <img src="images/logonombre.png" class="logonombreestatico"></div>
+    </div>
+    <div class="contenedor">
+    
+        <div class="row center">
+            <p class="proyecto">Productos y Servicios</p>
+        </div>
+        <div class="row center">
+
+            <div class="col s10 offset-s1  ">
+                <p class="textoweb">Ahora puedes tener tu página web y administrarla desde un panel de control</p>
+                <br>
+                <hr>
+                <button id="plataforma" class="btn waves-effect light-blue darken-4">Mira tu Sitio web comercial</button>
+                <p class="textoweb">Todos los productos de tu sitio los administras con un Panel de control</p>
+                <br>
+                <br>
+                <button id="paneldecontrol" class="btn waves-effect waves-light">Mira tu Panel de control</button>
+                <p class="textoweb">Permite controlar stock, compras, ventas y tus publicaciones en la web</p>
+                <hr>
+                
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+
+    <!-- ------------------------------------------ SECCION CONTACTO --------------------------------- -->
+    <div id="seccionproyectos" class="contenedor"></div>
+
+
+    
+   
+</body>
+</html>
+
+<script>
+
+    var scene = document.getElementById('scene');
+    var parallax = new Parallax(scene);
+
+
+</script>
