@@ -2,14 +2,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20425306-11"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-20425306-1');
+
+
+    </script>
+    
     <script>r = Math.random();</script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logomartillo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <title>Templay Studios</title>
-    <script src="js/cargaasincrona.js" type="text/javascript" async="async"></script>
-    <link rel="stylesheet" href="css/estilos.css?" + r>
+    <script src="js/cargaasincrona.js?6" type="text/javascript" async="async"></script>
+    <link rel="stylesheet" href="css/estilos.css?5" + r>
 </head>
 <body>
     <ul class="listamenu">
@@ -26,7 +39,7 @@
     </div>
     <div class="bordelinea contenedor"></div>
 
-    <div class="contenedorsinfondo ">
+    <div class="contenedorsinfondo">
         <p class="titulo">Nuestro mundo es el arte digital y la programación...</p>
     </div>
     <br>
@@ -37,5 +50,9 @@
     <canvas id="c"></canvas>
     <!-- ------------------------------------------ SECCION CONTACTO --------------------------------- -->
     <div id="contenedorcontactoacercade" class="contenedorcontacto container"></div>
+
+    <div class="contenedorsinfondo iconoarriba">
+        <img src="images/iconoarriba.png" alt="">
+    </div>
 </body>
 </html>

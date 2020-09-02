@@ -2,69 +2,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
-    <script>r = Math.random();</script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    
-    <link rel="stylesheet" href="css/estilosproyectos.css">
-    <link rel="stylesheet" type="text/css" href="css/styles.scss" />
-
+    <link rel="stylesheet" href="css/estilosproyectos.css?2">
     
     <title>Templay Studios</title>
     <link rel="icon" type="image/png" href="images/logomartillo.png">
-    
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
-    
-    <script src="js/cargaasinc.js" type="text/javascript" async="async"></script>
 
+    <script src="js/cargaasinc.js?1" type="text/javascript" async="async"></script>
+
+ 
 </head>
 <body>
-    <ul class="listamenu">
-        <li><a id="home" href="https://www.templaystudios.com/">Home</a></li>
-        <li><a href="https://www.templaystudios.com/plataformawebdemo/" target="_blank">Sitio web de muestra</a></li>
-        <li><a href="https://www.templaystudios.com/plataformawebdemo/panelpublicacion.php" target="_blank">Panel de control</a></li>
+    <nav class="listamenu">
+        <div class="nav-wrapper">
+            <img class="brand-logo center" src="images/icotemplay.png">
+            <ul id="nav-mobile" class="rigth hide-on-med-and-down">
+                <li><a id="link5" href="#" >Home</a></li>
+                <li><a id="link3" href="#" target="_blank">Sitio web de muestra</a></li>
+                <li><a id="link4" href="#" target="_blank">Panel de control</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="images/icotemplay.jpg">
+                </div>
+                <img class="circle" src="images/aleweb1.png">
+                <p><span class="white-text name">Alejandro Marchena</span></p>
+                <p><span class="white-text email">+54 9 261 3408918</span></p>
+            </div>
+        </li>
+        <li><a id="home" href="#" >Home</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a id="link1" href="#" target="_blank">Sitio web de muestra</a></li>
+        <li><a id="link2" href="#" target="_blank">Panel de control</a>
+        
+        </li>
+        <li><a class="sidenav-close" href="#!">Cerrar</a></li>        
     </ul>
-
-
-    <div id="container" class="container">
-        <div id="scene" class="scene">
-            <div data-depth="2"><img src="images/logopluma.png" class="logoplumaestatico"></div>
-            <div data-depth="2"><img src="images/logomartillo.png" class="logomartilloestatico"></div>
-        </div>
-    </div>
     
-    
-    <div class="contenedorsimple">
-        <img src="images/logonombre.png" class="logonombreestatico"></div>
-    </div>
-    <div class="contenedor">
-    
-        <div class="row center">
-            <p class="proyecto">Productos y Servicios</p>
-        </div>
-        <div class="row center">
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="Medium material-icons">account_circle</i></a>
 
-            <div class="col s10 offset-s1  ">
-                <p class="textoweb">Ahora puedes tener tu página web y administrarla desde un panel de control</p>
-                <br>
-                <hr>
-                <button id="plataforma" class="btn waves-effect light-blue darken-4">Mira tu Sitio web comercial</button>
-                <p class="textoweb">Todos los productos de tu sitio los administras con un Panel de control</p>
-                <br>
-                <br>
-                <button id="paneldecontrol" class="btn waves-effect waves-light">Mira tu Panel de control</button>
-                <p class="textoweb">Permite controlar stock, compras, ventas y tus publicaciones en la web</p>
-                <hr>
-                
+   
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <h4>Tu sitio web es una vidriera</h4>
+                <h5><small>en la pantalla de tu cliente</small></h5>
             </div>
         </div>
     </div>
-    
-
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="images/sitioweb.jpg">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Tu Sitio web comercial<i
+                            class="material-icons right">more_vert</i></span>
+                    <p><a id="plataforma"  href="#">Detalle</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Lo administras<i class="material-icons right">close</i></span>
+                    <p>Todos los productos de tu sitio los administras con un Panel de control</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="images/panelcontrol.jpg">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Tu Panel de control<i
+                            class="material-icons right">more_vert</i></span>
+                    <p><a id="paneldecontrol" href="#">Detalle</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Tienes el control<i class="material-icons right">close</i></span>
+                    <p>Permite controlar stock, compras, ventas y tus publicaciones en la web</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     
     
     
@@ -72,16 +105,8 @@
     <!-- ------------------------------------------ SECCION CONTACTO --------------------------------- -->
     <div id="seccionproyectos" class="contenedor"></div>
 
-
-    
-   
+    <div class="contenedorsinfondo iconoarriba">
+        <img src="images/iconoarriba.png" alt="">
+    </div>
 </body>
 </html>
-
-<script>
-
-    var scene = document.getElementById('scene');
-    var parallax = new Parallax(scene);
-
-
-</script>

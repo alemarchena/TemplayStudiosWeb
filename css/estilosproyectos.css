@@ -26,9 +26,9 @@ font-family: 'Noto Sans JP', sans-serif;
 
 /*------------------------ Menu ----------------------------*/
 
-.listamenu{
+/* .listamenu{
     margin: 2em;
-}
+} */
 ul {
   font-family: 'Noto Sans JP', sans-serif;
   font-size: 0.9em ;
@@ -38,9 +38,6 @@ ul {
   overflow: hidden;
 }
 
-li {
-  float: left;
-}
 
 li a {
   display: block;
@@ -67,21 +64,24 @@ li a:hover {
 .contenedor{
     margin: 1em;
 }
+
+.contenedorsinfondo{
+    margin: 0em;
+    padding: 0em;
+    display: flex;
+    justify-content: center!important;
+    
+}
 /* ------------------------------------------ Logos -----------------------------------*/
-.logoplumaestatico{
-    width: 50px;
-    height: auto;
-    position: absolute;
-    left: 220px;
-    border: 2px;
-    border-color: black;
+.sidenav{
+    background-color: #dadada;
 }
 
 .logomartilloestatico{
     width: 105px;
     height: auto;
     position: absolute;
-    left: 280px;
+    left: 260px;
 }
 
 .logonombreestatico{
@@ -99,56 +99,57 @@ li a:hover {
     padding-left: 2em;
 }
 
+.brand-logo{
+     margin: 0.5em;
+}
+
+.iconoarriba{
+    visibility: hidden;
+}
+
+.sidenav-trigger{
+    margin: 2em 0em 0em 1em;
+}
+
+.columnamedio{
+    background-color: #dadada;
+}
+/*----------------------- MEDIA QUERYS -----------------------------*/
 
 @media (min-width:  569px) and (max-width: 668px) { 
 
+
+   .brand-logo{
+        width: 15%;
+    }
+        
+    .tituloweb{
+        margin-left: 2em!important;
+
+    }
+}
+
+@media (min-width:  351px) and (max-width: 568px) { 
+
     /*----------------------- Logos estáticos ---------------------------------*/
-.logoplumaestatico{
-    width: 40px;
-    height: auto;
-    position: absolute;
-    left: 70;
-    border: 2px;
-    border-color: black;
-}
 
-.logomartilloestatico{
-    width: 85px;
-    height: auto;
-    position: absolute;
-    left: 110px;
-}
-
-.logonombreestatico{
-    width: 190px;
-    position : relative;
-}
+    .brand-logo{
+        width: 20%;
+    }
     
 }
 
 
-@media (min-width:  200px) and (max-width: 568px) { 
+@media (min-width:  200px) and (max-width: 350px) { 
 
     /*----------------------- Logos estáticos ---------------------------------*/
-.logoplumaestatico{
-    width: 40px;
-    height: auto;
-    position: absolute;
-    left: 50;
-    border: 2px;
-    border-color: black;
-}
 
-.logomartilloestatico{
-    width: 85px;
-    height: auto;
-    position: absolute;
-    left: 90px;
-}
+    .brand-logo{
+        width: 30%;
+    }
 
-.logonombreestatico{
-    width: 190px;
-    position : relative;
-}
+    .lista{
+        font-size: 0.9em!important;
+    }
     
 }
