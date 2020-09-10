@@ -251,7 +251,23 @@ canvas {
 }
 
 .imagenmia{
-    width: 50%;
+ 
+    border-radius: 127px 0px 200px 0px!important;
+    -moz-border-radius: 127px 0px 200px 0px!important;
+    -webkit-border-radius: 127px 0px 200px 0px!important;
+    border: 2px solid #73AD21!important;
+    padding: 10px;
+    width: 50%!important;
+    height: auto;
+
+}
+
+.contenedorimagen{
+
+    text-align: -moz-center!important;
+    text-align: -webkit-center!important;
+    text-align: center!important;
+    align-self: center!important;
 }
 
 .seccioncontacto .card-content{
