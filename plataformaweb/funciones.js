@@ -180,7 +180,7 @@ function validarnumero(e, contenido, caracteres)
 {
 
     var unicode = e.keyCode ? e.keyCode : e.charCode;
-    if (unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+    if (unicode == 250 || unicode == 190 || unicode == 8 || unicode == 44 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
         return true;
     }
 
@@ -222,7 +222,13 @@ function validartecla(e, contenido, caracteres) {
     // 39 derecha
     // 38 subir
     // 40 bajar
-    if (unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40){
+    if (unicode == 250 || unicode == 190 || unicode == 8 || unicode == 44 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40){
+        return true;
+    }
+
+    
+     //punto del teclado numerico o coma del teclado alfa
+    if (e.keyCode == 110 || e.keyCode == 188) {
         return true;
     }
 
@@ -319,14 +325,17 @@ function mostrarToastError(dato){
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Falta la información de ' + dato ,
+        text: 'Erro en ' + dato ,
         footer: '<a href>Trabajas demasiado, tal vez necesitas un descanso!</a>'
     })
 
 }
 
+
 function EnviarFormulario()
 {
+    console.log("version " + version);
+
     var formulario = document.getElementById("formulario");
 
     var id = document.getElementById('id').value;
@@ -412,6 +421,28 @@ function EnviarFormulario()
             mostrarToastError("Link externo"); return; 
         }
     }
+    
+     //------------------ detecta mas de un punto en el numero -----------
+    var posicion = -1;
+    
+    
+    posicion = p.indexOf(",");
+    if(posicion >=0)
+        p = p.slice(0, posicion) + "." + p.slice(posicion + 1); 
+    
+    posicion = -1;
+
+    posicion = c.indexOf(",");
+    if(posicion >=0)
+        c = c.slice(0, posicion) + "." + c.slice(posicion + 1); 
+    
+    posicion = -1;
+    
+    posicion = pea.indexOf(",");
+    if(posicion >=0)
+        pea = pea.slice(0, posicion) + "." + pea.slice(posicion + 1); 
+    
+
 
 
     if (imagen.files.length == 0)
@@ -424,8 +455,6 @@ function EnviarFormulario()
         {//esta modificando pero dejo la misma imagen
             var i = "";
             altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le);
-            // limpiarformulario();
-
         }
     }else{
         var i = imagen.files[0].name;
@@ -447,10 +476,9 @@ function EnviarFormulario()
         xhttp.open('POST', 'subirarchivo.php', true);
         xhttp.send(formdata);
     }
-
-   
-
 }
+
+
 
 function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le)
 {
@@ -495,6 +523,8 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
 
     
     var objetoanuncio = JSON.stringify(itemanuncio);
+
+    console.log(objetoanuncio);
 
     limpiarformulario();
 
@@ -630,18 +660,21 @@ function consultaranuncios(e)
                     else
                         opant = "";
 
-                    var objeto = new  Object();
-                    objeto.id = dd[key].id;
-                    objeto.titulo = dd[key].titulo;
-                    objeto.descripcion = dd[key].descripcion;
+                    var objeto          = new  Object();
+                    objeto.id           = dd[key].id;
+                    objeto.titulo       = dd[key].titulo;
+                    objeto.descripcion  = dd[key].descripcion;
                     objeto.observaciones = dd[key].observaciones;
-                    objeto.comentarios = dd[key].comentarios;
-
+                    objeto.comentarios  = dd[key].comentarios;
+                    objeto.precio       = dd[key].precio
+                    objeto.costo        = dd[key].costo
+                    objeto.precioventaja = dd[key].precioventaja
                     arreglo.push(objeto);
 
                     tanuncios.row.add( [
                         dd[key].id,
-                        "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].precioventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
+                        "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
+                        // "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].precioventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
                         "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
                         dd[key].rubro,
                         dd[key].titulo,
@@ -765,7 +798,8 @@ function eliminaranuncio(idpasado,i)
 
 }
 
-function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea,tle,le)
+// function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea,tle,le)
+function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
 {
    
     
@@ -785,11 +819,11 @@ function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,
         }
     });
     
-    document.getElementById('precio').value = pre;
-    document.getElementById('costo').value = cos;
+    // document.getElementById('precio').value = pre;
+    // document.getElementById('costo').value = cos;
     document.getElementById('bonus').value = bonus;
     document.getElementById('tituloantes').value = tia;
-    document.getElementById('precioantes').value = pea;
+    // document.getElementById('precioantes').value = pea;
     document.getElementById("muestra").src = "imagenes/" + ima; //vista previa de la imagen
     document.getElementById('textolinkexterno').value = tle;
     document.getElementById('linkexterno').value = le;
@@ -846,6 +880,9 @@ function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,
             
             document.getElementById('comentarios').value = arreglo[indice].comentarios;
             
+            document.getElementById('precioantes').value = arreglo[indice].precioventaja;
+            document.getElementById('precio').value = arreglo[indice].precio;
+            document.getElementById('costo').value = arreglo[indice].costo;
           
 
         }
@@ -1417,6 +1454,7 @@ $("#opciones").change(function () {
 //------------------------------------------------ VENTAS ----------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
+itemsEnlaventa = 0;
 
 function configuraciontablacaja(tabla) {
     // $('#tablaanuncios').DataTable({
@@ -1470,8 +1508,41 @@ function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,ti
        
     }
     
+    
+    //punto del teclado numerico o coma del teclado alfa
+    if (e.keyCode == 110 || e.keyCode == 188) {
+        return true;
+    }
+
+
     var unicode = e.keyCode ? e.keyCode : e.charCode;
-    if (unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+    if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+        return true;
+    }
+
+
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
+    {
+        return true;
+    }
+    return false;
+
+}
+function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo)
+{
+    var key = window.event ? e.which : e.keyCode;
+
+    if (e.keyCode == 107) //tecla +
+    {
+
+       vender(id,idrubro,costo,titulo);
+       
+       return false;
+       
+    }
+    
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
         return true;
     }
 
@@ -1484,9 +1555,103 @@ function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,ti
 
 }
 
-
 arregloitemsventa = [];
 totalpedido = 0;
+
+
+
+function consultaranunciosvenderLector() {
+
+    var tipo = "consultafiltros";
+    seleccionidrubro =0;
+
+    var bdd = conexionbdd;
+    var tabla = tablaanuncios;
+    var tabladerubros = tablarubros;
+    var rutaimagenes = "imagenes/";
+
+    var id;
+
+    if (document.getElementById('id')) {
+        id = document.getElementById('id').value;
+    } else
+        id = 0;
+
+    var filtro = [];
+    if(tipo == "consultafiltros"){
+
+        // si el tipo no es rubro va a buscar por filtro
+        var textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
+        
+        if (textobuscado == "") {
+            return false;
+        }
+        filtro.push( textobuscado );
+    }
+    
+    var itemanuncio = new Object();
+    itemanuncio.bdd = bdd;
+    itemanuncio.tabla = tabla;
+    itemanuncio.tablarubros = tabladerubros;
+    itemanuncio.tipo = tipo;
+    itemanuncio.id = id;
+    itemanuncio.rutaimagenes = rutaimagenes;
+    itemanuncio.idrubro = seleccionidrubro ;
+    itemanuncio.filtro = filtro;
+
+
+    var objetoanuncio = JSON.stringify(itemanuncio);
+
+    if(tipo != "consultafiltros")
+        document.getElementById("cajabusqueda").value = "";
+
+    encontro = false;
+
+    $.ajax({
+
+        url: "consultaanuncios.php",
+        data: { objetoanuncio: objetoanuncio },
+        type: "post",
+        success: function (data)
+        {
+            
+            if (data != "consultavacia") {
+                dd = JSON.parse(data); //data decodificado
+                
+                $.each(dd, function (key, value) {
+                    encontro = true;
+                    insertarEnCarrito(dd[key].id, dd[key].idrubro, dd[key].costo, dd[key].titulo, dd[key].precio);
+                });
+                eligetipopago();
+            }
+        },
+        error: function (e) {
+            console.log("Error en la consulta." + e.value);
+        }
+    });
+}
+
+function insertarEnCarrito(id,idrubro,costo,titulo,precio)
+{
+    if(!id){
+        return false;
+    }
+
+    var fechaventa = $("#fechaventa").val();
+    var porcentajebonus = $("#bonusestablecido").val();
+    var bonus = Math.round(1 * (costo * porcentajebonus / 100));
+
+    if (fechaventa != "" )
+    {
+        fechaventa = conviertefechaastringdmy(fechaventa);
+        reservaritemventa(id, precio, costo, idrubro, fechaventa, 1, bonus,titulo);
+    }else if (fechaventa == "" )
+    {
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
+            timer: 2500})
+    }
+}
 
 
 function consultaranunciosvender(tipo) {
@@ -1535,6 +1700,10 @@ function consultaranunciosvender(tipo) {
     var objetoanuncio = JSON.stringify(itemanuncio);
     t.clear().draw(true);
 
+    if(tipo != "consultafiltros")
+        document.getElementById("cajabusqueda").value = "";
+
+    encontro = false;
 
     $.ajax({
 
@@ -1548,14 +1717,16 @@ function consultaranunciosvender(tipo) {
                 dd = JSON.parse(data); //data decodificado
                 
                 $.each(dd, function (key, value) {
+                    
+                    encontro = true;
 
                     t.row.add([
 
                         dd[key].precio,
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
                         dd[key].descripcion,
-                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 6) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 6,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type='text' class='validate masmenoscolumna saltacantidad'></input>",
-                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 6) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 6,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='precio_"   + dd[key].id + "' name ='precio_"   + dd[key].id     + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
+                        "<input onKeyDown='return validarinputcantidad(event, this.value, 8) ' onKeyUp ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type='text' class='validate masmenoscolumna saltacantidad'></input>",
+                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 8) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='precio_"   + dd[key].id + "' name ='precio_"   + dd[key].id     + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
                         dd[key].titulo,
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                         "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
@@ -1567,6 +1738,8 @@ function consultaranunciosvender(tipo) {
                     
                 });
                 t.columns.adjust().draw();
+                
+                mostrarResultadoBusqueda();
                 reconocerTooltipped();
                 imageneszoom();
                 eligetipopago();
@@ -1574,15 +1747,28 @@ function consultaranunciosvender(tipo) {
                 identificasaltainput('saltaprecio');
               
                 hacefoco();
+            }else
+            {
+                mostrarResultadoBusqueda();
             }
         },
         error: function (e) {
             console.log("Error en la consulta." + e.value);
         }
     });
-
-
 }
+
+function mostrarResultadoBusqueda()
+{
+    if(encontro == true)
+        document.getElementById("listaproductos").style.display = "table";
+    else
+    {
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'No hay coincidencias ',showConfirmButton: false,timer: 1500})
+        document.getElementById("listaproductos").style.display = "none";
+    }
+}
+
 function hacefoco()
 {
     $('.saltacantidad')[0].focus();
@@ -1619,20 +1805,18 @@ function identificasaltainput(clase)
 
             $('.' + clase)[indice].focus();
         } 
-        
-        
-        
     });   
-    
 }
 
 //es el metodo que queda ligado al boton en la linea del producto
 function vender(id,idrubro,costo,titulo){
 
+    
     if(!id){
         return false;
     }
 
+    
     if ($.fn.dataTable.isDataTable('#tablavender')) {
         tv = $('#tablavender').DataTable();
     }
@@ -1666,6 +1850,14 @@ function vender(id,idrubro,costo,titulo){
 
 function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechaventa_riv, cantidad_riv, bonus_riv,titulo_riv) {
 
+    itemsEnlaventa +=1;
+   
+
+    var subtotal = precio_riv * cantidad_riv;
+    subtotal = Math.round(subtotal * 100) / 100;
+    // subtotal=Math.round10(subtotal, -1);
+
+   
     var objeto = new Object();
 
     objeto.id = id_riv;
@@ -1676,38 +1868,44 @@ function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechavent
     objeto.cantidad = cantidad_riv;
     objeto.bonus = bonus_riv;
     objeto.titulo = titulo_riv;
-    
+    objeto.subtotal = subtotal;
+    objeto.itemsEnlaventa = itemsEnlaventa;
     //agrega el item en el objeto
     arregloitemsventa.push(objeto);
 
     //agrega visualmente el item en la pagina
-    agregaritemventa(id_riv, precio_riv, cantidad_riv, titulo_riv);
+    agregaritemventa(id_riv, precio_riv, cantidad_riv, titulo_riv,subtotal);
 }
 
 
-function agregaritemventa(id, precio, cantidad,titulo) {
+function agregaritemventa(id, precio, cantidad,titulo,subtotal) {
 
     var t;
 
     if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
         t = $('#tablaitemsventa').DataTable();
     }
-   
-    var subtotal = precio * cantidad;
-    console.log("Subtotal " + subtotal);
+    
+    var pre= precio;
+
+    posicion = pre.indexOf(".");
+    if(posicion >=0)
+        pre = pre.slice(0, posicion) + "," + pre.slice(posicion + 1); 
+
     t.row.add([
         id,
         titulo,          
         cantidad,
-        precio,
+        pre,
         subtotal,
-        "<a class='borra' onclick='borrarfila(\"" + id + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+        "<a class='borra' onclick='borrarfila(\"" + itemsEnlaventa + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
     ]);
     t.columns.adjust().draw();
     
-    // var totalanterior = parseInt($("#totalpedido").val());
-    totalpedido = totalpedido + subtotal;
-    document.getElementById("totalpedido").value = totalpedido;
+    document.getElementById("pedido").style.display  = "block";
+    
+
+    calculatotal();
 
     M.toast(
     {
@@ -1717,32 +1915,71 @@ function agregaritemventa(id, precio, cantidad,titulo) {
 }
 
 
+function calculatotal()
+{
+    totalpedido = 0;
+    subtotal = 0;
+    for (var a = 0; a < arregloitemsventa.length; a++) 
+    {
+        subtotal = arregloitemsventa[a].subtotal;
+        totalpedido = totalpedido + subtotal;
+    }
+    totalpedido = Math.round(totalpedido * 100) / 100;
+    document.getElementById("totalpedido").value = totalpedido;
 
-function borrarfila(id)
+}
+
+function borrarfila(iditemsEnlaventa)
 {
     //borra la fila visualmente
     $("#tablaitemsventa").on('click', '.borra', function () {
         $(this).parent().parent().css('display', 'none');
     }); 
 
+    calculatotal();
 
+    var arregloAux = [];
     var subtotal = 0;
+
+
     //borra la fila del arreglo
     for(var a = 0 ; a < arregloitemsventa.length ; a++)
     {
-        if (arregloitemsventa[a].id == id)
+        if (iditemsEnlaventa == arregloitemsventa[a].itemsEnlaventa) 
         {
-            subtotal = parseInt(arregloitemsventa[a].cantidad * arregloitemsventa[a].precio);
-            arregloitemsventa.splice(a,1);
-        }
+            subtotal = arregloitemsventa[a].subtotal;
+            totalpedido = parseFloat(totalpedido) - subtotal;
+            // arregloitemsventa.splice(a, 1);
+        }else{
+            var o = new Object();
+
+            o.id = arregloitemsventa[a].id;
+            o.precio = arregloitemsventa[a].precio;
+            o.costo =  arregloitemsventa[a].costo;
+            o.idrubro =  arregloitemsventa[a].idrubro;
+            o.fechaventa =  arregloitemsventa[a].fechaventa;
+            o.cantidad =  arregloitemsventa[a].cantidad;
+            o.bonus =  arregloitemsventa[a].bonus;
+            o.titulo =  arregloitemsventa[a].titulo;
+            o.subtotal =  arregloitemsventa[a].subtotal;
+            o.itemsEnlaventa = arregloitemsventa[a].itemsEnlaventa;
+            //agrega el item en el objeto
+            arregloAux.push(o);            
+        }        
     }
 
-    totalpedido = totalpedido - subtotal;
+    //---------------------- Re armo el arreglo de items de la venta --------------------------
 
-    // var totalanterior = parseInt($("#totalpedido").val());
+    arregloitemsventa = arregloAux;
+
+    //-----------------------------------------------------------------------------------------
+    totalpedido = Math.round(totalpedido * 100) / 100;
+
     document.getElementById("totalpedido").value = totalpedido;
 
-    if(arregloitemsventa.lenght == 0)
+    console.log(totalpedido);
+
+    if (totalpedido == 0)
     {
         if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
             t = $('#tablaitemsventa').DataTable();
@@ -1751,8 +1988,9 @@ function borrarfila(id)
             t = $('#tablaitemsventa').DataTable();
         }
 
-       t.clear().draw(false);
-       
+        t.clear().draw(false);
+
+        limpiacamposventa();
     }
 }
 
@@ -1799,16 +2037,14 @@ function procesarventa(){
 
     setTimeout(function(){ consultarventasdeldia(fechaventa); }, 2000);
 
-    
-
-    arregloitemsventa = [];
+    // arregloitemsventa = [];
     ar = [];
-    totalpedido = 0;
+    // totalpedido = 0;
     
     var t = $("#tablaitemsventa").DataTable();
     
     t.clear().draw(true);
-
+    limpiacamposventa();
 
 }
 
@@ -1835,8 +2071,6 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
 
     var vendido = JSON.stringify(itemventa);
 
-    console.log("Ajax venta " + itemventa);
-
     $.ajax({
         url: "consultaventas.php",
         data: { vendido: vendido },
@@ -1846,7 +2080,7 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
 
                 var tipobonus = "bonussumado";
                 guardarbonusencliente(idclienteelegido, bonus, tipobonus);
-
+                limpiacamposventa();
                 M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
 
             } else {
@@ -1862,6 +2096,15 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
     });
 }
 
+function limpiacamposventa()
+{
+    itemsEnlaventa = 0;
+    totalpedido = 0;
+    document.getElementById("totalpedido").value = totalpedido;
+    document.getElementById("pedido").style.display = "none";
+    arregloitemsventa = [];
+    
+}
 function guardarbonusencliente(id, bonus, tipo)
 {
     var bdd = conexionbdd;
@@ -1900,7 +2143,6 @@ function guardarbonusencliente(id, bonus, tipo)
 }
 
 function consultarventasdeldia(fechaventa,e) {
-
 
     if ($.fn.dataTable.isDataTable('#tablavender')) {
         tventas = $('#tablavender').DataTable();
@@ -1944,6 +2186,9 @@ function consultarventasdeldia(fechaventa,e) {
 
                 $.each(dd, function (key, value) {
 
+                    total = dd[key].cantidad * dd[key].precio;
+                    total = Math.round(total * 100) / 100;
+
                     tventas.row.add([
                         dd[key].titulo,
                         dd[key].descripcion,
@@ -1954,6 +2199,7 @@ function consultarventasdeldia(fechaventa,e) {
                         dd[key].nombrecliente,
                         dd[key].bonus,
                         dd[key].tipopago,
+                        total,
                         "<a onclick='quitar(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
 
                     ]).draw(false);
@@ -2101,7 +2347,8 @@ function configuraciontablaanunciosvender() {
             ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
         ],
         "order": [[0, "desc"]],
-        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+        "dom": '<"top"p>rt<"bottom"p><"bottom"fl><"clear">'
+        // "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
 
     });
 }
@@ -2261,8 +2508,11 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                     ]).draw(false);
                 });
 
+                var totalventavista = Math.round(totalventa * 100) / 100;
+                var totalcostovista = Math.round(totalcosto *100)/100;
+
                 if(totalventa>0){
-                    $("#totalventa").attr("value", totalventa);
+                    $("#totalventa").attr("value", totalventavista);
                 }else
                 {
                     $("#totalventa").attr("value", "");
@@ -2270,19 +2520,26 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
 
 
                 if (totalcosto>0){
-                    $("#totalcosto").attr("value", totalcosto);
+                    $("#totalcosto").attr("value", totalcostovista);
                 }else
                 {
                     $("#totalcosto").attr("value", "");
                 }
 
-                
-                if(totalventa >0 && totalcosto >0 )
+                if (totalventavista >0 && totalcosto >0 )
                 {
-                    $("#rentabilidadpesos").attr("value", totalventa - totalcosto);
+                    var rentapesosvista;
+                    rentapesosvista = totalventavista - totalcostovista;
+                    rentapesosvista = Math.round(rentapesosvista * 100)/100;
+
+                    console.log("ttt");
+
+                    $("#rentabilidadpesos").attr("value", rentapesosvista);
                     
                     var renta = Math.ceil( (totalventa - totalcosto) / totalcosto  *100);
-                    $("#rentabilidadporcentaje").attr("value", renta);
+                    var rentavista = Math.round(renta *100)/100;
+
+                    $("#rentabilidadporcentaje").attr("value", rentavista);
                 }else
                 {
                     $("#rentabilidadpesos").attr("value", "");
@@ -2874,10 +3131,6 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
 
                 success: function (data) {
 
-            
-                    // console.log(data);
-                    
-
                     if (data != "consultavacia") {
 
                         dd = JSON.parse(data); //data decodificado
@@ -2899,8 +3152,6 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
                             objetoarreglo.tildado = estado;
 
                             arregloproveedoranuncio.push(objetoarreglo);
-
-
 
                             tas.row.add([
                                 dd[key].titulo,
@@ -4425,10 +4676,10 @@ function consultaranunciosparamovimientos(tipo,e) {
                         dd[key].titulo,
                         dd[key].descripcion,
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect  brown darken-3 " + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                        "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres'></input>",
+                        "<input onKeyDown='return validarnumero(event, this.value, 8) ' onKeyUp ='return validarnumero(event, this.value, 8) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres'></input>",
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
-                        "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='number' class='validate escampocosto' value=" + "'" + dd[key].costo + "'></input>",
-                        "<input onKeyDown='return validarnumero(event, this.value, 6) ' onKeyUp ='return validarnumero(event, this.value, 6) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='number' class='validate escampoprecio' value=" + "'" + dd[key].precio + "'></input>",
+                        "<input onKeyDown='return validarnumero(event, this.value, 8) ' onKeyUp ='return validarnumero(event, this.value, 8) ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='number' class='validate escampocosto' value=" + "'" + dd[key].costo + "'></input>",
+                        "<input onKeyDown='return validarnumero(event, this.value, ) ' onKeyUp ='return validarnumero(event, this.value, 8) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='number' class='validate escampoprecio' value=" + "'" + dd[key].precio + "'></input>",
                         "<a data-position='right'  data-tooltip='Guardar' onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
                         "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",

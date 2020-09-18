@@ -90,13 +90,12 @@
                 <div class="col-sm-4"></div>
                 
                 <div class="col-sm-4">
-                    <button id="clear" class="btn btn-primary">Limpiar cookies</button>
+                    <a id="clear">borrar cookies</a>
                     <script>
                         function eliminarCookies() {
                             document.cookie.split(";").forEach(function (c) {
                                 document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
                             });
-                            console.log(dominioruta);
                             window.location.replace(dominioruta + "panelpublicacion.php");
                             return false;
                         }
@@ -110,9 +109,11 @@
     </footer>
     
 
-<script>r = Math.random();</script>
+<script>r = Math.random(); version = 20;</script>
+
 <script src="scrollmenu.js?" + r></script> <!-- codigo que permite el scroll de menu-->
-<script src="funciones.js?" + r></script>
+
+<script src="funciones.js?" + version + r></script>
 <script src="js/convertidorfecha.js?" + r></script>
 <script src="configuracion.js?" + r></script>
     

@@ -1,19 +1,18 @@
 <div id="accordionVentas" class="mt-3 pt-2">
                 
-        <div class="filafondo row justify-content-center ">
-            <div class="col-sm-3">
+        <div class="filafondo row justify-content-center align-items-center">
+            <div class="col-sm-2">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h5>Pedido<i class="fas fa-shopping-cart" style="color: white;"></i></h5>
+                        <h5 style="color: white;">Ventas<i class="fas fa-shopping-cart" style="color: white;"></i></h5>
                     </div>
                 </div>
-                
             </div>
 
             <div class="col-sm-2">
                 <div class="row justify-content-center ">
-                    <h5 class="m-0 p-0">
-                        <input id="fechaventa"  style="font-size: 1.2em;" type="text" class="datepicker center" readonly>
+                    <h5 class="m-1 p-1">
+                        <input id="fechaventa"  style="font-size: 1.1em;" type="text" class="datepicker center" readonly>
                     </h5>
                 </div>
                 <div class="row" style="display: none;">
@@ -26,30 +25,32 @@
                 </div>
             </div>
             
-            <div class="col-sd-3">
+            <div class="col-sd-2">
                 <div class="row justify-content-center">
-                    <select class="form-control" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
+                    <select class="form-control m-1 p-1" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
                 </div>
+               
+            </div>
+            <div class="col-sd-2">
                 <div class="row justify-content-center">
-                    <select class="form-control" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
+                    <select class="form-control m-1 p-1" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
                 </div>
             </div>
-            
 
-            <div class="col-sd-3">
+            <div class="col-sd-2">
                 <div class="row justify-content-center">
                     <button id="procesarpedido" class="btn btn-primary">Guardar <i class="fas fa-save"></i></button>
                 </div>
+            </div>
+            <div class="col-sd-2">
                 <div class="row justify-content-center">
-                    
-                        <input id="totalpedido" value="0" type="text" class="center" style="color: rgb(255, 255, 255);font-size: 1.3em;" readonly>
-                    
-
+                    <input id="totalpedido" value="0" type="text" class="center" style="color: rgb(255, 255, 255);font-size: 1.3em;"
+                        readonly>
                 </div>
             </div>
         </div>
         
-        <div id="pedido" >
+        <div id="pedido" style="display: none;">
             <!-- lista venta -->
             <div class="row">
                 <!-- Columna de tarjeta de ventas -->
@@ -92,18 +93,25 @@
             <div class="col-sm-12">
                 <div class="row justify-content-center p-4">
                     <div class="col-sm-12">
-                        <h5>Buscador</h5>
                         <div class="row justify-content-center">
                             <div class="col-sm-5">
                                 <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-sm-2" id="contenedorbusqueda">
+                            <div class="col-sm-1">
+                                <p>
+                                    <label>
+                                        <input id="usalector" type="checkbox" class="filled-in" />
+                                        <span class="colorletras">Usar Lector</span>
+                                    </label>
+                                </p>
+                            </div>
+                            <div class="col-sm-3" id="contenedorbusqueda">
                                 <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="Encuentra marcas y productos aquí"
                                     class="form-control mr-sm-2" type="search" aria-label="Search">
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <button id="consulta" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
                             </div>
                         </div>
@@ -117,7 +125,7 @@
                     <input style="display: none;" id="idtipodepagoelegido" name="idtipodepagoelegido" type="text">
                     <input style="display: none;" id="tipodepagoelegido" name="tipodepagoelegido" type="text">
                 </div>
-                <div class="table-responsive">
+                <div id="listaproductos" style="display: none;" class="table-responsive">
                     <table id="tablaanunciosvender" class="display table table-striped">
                         <thead>
                             <tr>
@@ -191,6 +199,8 @@
                                                 <th>Cliente</th>
                                                 <th class="masmenoscolumna">Bonus Vta</th>
                                                 <th class="masmenoscolumna">Forma Pago</th>
+                                                <th class="masmenoscolumna">Total</th>
+
                                                 <th>Eliminar</th>
                                             </tr>
                                         </thead>
@@ -204,7 +214,8 @@
                                                 <td class="masmenoscolumna"></td>
                                                 <td></td>
                                                 <td class="masmenoscolumna"></td>
-                                                <td></td>
+                                                <td class="masmenoscolumna"></td>
+                                                <td class="masmenoscolumna"></td>
                                                 <td></td>
                                             </tr>
                                         </tbody>
@@ -219,8 +230,6 @@
             </div>
             
         </div>
-
-
 <script>
 
 
@@ -229,7 +238,7 @@
 function consultaventadiaactual() {
     var fechaventa = $("#fechaventa").val();
     fechaventaenviada = conviertefechaastringdmy(fechaventa);
-    
+   
     consultarventasdeldia(fechaventaenviada);
 }
 
@@ -277,7 +286,7 @@ $(document).ready(function ()
         taf.insertBefore(newItem, taf.childNodes[0]);
     }
 
-    inicioconsulta();
+    //inicioconsulta();
 
 
     $("#opciones").change(function () {
@@ -301,6 +310,21 @@ $(document).ready(function ()
     });
 
     
+    $("#cajabusqueda").on("paste", function (e) 
+    {
+       setTimeout(function () {  VerificaSiUsaLector(); }, 300);
+    });
+    
+    
+    function VerificaSiUsaLector()
+    {
+        if ($('#usalector').prop('checked'))
+        {
+            consultaranunciosvenderLector("consultafiltros");
+        }else{
+            consultaranunciosvender("consultafiltros");
+        }
+    }
     
 
     $("#fechaventa").change(function () {

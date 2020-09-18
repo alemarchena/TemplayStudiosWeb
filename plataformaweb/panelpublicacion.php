@@ -20,7 +20,8 @@
     <!-- datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
-    <script>r = Math.random();</script>
+
+    <script>r = Math.random();version=1;</script>
 
 
     <!-- estilos -->
@@ -485,23 +486,31 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Acceso al Panel de control</h5>
-                            <br>
+                            
+                            <!-- ----------------------- plataforma de prueba ----------------- -->
+                            
+                            <!-- <br>
                             <p style="color:green">Siéntete libre de realizar acciones, esto no perjudica al sitio.</p>
                             <p style="color:green">Es importante para nosotros que nos hagas una devolución de tu experiencia.</p>
                             Puedes ponerte en <a href="https:\\www.templaystudios.com" target="_blank">contacto</a> con nosotros.
+                            <p style="color:black">Ingresa con esta cuenta de prueba.</p>
+                            -->
+                            <!-- ------------------------------------------------------------------------ -->
                             
                             <hr>
-                            <p style="color:black">Ingresa con esta cuenta de prueba.</p>
                             <div class="d-flex justify-content-center mt-4 row">
                                 <input class="mdl-textfield__input center"  onKeyUp="return verificaenter(event)" style="display:inline;width:65%;" type="text" id="email" name="email"
-                                placeholder="Email" value="info@templaystudios.com"/>
+                                placeholder="Email: info@templaystudios.com" value=""/>
                                 &nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="d-flex justify-content-center mt-4 row">
                                 <input class="mdl-textfield__input center" onKeyUp="return verificaenter(event)" style="display:inline;width:65%;" type="password" id="password" name="password"
-                                    placeholder="Password" value="12345678"/>
+                                    placeholder="Password 12345678" value=""/>
                                 <br /><br />
                             </div>
+
+
+
 
                             <div class="d-flex justify-content-center mt-4 row">
                                 <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-in" name="signin">Ingresar</button>

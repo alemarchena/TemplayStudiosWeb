@@ -92,14 +92,16 @@
             <div class="row justify-content-center">
                 <div class="col-sm-6 border mt-1">
                     <div class="row justify-content-center">
-                        <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                            id="precio" name="precio" type="number" placeholder="$ Precio de venta"
+                        <!-- <input id="precio" name="precio" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
+                            class="validate border border-success center tooltipped" data-position="top" data-tooltip="Precio de venta"> -->
+                        <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return validartecla(event,this.value,6)"
+                            id="precio" name="precio" type="number" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
                             class="validate border border-success center tooltipped" data-position="top" data-tooltip="Precio de venta">
                     </div>
+                    
                     <div class="row justify-content-center">
                         <!-- <label class="colorletras" for="costo">Indique el $ Costo</label> -->
-                        <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                            id="costo" name="costo" type="number" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Costo del producto"  placeholder="$ Costo">
+                        <input id="costo" name="costo" type="number" min="0" maxlength="8" step="0.01" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Costo del producto"  placeholder="$ Costo">
                     </div>
                     <div class="row justify-content-center">
                         <label for="opcionantes">
@@ -113,8 +115,7 @@
                         placeholder="Título del precio tachado">
                     </div>
                     <div class="row justify-content-center">
-                        <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                        id="precioantes" name="precioantes" type="number" placeholder="Precio tachado" class="validate border border-danger center"><del></del>
+                        <input id="precioantes" name="precioantes" type="number" min="0" maxlength="8" step="0.01" placeholder="Precio tachado" class="validate border border-danger center"><del></del>
                     </div>
                     <div class="row justify-content-center">
                         <p class='left'>Ej<del id='precioantesprevia'> $ 30000</del></p>
