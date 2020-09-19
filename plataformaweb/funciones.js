@@ -889,9 +889,6 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
         posicioninicial();
     });
 
-    // $('#collapsePub').collapse('toggle');
-
- 
 }
 // ------------------------------------------------------------------------------------------------------------
 //------------------------------------------------ RUBROS ----------------------------------------------------
@@ -1501,33 +1498,27 @@ function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,ti
 
     if (e.keyCode == 107) //tecla +
     {
-
        vender(id,idrubro,costo,titulo);
-       
        return false;
-       
     }
-    
     
     //punto del teclado numerico o coma del teclado alfa
     if (e.keyCode == 110 || e.keyCode == 188) {
         return true;
     }
 
-
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
         return true;
     }
-
 
     if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
     {
         return true;
     }
     return false;
-
 }
+
 function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo)
 {
     var key = window.event ? e.which : e.keyCode;
@@ -3082,7 +3073,6 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
         {
             $('#collapseBuscaxRubro').collapse('toggle')
 
-
             var bdd = conexionbdd;
             var tabla = tablaanuncios;
             var tabladerubros = tablarubros;
@@ -3192,14 +3182,9 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
 
 function consultarProveedoresProductosXfiltro(tipopasado, e ) {
 
-    //$('#collapseFiltro').collapse('toggle')
-
     var seleccionidproveedor = document.getElementById("opcioneslistaproveedores").value;
-
     
     if (seleccionidproveedor==""){
-        
-
         Swal.fire({
             position: 'top-end',
             icon: 'warning',
@@ -3208,15 +3193,12 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
             timer: 2500
         })
     }else{
-
         var bdd = conexionbdd;
         var tabladerubros = tablarubros;
         var tabla = tablaanuncios;
         var tabladeproveedores = tablaproveedores;
         var tabladeproveedoresanuncios = tablaproveedoresanuncios;
         var tipo = tipopasado;
-
-        // var tipo = "consultafiltros";
 
         var tas = null;
 
@@ -3253,8 +3235,6 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
         tas.clear().draw(true);
         arregloproveedoranuncio = [];
 
-        // console.log(objetoanuncio);
-
         $.ajax({
 
             url: "consultaproveedoranuncio.php",
@@ -3264,11 +3244,8 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
 
             success: function (data) {
 
-                // console.log(data);
-                
                 if (data != "consultavacia") {
                     dd = JSON.parse(data); //data decodificado
-                    
                     
                     $.each(dd, function (key, value) {
                         
@@ -3290,8 +3267,6 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
 
                         arregloproveedoranuncio.push(objetoarreglo);
 
-                        
-                            
                         tas.row.add([
                             dd[key].titulo,
                             "<label><input onclick = 'agregaquitaproveedoranuncio(\"" + dd[key].id + "\",\"" + opcionproveedoranuncio + "\")' id='" + opcionproveedoranuncio + "' type='checkbox' class='filled-in columnadedos' " + estado + " /><span class='colorletras'>Si</span></label>",
@@ -3306,8 +3281,6 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
                     var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
                     var poscontacto = $("#filapregunta").offset().top - alturamenu;
                     $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-
-                    // console.log(arregloproveedoranuncio);
                 } else {
                     M.toast(
                         {
@@ -4495,7 +4468,7 @@ function configuraciontablamovimiento() {
             ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
         ],
         "order": [[0, "desc"]],
-        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+        "dom": '<"top"p>rt<"bottom"p><"clear">'
 
     });
 }
@@ -4577,7 +4550,57 @@ function desdehastaajuste() {
     consultarajustesdeldia(fechamovimientoenviadadesde, fechamovimientoenviadahasta);
 }
 
+function validarinputcantidadpreciocompras(e, contenido, caracteres,id,costo,precio)
+{
+    var key = window.event ? e.which : e.keyCode;
+
+    if (e.keyCode == 107) //tecla +
+    {
+       moverstock(id,costo,precio);
+       return false;
+    }
+    
+    //punto del teclado numerico o coma del teclado alfa
+    if (e.keyCode == 110 || e.keyCode == 188) {
+        return true;
+    }
+
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+        return true;
+    }
+
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
+    {
+        return true;
+    }
+    return false;
+}
+
+function validarinputcantidadcompras(e, contenido, caracteres,id,costo,precio)
+{
+    var key = window.event ? e.which : e.keyCode;
+
+    if (e.keyCode == 107) //tecla +
+    {
+        moverstock(id,costo,precio);
+        return false;
+    }
+
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 8 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+        return true;
+    }
+
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
+    {
+        return true;
+    }
+    return false;
+}
+
 function consultaranunciosparamovimientos(tipo,e) {
+
 
     if ($.fn.dataTable.isDataTable('#tablaanunciosmovimientos')) {
         t = $('#tablaanunciosmovimientos').DataTable();
@@ -4672,14 +4695,14 @@ function consultaranunciosparamovimientos(tipo,e) {
 
                     t.row.add([
                         
-                        "<label><input onclick = 'agregaquitastockinicio(\"" + dd[key].id + "\",\"" + opcioninicio + "\")' id='" + opcioninicio + "' type='checkbox' class='filled-in columnadedos' " + estado + " /><span class='colorletras'>Si</span></label>",
-                        dd[key].titulo,
+                        // "<label><input onclick = 'agregaquitastockinicio(\"" + dd[key].id + "\",\"" + opcioninicio + "\")' id='" + opcioninicio + "' type='checkbox' class='filled-in columnadedos' " + estado + " /><span class='colorletras'>Si</span></label>",
                         dd[key].descripcion,
+                        dd[key].titulo,
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect  brown darken-3 " + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                        "<input onKeyDown='return validarnumero(event, this.value, 8) ' onKeyUp ='return validarnumero(event, this.value, 8) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres'></input>",
+                        "<input onKeyDown='return validarinputcantidadcompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
-                        "<input onKeyDown='return validarnumero(event, this.value, 8) ' onKeyUp ='return validarnumero(event, this.value, 8) ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='number' class='validate escampocosto' value=" + "'" + dd[key].costo + "'></input>",
-                        "<input onKeyDown='return validarnumero(event, this.value, ) ' onKeyUp ='return validarnumero(event, this.value, 8) ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='number' class='validate escampoprecio' value=" + "'" + dd[key].precio + "'></input>",
+                        "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='text' class='validate escampocosto saltacosto' value=" + "'" + dd[key].costo + "'></input>",
+                        "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
                         "<a data-position='right'  data-tooltip='Guardar' onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
                         "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
@@ -4687,7 +4710,7 @@ function consultaranunciosparamovimientos(tipo,e) {
                         dd[key].costo,
                         dd[key].stock,
 
-                        fsi
+                        // fsi
 
                     ]).draw(false);
                 });
@@ -4695,12 +4718,23 @@ function consultaranunciosparamovimientos(tipo,e) {
                 reconocerTooltipped();
                 imageneszoom();
                 eligetipomovimiento();
+
+                identificasaltainput('saltacantidad');
+                identificasaltainput('saltaprecio');
+                identificasaltainput('saltacosto');
+
+                colapsarCompras();
             }
         },
         error: function (e) {
             console.log("Error en la consulta." + e.value);
         }
     });
+}
+
+function colapsarCompras(){
+    if($("#collapseConsultaCompras").hasClass("show"))
+        $('#collapseConsultaCompras').collapse('toggle');
 }
 
 function agregaquitastockinicio(id,opcioninicio)
@@ -4735,8 +4769,6 @@ function agregaquitastockinicio(id,opcioninicio)
 }
 
 function moverstock(id,costoactual,precioactual) {
-
-    
 
     if ($.fn.dataTable.isDataTable('#tablamovimientostock')) {
         tv = $('#tablamovimientostock').DataTable();
@@ -4774,6 +4806,8 @@ function moverstock(id,costoactual,precioactual) {
             timer: 2500
         })
     }
+
+    colapsarCompras();
 }
 
 function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
@@ -4824,9 +4858,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
             if (data != "consultavacia") {
 
                 dd = JSON.parse(data); //data decodificado
-                
                 fsi = "";
-                // console.log(data);
                 $.each(dd, function (key, value) {
 
                     if (dd[key].fechastockinicio == "0000-00-00")
@@ -4837,11 +4869,17 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                     fco = vista_ymdAdmy(dd[key].fechacompra)
 
                     totalcompras = totalcompras + dd[key].cantidad * dd[key].costocompra;
+                    totalcompras = Math.round(totalcompras * 100) / 100;
+
+                    subtotal = 0;
+                    subtotal = dd[key].cantidad * dd[key].costocompra;
+                    subtotal = Math.round(subtotal * 100) / 100;
+
                     tcompra.row.add([
                         fco,
-                        "<input onfocusout='guardanumerocomprobantemodificado(this.value," + dd[key].idcompra + ")' type ='text' value = '" + dd[key].comprobantecompra +  "'></input>",
-                        dd[key].titulo,
+                        "<input class='saltacomprobante' onfocusout='guardanumerocomprobantemodificado(this.value," + dd[key].idcompra + ")' type ='text' value = '" + dd[key].comprobantecompra +  "'></input>",
                         dd[key].descripcion,
+                        dd[key].titulo,
                         dd[key].cantidad,
                         dd[key].costocompra,
                         
@@ -4850,9 +4888,13 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                         dd[key].costoactual,
                         "Compra",
                         "<a onclick='quitarcompra(\"" + dd[key].idcompra + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
-                        fsi
+                        subtotal
+                        // fsi
 
                     ]).draw(false);
+
+                    identificasaltainput('saltacomprobante');
+
                 });
                 $("#totalcompras").val(totalcompras);
             }

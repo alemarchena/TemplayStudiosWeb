@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top menu mt-2">
         <img id="logojt" src="img/logoempresa.png" alt="Empresa" class="ml-3 mr-3">
-        <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <button id="botonmenu" class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="my-nav" class="collapse navbar-collapse">
@@ -109,7 +109,7 @@
     </footer>
     
 
-<script>r = Math.random(); version = 20;</script>
+<script>r = Math.random(); version = 21;</script>
 
 <script src="scrollmenu.js?" + r></script> <!-- codigo que permite el scroll de menu-->
 
@@ -126,31 +126,42 @@ $(document).ready(function ()
       
         $("#botpublicar").click(function(e){
             e.preventDefault();
+            contraerMenu();
             $("#contenido").load("publicaranuncios.html");
         });
 
         $("#botlista").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("anuncios_lista.html");
         });
 
         $("#botbuscador").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("anuncios_buscador.html");
         });
 
         $("#bottarjeta").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("anuncios_tarjeta.html");
         });
 
         $("#bottarjetaconprecio").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("anuncios_tarjeta_conprecio.html");
         });
 
         $("#botlistastock").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("anuncios_lista_stock.html");
         });
 
@@ -158,40 +169,56 @@ $(document).ready(function ()
 
         $("#botrubro").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("rubros.html");
         });
 
         $("#botproveedores").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("proveedores.html");
         });
 
         $("#botclientes").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("clientes.html");
         });
         $("#botvender").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("vender.html");
         });
 
         $("#botcaja").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("caja.html");
         });
 
         $("#botmovimientos").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("comprasyajustes.html");
         });
 
         $("#botbonus").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("bonus.html");
         });
 
         $("#botexportar").click(function (e) {
             e.preventDefault();
+            contraerMenu();
+
             $("#contenido").load("exportar.html");
         });
         
@@ -210,7 +237,9 @@ $(document).ready(function ()
         
     }
     
-     
+     function contraerMenu(){
+        $('.navbar-collapse').collapse('hide');
+     }
 
     colorblancofondo();
     asignardireccionweb();

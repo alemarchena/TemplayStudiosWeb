@@ -9,6 +9,11 @@
   padding-left: 3px;
 }
 
+.nav-item{
+
+  background-color: white!important;
+}
+
 /* decora el titulo
 y el color de la fila */
 .tituloconfondo{
@@ -17,6 +22,7 @@ y el color de la fila */
 .filafondo{
   background-color: #009ee3!important;
 }
+
 /* ----------------------------- */
 .row{
   margin-bottom: 10px!important;
@@ -105,7 +111,7 @@ p.textoexplicativo{
 
 .datepicker{
   background-color: rgb(236, 236, 236)!important;
-  
+  font-size: 1.15em!important;
 }
 
 .extradescripcion{

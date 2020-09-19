@@ -1,129 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
 
-    <body>
-        
-        <!-- <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data"> -->
-           
-            <div class="accordion" id="accordionExample">
 
-                <div class="card">
-                    <h5>Compras y Ajustes <i class="fas fa-address-book"></i></h5>
-                    <div class="row">
-                        <p class="p-1">Lleva las compras al día y tendrás el stock actualizado</p>
+        <div class="filafondo row justify-content-center align-items-center mt-3 pt-2">
+            <div class="col-sm-3">
+               
+                        <h5 style="color: white;">Compras y Ajustes<i class="small material-icons"  style="color: white;">layers</i></h5>
+               
+            </div>
+
+            <div class="col-sm-2 mt-2">                
+                <input  id="fechacompraajuste" type="text" style="font-size: 1.15em;" class="datepicker center" readonly>
+            </div>
+
+            <div class="col-sm-2">
+                <label for="numerocomprobantecompra" class=" bd-highlight colorletras">Número de comprobante de Compra</label>
+            </div>
+
+            <div class="col-sm-2 center">
+                <input id="numerocomprobantecompra" style="background-color: white;" type="text" maxlength="30">
+            </div>
+
+        </div>
+
+               
+        <div class="row">
+            <div class="col-sm-12">
+               
+                <div class="row justify-content-center bd-highlight mb-4 p-4">
+                    <div class="col-sm-4">
+                        <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
+                        <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
                     </div>
-                    <div class="row">
-                        <p >Solo ajusta tu stock cuando tengas diferencias en el control físico del mismo</p>
-                    </div>
-                    
-
-                    <div class="card-header container" id="headingCompras">
-                        <h2 class="m-0">
-                            <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseCompras" aria-expanded="true" aria-controls="collapseCompras">
-                            Comprar o Ajustar
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseCompras" class="collapse" aria-labelledby="headingCompras" data-parent="#accordionExample">
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="d-flex flex-row justify-content-center bd-highlight cabecera">
-                                        <div class="col-sm-4 ">
-                                            <h5>Compras y Ajustes</h5>
-                                        </div>
-                                        <div class="col-sm-2 mt-2">
-                                            <label for="fechacompraajuste " class=" bd-highlight colorletras" >Fecha de transacción</label>
-                                            <input id="fechacompraajuste" type="text" class="datepicker center" readonly>
-                                        </div>
-                                        <div class="col-sm-2">
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <label for="numerocomprobantecompra" class=" bd-highlight colorletras" >Número de comprobante de Compra</label>
-                                            <input id="numerocomprobantecompra" type="text" maxlength="30">
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row justify-content-center bd-highlight cabecera mb-4 p-4">
-                                        <div class="col-sm-4">
-                                            <div class="row justify-content-center">
-                                                <label for="opcioneslista" class="colorletras">Selecciona una categoría</label>
-                                                <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-                                            </div>
-                                            <div class="row justify-content-center">
-                                                <div class="col-sm-6" id="contenedorbusqueda">
-                                                    <input id="cajabusquedacompras" onkeydown="validarentercompras(event)" placeholder="Encuentra marcas y productos aquí"
-                                                        class="form-control mr-sm-2" type="search" aria-label="Search">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <button id="consultacompras" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                                <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
-                                                <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="opcioneslistatiposmovimientostock" class="colorletras">Selecciona un tipo de movimiento</label>
-                                            <select class="form-control" id="opcioneslistatiposmovimientostock" name="opcioneslistatiposmovimientostock"></select>
-                                        </div>
-                                    </div>
-                                    <div class=" col-sm-2">
-                                        <input style="display: none;" id="idproveedorelegido" name="idproveedorelegido" type="text" >
-                                        <input style="display: none;" id="proveedorelegido" name="proveedorelegido" type="text">
-                                        <input style="display: none;" id="idtipomovimientostockelegido" name="idtipomovimientostockelegido" type="text">
-                                        <input style="display: none;" id="tipomovimientostockelegido" name="tipomovimientostockelegido" type="text">
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table id="tablaanunciosmovimientos" class="display table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th class="columnadedos center">Stock inicio</th>
-                                                    <th>Título</th>
-                                                    <th>Descripción</th>
-                                                    <th class="columnadedos center">Menos</th>
-                                                    <th class="columnadetres center">cantidad</th>
-                                                    <th class="columnadedos center">Mas</th>
-                                                    <th class="columnadetres center">$ Costo</th>
-                                                    <th class="columnadetres center">$ vta</th>
-                                                    <th class="columnadetres center">Guardar</th>
-                                                    <th class="columnadetres">Imagen</th>
-                                                   
-                                                    <th class="columnadetres center">$ Costo</th>
-                                                    <th class="columnadetres center">Stock</th>
-
-                                                    <th >Inicio stock</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="columnadedos center"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="columnadedos center"></td>
-                                                    <td class="columnadetres center"></td>
-                                                    <td class="columnadedos center"></td>
-                                                    <td class="columnadetres center"></td>
-                                                    <td class="columnadetres center"></td>
-                                                    <td class="columnadetres center"></td>
-                                                    <td class="columnadetres"></td>
-                                                    <td class="columnadetres"></td>
-                                                    
-                                                    <td class="columnadetres center"></td>
-                                                    <td ></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                    <div class="col-sm-4">
+                        <div class="row justify-content-center">
+                            <label for="opcioneslista" class="colorletras">Selecciona una categoría</label>
+                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-6" id="contenedorbusqueda">
+                                <input id="cajabusquedacompras" onkeydown="validarentercompras(event)" placeholder="Encuentra marcas y productos aquí"
+                                    class="form-control mr-sm-2" type="search" aria-label="Search">
                             </div>
-
+                            <div class="col-sm-6">
+                                <button id="consultacompras" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
+                            </div>
                         </div>
                     </div>
+                    
+                    <div class="col-sm-3">
+                        <label for="opcioneslistatiposmovimientostock" class="colorletras">Selecciona un tipo de movimiento</label>
+                        <select class="form-control" id="opcioneslistatiposmovimientostock" name="opcioneslistatiposmovimientostock"></select>
+                    </div>
                 </div>
+                <div class=" col-sm-2">
+                    <input style="display: none;" id="idproveedorelegido" name="idproveedorelegido" type="text" >
+                    <input style="display: none;" id="proveedorelegido" name="proveedorelegido" type="text">
+                    <input style="display: none;" id="idtipomovimientostockelegido" name="idtipomovimientostockelegido" type="text">
+                    <input style="display: none;" id="tipomovimientostockelegido" name="tipomovimientostockelegido" type="text">
+                </div>
+                <div class="table-responsive">
+                    <table id="tablaanunciosmovimientos" class="display table table-striped">
+                        <thead>
+                            <tr>
+                                <!-- <th style="display: none;" class="columnadedos center">Stock inicio</th> -->
+                                <th>Descripción</th>
+                                <th>Título</th>
+                                <th class="columnadedos center">Menos</th>
+                                <th class="columnadetres center">cantidad Unid.Compradas</th>
+                                <th class="columnadedos center">Mas</th>
+                                <th class="columnadetres center">Costo x Unid.Compra</th>
+                                <th class="columnadetres center">$ Vta x Unid.Compra</th>
+                                <th class="columnadetres center">Guardar</th>
+                                <th class="columnadetres">Imagen</th>
+                                
+                                <th class="columnadetres center">Costo actual</th>
+                                <th class="columnadetres center">Stock</th>
+
+                                <!-- <th style="display: none;">Inicio stock</th> -->
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- <td style="display: none;" class="columnadedos center"></td> -->
+                                <td></td>
+                                <td></td>
+                                <td class="columnadedos center"></td>
+                                <td class="columnadetres center"></td>
+                                <td class="columnadedos center"></td>
+                                <td class="columnadetres center"></td>
+                                <td class="columnadetres center"></td>
+                                <td class="columnadetres center"></td>
+                                <td class="columnadetres"></td>
+                                <td class="columnadetres"></td>
+                                
+                                <td class="columnadetres center"></td>
+                                <!-- <td style="display: none;"></td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion" id="accordionExample">
+
+            <!-- <div id="collapseCompras" aria-labelledby="headingCompras" data-parent="#accordionExample"> -->
+                
+                <!-- <div class="card-body"> -->
 
                 <div class="card">
                     <div class="card-header container" id="headingComprasAjustes">
@@ -169,8 +152,8 @@
                                                 <tr>
                                                     <th >fecha compra</th>
                                                     <th >Comprobante</th>
-                                                    <th>Título</th>
                                                     <th>Descripción</th>
+                                                    <th>Título</th>
                                                     <th class="masmenoscolumna">cantidad</th>
                                                     <th>Costo compra</th>
                                                     
@@ -179,7 +162,7 @@
                                                     <th class="masmenoscolumna">Costo actual</th>
                                                     <th class="masmenoscolumna">Tipo movimiento</th>
                                                     <th>Eliminar</th>
-                                                    <th>Inicio stock</th>
+                                                    <th>Total item compra</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -248,10 +231,10 @@
                     </div>
                 </div>
 
-            </div>
-        <!-- </form> -->
-    </body>
-</html>
+            <!-- </div> -->
+        </div>
+    <!-- </body>
+</html> -->
 
 
 <script>
@@ -301,7 +284,7 @@ $(document).ready(function ()
         taf.insertBefore(newItem, taf.childNodes[0]);
     }
 
-    inicioconsulta();
+    //inicioconsulta();
 
 
 
