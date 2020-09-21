@@ -1,23 +1,50 @@
 
 <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
-    
-    <!-- nueva version simple -->
-    <div class="row justify-content-center filafondo">
-        <h5 class="tituloconfondo">Productos</h5>
-    </div>
-   
 
-    <div class='row justify-content-center'>
-        <div class="col-sm-3 border mt-1">
-            <div class="row justify-content-center" style="margin-bottom: 0em;">
-                <a id="nuevoanuncio" class="btn btn-success">Nuevo</a>
+    <!-- nueva version simple -->
+    <div class="row justify-content-center filafondo mt-3 pt-2">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a id="nuevoproductobase" style="color: white;" class="waves-effect waves-light btn-small">Datos básicos</a>
+                </div>
+                <div class="col-sm-4">
+                    <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
+                    <select class="form-control" id="opciones" name="opciones">
+                    
+                        <!-- aca se inserta la consulta de rubros -->
+                    
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <a id="nuevodatoscomplementariosproducto" style="color: white;" class="waves-effect waves-light btn-small">Mas Datos</a>
+                </div>
             </div>
-            
+        </div>
+    </div>
+    
+    <div id="divNoLimpiar" class='row justify-content-center show' style="display: block;" >
+        <div class="col-sm 12">
+
+            <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
+            <div id="divNuevoProducto" class="row">
+
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-sm-4">
+                    <a id="nuevoanuncio" href="#">Nuevo Producto</a>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <!-- --------------------------------- -->
+    <div id="divDatosComplementariosProducto" class='row justify-content-center' style="display: none;">
+        <div class="col-sm-3 border mt-1">
             <div class="row justify-content-center" style="margin-bottom: 0em;">
                 <img id="muestra" src='img/agregarimagen.jpg' class='materialboxed card-img-top center-align mt-1 tamaimagen '
                     alt='...'></img>
-            <!-- style="width: 220px; height: auto;" -->
-
                     <form action="#">
                         <div class="file-field input-field">
                             <div class="btn">
@@ -29,15 +56,6 @@
                             </div>
                         </div>
                     </form>
-
-                <!-- <div class="input-group">
-                    <div class="input-group-prepend">
-                        <label class="custom-file-label" for="inputGroupFileAddon01">Seleccionar Imagen</label>
-                    </div>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="imagen" name="imagen" aria-describedby="inputGroupFileAddon01">
-                    </div>
-                </div> -->
                 <progress class="progress" id="barra" value="0" max="100">0%</progress>
                 <label class="colorletras" for="" id="valorbarra">0%</label>
                 <p class="red-text accent-4" id="aviso"></p>
@@ -45,31 +63,7 @@
         </div>
 
         <div class="col-sm-3 border mt-1">
-            <div class="row justify-content-center">
-                <input style="display: none;" onKeyDown="return validartecla(event,this.value,50)"
-                    onKeyUp="return validartecla(event,this.value,50)" id="rubro" name="rubro" type="text"
-                    class="validate border border-success">
-                <select class="form-control" id="opciones" name="opciones">
-        
-                    <!-- aca se inserta la consulta de rubros -->
-        
-                </select>
-            </div>
-            <div class="row justify-content-center">
-                <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
-                id="titulo" name="titulo" style="font-size: 1.2em;" type="text" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Título de la publicación"
-                placeholder="TITULO Ej: Pantalón elastizado">
-            </div>
-            <div class="row justify-content-center">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Descripción</span>
-                    </div>
-                    <textarea maxlength="200" class="form-control tooltipped" data-position="top" data-tooltip="Descripción del producto" id="descripcion" name="descripcion" aria-label="descripcion" style="height: 100px;"
-                        class="border border-success"
-                        placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
-                </div>
-            </div>
+           
             <div class='row justify-content-center'>
                 <div class="col">
                     <textarea rows="7" onKeyDown="return validartecla(event,this.value,1000)"
@@ -190,31 +184,6 @@
         </div>
     </div>
    
-    
-    
-    
-        
-    <div class='row justify-content-center'>
-        <button class="btn waves-effect" type="button" id="enviar" name="enviar">Guardar
-    </div>
-        <div class='row justify-content-center'>
-            <div class="col"></div>
-            <div class="col">
-                <p>
-                    <label>
-                        <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
-                        <span class="colorletras">No limpiar formulario al guardar </span>
-                    </label>
-                </p>
-            </div>
-            <div class="col">
-                <input id="id" disabled value="" name="id" type="text" class="m-0 p-0">
-            </div>
-
-    </div>
-
-
-        
                 
     <div class="text-center grey lighten-3">
                                     
@@ -226,10 +195,16 @@
         
             <!-- Columna de lista de anuncios -->
             <div class="col-sm-12 center">
-                <div class="row justify-content-center">
+                <!-- <div class="row justify-content-center">
                     <div class="col-sm-6 center">
                         <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
                     </div>
+                </div> -->
+                <div id="divBuscador" class="row justify-content-center p-4">
+                    <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
+                
+                
+                    <!-- ---------------------------------------------------------- -->
                 </div>
                 <div class="row">
                     <div class="table-responsive">
@@ -296,35 +271,15 @@
     {
         $('.tooltipped').tooltip();
 
-        consultarubros_seleccion_lista(); //llena la lista del buscador
+        // consultarubros_seleccion_lista(); //llena la lista del buscador
         imageneszoom(); //habilita el zoom para las imagenes
         validarcambioimagen(); //verifica cuando se elige otra imagen en la tarjeta
         configuraciontabla('#tablaanuncios');//configuracion de la tabla
         consultarubros_seleccion(); //llena la lista del alta de anuncio
 
-        function inicioconsulta()
-        {
-            //agrego un texto que mejora la vista para buscar
-            var newItem = document.createElement("h5");
-            var textnode = document.createTextNode("Filtro de productos");
-            newItem.appendChild(textnode);
+       
 
-            var taf = document.getElementById("tablaanuncios_filter");
-            taf.insertBefore(newItem, taf.childNodes[0]);
-        }
-
-        
-        inicioconsulta(); //trae los anuncios al cargar la pagina
-
-        $("#enviar").click(function () {
-            M.toast(
-            {
-                html: 'Procesando...',
-                displayLength: '2000'
-            });
-            EnviarFormulario();
-        });
-
+       
         $("#limpiar").click(function () {
             limpiarformulario();
         });
@@ -334,7 +289,6 @@
             var o = document.getElementById("opciones");
             var opcion = o.options[o.selectedIndex].text;
             document.getElementById('rubro').value = opcion;
-       
         });
 
         $('#tablaanuncios').on('page.dt', function () {
@@ -347,27 +301,48 @@
             imageneszoom();
         });
 
-        
-        
+        $("#divNuevoProducto").load("basealtaanuncio.html");
+    
+        llama = "anuncios";
+        $("#divBuscador").load("componentebuscador.html");
     });
 
+     
+    $("#nuevoproductobase").click(function () {
+        MostrarDivNuevoProducto();
+    });
+
+    function MostrarDivNuevoProducto() {
+        if ($("#divNoLimpiar").hasClass("show")) {
+            $("#divNoLimpiar").css('display', 'none');
+            $("#divNoLimpiar").removeClass('show');
+        }
+        else {
+            $("#divNoLimpiar").css('display', 'block');
+            $("#divNoLimpiar").addClass('show');
+        }
+    }
+    
+    $("#nuevodatoscomplementariosproducto").click(function () {
+        MostrarDivDatosComplementariosProducto();
+    });
+
+    function MostrarDivDatosComplementariosProducto() {
+        if ($("#divDatosComplementariosProducto").hasClass("show")) {
+            $("#divDatosComplementariosProducto").css('display', 'none');
+            $("#divDatosComplementariosProducto").removeClass('show');
+        }
+        else {
+            $("#divDatosComplementariosProducto").css('display', 'inline-flex');
+            $("#divDatosComplementariosProducto").addClass('show');
+        }
+    }
+    
     $("#nuevoanuncio").click(function(){
         $('#opcionnoguardar').prop('checked',false);
          limpiarformulario();
          $('#opcionnoguardar').prop('checked',true);
     });
-   
-     $("#opcioneslista").on('change', function () {
-
-        consultaranuncios();
-        M.toast(
-        {
-            html: 'Buscando productos por rubro...',
-            displayLength: '3000'
-        });
-    });
-
-
 
     $("#precioantes").keyup(function(){
         document.getElementById("precioantesprevia").innerText = "$ " + document.getElementById("precioantes").value;

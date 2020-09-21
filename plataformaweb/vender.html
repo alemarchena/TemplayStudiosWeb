@@ -91,32 +91,11 @@
         <div class="row">
             <!-- Columna de lista de anuncios -->
             <div class="col-sm-12">
-                <div class="row justify-content-center p-4">
-                    <div class="col-sm-12">
-                        <div class="row justify-content-center">
-                            <div class="col-sm-5">
-                                <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-sm-1">
-                                <p>
-                                    <label>
-                                        <input id="usalector" type="checkbox" class="filled-in" />
-                                        <span class="colorletras">Usar Lector</span>
-                                    </label>
-                                </p>
-                            </div>
-                            <div class="col-sm-3" id="contenedorbusqueda">
-                                <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="Encuentra marcas y productos aquí"
-                                    class="form-control mr-sm-2" type="search" aria-label="Search">
-                            </div>
-                            <div class="col-sm-1">
-                                <button id="consulta" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
+                <div id="divBuscador" class="row justify-content-center p-4">
+                    <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
                     
+
+                    <!-- ---------------------------------------------------------- -->
                 </div>
                 <div class=" col-sm-2">
                     <!-- cliente elegido -->
@@ -232,165 +211,85 @@
         </div>
 <script>
 
-
-
-
 function consultaventadiaactual() {
     var fechaventa = $("#fechaventa").val();
     fechaventaenviada = conviertefechaastringdmy(fechaventa);
-   
     consultarventasdeldia(fechaventaenviada);
 }
 
-function validarenter(e) {
-    var key = window.event ? e.which : e.keyCode;
-
-    if (key == 13) {
-
-        textobuscado = $("#cajabusqueda").val();
-        textobuscado = document.getElementById("cajabusqueda").value;
-
-        if (textobuscado == "") {
-            return false;
-        }
-
-        consultaranunciosvender("consultafiltros");
-        M.toast(
-        {
-            html: 'Buscando productos...',
-            displayLength: '3000'
-        });
-    }
-}
-
-$(document).ready(function () 
-{
-    configuracalendario();
-    consultarbonus();
-    consultarubros_seleccion_lista(); //llena la lista del buscador
-    consultaclientes_seleccion_lista(); //llena la lista del buscador
-    consultatiposdepago_seleccion_lista(); //llena la lista con tipos de pago
-    imageneszoom();
-    configuraciontablaPedido();
-    configuraciontablavender();
-    configuraciontablaanunciosvender();
-
-    function inicioconsulta(){
-
-        //agrego un texto que mejora la vista para buscar
-        var newItem = document.createElement("h5");
-        var textnode = document.createTextNode("Filtro de productos");
-        newItem.appendChild(textnode);
-
-        var taf = document.getElementById("tablaanunciosvender_filter");
-        taf.insertBefore(newItem, taf.childNodes[0]);
-    }
-
-    //inicioconsulta();
 
 
-    $("#opciones").change(function () {
-        var o = document.getElementById("opciones");
-        var opcion = o.options[o.selectedIndex].text;
-        document.getElementById('rubro').value = opcion;
-    });
-
-    $('#tablaanunciosvender').on('page.dt', function () {
+    $(document).ready(function () 
+    {
+        configuracalendario();
+        consultarbonus();
+        consultaclientes_seleccion_lista(); //llena la lista de clientes del buscador
+        consultatiposdepago_seleccion_lista(); //llena la lista con tipos de pago
         imageneszoom();
-        identificasaltainput('saltacantidad');
-        identificasaltainput('saltaprecio');
-    });
 
-    $('#tablaanunciosvender').on('draw.dt', function () {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-        imageneszoom();
-        identificasaltainput('saltacantidad');
-        identificasaltainput('saltaprecio');
-    });
+        configuraciontablaPedido();
+        configuraciontablavender();
+        configuraciontablaanunciosvender();
 
-    
-    $("#cajabusqueda").on("paste", function (e) 
-    {
-       setTimeout(function () {  VerificaSiUsaLector(); }, 300);
-    });
-    
-    
-    function VerificaSiUsaLector()
-    {
-        if ($('#usalector').prop('checked'))
-        {
-            consultaranunciosvenderLector("consultafiltros");
-        }else{
-            consultaranunciosvender("consultafiltros");
-        }
-    }
-    
+        // $("#opciones").change(function () {
+        //     var o = document.getElementById("opciones");
+        //     var opcion = o.options[o.selectedIndex].text;
+        //     document.getElementById('rubro').value = opcion;
+        // });
 
-    $("#fechaventa").change(function () {
-        consultaventadiaactual();
-    });
-
-    $("#opcioneslistaclientes").change(function () {
-        var o = document.getElementById("opcioneslistaclientes");
-        var opcion = o.options[o.selectedIndex].text;
-        document.getElementById('clienteelegido').value = opcion;
-        
-    });
-
-    $("#opcioneslistatiposdepago").change(function () {
-        var o = document.getElementById("opcioneslistatiposdepago");
-        var opcion = o.options[o.selectedIndex].text;
-        document.getElementById('tipodepagoelegido').value = opcion;
-        eligetipopago();
-    });
-
-    
-    $("#consulta").click(function (e) 
-    {
-        consultaranunciosvender("consultafiltros");
-         M.toast(
-        {
-            html: 'Buscando productos...',
-            displayLength: '3000'
+        $('#tablaanunciosvender').on('page.dt', function () {
+            imageneszoom();
+            identificasaltainput('saltacantidad');
+            identificasaltainput('saltaprecio');
         });
-    });
-    
-    function colocafechaactual() {
 
-
-         
-        var f = new Date();
-        var mes = f.getMonth() + 1;
-        var dia = f.getDate();
-
-        if (dia < 10) {
-            dia = "0" + dia;
-        }
-        if (mes < 10) {
-            mes = "0" + mes;
-        }
-
-        var fechaactual = dia + "-" + mes + "-" + f.getFullYear();
-        
-        document.getElementById("fechaventa").value = fechaactual;
-
-        consultaventadiaactual();
-    }
-    colocafechaactual();
-});
-
-
-
-    $("#opcioneslista").on('change', function () {
-        consultaranunciosvender("consultarubros");
-        M.toast(
-        {
-            html: 'Buscando productos por rubro...',
-            displayLength: '3000'
+        $('#tablaanunciosvender').on('draw.dt', function () {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            imageneszoom();
+            identificasaltainput('saltacantidad');
+            identificasaltainput('saltaprecio');
         });
+
+        $("#fechaventa").change(function () {
+            consultaventadiaactual();
+        });
+
+        $("#opcioneslistaclientes").change(function () {
+            var o = document.getElementById("opcioneslistaclientes");
+            var opcion = o.options[o.selectedIndex].text;
+            document.getElementById('clienteelegido').value = opcion;
+        });
+
+        $("#opcioneslistatiposdepago").change(function () {
+            var o = document.getElementById("opcioneslistatiposdepago");
+            var opcion = o.options[o.selectedIndex].text;
+            document.getElementById('tipodepagoelegido').value = opcion;
+            eligetipopago();
+        });
+        
+        function colocafechaactual() {
+            var f = new Date();
+            var mes = f.getMonth() + 1;
+            var dia = f.getDate();
+            if (dia < 10) {
+                dia = "0" + dia;
+            }
+            if (mes < 10) {
+                mes = "0" + mes;
+            }
+            var fechaactual = dia + "-" + mes + "-" + f.getFullYear();
+            document.getElementById("fechaventa").value = fechaactual;
+            consultaventadiaactual();
+        }
+        
+        colocafechaactual();
+
+        llama = "vender";
+        $("#divBuscador").load("componentebuscador.html");
     });
 
+   
     $("#procesarpedido").click(function(){
         procesarventa();
     });

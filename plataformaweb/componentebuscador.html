@@ -1,0 +1,113 @@
+<div class="col-sm-12">
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-1">
+            <p>
+                <label>
+                    <input id="usalector" type="checkbox" class="filled-in" />
+                    <span class="colorletras">Usar Lector</span>
+                </label>
+            </p>
+        </div>
+        <div class="col-sm-3" id="contenedorbusqueda">
+            <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="Encuentra marcas y productos aquí"
+                class="form-control mr-sm-2" type="search" aria-label="Search">
+        </div>
+        <div class="col-sm-2">
+            <button id="consulta" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    function validarenter(e) {
+        var key = window.event ? e.which : e.keyCode;
+
+        if (key == 13) {
+
+            textobuscado = $("#cajabusqueda").val();
+            textobuscado = document.getElementById("cajabusqueda").value;
+
+            if (textobuscado == "") {
+                return false;
+            }
+            if (llama == "vender")
+                consultaranunciosvender("consultafiltros");
+    
+            if (llama == "anuncios")
+                consultaranuncios("consultafiltros");
+
+            M.toast(
+            {
+                html: 'Buscando productos...',
+                displayLength: '3000'
+            });
+        }
+    }
+
+    function VerificaSiUsaLector() {
+        if ($('#usalector').prop('checked')) {
+            if (llama == "vender")
+                consultaranunciosvenderLector("consultafiltros");
+
+            if(llama == "anuncios")
+                consultaranuncios("consultafiltros");
+
+        } else {
+            if (llama == "vender")
+                consultaranunciosvender("consultafiltros");
+
+            if (llama == "anuncios")
+                consultaranuncios("consultafiltros");
+        }
+    }
+    
+    $(document).ready(function () 
+    {
+       
+        consultarubros_seleccion_lista(); //llena la lista del buscador
+        
+        
+
+        $("#consulta").click(function (e) {
+            if(llama=="vender")
+                consultaranunciosvender("consultafiltros");
+
+            if (llama == "anuncios")
+                consultaranuncios("consultafiltros");
+            
+            M.toast(
+            {
+                html: 'Buscando productos...',
+                displayLength: '3000'
+            });
+        });
+
+        $("#opcioneslista").on('change', function () {
+            if (llama == "vender")
+                consultaranunciosvender("consultarubros");
+                
+            if (llama == "anuncios")
+                consultaranuncios("consultarubros");
+            
+            M.toast(
+            {
+                    html: 'Buscando productos por rubro...',
+                    displayLength: '3000'
+            });
+        });
+
+        $("#cajabusqueda").on("paste", function (e) {
+            setTimeout(function () { VerificaSiUsaLector(); }, 300);
+        });
+
+
+        
+
+    });
+</script>

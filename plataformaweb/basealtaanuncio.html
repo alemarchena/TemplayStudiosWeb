@@ -1,0 +1,102 @@
+<div class="col-sm-12">
+    <div class="row justify-content-center">
+        <div class="col-sm-4"></div>
+        <input id="id" disabled value="" name="id" type="text" class="m-0 p-0">
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-1">
+            <input type="text" placeholder="Codigo barra">
+        </div>
+        <div class="col-sm-3">
+            <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
+                id="titulo" name="titulo" style="font-size: 1.2em;" type="text"
+                class="validate border border-success center tooltipped" data-position="top" data-tooltip="Título de la publicación"
+                placeholder="TITULO Ej: Pantalón elastizado">
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Descripción</span>
+                </div>
+                <textarea maxlength="200" class="form-control tooltipped" data-position="top"
+                    data-tooltip="Descripción del producto" id="descripcion" name="descripcion" aria-label="descripcion"
+                    style="height: 50px;" class="border border-success"
+                    placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <input style="display: none;" id="idcomovende" name="idcomovende" type="text"
+                class="validate border border-success">
+            <select class="form-control" id="comovende" name="comovende">
+            
+                <!-- aca se inserta la consulta de tipo de venta -->
+            
+            </select>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <input style="display: none;" id="idprefijocompra" name="idprefijocompra" type="text"
+                class="validate border border-success">
+            <select class="form-control" id="prefijoxcompra" name="prefijoxcompra">
+        
+                <!-- aca se inserta la consulta de prefijos por compra -->
+        
+            </select>
+        </div>
+        <div class="col-sm-1">
+            <input style="display: none;" id="idprefijoventa" name="idprefijoventa" type="text"
+                class="validate border border-success">
+            <select class="form-control" id="prefijoxventa" name="prefijoxventa">
+        
+                <!-- aca se inserta la consulta de prefijos por venta -->
+        
+            </select>
+        </div>
+        <div class="col-sm-1">
+            <input type="text" placeholder="Costo segun unid compra">
+        </div>
+        <div class="col-sm-1">
+            <input type="text" placeholder="Precio Vta x unid compra">
+        </div>
+        <div class="col-sm-2">
+            <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return validartecla(event,this.value,6)" id="precio"
+                name="precio" type="number" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
+                class="validate border border-success center tooltipped" data-position="top" data-tooltip="Precio de venta">
+        </div>
+        <div class="col-sm-2">
+            <input id="costo" name="costo" type="number" min="0" maxlength="8" step="0.01" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Costo del producto"  placeholder="$ Costo">
+                
+        </div>
+        <div class="col-sm-2">
+            <p>
+                <label>
+                    <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
+                    <span class="colorletras">No limpiar formulario al guardar </span>
+                </label>
+            </p>
+        </div>
+        <div class="col-sm-2 mt-0 ml-0 mb-0 p-0">
+            <button class="btn waves-effect" type="button" id="enviar" name="enviar">Guardar
+        </div>
+        
+        
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () 
+    {
+    $("#enviar").click(function () {
+            M.toast(
+                {
+                    html: 'Procesando...',
+                    displayLength: '2000'
+                });
+            EnviarFormulario();
+        });
+    });
+</script>

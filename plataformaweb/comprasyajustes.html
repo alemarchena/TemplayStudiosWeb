@@ -2,9 +2,7 @@
 
         <div class="filafondo row justify-content-center align-items-center mt-3 pt-2">
             <div class="col-sm-3">
-               
-                        <h5 style="color: white;">Compras y Ajustes<i class="small material-icons"  style="color: white;">layers</i></h5>
-               
+                <h5 style="color: white;">Compras y Ajustes<i class="small material-icons"  style="color: white;">layers</i></h5>
             </div>
 
             <div class="col-sm-2 mt-2">                
@@ -30,17 +28,22 @@
                         <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
                         <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
                     </div>
-                    <div class="col-sm-4">
+
+                    <div class="col-sm-5">
                         <div class="row justify-content-center">
                             <label for="opcioneslista" class="colorletras">Selecciona una categoría</label>
                             <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-sm-6" id="contenedorbusqueda">
+                            <div class="col-sm-3 mt-0 ml-0 mb-0 pl-0">
+                                <a id="nuevoproductocompras" style="color: white;" class="waves-effect waves-light btn-small"><i
+                                        class="material-icons right">add_box</i>Nuevo Prod</a>
+                            </div>
+                            <div class="col-sm-6 m-0 p-0" id="contenedorbusqueda">
                                 <input id="cajabusquedacompras" onkeydown="validarentercompras(event)" placeholder="Encuentra marcas y productos aquí"
                                     class="form-control mr-sm-2" type="search" aria-label="Search">
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3 m-0 p-0">
                                 <button id="consultacompras" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
                             </div>
                         </div>
@@ -57,7 +60,14 @@
                     <input style="display: none;" id="idtipomovimientostockelegido" name="idtipomovimientostockelegido" type="text">
                     <input style="display: none;" id="tipomovimientostockelegido" name="tipomovimientostockelegido" type="text">
                 </div>
-                <div class="table-responsive">
+
+                <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
+                <div id="divNuevoProducto" style="display: none;"  class="row">
+                    
+                </div>
+                <!-- --------------------------------- -->
+
+                <div id="tablaproductoscompras" style="display: none;"  class="table-responsive">
                     <table id="tablaanunciosmovimientos" class="display table table-striped">
                         <thead>
                             <tr>
@@ -402,6 +412,28 @@ $("#consultacompras").click(function (e) {
 
 $(document).ready(function () {
     $('.tooltipped').tooltip();
+
+    $("#divNuevoProducto").load("basealtaanuncio.html");
 });
     
+$("#nuevoproductocompras").click(function(){
+    MostrarDivNuevoProducto();
+});
+
+function MostrarDivNuevoProducto()
+{   
+    if($("#divNuevoProducto").hasClass("show"))
+    {
+        $("#divNuevoProducto").css('display','none');
+        $("#divNuevoProducto").removeClass('show');
+    }
+    else
+    {
+        $("#divNuevoProducto").css('display','block');
+        $("#divNuevoProducto").addClass('show');
+    }
+}
+
+
+
 </script>

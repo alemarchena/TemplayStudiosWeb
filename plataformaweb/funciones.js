@@ -13,7 +13,10 @@ paginaactualbuscados = 0;
 paginastotalesofertas = 0;
 paginastotalesbuscados = 0;
 
- function escrolear(claseelemento) {
+encontro = false;
+llama = "";
+
+function escrolear(claseelemento) {
 
          $('html, body').animate({
             scrollTop: $("." + claseelemento).offset().top
@@ -553,7 +556,7 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
 
 }
 
-function consultaranuncios(e)
+function consultaranuncios(tipo)
 {
     if ($.fn.dataTable.isDataTable('#tablaanuncios')) {
         tanuncios = $('#tablaanuncios').DataTable();
@@ -562,12 +565,13 @@ function consultaranuncios(e)
     // var seleccion = document.getElementById("opcioneslista");
     // var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
     var seleccionidrubro = document.getElementById("opcioneslista").value;
+    // var seleccionidrubro = document.getElementById("opciones").value;
 
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
     var tabladerubros = tablarubros;
 
-    var tipo = "consultarubros";
+    
 
     var rutaimagenes = "imagenes/";
 
@@ -584,6 +588,24 @@ function consultaranuncios(e)
     else
         id = id;
 
+        if (document.getElementById('id')) {
+        id = document.getElementById('id').value;
+    } else
+        id = 0;
+
+    var filtro = [];
+    if(tipo == "consultafiltros"){
+
+        // si el tipo no es rubro va a buscar por filtro
+        var textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
+        
+        if (textobuscado == "") {
+            return false;
+        }
+        filtro.push( textobuscado );
+    }
+
     var itemanuncio = new Object();
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
@@ -591,21 +613,10 @@ function consultaranuncios(e)
 
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
-
-    itemanuncio.titulo = "";
-    itemanuncio.descripcion = "";
-    itemanuncio.precio = "";
-    itemanuncio.costo = "";
-    itemanuncio.esnovedad = "";
-    itemanuncio.esoferta = "";
-    itemanuncio.nopublicar = "";
-    itemanuncio.observaciones = "";
-    itemanuncio.comentarios = "";
-
     itemanuncio.rutaimagenes = rutaimagenes;
     itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
-    itemanuncio.filtro = "";
+    itemanuncio.filtro = filtro;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
 
@@ -1548,6 +1559,7 @@ function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo)
 
 arregloitemsventa = [];
 totalpedido = 0;
+    
 
 
 
@@ -4669,6 +4681,8 @@ function consultaranunciosparamovimientos(tipo,e) {
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     var opcioninicio;
+    encontro = false;
+
     $.ajax({
 
         // url: "consultaanuncios.php",
@@ -4681,6 +4695,7 @@ function consultaranunciosparamovimientos(tipo,e) {
 
                 t.clear().draw(true);
                 fsi = "";
+                encontro = true;
 
                 $.each(dd, function (key, value) {
                     opcioninicio = "opcionstockinicio_" + dd[key].id;
@@ -4715,6 +4730,7 @@ function consultaranunciosparamovimientos(tipo,e) {
                     ]).draw(false);
                 });
                 t.columns.adjust().draw();
+
                 reconocerTooltipped();
                 imageneszoom();
                 eligetipomovimiento();
@@ -4724,12 +4740,27 @@ function consultaranunciosparamovimientos(tipo,e) {
                 identificasaltainput('saltacosto');
 
                 colapsarCompras();
+                mostrarResultaodosBusquedaCompras();
+            }else
+            {
+                mostrarResultaodosBusquedaCompras();
             }
         },
         error: function (e) {
             console.log("Error en la consulta." + e.value);
         }
     });
+}
+
+function mostrarResultaodosBusquedaCompras()
+{
+    if(encontro == true)
+        document.getElementById("tablaproductoscompras").style.display = "table";
+    else
+    {
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'No hay coincidencias ',showConfirmButton: false,timer: 1500})
+        document.getElementById("tablaproductoscompras").style.display = "none";
+    }
 }
 
 function colapsarCompras(){
