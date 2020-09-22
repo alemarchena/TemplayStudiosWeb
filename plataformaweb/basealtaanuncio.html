@@ -1,18 +1,16 @@
 <div class="col-sm-12">
-    <div class="row justify-content-center">
-        <div class="col-sm-4"></div>
-        <input id="id" disabled value="" name="id" type="text" class="m-0 p-0">
-    </div>
-    
     <div class="row">
         <div class="col-sm-1">
-            <input type="text" placeholder="Codigo barra">
+            <input id="id" disabled value="" name="id" type="text" class="m-0 p-0">
+        </div>
+        <div class="col-sm-2">
+            <input id="codigobarra" min="0" maxlength="25" class="border border-success center" type="text" placeholder="Codigo barra">
         </div>
         <div class="col-sm-3">
             <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
                 id="titulo" name="titulo" style="font-size: 1.2em;" type="text"
                 class="validate border border-success center tooltipped" data-position="top" data-tooltip="Título de la publicación"
-                placeholder="TITULO Ej: Pantalón elastizado">
+                placeholder="Nombre del producto">
         </div>
         <div class="col-sm-6">
             <div class="input-group">
@@ -25,20 +23,32 @@
                     placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
             </div>
         </div>
-        <div class="col-sm-2">
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
             <input style="display: none;" id="idcomovende" name="idcomovende" type="text"
                 class="validate border border-success">
             <select class="form-control" id="comovende" name="comovende">
-            
-                <!-- aca se inserta la consulta de tipo de venta -->
-            
+                <option value="0">Vta x Unidad</option>
+                <option value="1">Vta Fraccionada</option>
             </select>
         </div>
-        
+        <div class="col-sm-2">
+            <input id="costo" name="costo" type="text" min="0" maxlength="8" step="0.01"
+                class="validate border border-primary center tooltipped" data-position="top"
+                data-tooltip="Costo del producto" placeholder="$ Costo">
+        </div>
+        <div class="col-sm-2">
+            <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return validartecla(event,this.value,6)"
+                id="precio" name="precio" type="text" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
+                class="validate border border-success center" data-position="top" data-tooltip="Precio de venta">
+        </div>
+    
     </div>
-
-    <div class="row">
-        <div class="col-sm-1">
+    <hr>
+    <div class="row justify-content-center">
+        <div id="divprefijocompra" class="col-sm-2" style="display: none;">
             <input style="display: none;" id="idprefijocompra" name="idprefijocompra" type="text"
                 class="validate border border-success">
             <select class="form-control" id="prefijoxcompra" name="prefijoxcompra">
@@ -47,7 +57,7 @@
         
             </select>
         </div>
-        <div class="col-sm-1">
+        <div id="divprefijoventa" class="col-sm-2" style="display: none;">
             <input style="display: none;" id="idprefijoventa" name="idprefijoventa" type="text"
                 class="validate border border-success">
             <select class="form-control" id="prefijoxventa" name="prefijoxventa">
@@ -56,22 +66,18 @@
         
             </select>
         </div>
-        <div class="col-sm-1">
-            <input type="text" placeholder="Costo segun unid compra">
+        <div id="divpreciocomprapref" class="col-sm-2" style="display: none;">
+            <input onKeyUp="return CalcularValoresFraccionados()" id="costofraccionado" class="border-2 border-primary center" type="text" placeholder="Costo segun unid compra" min="0" maxlength="8" step="0.01">
         </div>
-        <div class="col-sm-1">
-            <input type="text" placeholder="Precio Vta x unid compra">
+        <div id="divprecioventapref" class="col-sm-2"  style="display: none;">
+            <input onKeyUp="return CalcularValoresFraccionados()" id="ventafraccionado" class="border-2 border-success center" type="text" placeholder="Precio Vta x unid compra" min="0" maxlength="8" step="0.01">
         </div>
-        <div class="col-sm-2">
-            <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return validartecla(event,this.value,6)" id="precio"
-                name="precio" type="number" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
-                class="validate border border-success center tooltipped" data-position="top" data-tooltip="Precio de venta">
-        </div>
-        <div class="col-sm-2">
-            <input id="costo" name="costo" type="number" min="0" maxlength="8" step="0.01" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Costo del producto"  placeholder="$ Costo">
-                
-        </div>
-        <div class="col-sm-2">
+    </div>
+   
+
+    <div class="row justify-content-center">
+        
+        <div class="col-sm-4">
             <p>
                 <label>
                     <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
@@ -82,15 +88,54 @@
         <div class="col-sm-2 mt-0 ml-0 mb-0 p-0">
             <button class="btn waves-effect" type="button" id="enviar" name="enviar">Guardar
         </div>
-        
-        
     </div>
 </div>
 
 <script>
+
+    function mostrarDivPrefijoCompra(mostrar){
+        if(mostrar == "0")
+        {
+            $("#divprefijocompra").css('display', 'none');
+            $("#divprefijoventa").css('display', 'none');
+            $("#divpreciocomprapref").css('display', 'none');
+            $("#divprecioventapref").css('display', 'none');
+        }else{
+           
+            $("#divprefijocompra").css('display', 'flex');
+            $("#prefijoxcompra option:selected").prop("selected", false);
+        }
+    }
+
+    function CalcularValoresFraccionados() {
+        var cf = $("#costofraccionado").val();
+
+        if (cf > 0)
+        {
+            var costovta = cf / relacionCV;
+            costovta = Math.round(costovta * 100) / 100;
+
+            document.getElementById("costo").value = costovta;
+        }
+        else
+            document.getElementById("costo").value ="";
+
+        var pf = $("#ventafraccionado").val();
+        if(pf > 0)
+        {
+            var preciovta = pf / relacionCV;
+            preciovta = Math.round(preciovta * 100) / 100;
+
+            document.getElementById("precio").value = preciovta;
+        }
+        else
+            document.getElementById("precio").value ="";
+    }
+
+    
     $(document).ready(function () 
     {
-    $("#enviar").click(function () {
+        $("#enviar").click(function () {
             M.toast(
                 {
                     html: 'Procesando...',
@@ -98,5 +143,110 @@
                 });
             EnviarFormulario();
         });
+
+        $("#comovende").change(function(){
+            document.getElementById("idcomovende").value = document.getElementById("comovende").value;
+            var op = $("#idcomovende").val();
+            
+            if( op > 0){
+                mostrarDivPrefijoCompra(1);
+                BlanqueCamposCostoPrecio(1);
+                CamposValoresAcero();
+
+            }
+            else{
+                mostrarDivPrefijoCompra(0);
+                BlanqueCamposCostoPrecio(0);
+            }
+
+        });
+
+        consultaUnidadesGranel("consultatodo");
+        mostrarDivPrefijoCompra(0);
+
+        $("#prefijoxcompra").change(function(){
+
+            document.getElementById("idprefijocompra").value = document.getElementById("prefijoxcompra").value;
+            var pre = $("#idprefijocompra").val();
+
+            if(pre != "")
+            {
+                LlenaUnidadesVenta();
+                mostrarDivPrefijoVenta(1);
+                CalcularValoresFraccionados();
+            }else
+            {
+                mostrarDivPrefijoVenta(0);
+                CamposValoresAcero();
+            }
+
+        });
+
+        function mostrarDivPrefijoVenta(mostrar){
+             if (mostrar == "0") 
+             {
+                $("#divprefijoventa").css('display', 'none');
+                $("#divpreciocomprapref").css('display', 'none');
+                $("#divprecioventapref").css('display', 'none');
+            } else {
+
+                $("#divprefijoventa").css('display', 'flex');
+                
+            }
+        }
+
+         $("#prefijoxventa").change(function () {
+
+            document.getElementById("idprefijoventa").value = document.getElementById("prefijoxventa").value;
+            BuscarRelacionCompraVenta();
+
+            var pre = $("#idprefijoventa").val();  
+            if (pre != ""){
+                mostrarCamposCostoPrecio(1);
+                CalcularValoresFraccionados();
+            }
+            else{
+                mostrarCamposCostoPrecio(0)
+                CamposValoresAcero();
+            }
+        });
+
+        function mostrarCamposCostoPrecio(mostrar){
+            if (mostrar == "0") {
+                $("#divpreciocomprapref").css('display', 'none');
+                $("#divprecioventapref").css('display', 'none');
+            }else{
+
+                $("#divpreciocomprapref").css('display', 'block');
+                $("#divprecioventapref").css('display', 'block');
+            }
+        }
+
+        function BlanqueCamposCostoPrecio(mostrar)
+        {
+            if (mostrar == "0") 
+            {
+                document.getElementById("costofraccionado").value = "";
+                document.getElementById("ventafraccionado").value = "";
+
+                document.getElementById("costo").readOnly = false;
+                document.getElementById("precio").readOnly = false;
+            } else {
+
+                document.getElementById("costo").value = "";
+                document.getElementById("precio").value = "";
+
+                document.getElementById("costo").readOnly = true;
+                document.getElementById("precio").readOnly = true;
+            }
+        }
+
+       function CamposValoresAcero(){
+           document.getElementById("costofraccionado").value = "";
+           document.getElementById("ventafraccionado").value = "";
+           document.getElementById("costo").value = "";
+           document.getElementById("precio").value = "";
+       }
     });
+
 </script>

@@ -78,4 +78,5 @@
         echo $rutaimagenes.$imagen;
     }
 
+    $mysqli->close();
 ?>

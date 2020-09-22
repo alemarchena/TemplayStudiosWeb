@@ -115,5 +115,5 @@
         echo $resultado;
     }
  
-    
+    $mysqli->close();
 ?>

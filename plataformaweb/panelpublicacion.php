@@ -67,6 +67,7 @@
     var tablacompras            = "";
     var tablaajustes            = "";
     var tablaproveedoresanuncios = "";
+    var tablaunidadesgranel = "";
 
     var conexionbdd             = "";
     var tablatiposdepago        = "";
@@ -347,6 +348,7 @@
                             tablaclientes = dd[key].tablaclientes;
                             tablacompras = dd[key].tablacompras;
                             tablaproveedores = dd[key].tablaproveedores;
+                            tablaunidadesgranel = dd[key].tablaunidadesgranel;
                             tablaproveedoresanuncios = dd[key].tablaproveedoresanuncios;
                             tablarubros = dd[key].tablarubros;
                             tablaventas = dd[key].tablaventas;

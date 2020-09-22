@@ -31,6 +31,7 @@
 
                     <div class="col-sm-5">
                         <div class="row justify-content-center">
+                            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
                             <label for="opcioneslista" class="colorletras">Selecciona una categoría</label>
                             <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
                         </div>
@@ -273,6 +274,8 @@ function validarentercompras(e) {
 
 $(document).ready(function () 
 {
+    vienede = "compras";
+
     configuracalendario();
     
     consultarubros_seleccion_lista(); //llena la lista del buscador
@@ -393,6 +396,11 @@ $(document).ready(function ()
 
 
 $("#opcioneslista").on('change', function () {
+    
+    var o = document.getElementById("opcioneslista");
+    var opcion = o.options[o.selectedIndex].text;
+    document.getElementById('rubro').value = opcion;
+
     consultaranunciosparamovimientos("consultarubros");
     M.toast(
     {

@@ -2,27 +2,29 @@
 <form action="" id="formulario" method="POST" role="form" enctype="multipart/form-data">
 
     <!-- nueva version simple -->
-    <div class="row justify-content-center filafondo mt-3 pt-2">
-        <div class="col-sm-12">
-            <div class="row">
-                <div class="col-sm-4">
-                    <a id="nuevoproductobase" style="color: white;" class="waves-effect waves-light btn-small">Datos básicos</a>
-                </div>
-                <div class="col-sm-4">
-                    <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
-                    <select class="form-control" id="opciones" name="opciones">
-                    
-                        <!-- aca se inserta la consulta de rubros -->
-                    
-                    </select>
-                </div>
-                <div class="col-sm-4">
-                    <a id="nuevodatoscomplementariosproducto" style="color: white;" class="waves-effect waves-light btn-small">Mas Datos</a>
-                </div>
-            </div>
+    <div class="row justify-content-center filafondo mt-4 p-2">
+        <div class="col-sm-3">
+            <h5 style="color: white;">Productos<i class="fas fa-address-card m-1" style="color: white;"></i></h5>
         </div>
+        <div class="col-sm-3">
+            <a id="nuevoproductobase" style="color: white;" class="waves-effect waves-light btn-small">Datos básicos</a>
+        </div>
+        <div class="col-sm-3">
+            <a id="nuevodatoscomplementariosproducto" style="color: white;" class="waves-effect waves-light btn-small">Mas Datos</a>
+        </div>
+        <div class="col-sm-3"></div>
     </div>
-    
+    <div id="divCategoria" class="row justify-content-center">
+        <div class="col-sm-4">
+            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
+            <select class="form-control" id="opciones" name="opciones">
+
+                <!-- aca se inserta la consulta de rubros -->
+
+            </select>
+        </div>
+        
+    </div>
     <div id="divNoLimpiar" class='row justify-content-center show' style="display: block;" >
         <div class="col-sm 12">
 
@@ -30,18 +32,19 @@
             <div id="divNuevoProducto" class="row">
 
             </div>
-
+            <hr>
             <div class="row justify-content-center">
                 <div class="col-sm-4">
                     <a id="nuevoanuncio" href="#">Nuevo Producto</a>
                 </div>
             </div>
-           
+            <hr>
         </div>
     </div>
+
     <!-- --------------------------------- -->
     <div id="divDatosComplementariosProducto" class='row justify-content-center' style="display: none;">
-        <div class="col-sm-3 border mt-1">
+        <div class="col-sm-2 mt-1">
             <div class="row justify-content-center" style="margin-bottom: 0em;">
                 <img id="muestra" src='img/agregarimagen.jpg' class='materialboxed card-img-top center-align mt-1 tamaimagen '
                     alt='...'></img>
@@ -52,18 +55,17 @@
                                 <input id="imagen" name="imagen"  type="file">
                             </div>
                             <div class="file-path-wrapper">
-                                <input  class="file-path validate" type="text" placeholder="Seleccione una imagen para subir">
+                                <input  class="file-path validate" type="text" placeholder="Imagen del producto">
                             </div>
                         </div>
                     </form>
                 <progress class="progress" id="barra" value="0" max="100">0%</progress>
-                <label class="colorletras" for="" id="valorbarra">0%</label>
+                <label style="display: none;" class="colorletras" for="" id="valorbarra">0%</label>
                 <p class="red-text accent-4" id="aviso"></p>
             </div>
         </div>
 
-        <div class="col-sm-3 border mt-1">
-           
+        <div class="col-sm-3 mt-1">
             <div class='row justify-content-center'>
                 <div class="col">
                     <textarea rows="7" onKeyDown="return validartecla(event,this.value,1000)"
@@ -71,32 +73,21 @@
                         name="observaciones" aria-label="observaciones"
                         placeholder="SABER MAS : Esta sección permite extender la descripción de su producto"></textarea>
                 </div>
-            
+            </div>
+            <div class='row justify-content-center'>
                 <div class="col">
                     <textarea rows="7" onKeyDown="return validartecla(event,this.value,1000)"
                         onKeyUp="return validartecla(event,this.value,1000)" class="form-control tooltipped" data-position="top" data-tooltip="Info que da valor agregado" id="comentarios"
                         name="comentarios" aria-label="comentarios"
                         placeholder="SUGERENCIAS : Esta sección le agrega valor sugiriendo algo mas sobre el producto"></textarea>
                 </div>
-            
             </div>
         </div>
-        <div class="col-sm-4 mt-1">
+        <div class="col-sm-3 mt-1">
 
             <div class="row justify-content-center">
-                <div class="col-sm-6 border mt-1">
-                    <div class="row justify-content-center">
-                        <!-- <input id="precio" name="precio" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
-                            class="validate border border-success center tooltipped" data-position="top" data-tooltip="Precio de venta"> -->
-                        <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return validartecla(event,this.value,6)"
-                            id="precio" name="precio" type="number" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
-                            class="validate border border-success center tooltipped" data-position="top" data-tooltip="Precio de venta">
-                    </div>
+                <div class="col-sm-6 mt-1">
                     
-                    <div class="row justify-content-center">
-                        <!-- <label class="colorletras" for="costo">Indique el $ Costo</label> -->
-                        <input id="costo" name="costo" type="number" min="0" maxlength="8" step="0.01" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Costo del producto"  placeholder="$ Costo">
-                    </div>
                     <div class="row justify-content-center">
                         <label for="opcionantes">
                             <input id="opcionantes" type="checkbox" class="filled-in" />
@@ -116,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 border mt-1">
+                <div class="col-sm-6 mt-1">
                     <div class="row justify-content-start">
                         <!-- ------- Check de opcion es oferta ------- -->
                         <p>
@@ -151,23 +142,11 @@
                         <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
                         id="bonus" name="bonus" type="number" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Por cuantos puntos bonus puede canjearse" placeholder="Cantidad de bonus">
                     </div>
-
-                    <div class="row justify-content-start">
-                        <label>
-                            <input id="opcionnopublicar" type="checkbox" class="filled-in" />
-                            <span class="" style="color: red;"> No publicar en la web</span>
-                        </label>
-                    
-                    </div>
-                    <div class="row justify-content-start">
-                        <p style="color: red;">Queda guardado pero no se ve en la web
-                    </div>
-                    
                 </div>
             </div>
 
         </div>
-        <div class="col-sm-2 border mt-1">
+        <div class="col-sm-2 mt-1">
             <div class="row justify-content-center">
                 <p class='center'>Link a sitio externo</p>
             </div>
@@ -181,86 +160,105 @@
                     id="linkexterno" name="linkexterno" type="text" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Pegar el enlace"
                     placeholder="Link al sitio externo">
             </div>
-        </div>
-    </div>
-   
-                
-    <div class="text-center grey lighten-3">
-                                    
-        <div class="row justify-content-center filamercado">
-            <h5 class="textofilamercado"><small>MODIFICAR PRODUCTOS</small></h5>
+            <div class="row justify-content-start">
+                <div class="col-sm-12">
+                    <label>
+                        <input id="opcionnopublicar" type="checkbox" class="filled-in" />
+                        <span class="" style="color: red;"> No publicar en la web</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-sm-12">
+                    <p style="color: red;">Queda guardado pero no se ve en la web
+                </div>
+            </div>
         </div>
 
-        <div class="row justify-content-center">
         
-            <!-- Columna de lista de anuncios -->
-            <div class="col-sm-12 center">
-                <!-- <div class="row justify-content-center">
-                    <div class="col-sm-6 center">
-                        <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-                    </div>
-                </div> -->
-                <div id="divBuscador" class="row justify-content-center p-4">
-                    <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
-                
-                
-                    <!-- ---------------------------------------------------------- -->
-                </div>
-                <div class="row">
-                    <div class="table-responsive">
-                        <table id="tablaanuncios" class="display table table-striped">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Editar</th>
-                                    <th>Imagen</th>
-                                    <th>Rubro</th>
-                                    <th>Título</th>
-                                    <th>Descripción</th>
-                                    <th>Precio Vta</th>
-                                    <th>Costo</th>
-                                    <th>Es Promo?</th>
-                                    <th>Es Novedad?</th>
-                                    <th>se publica?</th>
-                                    <th>Es Bonus?</th>
-                                    <th>Cantidad Bonus</th>
-                                    <th>Ventaja comercial</th>
-                                    <th>Titulo Ventaja</th>
-                                    <th>Precio tachado</th>
-                                    <th>Eliminar</th>
+    </div>
+    
+<div id="accordionVentas" class="mt-3 pt-2">
+   
+    <div class="card-header" id="headingListaProductos">
+        <h5 class="m-0">
+            <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaModificar" aria-expanded="false"
+                aria-controls="collapseListaModificar">
+                Modificar Productos
+            </button>
+        </h5>
+    </div>
+
+    <div id="collapseListaModificar" class="collapse" aria-labelledby="headingListaProductos" data-parent="#accordionVentas">
+        <div class="text-center grey lighten-3">
+                                        
+            <div class="row justify-content-center filamercado"></div>
+
+            <div class="row justify-content-center">
             
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Columna de lista de anuncios -->
+                <div class="col-sm-12 center">
+                    <div id="divBuscador" class="row justify-content-center p-4">
+                        <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
+                    
+                    
+                        <!-- ---------------------------------------------------------- -->
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table id="tablaanuncios" class="display table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Editar</th>
+                                        <th>Imagen</th>
+                                        <th>Rubro</th>
+                                        <th>Título</th>
+                                        <th>Descripción</th>
+                                        <th>Precio Vta</th>
+                                        <th>Costo</th>
+                                        <th>Es Promo?</th>
+                                        <th>Es Novedad?</th>
+                                        <th>se publica?</th>
+                                        <th>Es Bonus?</th>
+                                        <th>Cantidad Bonus</th>
+                                        <th>Ventaja comercial</th>
+                                        <th>Titulo Ventaja</th>
+                                        <th>Precio tachado</th>
+                                        <th>Eliminar</th>
+                
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        
         </div>
     </div>
-           
-      
+</div>
+
 </form>
 
 <script>
@@ -269,21 +267,18 @@
     
     $(document).ready(function () 
     {
+        vienede = "productos";
+        
         $('.tooltipped').tooltip();
 
-        // consultarubros_seleccion_lista(); //llena la lista del buscador
         imageneszoom(); //habilita el zoom para las imagenes
         validarcambioimagen(); //verifica cuando se elige otra imagen en la tarjeta
         configuraciontabla('#tablaanuncios');//configuracion de la tabla
         consultarubros_seleccion(); //llena la lista del alta de anuncio
 
-       
-
-       
         $("#limpiar").click(function () {
             limpiarformulario();
         });
-
 
         $("#opciones").change(function () {
             var o = document.getElementById("opciones");
@@ -316,10 +311,14 @@
         if ($("#divNoLimpiar").hasClass("show")) {
             $("#divNoLimpiar").css('display', 'none');
             $("#divNoLimpiar").removeClass('show');
+
+            $("#divCategoria").css('display','none');
         }
         else {
             $("#divNoLimpiar").css('display', 'block');
             $("#divNoLimpiar").addClass('show');
+
+            $("#divCategoria").css('display', 'flex');
         }
     }
     

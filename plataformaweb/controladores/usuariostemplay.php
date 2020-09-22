@@ -59,7 +59,7 @@
 
             $sql = "select " .$plataforma.".id,".$plataforma. ".nombre,"    .$plataforma.".bdd,".$plataforma.".tablaajustes,"
             .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,"
-            .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,"
+            .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,".$plataforma.".tablaunidadesgranel,"
             .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos,".$plataforma.".rutaimagenes,"
             .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 
             .$plataforma. " LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma".
@@ -70,7 +70,7 @@
 
             $sql = "select " .$plataforma.".id,".$plataforma. ".nombre,"    .$plataforma.".bdd,".$plataforma.".tablaajustes,"
             .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,"
-            .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,"
+            .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,".$plataforma.".tablaunidadesgranel,"
             .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos,".$plataforma.".rutaimagenes,"
             .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 
             .$plataforma. " LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma".

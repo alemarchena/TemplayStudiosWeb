@@ -13,6 +13,10 @@ paginaactualbuscados = 0;
 paginastotalesofertas = 0;
 paginastotalesbuscados = 0;
 
+arregloUnidades = []; //unidades de compra y venta de los productos fraccionados
+relacionCV = ""; //relacion compra venta para los productos fraccionados, se usa como multiplicador o divison en los precios
+vienede ="" //lo verifica EnviarFormulario para ver si viene de productos o de compras
+
 encontro = false;
 llama = "";
 
@@ -104,11 +108,15 @@ function limpiarformulario() {
     document.getElementById('id').value = "";
 
     //imagen
-    document.getElementById("muestra").src = "img/agregarimagen.jpg";
-    document.getElementById("barra").value = 0;
-    document.getElementById("valorbarra").innerHTML = "0%";
+    
+    if(vienede == "productos")
+    {
+        document.getElementById("muestra").src = "img/agregarimagen.jpg";
+        document.getElementById("barra").value = 0;
+        document.getElementById("valorbarra").innerHTML = "0%";
+        limpiarinputimagen();
+    }
 
-    limpiarinputimagen();
 
     if ($('#opcionnoguardar').prop('checked'))
     {
@@ -119,24 +127,31 @@ function limpiarformulario() {
         document.getElementById('descripcion').value = "";
         document.getElementById('precio').value = "";
         document.getElementById('costo').value = "";
-        document.getElementById('observaciones').value = "";
-        document.getElementById('comentarios').value = "";
-        document.getElementById('bonus').value = "";
-        document.getElementById('tituloantes').value = "";
-        document.getElementById('precioantes').value = "";
+        if(vienede == "productos")
+        {
+            document.getElementById('observaciones').value = "";
+            document.getElementById('comentarios').value = "";
+            document.getElementById('bonus').value = "";
+            document.getElementById('tituloantes').value = "";
+            document.getElementById('precioantes').value = "";
 
-        document.getElementById('textolinkexterno').value = "";
-        document.getElementById('linkexterno').value = "";
+            document.getElementById('textolinkexterno').value = "";
+            document.getElementById('linkexterno').value = "";
         
+            $('#opcionbonus').prop('checked', false);
+            $('#opcionantes').prop('checked', false);
+            $('#esnovedad').prop('checked', false);
+            $('#esoferta').prop('checked', false);
+            $('#opcionnopublicar').prop('checked',false);
+            
+        }
 
-        $('#opcionbonus').prop('checked', false);
-        $('#opcionantes').prop('checked', false);
-        $('#esnovedad').prop('checked', false);
-        $('#esoferta').prop('checked', false);
+        document.getElementById('costofraccionado').value = "";
+        document.getElementById('ventafraccionado').value = "";
+        document.getElementById('codigobarra').value = "";
+
     }
-
-    $('#opcionnopublicar').prop('checked',false);
-
+        
     posicioninicial();
 }
 
@@ -328,78 +343,213 @@ function mostrarToastError(dato){
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Erro en ' + dato ,
-        footer: '<a href>Trabajas demasiado, tal vez necesitas un descanso!</a>'
+        text: 'Falta ' + dato ,
+        footer: '<a href>Falto un dato</a>'
     })
 
 }
 
 
+
+function consultaUnidadesGranel(tipo, e) {
+
+    var bdd = conexionbdd;
+    var tabla = tablaunidadesgranel;
+
+    var itemunidades = new Object();
+    itemunidades.bdd        = bdd;
+    itemunidades.tipo       = tipo;
+    itemunidades.tabla      = tabla;
+    itemunidades.id         = "";
+    itemunidades.prefijo    = "";
+    var objeto = JSON.stringify(itemunidades);
+
+    $.ajax({
+
+        url: "consultaunidadesgranel.php",
+        data: { objeto: objeto },
+        type: "post",
+
+        success: function (data) {
+            $("#prefijoxcompra").empty();
+
+            if (data != "consultavacia") {
+                dd = JSON.parse(data); //data decodificado
+
+                arregloUnidades = [];
+                var a = [];
+                a.push('<option value = "" selected >Unid.Compra</option >');
+                var unidadAnterior="";
+
+                $.each(dd, function (key, value) {
+
+                    if(unidadAnterior != dd[key].prefijocompra )
+                        a = a.concat('<option value = ' + dd[key].prefijocompra + ' > ' + dd[key].nombreprefijocompra + '</option>');
+
+                    unidadAnterior = dd[key].prefijocompra;
+
+                    var objeto = new Object();
+                    objeto.nombreprefijocompra = dd[key].nombreprefijocompra;
+                    objeto.prefijocompra = dd[key].prefijocompra;
+                    objeto.nombreprefijoventa = dd[key].nombreprefijoventa;
+                    objeto.prefijoventa = dd[key].prefijoventa;
+                    objeto.relacioncompraventa = dd[key].relacioncompraventa;
+                    arregloUnidades.push(objeto);
+                    
+                });
+
+                $("#prefijoxcompra").append(a);
+
+                //selecciona el primer item
+                $("#prefijoxcompra option:selected").prop("selected", false);
+                $(this).prop("selected", true);
+
+            } 
+        },
+        error: function (e) {
+            alert("Error en la consulta." + e.value);
+        }
+    });
+}
+
+function LlenaUnidadesVenta()
+{
+    var prefijoelegido = $("#idprefijocompra").val();   //verifica que se eligio en la lista de compra
+    $("#prefijoxventa").empty();//vacia la lista de venta
+
+    var opc = [];
+    opc.push('<option value = "" selected >Unid.Venta</option >'); //crea la primera opcion de la lista de venta
+    
+    for (a = 0 ; a < arregloUnidades.length;a++)
+    {
+        if(arregloUnidades[a].prefijocompra == prefijoelegido)
+            opc = opc.concat('<option value = ' + arregloUnidades[a].prefijoventa + ' > ' + arregloUnidades[a].nombreprefijoventa  + '</option>');
+    }
+    $("#prefijoxventa").append(opc);
+}
+
+function BuscarRelacionCompraVenta()
+{
+    relacionCV = "";
+    var prefijoelegido = $("#idprefijoventa").val();   //verifica que se eligio en la lista de venta
+    for (a = 0 ; a < arregloUnidades.length;a++)
+    {
+        if(arregloUnidades[a].prefijoventa == prefijoelegido)
+            relacionCV = arregloUnidades[a].relacioncompraventa;
+    }
+}
+
 function EnviarFormulario()
 {
     console.log("version " + version);
 
-    var formulario = document.getElementById("formulario");
+    var rnombre = "";
+    var r = "";
+    var bonus = 0;
+
+    var tia = "";
+    var pea = "";
+    var tle = "";
+    var le = "";
+
+    var observacion = "";
+    var o ="";
+    
+    var comentario = "";
+    var come = comentario.trim();
+    
+    var en=0;
+    var eo=0;
+    var pb=0;
+    var np=0;
+    var oa=0;
+
+
+    if(vienede == "productos")
+    {
+        var formulario = document.getElementById("formulario");
+        rnombre = document.getElementById('rubro').value;
+        r = document.getElementById("opciones").value;
+        bonus = document.getElementById('bonus').value;
+        tia = document.getElementById('tituloantes').value;
+        pea = document.getElementById('precioantes').value;
+        tle = document.getElementById('textolinkexterno').value;
+        le = document.getElementById('linkexterno').value;
+
+        observacion = document.getElementById('observaciones').value;
+        o = observacion.trim();
+        o = o.substr(0, 800);
+
+        comentario = document.getElementById('comentarios').value;
+        come = comentario.trim();
+        come = come.substr(0,800);
+
+        if ($('#esnovedad').prop('checked')) {
+            en = 1;
+        }else
+        {
+            en = 0;
+        }
+
+        if ($('#esoferta').prop('checked')) {
+            eo = 1;
+        } else {
+            eo = 0;
+        }
+
+        if ($('#opcionnopublicar').prop('checked')) {
+            np = 1;
+        } else {
+            np = 0;
+        }
+
+        if ($('#opcionbonus').prop('checked')) {
+            pb = 1;
+        } else {
+            pb = 0;
+        }
+
+        
+        if ($('#opcionantes').prop('checked')) {
+            oa = 1;
+        } else {
+            oa = 0;
+        }
+
+    }else if(vienede == "compras")
+    {
+        rnombre = document.getElementById('rubro').value;
+        r = document.getElementById("opcioneslista").value;
+    }
+    
+    //------------ validaciones para campos fraccionados ----------
+    var codbar = document.getElementById('codigobarra').value;
+    codbar = codbar.trim();
+    
+    var pfixc = 0;
+    var pfixv = 0;
+    var costoxprefijo = 0;
+    var ventaxprefijo = 0;
+
+    var comovende = document.getElementById('comovende').value;
+    
+    if(comovende == 1)
+    {
+        pfixc = document.getElementById("prefijoxcompra").value;
+        pfixv = document.getElementById("prefijoxventa").value;
+        costoxprefijo = document.getElementById("costofraccionado").value;
+        ventaxprefijo = document.getElementById("ventafraccionado").value;
+    }
+    //------------------------------------------------------------
 
     var id = document.getElementById('id').value;
-    var rnombre = document.getElementById('rubro').value;
-    var r = document.getElementById("opciones").value;
     var t = document.getElementById('titulo').value;
     var d = document.getElementById('descripcion').value;
     var p = document.getElementById('precio').value;
     var c = document.getElementById('costo').value;
-    var bonus = document.getElementById('bonus').value;
-    var tia = document.getElementById('tituloantes').value;
-    var pea = document.getElementById('precioantes').value;
-    var tle = document.getElementById('textolinkexterno').value;
-    var le = document.getElementById('linkexterno').value;
-
-    var observacion = document.getElementById('observaciones').value;
-    var o = observacion.trim();
-    o = o.substr(0, 800);
-
-    var comentario = document.getElementById('comentarios').value;
-    var come = comentario.trim();
-    come = come.substr(0,800);
-
-    var en;
-    if ($('#esnovedad').prop('checked')) {
-        en = 1;
-    }else
-    {
-        en = 0;
-    }
-
-    var eo;
-    if ($('#esoferta').prop('checked')) {
-        eo = 1;
-    } else {
-        eo = 0;
-    }
-
-    var np;
-    if ($('#opcionnopublicar').prop('checked')) {
-        np = 1;
-    } else {
-        np = 0;
-    }
-
-    var pb;
-    if ($('#opcionbonus').prop('checked')) {
-        pb = 1;
-    } else {
-        pb = 0;
-    }
+    
 
     
-    var oa;
-    if ($('#opcionantes').prop('checked')) {
-        oa = 1;
-    } else {
-        oa = 0;
-    }
-
-
     // validaciones de campos
     if (rnombre == "") { mostrarToastError("Categoría"); return; }
     if (t == "") { mostrarToastError("Titulo"); return; }
@@ -445,45 +595,51 @@ function EnviarFormulario()
     if(posicion >=0)
         pea = pea.slice(0, posicion) + "." + pea.slice(posicion + 1); 
     
+    if(vienede == "productos")
+        {
+        if (imagen.files.length == 0)
+        {
+            if (id == "")
+            {//es nuevo y viene sin imagen
+                mostrarToastError(" imagen, se guardará una por defecto!!!");
+                i = "agregarimagen.jpg";
+                altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
 
+            }else
+            {//esta modificando pero dejo la misma imagen
+                var i = "";
+                altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
+            }
+        }else{
+            var i = imagen.files[0].name;
 
+            //subir imagen al servidor
+            var formdata = new FormData(formulario);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log("ok");
+                    //guardar el anuncio en la base de datos
+                    altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
+                    // limpiarformulario();
 
-    if (imagen.files.length == 0)
-    {
-        if (id == "")
-        {//es nuevo y viene sin imagen
-            mostrarToastError("Imagen");
-            return;
-        }else
-        {//esta modificando pero dejo la misma imagen
-            var i = "";
-            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le);
+                } else
+                    console.log("intentando subir imagen...");
+            };
+
+            xhttp.open('POST', 'subirarchivo.php', true);
+            xhttp.send(formdata);
         }
     }else{
-        var i = imagen.files[0].name;
 
-        //subir imagen al servidor
-        var formdata = new FormData(formulario);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log("ok");
-                 //guardar el anuncio en la base de datos
-                altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le);
-                // limpiarformulario();
-
-            } else
-                console.log("intentando subir imagen...");
-        };
-
-        xhttp.open('POST', 'subirarchivo.php', true);
-        xhttp.send(formdata);
+        i = "agregarimagen.jpg";
+        altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
     }
 }
 
 
 
-function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le)
+function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo)
 {
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
@@ -524,7 +680,12 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
     itemanuncio.rutaimagenes = "";
     itemanuncio.filtro = "";
 
-    
+    itemanuncio.codigobarra = codbar;
+    itemanuncio.prefijoxcompra = pfixc;
+    itemanuncio.prefijoxventa =pfixv;
+    itemanuncio.costoxprefijo = costoxprefijo;
+    itemanuncio.ventaxprefijo = ventaxprefijo;
+
     var objetoanuncio = JSON.stringify(itemanuncio);
 
     console.log(objetoanuncio);
@@ -4618,7 +4779,7 @@ function consultaranunciosparamovimientos(tipo,e) {
         t = $('#tablaanunciosmovimientos').DataTable();
     }
     var seleccion = document.getElementById("opcioneslista");
-    var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
+    // var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
 
     var seleccionidrubro = document.getElementById("opcioneslista").value;
 

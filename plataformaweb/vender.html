@@ -1,214 +1,214 @@
 <div id="accordionVentas" class="mt-3 pt-2">
                 
-        <div class="filafondo row justify-content-center align-items-center">
-            <div class="col-sm-2">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h5 style="color: white;">Ventas<i class="fas fa-shopping-cart" style="color: white;"></i></h5>
-                    </div>
+    <div class="filafondo row justify-content-center align-items-center">
+        <div class="col-sm-2">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5 style="color: white;">Ventas<i class="fas fa-shopping-cart" style="color: white;"></i></h5>
                 </div>
             </div>
+        </div>
 
-            <div class="col-sm-2">
-                <div class="row justify-content-center ">
-                    <h5 class="m-1 p-1">
-                        <input id="fechaventa" type="text" class="datepicker center" readonly>
-                    </h5>
+        <div class="col-sm-2">
+            <div class="row justify-content-center ">
+                <h5 class="m-1 p-1">
+                    <input id="fechaventa" type="text" class="datepicker center" readonly>
+                </h5>
+            </div>
+            <div class="row" style="display: none;">
+                <div class="col-sm-4">
+                    <input type="text" id="bonusestablecido" value="" class="center" readonly>
                 </div>
-                <div class="row" style="display: none;">
-                    <div class="col-sm-4">
-                        <input type="text" id="bonusestablecido" value="" class="center" readonly>
-                    </div>
-                    <div class="col-sm-8">
-                        <p>% de bonus por venta</p>
-                    </div>
+                <div class="col-sm-8">
+                    <p>% de bonus por venta</p>
                 </div>
+            </div>
+        </div>
+        
+        <div class="col-sd-2">
+            <div class="row justify-content-center">
+                <select class="form-control m-1 p-1" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
             </div>
             
-            <div class="col-sd-2">
-                <div class="row justify-content-center">
-                    <select class="form-control m-1 p-1" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
-                </div>
-               
-            </div>
-            <div class="col-sd-2">
-                <div class="row justify-content-center">
-                    <select class="form-control m-1 p-1" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
-                </div>
-            </div>
-
-            <div class="col-sd-2">
-                <div class="row justify-content-center">
-                    <button id="procesarpedido" class="btn btn-primary">Guardar <i class="fas fa-save"></i></button>
-                </div>
-            </div>
-            <div class="col-sd-2">
-                <div class="row justify-content-center">
-                    <input id="totalpedido" value="0" type="text" class="center" style="color: rgb(255, 255, 255);font-size: 1.3em;"
-                        readonly>
-                </div>
-            </div>
         </div>
-        
-        <div id="pedido" style="display: none;">
-            <!-- lista venta -->
-            <div class="row">
-                <!-- Columna de tarjeta de ventas -->
-                <div class="col-sm-12 notapedido">
-
-                    <div class="table-responsive">
-                        <table id="tablaitemsventa" class="display table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Título</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>Sub Total</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
+        <div class="col-sd-2">
+            <div class="row justify-content-center">
+                <select class="form-control m-1 p-1" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
             </div>
         </div>
 
-        <hr>
+        <div class="col-sd-2">
+            <div class="row justify-content-center">
+                <button id="procesarpedido" class="btn btn-primary">Guardar <i class="fas fa-save"></i></button>
+            </div>
+        </div>
+        <div class="col-sd-2">
+            <div class="row justify-content-center">
+                <input id="totalpedido" value="0" type="text" class="center" style="color: rgb(255, 255, 255);font-size: 1.3em;"
+                    readonly>
+            </div>
+        </div>
+    </div>
         
-        <!-- Buscar para Vender -->
+    <div id="pedido" style="display: none;">
+        <!-- lista venta -->
         <div class="row">
-            <!-- Columna de lista de anuncios -->
-            <div class="col-sm-12">
-                <div id="divBuscador" class="row justify-content-center p-4">
-                    <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
-                    
+            <!-- Columna de tarjeta de ventas -->
+            <div class="col-sm-12 notapedido">
 
-                    <!-- ---------------------------------------------------------- -->
-                </div>
-                <div class=" col-sm-2">
-                    <!-- cliente elegido -->
-                    <input style="display: none;" id="idclienteelegido" name="idclienteelegido" type="text">
-                    <input style="display: none;" id="clienteelegido" name="clienteelegido" type="text">
-                    <input style="display: none;" id="idtipodepagoelegido" name="idtipodepagoelegido" type="text">
-                    <input style="display: none;" id="tipodepagoelegido" name="tipodepagoelegido" type="text">
-                </div>
-                <div id="listaproductos" style="display: none;" class="table-responsive">
-                    <table id="tablaanunciosvender" class="display table table-striped">
+                <div class="table-responsive">
+                    <table id="tablaitemsventa" class="display table table-striped">
                         <thead>
                             <tr>
-                                <th class="masmenoscolumna center">$ lista</th>
-                                <th class="columnadedos">Menos</th>
-                                <th class="descripcioncolumna">Descripción</th>
-                                <th class="masmenoscolumna center">cantidad</th>
-                                <th class="masmenoscolumna center">$ vta</th>
-                                <th class="titulocolumna">Título</th>
-                                <th class="columnadedos center">Mas</th>
-                                <th class="masmenoscolumna center">Guardar</th>
-                                <th class="imagencolumna">Imagen</th>
-
+                                <th>Id</th>
+                                <th>Título</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Sub Total</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                
-                                <td class="masmenoscolumna center"></td>
-                                <td class="masmenoscolumna center"></td>
-                                <td class="descripcioncolumna"></td>
-                                <td class="masmenoscolumna center"></td>
-                                <td class="masmenoscolumna center"></td>
-                                <td class="titulocolumna"></td>
-                                <td class="masmenoscolumna center"></td>
-                                <td class="masmenoscolumna center"></td>
-                                <td class="imagencolumna"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
-        <!-- Fin vender -->
+    </div>
+
+        <hr>
+        
+    <!-- Buscar para Vender -->
+    <div class="row">
+        <!-- Columna de lista de anuncios -->
+        <div class="col-sm-12">
+            <div id="divBuscador" class="row justify-content-center p-4">
+                <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
+                
+
+                <!-- ---------------------------------------------------------- -->
+            </div>
+            <div class=" col-sm-2">
+                <!-- cliente elegido -->
+                <input style="display: none;" id="idclienteelegido" name="idclienteelegido" type="text">
+                <input style="display: none;" id="clienteelegido" name="clienteelegido" type="text">
+                <input style="display: none;" id="idtipodepagoelegido" name="idtipodepagoelegido" type="text">
+                <input style="display: none;" id="tipodepagoelegido" name="tipodepagoelegido" type="text">
+            </div>
+            <div id="listaproductos" style="display: none;" class="table-responsive">
+                <table id="tablaanunciosvender" class="display table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="masmenoscolumna center">$ lista</th>
+                            <th class="columnadedos">Menos</th>
+                            <th class="descripcioncolumna">Descripción</th>
+                            <th class="masmenoscolumna center">cantidad</th>
+                            <th class="masmenoscolumna center">$ vta</th>
+                            <th class="titulocolumna">Título</th>
+                            <th class="columnadedos center">Mas</th>
+                            <th class="masmenoscolumna center">Guardar</th>
+                            <th class="imagencolumna">Imagen</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            
+                            <td class="masmenoscolumna center"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <td class="descripcioncolumna"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <td class="titulocolumna"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <td class="imagencolumna"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Fin vender -->
 
               
-            <!-- ------------------------------ lista de ventas del dia ------------------------ -->
-            <div class="card">
-                <div class="card-header" id="headingListaVenta">
-                    <h5 class="m-0">
-                        <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaVenta"
-                            aria-expanded="false" aria-controls="collapseListaVenta">
-                            Lista de ventas del día
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseListaVenta" class="collapse" aria-labelledby="headingListaVenta" data-parent="#accordionVentas">
-                    <div class="card-body">
-                        <!-- lista venta -->
-                        <div class="row m-0 p-0">
-                            <!-- Columna de tarjeta de ventas -->
-                            <div class="col-sm-12 notapedido">
+    <!-- ------------------------------ lista de ventas del dia ------------------------ -->
+    <div class="card">
+        <div class="card-header" id="headingListaVenta">
+            <h5 class="m-0">
+                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaVenta"
+                    aria-expanded="false" aria-controls="collapseListaVenta">
+                    Lista de ventas del día
+                </button>
+            </h5>
+        </div>
+        <div id="collapseListaVenta" class="collapse" aria-labelledby="headingListaVenta" data-parent="#accordionVentas">
+            <div class="card-body">
+                <!-- lista venta -->
+                <div class="row m-0 p-0">
+                    <!-- Columna de tarjeta de ventas -->
+                    <div class="col-sm-12 notapedido">
 
-                                <div class="row justify-content-center bd-highlight">
-                                    <div class="col-sm-12">
-                                        <h5>Ventas del día</h5>
-                                    </div>
-
-                                </div>
-
-                                <div class="table-responsive">
-                                    <table id="tablavender" class="display table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Título</th>
-                                                <th>Descripción</th>
-                                                <th class="masmenoscolumna">cantidad</th>
-                                                <th>Precio</th>
-
-                                                <th class="masmenoscolumna">Id Cliente</th>
-                                                <th>Cliente</th>
-                                                <th class="masmenoscolumna">Bonus Vta</th>
-                                                <th class="masmenoscolumna">Forma Pago</th>
-                                                <th class="masmenoscolumna">Total</th>
-
-                                                <th>Eliminar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="masmenoscolumna"></td>
-                                                <td></td>
-
-                                                <td class="masmenoscolumna"></td>
-                                                <td></td>
-                                                <td class="masmenoscolumna"></td>
-                                                <td class="masmenoscolumna"></td>
-                                                <td class="masmenoscolumna"></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div class="row justify-content-center bd-highlight">
+                            <div class="col-sm-12">
+                                <h5>Ventas del día</h5>
                             </div>
 
                         </div>
-                        <!-- fin lista venta -->
+
+                        <div class="table-responsive">
+                            <table id="tablavender" class="display table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Descripción</th>
+                                        <th class="masmenoscolumna">cantidad</th>
+                                        <th>Precio</th>
+
+                                        <th class="masmenoscolumna">Id Cliente</th>
+                                        <th>Cliente</th>
+                                        <th class="masmenoscolumna">Bonus Vta</th>
+                                        <th class="masmenoscolumna">Forma Pago</th>
+                                        <th class="masmenoscolumna">Total</th>
+
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="masmenoscolumna"></td>
+                                        <td></td>
+
+                                        <td class="masmenoscolumna"></td>
+                                        <td></td>
+                                        <td class="masmenoscolumna"></td>
+                                        <td class="masmenoscolumna"></td>
+                                        <td class="masmenoscolumna"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
                 </div>
+                <!-- fin lista venta -->
             </div>
-            
         </div>
+    </div>
+        
+</div>
 <script>
 
 function consultaventadiaactual() {

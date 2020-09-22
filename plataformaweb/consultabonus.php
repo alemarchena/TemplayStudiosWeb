@@ -41,5 +41,5 @@
         echo $resultado;
         
     }
-    
+    $mysqli->close();
 ?>

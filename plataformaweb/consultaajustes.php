@@ -91,4 +91,5 @@
             echo "consultavacia ".$sql; 
         }
     }
+    $mysqli->close();
 ?>

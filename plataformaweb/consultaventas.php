@@ -111,4 +111,6 @@
         if($resultado) { echo $resultado;}
         else{ echo "consultavacia ".$sql; }
     }
+
+    $mysqli->close();
 ?>
