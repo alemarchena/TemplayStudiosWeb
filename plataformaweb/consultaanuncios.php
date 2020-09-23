@@ -201,12 +201,10 @@
         
     }else if($tipo == "baja")
     {
-        unlink($rutaimagenes.$imagen);
 
-  
         $sql = "delete from " .$tabla. " where id = $id";
-
         $resultado  = $mysqli->query($sql);
+        unlink($rutaimagenes.$imagen);
         echo $rutaimagenes.$imagen;
     }else if($tipo == "actualizapreciocostoyventa"){
             $sql = "update " .$tabla. " set precio = '$precio',costo = '$costo',precioanterior = '$precioanterior',costoanterior = '$costoanterior', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo' where id= $id";

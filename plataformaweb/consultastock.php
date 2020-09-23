@@ -16,7 +16,7 @@
     $tablaajustes= $objetoanuncio['tablaajustes'];
     $tablaproveedores= $objetoanuncio['tablaproveedores'];
     $tablaproveedoresanuncios= $objetoanuncio['tablaproveedoresanuncios'];
-
+    $tablaunidadesgranel = $objetoanuncio['tablaunidadesgranel'];
     // $fechainicio = $_POST['fechainicio'];
     // $fechafin = $_POST['fechafin'];
 
@@ -69,13 +69,15 @@
         {
             // $sqlpor rubro
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"  
-                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," 
+                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," 
+                                 .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro," 
                                  .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor," 
-                                 .$tablaproveedores. ".nombreproveedor from (((" .$tabla. " LEFT JOIN " 
+                                 .$tablaproveedores. ".nombreproveedor from ((((" .$tabla. " LEFT JOIN " 
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
                                  .$tablaproveedoresanuncios. " ON " .$tabla. ".id = " .$tablaproveedoresanuncios. ".idanuncio ) LEFT JOIN " 
-                                 .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) where " 
+                                 .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) LEFT JOIN "
+                                 .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra ) where " 
                                  .$tabla. ".idrubro = " .$idrubro . " order by " .$tabla. ".titulo";
                    
                                 //  echo $sql;
@@ -85,13 +87,15 @@
             {
                 // $sql todo 
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"  
-                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," 
+                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
+                                 .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro," 
                                  .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor," 
-                                 .$tablaproveedores. ".nombreproveedor from (((" .$tabla. " LEFT JOIN " 
+                                 .$tablaproveedores. ".nombreproveedor from ((((" .$tabla. " LEFT JOIN " 
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
                                  .$tablaproveedoresanuncios. " ON " .$tabla. ".id = " .$tablaproveedoresanuncios. ".idanuncio ) LEFT JOIN " 
-                                 .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) where  1 order by " 
+                                 .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) LEFT JOIN "
+                                 .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra ) where  1 order by " 
                                  .$tabla. ".titulo";
                                 //  echo $sql;
 
@@ -100,26 +104,30 @@
             {
                 // $sql con $sentencia 
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"  
-                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," 
+                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
+                                 .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro,"
                                  .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor,"
-                                 .$tablaproveedores. ".nombreproveedor from (((" .$tabla. " LEFT JOIN " 
+                                 .$tablaproveedores. ".nombreproveedor from ((((" .$tabla. " LEFT JOIN " 
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN " 
                                  .$tablaproveedoresanuncios. " ON " .$tabla. ".id = " .$tablaproveedoresanuncios. ".idanuncio ) LEFT JOIN " 
-                                 .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) where " . $sentencia . " ) order by " .$tabla. ".titulo";
+                                 .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) LEFT JOIN " 
+                                 .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra ) where " . $sentencia . " ) order by " .$tabla. ".titulo";
                                 //  echo $sql;
            
             }
         }else if($tipo == "consulta")
         {
             // $sql por id;
-            $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," 
-                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta,"
-                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," 
-                                 .$tabla. ".observaciones," .$tabla. ".comentarios," .$tabla. ".fechastockinicio," 
-                                 .$tablarubros. ".nombrerubro as rubro from " .$tabla. " LEFT JOIN " 
-                                 .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro where " .$tabla. ".id = " 
-                                 .$id . " order by " .$tabla. ".titulo";
+            $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
+                                .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"                    
+                                .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta,"
+                                .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," 
+                                .$tabla. ".observaciones," .$tabla. ".comentarios," .$tabla. ".fechastockinicio," 
+                                .$tablarubros. ".nombrerubro as rubro from ((" .$tabla. " LEFT JOIN " 
+                                .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
+                                .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra ) where " .$tabla. ".id = " 
+                                .$id . " order by " .$tabla. ".titulo";
         }
 
     

@@ -17,6 +17,11 @@
                 <input id="numerocomprobantecompra" style="background-color: white;" type="text" maxlength="30">
             </div>
 
+            <div class="col-sm-3">
+                <button id="nuevoproductocompras" style="color: white;" class="waves-effect waves-light btn-small"><i
+                        class="material-icons right">add_box</i>Nuevo Producto</button>
+            </div>
+
         </div>
 
                
@@ -29,17 +34,17 @@
                         <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
                     </div>
 
-                    <div class="col-sm-5">
-                        <div class="row justify-content-center">
+                    <!-- <div class="col-sm-5"> -->
+                        <!-- <div class="row justify-content-center">
                             <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
                             <label for="opcioneslista" class="colorletras">Selecciona una categoría</label>
                             <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-sm-3 mt-0 ml-0 mb-0 pl-0">
-                                <a id="nuevoproductocompras" style="color: white;" class="waves-effect waves-light btn-small"><i
-                                        class="material-icons right">add_box</i>Nuevo Prod</a>
-                            </div>
+                        </div> -->
+
+                        
+
+                        <!-- <div class="row justify-content-center">
+                            
                             <div class="col-sm-6 m-0 p-0" id="contenedorbusqueda">
                                 <input id="cajabusquedacompras" onkeydown="validarentercompras(event)" placeholder="Encuentra marcas y productos aquí"
                                     class="form-control mr-sm-2" type="search" aria-label="Search">
@@ -47,8 +52,9 @@
                             <div class="col-sm-3 m-0 p-0">
                                 <button id="consultacompras" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
                             </div>
-                        </div>
-                    </div>
+                            
+                        </div> -->
+                    <!-- </div> -->
                     
                     <div class="col-sm-3">
                         <label for="opcioneslistatiposmovimientostock" class="colorletras">Selecciona un tipo de movimiento</label>
@@ -61,7 +67,13 @@
                     <input style="display: none;" id="idtipomovimientostockelegido" name="idtipomovimientostockelegido" type="text">
                     <input style="display: none;" id="tipomovimientostockelegido" name="tipomovimientostockelegido" type="text">
                 </div>
-
+                
+                <div id="divBuscador" class="row justify-content-center p-4">
+                    <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
+                
+                
+                    <!-- ---------------------------------------------------------- -->
+                </div>
                 <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
                 <div id="divNuevoProducto" style="display: none;"  class="row">
                     
@@ -73,17 +85,21 @@
                         <thead>
                             <tr>
                                 <!-- <th style="display: none;" class="columnadedos center">Stock inicio</th> -->
-                                <th>Descripción</th>
+                                <th>Código Barra</th>
                                 <th>Título</th>
+
                                 <th class="columnadedos center">Menos</th>
                                 <th class="columnadetres center">cantidad Unid.Compradas</th>
+                                <th class="columnadedos center">Uni.Med.</th>
+
                                 <th class="columnadedos center">Mas</th>
+
                                 <th class="columnadetres center">Costo x Unid.Compra</th>
                                 <th class="columnadetres center">$ Vta x Unid.Compra</th>
+                                <th class="columnadedos center">Forma Vta</th>
+
                                 <th class="columnadetres center">Guardar</th>
                                 <th class="columnadetres">Imagen</th>
-                                
-                                <th class="columnadetres center">Costo actual</th>
                                 <th class="columnadetres center">Stock</th>
 
                                 <!-- <th style="display: none;">Inicio stock</th> -->
@@ -98,12 +114,15 @@
                                 <td class="columnadedos center"></td>
                                 <td class="columnadetres center"></td>
                                 <td class="columnadedos center"></td>
-                                <td class="columnadetres center"></td>
-                                <td class="columnadetres center"></td>
-                                <td class="columnadetres center"></td>
-                                <td class="columnadetres"></td>
-                                <td class="columnadetres"></td>
+
+                                <td class="columnadedos center"></td>
                                 
+                                <td class="columnadetres center"></td>
+                                <td class="columnadetres center"></td>
+                                <td class="columnadedos center"></td>
+
+                                <td class="columnadetres center"></td>
+                                <td class="columnadetres"></td>
                                 <td class="columnadetres center"></td>
                                 <!-- <td style="display: none;"></td> -->
                             </tr>
@@ -121,11 +140,14 @@
 
                 <div class="card">
                     <div class="card-header container" id="headingComprasAjustes">
-                        <h2 class="m-0">
-                            <button id="consultacomprasajustes" class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseConsultaCompras" aria-expanded="false" aria-controls="collapseConsultaCompras">
-                            Consultar Compras y Ajustes
-                            </button>
-                        </h2>
+                        
+                    <h2 class="m-0">
+                        <button id="consultacomprasajustes" class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseConsultaCompras" aria-expanded="false" aria-controls="collapseConsultaCompras">
+                        Consultar Compras y Ajustes
+                        </button>
+                    </h2>
+                            
+                        
                     </div>
                     <div id="collapseConsultaCompras" class="collapse" aria-labelledby="headingComprasAjustes" data-parent="#accordionExample">
                         <div class="card-body">
@@ -263,7 +285,7 @@ function validarentercompras(e) {
             return false;
         }
 
-        consultaranunciosparamovimientos("consultafiltros");
+        consultaranunciosparamovimientos("consultafiltros","nolector");
         M.toast(
             {
                 html: 'Buscando productos...',
@@ -274,7 +296,7 @@ function validarentercompras(e) {
 
 $(document).ready(function () 
 {
-    vienede = "compras";
+   
 
     configuracalendario();
     
@@ -300,7 +322,8 @@ $(document).ready(function ()
     //inicioconsulta();
 
 
-
+    llama = "comprar";
+    $("#divBuscador").load("componentebuscador.html");
 
     $("#opciones").change(function () {
         var o = document.getElementById("opciones");
@@ -394,30 +417,6 @@ $(document).ready(function ()
 });
 
 
-
-$("#opcioneslista").on('change', function () {
-    
-    var o = document.getElementById("opcioneslista");
-    var opcion = o.options[o.selectedIndex].text;
-    document.getElementById('rubro').value = opcion;
-
-    consultaranunciosparamovimientos("consultarubros");
-    M.toast(
-    {
-        html: 'Buscando productos por rubro...',
-        displayLength: '3000'
-    });
-});
-
-$("#consultacompras").click(function (e) {
-    consultaranunciosparamovimientos("consultafiltros");
-    M.toast(
-        {
-            html: 'Buscando productos...',
-            displayLength: '2000'
-        });
-});
-
 $(document).ready(function () {
     $('.tooltipped').tooltip();
 
@@ -425,6 +424,7 @@ $(document).ready(function () {
 });
     
 $("#nuevoproductocompras").click(function(){
+
     MostrarDivNuevoProducto();
 });
 

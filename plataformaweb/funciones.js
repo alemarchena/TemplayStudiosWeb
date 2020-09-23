@@ -15,7 +15,7 @@ paginastotalesbuscados = 0;
 
 arregloUnidades = []; //unidades de compra y venta de los productos fraccionados
 relacionCV = ""; //relacion compra venta para los productos fraccionados, se usa como multiplicador o divison en los precios
-vienede ="" //lo verifica EnviarFormulario para ver si viene de productos o de compras
+
 
 encontro = false;
 llama = "";
@@ -109,7 +109,7 @@ function limpiarformulario() {
 
     //imagen
     
-    if(vienede == "productos")
+    if(llama == "anuncios")
     {
         document.getElementById("muestra").src = "img/agregarimagen.jpg";
         document.getElementById("barra").value = 0;
@@ -127,7 +127,7 @@ function limpiarformulario() {
         document.getElementById('descripcion').value = "";
         document.getElementById('precio').value = "";
         document.getElementById('costo').value = "";
-        if(vienede == "productos")
+        if(llama == "anuncios")
         {
             document.getElementById('observaciones').value = "";
             document.getElementById('comentarios').value = "";
@@ -291,7 +291,7 @@ function validarimagen(e)
     extension = archivo.type.split('/').pop();
     tamanioMax = 1;
 
-    if (extensiones.indexOf(extension) !== -1) //verificamos si la extension esta en el arreglo
+    if (extensiones.toString().indexOf(extension) !== -1) //verificamos si la extension esta en el arreglo
     {
         if (archivo.size <= verTam(tamanioMax))
         {
@@ -465,7 +465,7 @@ function EnviarFormulario()
     var oa=0;
 
 
-    if(vienede == "productos")
+    if(llama == "anuncios")
     {
         var formulario = document.getElementById("formulario");
         rnombre = document.getElementById('rubro').value;
@@ -516,7 +516,7 @@ function EnviarFormulario()
             oa = 0;
         }
 
-    }else if(vienede == "compras")
+    }else if(llama == "comprar")
     {
         rnombre = document.getElementById('rubro').value;
         r = document.getElementById("opcioneslista").value;
@@ -579,37 +579,37 @@ function EnviarFormulario()
     var posicion = -1;
     
     
-    posicion = p.indexOf(",");
+    posicion = p.toString().indexOf(",");
     if(posicion >=0)
         p = p.slice(0, posicion) + "." + p.slice(posicion + 1); 
     
     posicion = -1;
 
-    posicion = c.indexOf(",");
+    posicion = c.toString().indexOf(",");
     if(posicion >=0)
         c = c.slice(0, posicion) + "." + c.slice(posicion + 1); 
     
     posicion = -1;
     
-    posicion = pea.indexOf(",");
+    posicion = pea.toString().indexOf(",");
     if(posicion >=0)
         pea = pea.slice(0, posicion) + "." + pea.slice(posicion + 1); 
     
-    if(vienede == "productos")
-        {
+
         if (imagen.files.length == 0)
         {
             if (id == "")
             {//es nuevo y viene sin imagen
-                mostrarToastError(" imagen, se guardará una por defecto!!!");
-                i = "agregarimagen.jpg";
-                altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
+                // mostrarToastError(" imagen, se guardará una por defecto!!!");
+                i = "sinimagen.jpg";
+                // altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
 
             }else
             {//esta modificando pero dejo la misma imagen
                 var i = "";
-                altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
             }
+            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
+
         }else{
             var i = imagen.files[0].name;
 
@@ -630,11 +630,7 @@ function EnviarFormulario()
             xhttp.open('POST', 'subirarchivo.php', true);
             xhttp.send(formdata);
         }
-    }else{
 
-        i = "agregarimagen.jpg";
-        altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
-    }
 }
 
 
@@ -701,7 +697,8 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
             {
                 M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
 
-                consultaranuncios();
+                consultaranuncios("consultarubros");
+
 
             }else{
                 M.toast({ html: 'Error al crear el registro : ' + data })
@@ -719,30 +716,24 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
 
 function consultaranuncios(tipo)
 {
-    if ($.fn.dataTable.isDataTable('#tablaanuncios')) {
-        tanuncios = $('#tablaanuncios').DataTable();
+    if(llama=="anuncios")
+    {
+        if ($.fn.dataTable.isDataTable('#tablaanuncios')) {
+            tanuncios = $('#tablaanuncios').DataTable();
+        }
     }
 
-    // var seleccion = document.getElementById("opcioneslista");
-    // var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
     var seleccionidrubro = document.getElementById("opcioneslista").value;
-    // var seleccionidrubro = document.getElementById("opciones").value;
-
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
     var tabladerubros = tablarubros;
-
-    
-
     var rutaimagenes = "imagenes/";
-
     var id;
 
     if (document.getElementById('id')){
         id = document.getElementById('id').value;
     }else
         id="";
-
 
     if (id == "")
         id = 0;
@@ -781,7 +772,10 @@ function consultaranuncios(tipo)
 
     var objetoanuncio = JSON.stringify(itemanuncio);
 
-    tanuncios.clear().draw(true);
+    if(llama=="anuncios")
+    {
+        tanuncios.clear().draw(true);
+    }
 
     $.ajax({
 
@@ -792,25 +786,19 @@ function consultaranuncios(tipo)
 
         success: function (data)
         {
-
             if (data != "consultavacia") {
-
                 dd = JSON.parse(data); //data decodificado
-
                 var esnov = "";
                 var esofe = "";
                 var nopub = "";
                 var probo = "";
                 var opant = "";
-
                 arreglo = [];
-
                 $.each(dd, function (key, value) {
                     if (dd[key].esnovedad == 1)
                         esnov = "ES NOVEDAD";
                     else
                         esnov = "";
-
 
                     if (dd[key].esoferta == 1)
                         esofe = "ES OFERTA";
@@ -841,12 +829,18 @@ function consultaranuncios(tipo)
                     objeto.precio       = dd[key].precio
                     objeto.costo        = dd[key].costo
                     objeto.precioventaja = dd[key].precioventaja
+
+                    objeto.codigobarra  = dd[key].codigobarra;
+                    objeto.prefijoxcompra = dd[key].prefijocompra;
+                    objeto.prefijoxventa = dd[key].prefijoventa;
+                    objeto.costoxprefijo = dd[key].costoxprefijo;
+                    objeto.ventaxprefijo = dd[key].ventaxprefijo;
+
                     arreglo.push(objeto);
 
                     tanuncios.row.add( [
                         dd[key].id,
                         "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
-                        // "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].precio + "\",\"" + dd[key].costo + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].precioventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
                         "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
                         dd[key].rubro,
                         dd[key].titulo,
@@ -940,6 +934,8 @@ function eliminaranuncio(idpasado,i)
 
     itemanuncio.rutaimagenes = rutaimagenes;
     itemanuncio.rubro = "";
+    if (i =="sinimagen.jpg")
+        i=" ";
     itemanuncio.imagen = i;
     itemanuncio.filtro = "";
 
@@ -950,15 +946,12 @@ function eliminaranuncio(idpasado,i)
         data: { objetoanuncio: objetoanuncio},
         type: "post",
             success:function(data){
-                if(data!="consultavacia")
+                if(data=="consultavacia")
                 {
-                    Swal.fire(
-                        'Eliminado!',
-                        'El anuncio fué borrado.',
-                        'success'
-                    )
-                }else{
                     M.toast({ html: 'Error al intentar eliminar.' })
+                }else
+                {
+                    consultaranuncios("consultarubros");
                 }
             },
             error: function(e)
@@ -966,21 +959,181 @@ function eliminaranuncio(idpasado,i)
                 alert("Error en el alta.");
             }
     });
-    consultaranuncios();
 
 }
+//-------------------------- -------------------- ----------------------
+
+function CalcularValoresFraccionados() {
+    var cf = $("#costofraccionado").val();
+
+    if (cf > 0)
+    {
+        var costovta = cf / relacionCV;
+        costovta = Math.round(costovta * 100) / 100;
+
+        document.getElementById("costo").value = costovta;
+    }
+    else
+        document.getElementById("costo").value ="";
+
+    var pf = $("#ventafraccionado").val();
+    if(pf > 0)
+    {
+        var preciovta = pf / relacionCV;
+        preciovta = Math.round(preciovta * 100) / 100;
+
+        document.getElementById("precio").value = preciovta;
+    }
+    else
+        document.getElementById("precio").value ="";
+}
+
+function mostrarDivPrefijoCompra(mostrar){
+    if(mostrar == "0")
+    {
+        $("#divprefijocompra").css('display', 'none');
+        $("#divprefijoventa").css('display', 'none');
+        $("#divpreciocomprapref").css('display', 'none');
+        $("#divprecioventapref").css('display', 'none');
+
+
+    }else{
+        
+        $("#divprefijocompra").css('display', 'flex');
+        $("#prefijoxcompra option:selected").prop("selected", false);
+    }
+}
+
+    
+function mostrarDivPrefijoVenta(mostrar)
+{
+    if (mostrar == "0") 
+    {
+        $("#divprefijoventa").css('display', 'none');
+        $("#divpreciocomprapref").css('display', 'none');
+        $("#divprecioventapref").css('display', 'none');
+    } else {
+
+        $("#divprefijoventa").css('display', 'flex');
+        $("#prefijoxventa option:selected").prop("selected", false);
+
+    }
+}
+
+function mostrarCamposCostoPrecio(mostrar)
+{
+    if (mostrar == "0") {
+        $("#divpreciocomprapref").css('display', 'none');
+        $("#divprecioventapref").css('display', 'none');
+    }else{
+
+        $("#divpreciocomprapref").css('display', 'block');
+        $("#divprecioventapref").css('display', 'block');
+    }
+}
+
+
+function BlanqueCamposCostoPrecio(mostrar)
+{
+    if (mostrar == "0") 
+    {
+        document.getElementById("costofraccionado").value = "";
+        document.getElementById("ventafraccionado").value = "";
+
+        document.getElementById("costo").readOnly = false;
+        document.getElementById("precio").readOnly = false;
+    } else {
+
+        document.getElementById("costo").value = "";
+        document.getElementById("precio").value = "";
+
+        document.getElementById("costo").readOnly = true;
+        document.getElementById("precio").readOnly = true;
+    }
+}
+
+function CamposValoresAcero(){
+    document.getElementById("costofraccionado").value = "";
+    document.getElementById("ventafraccionado").value = "";
+    document.getElementById("costo").value = "";
+    document.getElementById("precio").value = "";
+}
+
+ function unCambioComoVende(){
+    document.getElementById("idcomovende").value = document.getElementById("comovende").value;
+    var op = $("#idcomovende").val();
+
+    if (op > 0) {
+        mostrarDivPrefijoCompra(1);
+        BlanqueCamposCostoPrecio(1);
+        CamposValoresAcero();
+
+        MostrarCostoPrecio(0);
+
+    }
+    else {
+        mostrarDivPrefijoCompra(0);
+        BlanqueCamposCostoPrecio(0);
+        MostrarCostoPrecio(1);
+
+    }
+}
+
+    
+
+function unCambioPrefijoCompra()
+{
+    document.getElementById("idprefijocompra").value = document.getElementById("prefijoxcompra").value;
+    var pre = $("#idprefijocompra").val();
+
+    if (pre != "") {
+        LlenaUnidadesVenta();
+        mostrarDivPrefijoVenta(1);
+        CalcularValoresFraccionados();
+    } else {
+        mostrarDivPrefijoVenta(0);
+        CamposValoresAcero();
+    }
+}
+
+function MostrarCostoPrecio(mostrar)
+{
+    console.log("Mostrar" + mostrar);
+    if(mostrar == "0")
+    {
+        $("#costo").css('display', 'none');
+        $("#precio").css('display', 'none');
+    }else{
+        $("#costo").css('display', 'block');
+        $("#precio").css('display', 'block');
+    }
+}
+function unCambioPrefijoVenta()
+{
+    document.getElementById("idprefijoventa").value = document.getElementById("prefijoxventa").value;
+    BuscarRelacionCompraVenta();
+
+    var pre = $("#idprefijoventa").val();  
+    if (pre != ""){
+        mostrarCamposCostoPrecio(1);
+        CalcularValoresFraccionados();
+        MostrarCostoPrecio(1);
+    }
+    else{
+        mostrarCamposCostoPrecio(0)
+        CamposValoresAcero();
+        MostrarCostoPrecio(0);
+    }
+}
+//-------------------------- -------------------- ----------------------
+
 
 // function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea,tle,le)
 function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
 {
-   
-    
-
     limpiarinputimagen();
     document.getElementById('id').value = id;
     document.getElementById('rubro').value = rub;
-
-
 
     $("#opciones option").each(function () {
 
@@ -991,11 +1144,8 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
         }
     });
     
-    // document.getElementById('precio').value = pre;
-    // document.getElementById('costo').value = cos;
     document.getElementById('bonus').value = bonus;
     document.getElementById('tituloantes').value = tia;
-    // document.getElementById('precioantes').value = pea;
     document.getElementById("muestra").src = "imagenes/" + ima; //vista previa de la imagen
     document.getElementById('textolinkexterno').value = tle;
     document.getElementById('linkexterno').value = le;
@@ -1049,18 +1199,56 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
             document.getElementById('titulo').value = arreglo[indice].titulo;
             document.getElementById('descripcion').value = arreglo[indice].descripcion;
             document.getElementById('observaciones').value = arreglo[indice].observaciones;
-            
             document.getElementById('comentarios').value = arreglo[indice].comentarios;
-            
             document.getElementById('precioantes').value = arreglo[indice].precioventaja;
-            document.getElementById('precio').value = arreglo[indice].precio;
-            document.getElementById('costo').value = arreglo[indice].costo;
-          
+            document.getElementById('codigobarra').value = arreglo[indice].codigobarra;
 
+            apc = arreglo[indice].prefijoxcompra;
+            apv = arreglo[indice].prefijoxventa;
+
+            if ( apc > 0)
+            {
+                //seleccionar comovende a 1
+                $("#comovende option[value='1']").attr("selected", true);
+                
+                $("#divprefijocompra").css('display', 'flex');
+                $("#prefijoxcompra option[value='" + apc + "']").attr("selected", true);
+                document.getElementById("idprefijocompra").value = document.getElementById("prefijoxcompra").value;                
+
+                $("#divprefijoventa").css('display', 'flex');
+                LlenaUnidadesVenta();
+                $("#prefijoxventa option[value='" + apv + "']").attr("selected", true);
+                document.getElementById("idprefijoventa").value = document.getElementById("prefijoxventa").value;
+
+                $("#divpreciocomprapref").css('display', 'block');
+                $("#divprecioventapref").css('display', 'block');
+                document.getElementById('costofraccionado').value =  arreglo[indice].costoxprefijo;
+                document.getElementById('ventafraccionado').value =  arreglo[indice].ventaxprefijo;
+
+                document.getElementById('precio').value = arreglo[indice].precio;
+                document.getElementById('costo').value = arreglo[indice].costo;
+            }else
+            {
+                //seleccionar comovende a 0
+                $("#comovende option[value='0']").attr("selected", true);
+
+                $("#prefijoxcompra option[value='0']").attr("selected", true);
+                $("#prefijoxventa option[value='0']").attr("selected", true);
+
+                document.getElementById("costofraccionado").value = "";
+                document.getElementById("ventafraccionado").value = "";
+
+                $("#divprefijocompra").css('display', 'none');
+                $("#divprefijoventa").css('display', 'none');
+                $("#divpreciocomprapref").css('display', 'none');
+                $("#divprecioventapref").css('display', 'none');
+                
+                document.getElementById('precio').value = arreglo[indice].precio;
+                document.getElementById('costo').value = arreglo[indice].costo;
+            }
         }
         posicioninicial();
     });
-
 }
 // ------------------------------------------------------------------------------------------------------------
 //------------------------------------------------ RUBROS ----------------------------------------------------
@@ -1936,9 +2124,30 @@ function mostrarResultadoBusqueda()
 function hacefoco()
 {
     $('.saltacantidad')[0].focus();
+    var posicion=0;
 
-    var alturamenu = $('.menu').outerHeight(true);
-    var posicion = $("#tablaanunciosvender").offset().top - alturamenu; 
+    var alturamenu = $('#my-nav').outerHeight(true);
+
+    if(llama == "vender")
+    {
+        posicion = $("#tablaanunciosvender").offset().top - alturamenu; 
+    }else
+    if(llama=="comprar")
+    {
+        if($("#divNuevoProducto").hasClass("show"))
+        {
+            $('#codigobarra').focus();
+        }
+        
+        posicion = $("#codigobarra").offset().top - alturamenu; 
+        console.log("posicion codigo barra " + posicion);
+    }else
+    if(llama=="anuncios")
+    {
+        posicion = $("#tablaanuncios_filter").offset().top - alturamenu; 
+    }
+
+    
     $("HTML, BODY").animate({ scrollTop: posicion}, 600);
     
 }
@@ -2052,7 +2261,7 @@ function agregaritemventa(id, precio, cantidad,titulo,subtotal) {
     
     var pre= precio;
 
-    posicion = pre.indexOf(".");
+    posicion = pre.toString().indexOf(".");
     if(posicion >=0)
         pre = pre.slice(0, posicion) + "," + pre.slice(posicion + 1); 
 
@@ -4772,9 +4981,9 @@ function validarinputcantidadcompras(e, contenido, caracteres,id,costo,precio)
     return false;
 }
 
-function consultaranunciosparamovimientos(tipo,e) {
+function consultaranunciosparamovimientos(tipo,lector,e) {
 
-
+      
     if ($.fn.dataTable.isDataTable('#tablaanunciosmovimientos')) {
         t = $('#tablaanunciosmovimientos').DataTable();
     }
@@ -4812,8 +5021,8 @@ function consultaranunciosparamovimientos(tipo,e) {
     if(tipo == "consultafiltros"){
 
         // si el tipo no es rubro va a buscar por filtro
-        var textobuscado = $("#cajabusquedacompras").val();
-        textobuscado = document.getElementById("cajabusquedacompras").value;
+        var textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
         
         if (textobuscado == "") {
             return false;
@@ -4825,6 +5034,7 @@ function consultaranunciosparamovimientos(tipo,e) {
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
     itemanuncio.tablarubros = tabladerubros;
+    itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
 
     itemanuncio.tablacompras = tabladecompras;
     itemanuncio.tablaventas = tabladeventas;
@@ -4857,6 +5067,8 @@ function consultaranunciosparamovimientos(tipo,e) {
                 t.clear().draw(true);
                 fsi = "";
                 encontro = true;
+                
+                console.log(data);
 
                 $.each(dd, function (key, value) {
                     opcioninicio = "opcionstockinicio_" + dd[key].id;
@@ -4869,22 +5081,47 @@ function consultaranunciosparamovimientos(tipo,e) {
                         estado = "checked";
                     }
 
+                    var filaCosto = "";
+                    var filaVenta ="";
+                    var formaVta= "";
+                    var preenviado = 0;
+                    var cosenviado = 0;
+
+                    if(dd[key].prefijocompra == 0) //es un producto de venta unitaria
+                    {
+                        filaCosto = dd[key].costo;
+                        filaVenta = dd[key].precio;
+                        formaVta = "x Unidad";
+                        preenviado = dd[key].precio;
+                        cosenviado = dd[key].costo;
+
+                    }else //es un producto de venta fraccionada
+                    {
+                        filaCosto = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costoxprefijo + "\",\"" + dd[key].ventaxprefijo + "\") ' id ='costoxprefijo_" + dd[key].id + "' name ='costoxprefijo_" + dd[key].id + "' type ='text' class='validate escampocosto saltacosto' value=" + "'" + dd[key].costoxprefijo + "'></input>";
+                        filaVenta = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costoxprefijo + "\",\"" + dd[key].ventaxprefijo + "\") ' id ='ventaxprefijo_" + dd[key].id + "' name ='ventaxprefijo_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].ventaxprefijo + "'></input>";
+                        formaVta = "Fraccionado";
+                        preenviado = dd[key].ventaxprefijo;
+                        cosenviado = dd[key].costoxprefijo;
+                    }
+
                     t.row.add([
                         
                         // "<label><input onclick = 'agregaquitastockinicio(\"" + dd[key].id + "\",\"" + opcioninicio + "\")' id='" + opcioninicio + "' type='checkbox' class='filled-in columnadedos' " + estado + " /><span class='colorletras'>Si</span></label>",
-                        dd[key].descripcion,
+                        dd[key].codigobarra,
                         dd[key].titulo,
+                        
+
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect  brown darken-3 " + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
                         "<input onKeyDown='return validarinputcantidadcompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
+                        dd[key].nombreprefijocompra,
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
-                        "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='text' class='validate escampocosto saltacosto' value=" + "'" + dd[key].costo + "'></input>",
-                        "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
-                        "<a data-position='right'  data-tooltip='Guardar' onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
+                        filaCosto,
+                        filaVenta,
+                        formaVta,
+                        "<a data-position='right'  data-tooltip='Guardar' onclick='moverstock(\"" + dd[key].id + "\",\"" + cosenviado + "\",\"" + preenviado + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].relacioncompraventa + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
                         "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
-                        
-                        dd[key].costo,
-                        dd[key].stock,
+                        dd[key].stock
 
                         // fsi
 
@@ -4902,6 +5139,8 @@ function consultaranunciosparamovimientos(tipo,e) {
 
                 colapsarCompras();
                 mostrarResultaodosBusquedaCompras();
+                hacefoco();
+
             }else
             {
                 mostrarResultaodosBusquedaCompras();
@@ -4960,15 +5199,30 @@ function agregaquitastockinicio(id,opcioninicio)
 
 }
 
-function moverstock(id,costoactual,precioactual) {
+function moverstock(id,costoactual,precioactual,prefijocompra,relacioncompraventa) {
 
     if ($.fn.dataTable.isDataTable('#tablamovimientostock')) {
         tv = $('#tablamovimientostock').DataTable();
     }
 
-    var can = document.getElementById('cantidad_' + id);
-    var pre = document.getElementById('precio_' + id);
-    var cos = document.getElementById('costo_' + id);
+    //cantidad es la cantidad de compra sin fraccionar * relacioncompraventa, siempre que sea producto de vta x fraccion
+    if(prefijocompra == 0)
+    {
+        var can = document.getElementById('cantidad_' + id);
+        can = can.value;
+        var pre = document.getElementById('precio_' + id);
+        pre = pre.value;
+        var cos = document.getElementById('costo_' + id);
+        cos = cos.value;
+    }else
+    {
+        var can = document.getElementById('cantidad_' + id);
+        can = can.value * relacioncompraventa;
+        var pre = document.getElementById('ventaxprefijo_' + id);
+        pre = pre.value / relacioncompraventa;
+        var cos = document.getElementById('costoxprefijo_' + id);
+        cos = cos.value / relacioncompraventa;
+    }
 
     var fechamovimiento = $("#fechacompraajuste").val();
     var nombreproveedor = $("#proveedorelegido").val();
@@ -4977,17 +5231,17 @@ function moverstock(id,costoactual,precioactual) {
     var tipomovimientonombrecorto = document.getElementById("opcioneslistatiposmovimientostock").value;
 
     
-    if (parseInt(can.value, 10) > 0 && fechamovimiento != "" && nombreproveedor != "Selecciona un Proveedor" && nombreproveedor != "" && tipomovimientonombrecorto != "") {
+    if (parseInt(can, 10) > 0 && fechamovimiento != "" && nombreproveedor != "Selecciona un Proveedor" && nombreproveedor != "" && tipomovimientonombrecorto != "") {
         fechamovimiento = conviertefechaastringdmy(fechamovimiento);
 
         tipomovimientonombrecorto = eligetipomovimiento();
 
         if (tipomovimientonombrecorto == "CO") {
-            guardarcompra(id, pre.value, precioactual, cos.value, costoactual, fechamovimiento, can.value, idproveedorelegido, tipomovimientonombrecorto);
+            guardarcompra(id, pre, precioactual, cos, costoactual, fechamovimiento, can, idproveedorelegido, tipomovimientonombrecorto);
         } else {
-            guardarajuste(id, fechamovimiento, can.value, tipomovimientonombrecorto);
+            guardarajuste(id, fechamovimiento, can, tipomovimientonombrecorto);
         }
-        can.value = "";
+        can = "";
 
     } else {
         Swal.fire({

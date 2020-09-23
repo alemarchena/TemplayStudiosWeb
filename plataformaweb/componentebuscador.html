@@ -1,6 +1,7 @@
 <div class="col-sm-12">
     <div class="row justify-content-center">
         <div class="col-sm-6">
+            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
             <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
         </div>
     </div>
@@ -36,11 +37,15 @@
             if (textobuscado == "") {
                 return false;
             }
+
             if (llama == "vender")
                 consultaranunciosvender("consultafiltros");
     
             if (llama == "anuncios")
                 consultaranuncios("consultafiltros");
+
+            if(llama == "comprar")
+                consultaranunciosparamovimientos("consultafiltros", "nolector");
 
             M.toast(
             {
@@ -57,6 +62,9 @@
 
             if(llama == "anuncios")
                 consultaranuncios("consultafiltros");
+            
+            if (llama == "comprar")
+                consultaranunciosparamovimientos("consultafiltros","silector");
 
         } else {
             if (llama == "vender")
@@ -64,6 +72,9 @@
 
             if (llama == "anuncios")
                 consultaranuncios("consultafiltros");
+            
+            if (llama == "comprar")
+                consultaranunciosparamovimientos("consultafiltros", "nolector");
         }
     }
     
@@ -81,6 +92,11 @@
             if (llama == "anuncios")
                 consultaranuncios("consultafiltros");
             
+            if (llama == "comprar")
+            {
+                consultaranunciosparamovimientos("consultafiltros", "nolector");
+            }
+
             M.toast(
             {
                 html: 'Buscando productos...',
@@ -95,6 +111,15 @@
             if (llama == "anuncios")
                 consultaranuncios("consultarubros");
             
+            if (llama == "comprar")
+            {
+                var o = document.getElementById("opcioneslista");
+                var opcion = o.options[o.selectedIndex].text;
+                document.getElementById('rubro').value = opcion;
+                
+                consultaranunciosparamovimientos("consultarubros", "nolector");
+            }
+
             M.toast(
             {
                     html: 'Buscando productos por rubro...',
