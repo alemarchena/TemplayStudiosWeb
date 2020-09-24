@@ -1,30 +1,75 @@
 
     <div class="col-sm-12">
         <div class="row">
-            <div class="col-sm-1">
-                <input id="id" disabled value="" name="id" type="text" class="m-0 p-0">
-            </div>
-            <div class="col-sm-2">
-                <input id="codigobarra" min="0" maxlength="25" class="border border-success center" type="text" placeholder="Codigo barra">
-            </div>
-            <div class="col-sm-3">
-                <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
-                    id="titulo" name="titulo" style="font-size: 1.2em;" type="text"
-                    class="validate border border-success center tooltipped" data-position="top" data-tooltip="Título de la publicación"
-                    placeholder="Nombre del producto">
-            </div>
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Descripción</span>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <input id="id" disabled value="" name="id" type="text" class="m-0 p-0">
                     </div>
-                    <textarea maxlength="200" class="form-control tooltipped" data-position="top"
-                        data-tooltip="Descripción del producto" id="descripcion" name="descripcion" aria-label="descripcion"
-                        style="height: 50px;" class="border border-success"
-                        placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
+                    <div class="col-sm-2">
+                        <input id="codigobarra" min="0" maxlength="25" class="border border-success center" type="text" placeholder="Codigo barra">
+                    </div>
+                    <div class="col-sm-3">
+                        <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
+                            id="titulo" name="titulo" style="font-size: 1.2em;" type="text"
+                            class="validate border border-success center tooltipped" data-position="top" data-tooltip="Título de la publicación"
+                            placeholder="Nombre del producto">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Descripción</span>
+                            </div>
+                            <textarea maxlength="200" class="form-control tooltipped" data-position="top"
+                                data-tooltip="Descripción del producto" id="descripcion" name="descripcion" aria-label="descripcion"
+                                style="height: 50px;" class="border border-success"
+                                placeholder="Ej: Varios talles y colores unisex, talles de niños y adultos"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-sm-2">
+                <div class="row justify-content-center">
+                    <form action="#" id="formulario" method="POST" role="form" enctype="multipart/form-data">
+            
+                        <div class="col-sm-12">
+                            <div class="row justify-content-center" style="margin: 0em;">
+                                <div class="col">
+            
+                                    <img id="muestra" src='imagenes/sinimagen.jpg' class='materialboxed card-img-top center-align'
+                                        alt='...'></img>
+                                </div>
+                                <div class="col">
+                                    <form action="#">
+                                        <div class="file-field input-field">
+                                            <div class="btn-sm">
+                                                <span>Agregar imagen</span>
+                                                <input id="imagen" name="imagen" type="file">
+                                            </div>
+                                            <div style="display: none;" class="file-path-wrapper">
+                                                <input class="file-path validate" type="text" placeholder="Imagen del producto">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <progress style="display: none;" class="progress" id="barra" value="0" max="100">0%</progress>
+                                    <label style="display: none;" class="colorletras" for="" id="valorbarra">0%</label>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center" style="margin-bottom: 0em;">
+                                <p class="red-text accent-4" id="aviso"></p>
+                            </div>
+                        </div>
+            
+            
+                    </form>
+                </div>
+            </div>
+
         </div>
+
+
+        
 
         <div class="row justify-content-center">
             <div class="col-sm-4">
@@ -35,6 +80,9 @@
                     <option value="1">Vta Fraccionada</option>
                 </select>
             </div>
+        </div>
+
+        <div class="row justify-content-center">
             <div class="col-sm-2">
                 <input id="costo" name="costo" type="text" min="0" maxlength="8" step="0.01"
                     class="validate border border-primary center tooltipped" data-position="top"
@@ -66,6 +114,8 @@
             
                 </select>
             </div>
+        </div>
+        <div class="row justify-content-center">
             <div id="divpreciocomprapref" class="col-sm-2" style="display: none;">
                 <input onKeyUp="return CalcularValoresFraccionados()" id="costofraccionado" class="border-2 border-primary center" type="text" placeholder="Costo segun unid compra" min="0" maxlength="8" step="0.01">
             </div>
@@ -73,55 +123,25 @@
                 <input onKeyUp="return CalcularValoresFraccionados()" id="ventafraccionado" class="border-2 border-success center" type="text" placeholder="Precio Vta x unid compra" min="0" maxlength="8" step="0.01">
             </div>
         </div>
-    
-
         <div class="row justify-content-center">
-            <form action="#" id="formulario" method="POST" role="form" enctype="multipart/form-data">
-
-                <div class="col-sm-5">
-                    <div class="row justify-content-center" style="margin: 0em;">
-                        <div class="col">
-                            
-                            <img id="muestra" src='imagenes/sinimagen.jpg' class='materialboxed card-img-top center-align'
-                                alt='...'></img>
-                        </div>
-                        <div class="col">
-                            <form action="#">
-                                <div class="file-field input-field">
-                                    <div class="btn-sm">
-                                        <span>Agregar imagen</span>
-                                        <input id="imagen" name="imagen" type="file">
-                                    </div>
-                                    <div style="display: none;" class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Imagen del producto">
-                                    </div>
-                                </div>
-                            </form>
-                            <progress style="display: none;" class="progress" id="barra" value="0" max="100">0%</progress>
-                            <label style="display: none;" class="colorletras" for="" id="valorbarra">0%</label>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center" style="margin-bottom: 0em;">
-                        <p class="red-text accent-4" id="aviso"></p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <button class="btn waves-effect" type="button" id="enviar" name="enviar">Guardar
-                </div>
-                <div class="col-sm-4">
-                    <p>
-                        <label>
-                            <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
-                            <span class="colorletras">No limpiar formulario al guardar </span>
-                        </label>
-                    </p>
-                </div>
-               
-            </form>
+            
+            <div class="col-sm-4">
+                <p>
+                    <label>
+                        <input id="opcionnoguardar" type="checkbox" class="filled-in" checked="checked" />
+                        <span class="colorletras">No limpiar formulario al guardar </span>
+                    </label>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn waves-effect" type="button" id="enviar" name="enviar">Guardar
+            </div>
         </div>
 
-    </div>
+        
 
+    </div>
+    
 
 <script>
 

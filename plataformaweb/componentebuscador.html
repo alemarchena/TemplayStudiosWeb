@@ -104,7 +104,10 @@
             });
         });
 
-        $("#opcioneslista").on('change', function () {
+        $("#opcioneslista").on('change', function () 
+        {
+            document.getElementById("cajabusqueda").value = "";
+            
             if (llama == "vender")
                 consultaranunciosvender("consultarubros");
                 

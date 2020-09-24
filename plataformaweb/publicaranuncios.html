@@ -186,41 +186,24 @@
                                         <th>Editar</th>
                                         <th>Imagen</th>
                                         <th>Rubro</th>
+                                        <th>Código interno</th>
+                                        <th>Cód.Barra</th>
                                         <th>Título</th>
                                         <th>Descripción</th>
-                                        <th>Precio Vta</th>
-                                        <th>Costo</th>
+                                        <th>Costo unitario</th>
+                                        <th>Precio Vta unitario</th>
                                         <th>Es Promo?</th>
                                         <th>Es Novedad?</th>
                                         <th>se publica?</th>
-                                        <th>Es Bonus?</th>
-                                        <th>Cantidad Bonus</th>
-                                        <th>Ventaja comercial</th>
-                                        <th>Titulo Ventaja</th>
-                                        <th>Precio tachado</th>
                                         <th>Eliminar</th>
-                
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td>
+                                        <td></td><td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -257,7 +240,6 @@
             var o = document.getElementById("opciones");
             var opcion = o.options[o.selectedIndex].text;
             document.getElementById('rubro').value = opcion;
-            console.log("El rubro en proiductos es "+ document.getElementById('rubro').value );
         });
 
         $('#tablaanuncios').on('page.dt', function () {

@@ -143,6 +143,42 @@ function limpiarformulario() {
             $('#esnovedad').prop('checked', false);
             $('#esoferta').prop('checked', false);
             $('#opcionnopublicar').prop('checked',false);
+
+            var op = $("#idcomovende").val();
+            if (op > 0) 
+            {
+                var pco = $("#prefijoxcompra").val();
+                var pve = $("#prefijoxventa").val();
+            
+                if(pco > 0 && pve > 0)
+                {
+                    BlanqueCamposCostoPrecio(1);
+                }
+                else
+                {
+                    if(pco == 0 )
+                    {                        
+                        $("#divprefijoventa").css('display', 'none');
+                        $("#divpreciocomprapref").css('display', 'none');
+                        $("#divprecioventapref").css('display', 'none');
+                        $("#costo").css('display', 'none');
+                        $("#precio").css('display', 'none');
+                    }
+
+                    if(pve==0)
+                    {
+                        $("#divpreciocomprapref").css('display', 'none');
+                        $("#divprecioventapref").css('display', 'none');
+                        $("#costo").css('display', 'none');
+                        $("#precio").css('display', 'none');
+                    }
+                }
+            }else
+            {
+                BlanqueCamposCostoPrecio(0);
+                $("#divprefijocompra").css('display', 'none');
+                $("#divprefijoventa").css('display', 'none');
+            }
             
         }
 
@@ -383,19 +419,21 @@ function consultaUnidadesGranel(tipo, e) {
 
                 $.each(dd, function (key, value) {
 
-                    if(unidadAnterior != dd[key].prefijocompra )
-                        a = a.concat('<option value = ' + dd[key].prefijocompra + ' > ' + dd[key].nombreprefijocompra + '</option>');
+                    if( dd[key].prefijocompra != 0)
+                    {
+                        if(unidadAnterior != dd[key].prefijocompra )
+                            a = a.concat('<option value = ' + dd[key].prefijocompra + ' > ' + dd[key].nombreprefijocompra + '</option>');
 
-                    unidadAnterior = dd[key].prefijocompra;
+                        unidadAnterior = dd[key].prefijocompra;
 
-                    var objeto = new Object();
-                    objeto.nombreprefijocompra = dd[key].nombreprefijocompra;
-                    objeto.prefijocompra = dd[key].prefijocompra;
-                    objeto.nombreprefijoventa = dd[key].nombreprefijoventa;
-                    objeto.prefijoventa = dd[key].prefijoventa;
-                    objeto.relacioncompraventa = dd[key].relacioncompraventa;
-                    arregloUnidades.push(objeto);
-                    
+                        var objeto = new Object();
+                        objeto.nombreprefijocompra = dd[key].nombreprefijocompra;
+                        objeto.prefijocompra = dd[key].prefijocompra;
+                        objeto.nombreprefijoventa = dd[key].nombreprefijoventa;
+                        objeto.prefijoventa = dd[key].prefijoventa;
+                        objeto.relacioncompraventa = dd[key].relacioncompraventa;
+                        arregloUnidades.push(objeto);
+                    }
                 });
 
                 $("#prefijoxcompra").append(a);
@@ -441,7 +479,6 @@ function BuscarRelacionCompraVenta()
 
 function EnviarFormulario()
 {
-    console.log("version " + version);
 
     var rnombre = "";
     var r = "";
@@ -684,8 +721,6 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
 
     var objetoanuncio = JSON.stringify(itemanuncio);
 
-    console.log(objetoanuncio);
-
     limpiarformulario();
 
     $.ajax({
@@ -794,7 +829,8 @@ function consultaranuncios(tipo)
                 var probo = "";
                 var opant = "";
                 arreglo = [];
-                $.each(dd, function (key, value) {
+                $.each(dd, function (key, value) 
+                {
                     if (dd[key].esnovedad == 1)
                         esnov = "ES NOVEDAD";
                     else
@@ -835,6 +871,7 @@ function consultaranuncios(tipo)
                     objeto.prefijoxventa = dd[key].prefijoventa;
                     objeto.costoxprefijo = dd[key].costoxprefijo;
                     objeto.ventaxprefijo = dd[key].ventaxprefijo;
+                    objeto.relacioncompraventa = dd[key].relacioncompraventa;
 
                     arreglo.push(objeto);
 
@@ -843,22 +880,20 @@ function consultaranuncios(tipo)
                         "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
                         "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
                         dd[key].rubro,
+                        dd[key].id,
+                        dd[key].codigobarra,
                         dd[key].titulo,
                         dd[key].descripcion,
-                        dd[key].precio,
                         dd[key].costo,
+                        dd[key].precio,
                         esofe,
                         esnov,
                         nopub,
-                        probo,
-                        dd[key].bonus,
-                        opant,
-                        dd[key].tituloventaja,
-                        dd[key].precioventaja,
+                        // opant,
+                        // dd[key].tituloventaja,
+                        // dd[key].precioventaja,
                         "<a onclick='eliminar(\"" + dd[key].id + "\",\"" + dd[key].imagen + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
                     ] ).draw( false );
-
-
                 });
                 imageneszoom();
             }
@@ -1098,7 +1133,6 @@ function unCambioPrefijoCompra()
 
 function MostrarCostoPrecio(mostrar)
 {
-    console.log("Mostrar" + mostrar);
     if(mostrar == "0")
     {
         $("#costo").css('display', 'none');
@@ -1131,6 +1165,7 @@ function unCambioPrefijoVenta()
 // function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea,tle,le)
 function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
 {
+    
     limpiarinputimagen();
     document.getElementById('id').value = id;
     document.getElementById('rubro').value = rub;
@@ -1202,12 +1237,15 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
             document.getElementById('comentarios').value = arreglo[indice].comentarios;
             document.getElementById('precioantes').value = arreglo[indice].precioventaja;
             document.getElementById('codigobarra').value = arreglo[indice].codigobarra;
+        
+            // relacionCV = arreglo[indice].relacioncompraventa;
 
             apc = arreglo[indice].prefijoxcompra;
             apv = arreglo[indice].prefijoxventa;
 
             if ( apc > 0)
             {
+                document.getElementById("comovende").value = 1;
                 //seleccionar comovende a 1
                 $("#comovende option[value='1']").attr("selected", true);
                 
@@ -1227,10 +1265,15 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
 
                 document.getElementById('precio').value = arreglo[indice].precio;
                 document.getElementById('costo').value = arreglo[indice].costo;
+                document.getElementById("costo").readOnly = true;
+                document.getElementById("precio").readOnly = true;
             }else
             {
+                document.getElementById("comovende").value = 0;
+
                 //seleccionar comovende a 0
                 $("#comovende option[value='0']").attr("selected", true);
+                console.log("Marca en 0 y tiene" + document.getElementById("comovende").value );
 
                 $("#prefijoxcompra option[value='0']").attr("selected", true);
                 $("#prefijoxventa option[value='0']").attr("selected", true);
@@ -1245,7 +1288,10 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
                 
                 document.getElementById('precio').value = arreglo[indice].precio;
                 document.getElementById('costo').value = arreglo[indice].costo;
+                document.getElementById("costo").readOnly = false;
+                document.getElementById("precio").readOnly = false;
             }
+            BuscarRelacionCompraVenta();
         }
         posicioninicial();
     });
@@ -1716,9 +1762,6 @@ function intentaEliminarRubro(idpasado){
         type: "post",
         success: function (data) {
 
-            // console.log(data);
-
-
             if (data == "[]"|| data == "consultavacia") {
                 eliminarrubro(id);
             } else if (data != "[]" && data != "consultavacia")
@@ -2140,7 +2183,6 @@ function hacefoco()
         }
         
         posicion = $("#codigobarra").offset().top - alturamenu; 
-        console.log("posicion codigo barra " + posicion);
     }else
     if(llama=="anuncios")
     {
@@ -2350,7 +2392,6 @@ function borrarfila(iditemsEnlaventa)
 
     document.getElementById("totalpedido").value = totalpedido;
 
-    console.log(totalpedido);
 
     if (totalpedido == 0)
     {
@@ -2866,6 +2907,8 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                     cantidadxcosto = dd[key].cantidad * dd[key].costo;
                     totalventa += cantidadxprecio;
                     totalcosto += cantidadxcosto;
+                    cantidadxcosto = Math.round(cantidadxcosto *100)/100;
+
                     t.row.add([
                         conviertefecha(dd[key].fecha.toString()),
                         dd[key].titulo,
@@ -2905,7 +2948,6 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                     rentapesosvista = totalventavista - totalcostovista;
                     rentapesosvista = Math.round(rentapesosvista * 100)/100;
 
-                    console.log("ttt");
 
                     $("#rentabilidadpesos").attr("value", rentapesosvista);
                     
@@ -4201,6 +4243,7 @@ function validarteclaCliente(e, contenido, caracteres) {
     }
 
     tecla = (document.all) ? e.keyCode : e.which;
+
     if (tecla == 13) {
         var n = document.getElementById('nombrecliente').value;
         var d = document.getElementById('direccioncliente').value;
@@ -4930,6 +4973,21 @@ function desdehastaajuste() {
     fechamovimientoenviadahasta = conviertefechaastringdmy($("#fechamovimientohasta").val());
     tipomovimientonombrecorto = eligetipomovimiento();
     consultarajustesdeldia(fechamovimientoenviadadesde, fechamovimientoenviadahasta);
+
+
+}
+
+function volverAconsultar()
+{
+    var cb = $("#cajabusqueda").val();
+
+    if( cb != "") 
+    {
+        consultaranunciosparamovimientos("consultafiltros","nolector");
+    }else
+    {
+        consultaranunciosparamovimientos("consultarubros","nolector");
+    }
 }
 
 function validarinputcantidadpreciocompras(e, contenido, caracteres,id,costo,precio)
@@ -5068,8 +5126,6 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
                 fsi = "";
                 encontro = true;
                 
-                console.log(data);
-
                 $.each(dd, function (key, value) {
                     opcioninicio = "opcionstockinicio_" + dd[key].id;
 
@@ -5084,29 +5140,26 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
                     var filaCosto = "";
                     var filaVenta ="";
                     var formaVta= "";
-                    var preenviado = 0;
-                    var cosenviado = 0;
+                    
 
                     if(dd[key].prefijocompra == 0) //es un producto de venta unitaria
                     {
-                        filaCosto = dd[key].costo;
-                        filaVenta = dd[key].precio;
+                        filaCosto = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='text' class='validate escampocosto saltacosto' value=" + "'" + dd[key].costo + "'></input>";
+                        filaVenta = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>";
                         formaVta = "x Unidad";
-                        preenviado = dd[key].precio;
-                        cosenviado = dd[key].costo;
-
+                       
                     }else //es un producto de venta fraccionada
                     {
                         filaCosto = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costoxprefijo + "\",\"" + dd[key].ventaxprefijo + "\") ' id ='costoxprefijo_" + dd[key].id + "' name ='costoxprefijo_" + dd[key].id + "' type ='text' class='validate escampocosto saltacosto' value=" + "'" + dd[key].costoxprefijo + "'></input>";
                         filaVenta = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costoxprefijo + "\",\"" + dd[key].ventaxprefijo + "\") ' id ='ventaxprefijo_" + dd[key].id + "' name ='ventaxprefijo_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].ventaxprefijo + "'></input>";
-                        formaVta = "Fraccionado";
-                        preenviado = dd[key].ventaxprefijo;
-                        cosenviado = dd[key].costoxprefijo;
+                        formaVta = "Fraccionado en " + dd[key].nombreprefijoventa;
+                       
                     }
 
                     t.row.add([
                         
                         // "<label><input onclick = 'agregaquitastockinicio(\"" + dd[key].id + "\",\"" + opcioninicio + "\")' id='" + opcioninicio + "' type='checkbox' class='filled-in columnadedos' " + estado + " /><span class='colorletras'>Si</span></label>",
+                        dd[key].id,
                         dd[key].codigobarra,
                         dd[key].titulo,
                         
@@ -5114,11 +5167,11 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect  brown darken-3 " + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
                         "<input onKeyDown='return validarinputcantidadcompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
                         dd[key].nombreprefijocompra,
+                        formaVta,
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                         filaCosto,
                         filaVenta,
-                        formaVta,
-                        "<a data-position='right'  data-tooltip='Guardar' onclick='moverstock(\"" + dd[key].id + "\",\"" + cosenviado + "\",\"" + preenviado + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].relacioncompraventa + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + ">save</i>",
+                        "<a onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos " + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
                         "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
                         dd[key].stock
@@ -5199,16 +5252,21 @@ function agregaquitastockinicio(id,opcioninicio)
 
 }
 
-function moverstock(id,costoactual,precioactual,prefijocompra,relacioncompraventa) {
+function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relacioncompraventa,codigobarra) {
 
     if ($.fn.dataTable.isDataTable('#tablamovimientostock')) {
         tv = $('#tablamovimientostock').DataTable();
     }
+    var costoxprefijoenviado=0;
+    var ventaxprefijoenviado=0;
 
+    var canAjuste =0; //Los ajustes se realizan en cantidades de VENTA y no de compra
     //cantidad es la cantidad de compra sin fraccionar * relacioncompraventa, siempre que sea producto de vta x fraccion
     if(prefijocompra == 0)
     {
         var can = document.getElementById('cantidad_' + id);
+        canAjuste = can.value;
+
         can = can.value;
         var pre = document.getElementById('precio_' + id);
         pre = pre.value;
@@ -5217,12 +5275,17 @@ function moverstock(id,costoactual,precioactual,prefijocompra,relacioncompravent
     }else
     {
         var can = document.getElementById('cantidad_' + id);
+        canAjuste = can.value;
         can = can.value * relacioncompraventa;
         var pre = document.getElementById('ventaxprefijo_' + id);
+        ventaxprefijoenviado = pre.value;
         pre = pre.value / relacioncompraventa;
+
         var cos = document.getElementById('costoxprefijo_' + id);
+        costoxprefijoenviado = cos.value;
         cos = cos.value / relacioncompraventa;
     }
+
 
     var fechamovimiento = $("#fechacompraajuste").val();
     var nombreproveedor = $("#proveedorelegido").val();
@@ -5237,9 +5300,9 @@ function moverstock(id,costoactual,precioactual,prefijocompra,relacioncompravent
         tipomovimientonombrecorto = eligetipomovimiento();
 
         if (tipomovimientonombrecorto == "CO") {
-            guardarcompra(id, pre, precioactual, cos, costoactual, fechamovimiento, can, idproveedorelegido, tipomovimientonombrecorto);
+            guardarcompra(id, pre, precioactual, cos, costoactual, fechamovimiento, can, idproveedorelegido, tipomovimientonombrecorto, prefijocompra,prefijoventa,costoxprefijoenviado,ventaxprefijoenviado,codigobarra);
         } else {
-            guardarajuste(id, fechamovimiento, can, tipomovimientonombrecorto);
+            guardarajuste(id, fechamovimiento, canAjuste, tipomovimientonombrecorto, prefijocompra,prefijoventa);
         }
         can = "";
 
@@ -5267,6 +5330,8 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     var tabla = tablacompras;
     var tabladeanuncios = tablaanuncios;
     var tabladeproveedores = tablaproveedores;
+    
+    
     var tipo = "consulta";
 
     var itemcompra = new Object();
@@ -5274,6 +5339,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     itemcompra.tabla            = tabla;
     itemcompra.tablaanuncios    = tabladeanuncios;
     itemcompra.tablaproveedores = tabladeproveedores;
+    itemcompra.tablaunidadesgranel = tablaunidadesgranel;
     
     itemcompra.tipo = tipo;
 
@@ -5292,6 +5358,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     var totalcompras = 0;
     $("#totalcompras").val("");
 
+
     $.ajax({
 
         url: "consultacompras.php",
@@ -5302,7 +5369,6 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
         success: function (data) {
 
             if (data != "consultavacia") {
-
                 dd = JSON.parse(data); //data decodificado
                 fsi = "";
                 $.each(dd, function (key, value) {
@@ -5321,20 +5387,27 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                     subtotal = dd[key].cantidad * dd[key].costocompra;
                     subtotal = Math.round(subtotal * 100) / 100;
 
+                    cantidadEnPrefijo   = dd[key].cantidad / dd[key].relacioncompraventa;
+                    costoEnPrefijo      = dd[key].costocompra * dd[key].relacioncompraventa;
+                    precioEnPrefijo     = dd[key].precio * dd[key].relacioncompraventa;
+
                     tcompra.row.add([
                         fco,
                         "<input class='saltacomprobante' onfocusout='guardanumerocomprobantemodificado(this.value," + dd[key].idcompra + ")' type ='text' value = '" + dd[key].comprobantecompra +  "'></input>",
-                        dd[key].descripcion,
+                        dd[key].id,
+                        dd[key].codigobarra,
                         dd[key].titulo,
-                        dd[key].cantidad,
-                        dd[key].costocompra,
+                        cantidadEnPrefijo,
+                        dd[key].nombreprefijocompra,
+                        "$ " + costoEnPrefijo,
+                        "$ " + precioEnPrefijo,
                         
                         dd[key].nombreproveedor,
-                        dd[key].precio,
-                        dd[key].costoactual,
                         "Compra",
                         "<a onclick='quitarcompra(\"" + dd[key].idcompra + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
-                        subtotal
+                        dd[key].cantidad,
+                        dd[key].nombreprefijoventa,
+                        "$ " + subtotal
                         // fsi
 
                     ]).draw(false);
@@ -5388,7 +5461,7 @@ function guardanumerocomprobantemodificado(nuevonumerocompra,idcompra)
     });
 }
 
-function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, fechamovimiento, cantidad, idproveedorelegido, tipomovimientonombrecorto) {
+function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, fechamovimiento, cantidad, idproveedorelegido, tipomovimientonombrecorto, prefijocompra, prefijoventa, costoxprefijoenviado,ventaxprefijoenviado,codigobarra) {
 
     var comprobantecompra =   document.getElementById('numerocomprobantecompra').value;
     comprobantecompra = comprobantecompra.trim();
@@ -5413,10 +5486,13 @@ function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, f
     itemmovimiento.tipomovimientonombrecorto = tipomovimientonombrecorto;
     itemmovimiento.fechacompra = fechamovimiento;
     itemmovimiento.comprobantecompra = comprobantecompra;
-    
+    itemmovimiento.prefijocompra = prefijocompra;
+    itemmovimiento.prefijoventa = prefijoventa;
+    itemmovimiento.costoxprefijo = costoxprefijoenviado;
+    itemmovimiento.ventaxprefijo = ventaxprefijoenviado;
+    itemmovimiento.codigobarra = codigobarra;
 
     var comprado = JSON.stringify(itemmovimiento);
-
     $.ajax({
         url: "consultacompras.php",
         data: { comprado: comprado },
@@ -5425,8 +5501,9 @@ function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, f
             if (data != "[]") {
 
                 M.toast({ html: 'Ok compra guardada', displayLength: '1000', classes: 'rounded' });
-                actualizapreciocostoyventa(id,precionuevo, precioactual, costonuevo,costoactual);
+                actualizapreciocostoyventa(id, precionuevo, precioactual, costonuevo, costoactual, costoxprefijoenviado, ventaxprefijoenviado);
                 verificaproveedoranuncio(id, idproveedorelegido);
+                volverAconsultar();
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
@@ -5437,7 +5514,7 @@ function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, f
     });
 }
 
-function actualizapreciocostoyventa(idproducto,precionuevo, precioactual,costonuevo,costoactual)
+function actualizapreciocostoyventa(idproducto,precionuevo, precioactual,costonuevo,costoactual,costoxprefijoenviado,ventaxprefijoenviado)
 {
     
     if (precionuevo != precioactual || costonuevo != costoactual)
@@ -5468,6 +5545,8 @@ function actualizapreciocostoyventa(idproducto,precionuevo, precioactual,costonu
 
         itemanuncio.rutaimagenes = "";
         itemanuncio.filtro = "";
+        itemanuncio.costoxprefijo = costoxprefijoenviado;
+        itemanuncio.ventaxprefijo = ventaxprefijoenviado;
 
 
         var objetoanuncio = JSON.stringify(itemanuncio);
@@ -5606,7 +5685,7 @@ function eliminarcompra(idcompra){
             if (data != "[]") {
                 M.toast({ html: 'Ok compra eliminada', displayLength: '1000', classes: 'rounded' });
                 desdehasta();
-
+                volverAconsultar();
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
@@ -5634,6 +5713,7 @@ function consultarajustesdeldia(fechamovimientodesde, fechamovimientohasta, e) {
     itemajuste.bdd = bdd;
     itemajuste.tabla = tabla;
     itemajuste.tablaanuncios = tabladeanuncios;
+    itemajuste.tablaunidadesgranel = tablaunidadesgranel;
 
     itemajuste.tipo = tipo;
 
@@ -5648,6 +5728,7 @@ function consultarajustesdeldia(fechamovimientodesde, fechamovimientohasta, e) {
     var ajustado = JSON.stringify(itemajuste);
 
     tajuste.clear().draw(true);
+
     $.ajax({
 
         url: "consultaajustes.php",
@@ -5670,15 +5751,18 @@ function consultarajustesdeldia(fechamovimientodesde, fechamovimientohasta, e) {
 
                     faj = vista_ymdAdmy(dd[key].fechamovimiento)
 
+                    //Los ajustes son en unidades de venta y NO  de compra
+
                     tajuste.row.add([
                         faj,
                         dd[key].titulo,
                         dd[key].descripcion,    
                         dd[key].cantidad,
+                        dd[key].nombreprefijoventa,
                         
                         dd[key].tipomovimientonombrecorto,
                         "<a onclick='quitarajuste(\"" + dd[key].idajuste + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
-                        fsi
+                        // fsi
 
                     ]).draw(false);
                 });
@@ -5760,6 +5844,7 @@ function eliminarajuste(idajuste) {
 
                 M.toast({ html: 'Ok ajuste eliminado', displayLength: '1000', classes: 'rounded' });
                 desdehastaajuste();
+                volverAconsultar();
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
@@ -5770,7 +5855,7 @@ function eliminarajuste(idajuste) {
     });
 }
 
-function guardarajuste(id, fechamovimiento, cantidad, tipomovimientonombrecorto) {
+function guardarajuste(id, fechamovimiento, cantidad, tipomovimientonombrecorto, prefijocompra,prefijoventa) {
 
     var bdd = conexionbdd;
     var tabla = tablaajustes;
@@ -5789,6 +5874,8 @@ function guardarajuste(id, fechamovimiento, cantidad, tipomovimientonombrecorto)
     itemmovimiento.cantidad = cantidad;
     itemmovimiento.tipomovimientonombrecorto = tipomovimientonombrecorto;
     itemmovimiento.fechaajuste = fechamovimiento;
+    itemmovimiento.prefijocompra = prefijocompra;
+    itemmovimiento.prefijoventa = prefijoventa;
 
     var ajustado = JSON.stringify(itemmovimiento);
   
@@ -6319,10 +6406,12 @@ function consultatiposdemovimiento_seleccion_lista(e) {
 
 }
 
-function eligetipomovimiento() {
+function eligetipomovimiento() 
+{
 
     var tipomovimientonombrecorto = document.getElementById("opcioneslistatiposmovimientostock").value;
 
+    
     return tipomovimientonombrecorto;
 
 }

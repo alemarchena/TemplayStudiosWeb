@@ -15,6 +15,12 @@
     $fechacomprarecibida =$comprado['fechacompra'];
     $comprobantecompra =$comprado['comprobantecompra'];
     $idcompra =$comprado['idcompra'];
+    $tablaunidadesgranel = $comprado['tablaunidadesgranel'];
+    $prefijocompra = $comprado['prefijocompra'];
+    $prefijoventa = $comprado['prefijoventa'];
+    $costoxprefijo = $comprado['costoxprefijo'];
+    $ventaxprefijo = $comprado['ventaxprefijo'];
+    $codigobarra = $comprado['codigobarra'];
     
     
     $fechacompracreada= date_create_from_format('dmY', $fechacomprarecibida);
@@ -71,9 +77,12 @@
 
             $sql = "Select " .$tabla. ".fechacompra," .$tabla. ".id as idcompra," .$tabla. ".idproveedor," .$tabla. ".idproducto," .$tabla. ".cantidad,"  .$tabla. ".comprobantecompra," .$tabla. ".costo as costocompra," 
             .$tablaanuncios. ".id," .$tablaanuncios. ".titulo,".$tablaanuncios. ".descripcion," .$tablaanuncios. ".costo as costoactual," 
-            .$tablaanuncios. ".precio," .$tablaanuncios. ".fechastockinicio," .$tablaproveedores. ".idproveedor," .$tablaproveedores. ".nombreproveedor from ( ( (" 
+            .$tablaanuncios. ".precio," .$tablaanuncios. ".fechastockinicio," .$tablaanuncios. ".codigobarra,"  .$tablaanuncios. ".prefijocompra," .$tablaanuncios. ".prefijoventa," .$tablaanuncios. ".costoxprefijo," .$tablaanuncios. ".ventaxprefijo," .$tablaanuncios. ".codigobarra,"
+            .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
+            .$tablaproveedores. ".idproveedor," .$tablaproveedores. ".nombreproveedor from ( ( (" 
             .$tabla. " LEFT JOIN " .$tablaanuncios. " ON " .$tabla. ".idproducto  = " .$tablaanuncios.".id) LEFT JOIN " 
-            .$tablaproveedores. " ON " .$tabla. ".idproveedor = " .$tablaproveedores.".idproveedor) )  where fechacompra >= '" .$fechacompradesde. "' and  fechacompra <= '" . $fechacomprahasta . "'";
+            .$tablaproveedores. " ON " .$tabla. ".idproveedor = " .$tablaproveedores.".idproveedor)  LEFT JOIN " 
+            .$tablaunidadesgranel. " ON " .$tablaanuncios. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra  and " .$tablaanuncios. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where fechacompra >= '" .$fechacompradesde. "' and  fechacompra <= '" . $fechacomprahasta . "'";
 
 
         $resultado  = $mysqli->query($sql);
@@ -91,8 +100,8 @@
     }else if($tipo == "alta" || $tipo == "baja"  || $tipo == "actualizafechainicio" || $tipo == "actualizacomprobante")
     {
         if($tipo == "alta"){
-            $sql = "Insert Into " .$tabla. "(idproducto, costo, fechacompra, cantidad, idproveedor,comprobantecompra)
-                values('$idproducto','$costo','$fechacompra','$cantidad','$idproveedor','$comprobantecompra')";
+            $sql = "Insert Into " .$tabla. "(idproducto, costo, fechacompra, cantidad, idproveedor,comprobantecompra,prefijocompra,prefijoventa,costoxprefijo,ventaxprefijo,codigobarra)
+                values('$idproducto','$costo','$fechacompra','$cantidad','$idproveedor','$comprobantecompra','$prefijocompra','$prefijoventa','$costoxprefijo','$ventaxprefijo','$codigobarra')";
         
         }else if($tipo == "baja"){
             $sql = "delete from " .$tabla. " where id = $id";

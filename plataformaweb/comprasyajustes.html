@@ -33,29 +33,6 @@
                         <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
                         <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
                     </div>
-
-                    <!-- <div class="col-sm-5"> -->
-                        <!-- <div class="row justify-content-center">
-                            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
-                            <label for="opcioneslista" class="colorletras">Selecciona una categoría</label>
-                            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-                        </div> -->
-
-                        
-
-                        <!-- <div class="row justify-content-center">
-                            
-                            <div class="col-sm-6 m-0 p-0" id="contenedorbusqueda">
-                                <input id="cajabusquedacompras" onkeydown="validarentercompras(event)" placeholder="Encuentra marcas y productos aquí"
-                                    class="form-control mr-sm-2" type="search" aria-label="Search">
-                            </div>
-                            <div class="col-sm-3 m-0 p-0">
-                                <button id="consultacompras" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
-                            </div>
-                            
-                        </div> -->
-                    <!-- </div> -->
-                    
                     <div class="col-sm-3">
                         <label for="opcioneslistatiposmovimientostock" class="colorletras">Selecciona un tipo de movimiento</label>
                         <select class="form-control" id="opcioneslistatiposmovimientostock" name="opcioneslistatiposmovimientostock"></select>
@@ -85,18 +62,20 @@
                         <thead>
                             <tr>
                                 <!-- <th style="display: none;" class="columnadedos center">Stock inicio</th> -->
+                                <th>Id</th>
                                 <th>Código Barra</th>
                                 <th>Título</th>
 
                                 <th class="columnadedos center">Menos</th>
                                 <th class="columnadetres center">cantidad Unid.Compradas</th>
-                                <th class="columnadedos center">Uni.Med.</th>
+                                <th class="columnadedos center">Unidad de Compra.</th>
+                                <th class="columnadedos center">Unidad de Venta</th>
 
                                 <th class="columnadedos center">Mas</th>
 
                                 <th class="columnadetres center">Costo x Unid.Compra</th>
                                 <th class="columnadetres center">$ Vta x Unid.Compra</th>
-                                <th class="columnadedos center">Forma Vta</th>
+
 
                                 <th class="columnadetres center">Guardar</th>
                                 <th class="columnadetres">Imagen</th>
@@ -109,6 +88,7 @@
                         <tbody>
                             <tr>
                                 <!-- <td style="display: none;" class="columnadedos center"></td> -->
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td class="columnadedos center"></td>
@@ -185,17 +165,21 @@
                                                 <tr>
                                                     <th >fecha compra</th>
                                                     <th >Comprobante</th>
-                                                    <th>Descripción</th>
+                                                    <th>Id</th>
+                                                    <th>Código Barra</th>
                                                     <th>Título</th>
                                                     <th class="masmenoscolumna">cantidad</th>
+                                                    <th class="masmenoscolumna">Unididad de Compra</th>
                                                     <th>Costo compra</th>
+                                                    <th class="masmenoscolumna">Precio Vta</th>
                                                     
                                                     <th>Proveedor</th>
-                                                    <th class="masmenoscolumna">Precio Vta</th>
-                                                    <th class="masmenoscolumna">Costo actual</th>
                                                     <th class="masmenoscolumna">Tipo movimiento</th>
                                                     <th>Eliminar</th>
-                                                    <th>Total item compra</th>
+
+                                                    <th>Total comprado en Unid.venta</th>
+                                                    <th>Unid.Venta</th>
+                                                    <th>Subtotal $</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -204,11 +188,14 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td></td>
                                                     <td class="masmenoscolumna"></td>
                                                     <td></td>
                                                     
                                                     <td></td>
                                                     <td class="masmenoscolumna"></td>
+                                                    <td></td>
+                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
@@ -235,11 +222,11 @@
                                                     <th>fecha ajuste</th>
                                                     <th>Título</th>
                                                     <th>Descripción</th>
-                                                    <th class="masmenoscolumna">cantidad</th>
+                                                    <th class="masmenoscolumna">Cantidad ajustada</th>
                                                     
+                                                    <th>Unid. Vta</th>
                                                     <th class="masmenoscolumna">Tipo movimiento</th>
                                                     <th>Eliminar</th>
-                                                    <th>Inicio stock</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -412,7 +399,17 @@ $(document).ready(function ()
         var o = document.getElementById("opcioneslistatiposmovimientostock");
         var opcion = o.options[o.selectedIndex].text;
         document.getElementById('tipomovimientostockelegido').value = opcion;
+        
         eligetipomovimiento();
+
+        if (opcion != "Compra" && opcion != "Seleccione un tipo de movimiento") {
+
+            Swal.fire(
+                'Recuerde',
+                'la cantidad a ajustar es en UNIDAD DE VENTA y NO en unidad de compra. Ej:gr, cm, etc',
+                'warning'
+            )
+        }
     });
 });
 

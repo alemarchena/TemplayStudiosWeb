@@ -16,6 +16,10 @@
     $fechaajustecreada= date_create_from_format('dmY', $fechaajusterecibida);
     $fechaajuste = date_format($fechaajustecreada, 'Y-m-d');
 
+    $prefijocompra = $ajustado['prefijocompra'];
+    $prefijoventa = $ajustado['prefijoventa'];
+    $tablaunidadesgranel = $ajustado['tablaunidadesgranel'];
+
     if($tipo == "alta")
     {
         $idproducto     = $ajustado["id"];
@@ -52,9 +56,12 @@
         if($tipo == "consulta")
         {
             $sql = "Select " .$tabla. ".fechamovimiento," .$tabla. ".id as idajuste," .$tabla. ".idproducto," .$tabla. ".cantidad," .$tabla. ".tipomovimientonombrecorto," 
-            .$tablaanuncios. ".id," .$tablaanuncios. ".titulo," .$tablaanuncios. ".fechastockinicio," .$tablaanuncios. ".descripcion from (" 
-            .$tabla. " LEFT JOIN " .$tablaanuncios. " ON " .$tabla. ".idproducto  = " .$tablaanuncios.".id)  where fechamovimiento >= '" .$fechaajustedesde. "'  and  fechamovimiento <= '" . $fechaajustehasta . "'";
+            .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
+            .$tablaanuncios. ".id," .$tablaanuncios. ".titulo," .$tablaanuncios. ".fechastockinicio," .$tablaanuncios. ".descripcion from ((" 
+            .$tabla. " LEFT JOIN " .$tablaanuncios. " ON " .$tabla. ".idproducto  = " .$tablaanuncios.".id) LEFT JOIN "
+            .$tablaunidadesgranel. " ON " .$tablaanuncios. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra  and " .$tablaanuncios. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where fechamovimiento >= '" .$fechaajustedesde. "'  and  fechamovimiento <= '" . $fechaajustehasta . "'";
         }
+
 
         $resultado  = $mysqli->query($sql);
         $data = array();
@@ -71,8 +78,8 @@
     }else if($tipo == "alta" || $tipo == "baja" )
     {
         if($tipo == "alta"){
-            $sql = "Insert Into " .$tabla. "(idproducto, fechamovimiento, cantidad, tipomovimientonombrecorto)
-                values('$idproducto','$fechaajuste','$cantidad','$tipomovimientonombrecorto')";
+            $sql = "Insert Into " .$tabla. "(idproducto, fechamovimiento, cantidad, tipomovimientonombrecorto,prefijocompra,prefijoventa)
+                values('$idproducto','$fechaajuste','$cantidad','$tipomovimientonombrecorto','$prefijocompra','$prefijoventa')";
         
         }else if($tipo == "baja"){
             $sql = "delete from " .$tabla. " where id = $id";
