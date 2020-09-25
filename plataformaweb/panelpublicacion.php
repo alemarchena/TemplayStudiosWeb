@@ -481,13 +481,13 @@
   
     <div id="plataforma"class="mt-5">
         <!-- <form method=post action=""> -->
-            <div  class="col-sm-6 offset-sm-3">
+            <div  class="col-sm-4 offset-sm-4">
                     <div id="tarjeta" class="card text-center">
                         <div class="card-header">
                             Autenticación
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Acceso al Panel de control</h5>
+                        <div class="">
+                            <h5 class="card-title">Panel de control</h5>
                             
                             <!-- ----------------------- plataforma de prueba ----------------- -->
                             
@@ -509,6 +509,9 @@
                                 <input class="mdl-textfield__input center" onKeyUp="return verificaenter(event)" style="display:inline;width:65%;" type="password" id="password" name="password"
                                     placeholder="Password 12345678" value=""/>
                                 <br /><br />
+                                <div class="col-sm-2" style="padding: 0em!important;">
+                                    <button class="btn icon fa fa-eye" type="button" id="button-addon2"></button>
+                                </div>
                             </div>
 
 
@@ -763,4 +766,21 @@ function verificaenter(e){
             }
         });
     }
+
+    function mostrarPassword() { 
+        var cambio = document.getElementById("password"); 
+        if (cambio.type == "password") { 
+            cambio.type = "text"; 
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        } else { 
+            cambio.type = "password"; 
+            $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash'); 
+        } 
+    } 
+
+    $("#button-addon2").click(function () {mostrarPassword();});
+
+ 
+
+    
 </script>

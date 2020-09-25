@@ -3,22 +3,22 @@
 
     <div class="card">
 
-        <h5>Rubros <i class="fas fa-layer-group"></i></h5>
-        <p class="p-1">Los rubros ayudan a organizar el sistema y sus búsquedas</p>
+        <h5>Categorías <i class="fas fa-layer-group"></i></h5>
+        <p class="p-1">Las categorías ayudan a organizar el sistema y sus búsquedas</p>
 
 
         <div class="card-header" id="headingRub">
             <h5 class="m-0">
                 <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseRub" aria-expanded="true"
                     aria-controls="collapseRub">
-                    Nuevos Rubros
+                    Nuevas Categorías
                 </button>
             </h5>
         </div>
 
         <div id="collapseRub" class="collapse" aria-labelledby="headingRub" data-parent="#accordionRubros">
             <div class="card-body">
-                <!-- Nuevos rubros -->
+                <!-- Nuevas categorias -->
                 <div class="row">
                     <!-- Columna de tarjeta de anuncio -->
                     <div class="col-sm-6 offset-sm-3">
@@ -46,7 +46,7 @@
                                                 <input onKeyDown="return validarteclarubro(event,this.value,50)"
                                                     onKeyUp="return validarteclarubro(event,this.value,50)" id="nombrerubro"
                                                     name="nombrerubro" type="text" class="validate">
-                                                <label for="nombrerubro">Rubro</label>
+                                                <label for="nombrerubro">Categoría</label>
                                             </div>
                                         </div>
 
@@ -54,7 +54,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <button class="btn waves-effect  orange green-4" type="button" id="enviarrubro"
-                                                    name="enviarrubro">Guardar Rubro
+                                                    name="enviarrubro">Guardar Categoría
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
             <h5 class="m-0">
                 <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaRub"
                     aria-expanded="false" aria-controls="collapseListaRub">
-                    Editar / Eliminar Rubros
+                    Editar / Eliminar Categorías
                 </button>
             </h5>
         </div>
@@ -84,7 +84,7 @@
                     <!-- Columna de lista de anuncios -->
                     <div class="col-sm-6 offset-sm-3">
                         <div class="row">
-                            Lista de Rubros
+                            Lista de Categorías
                             <!-- <button id="consultar">Consultar</button> -->
                         </div>
                         <div class="table-responsive">
@@ -92,7 +92,7 @@
                                 <thead>
                                     <tr>
                                         <th>Editar</th>
-                                        <th>Rubro</th>
+                                        <th>Categoría</th>
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>

@@ -57,12 +57,13 @@
             <div class="col-sm-12 notapedido">
 
                 <div class="table-responsive">
-                    <table id="tablaitemsventa" class="display table table-striped">
+                    <table id="tablaitemsventa" class="display table table-striped" style="width: 100%!important;">
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Título</th>
                                 <th>Cantidad</th>
+                                <th>Unidad Vta</th>
                                 <th>Precio</th>
                                 <th>Sub Total</th>
                                 <th>Eliminar</th>
@@ -70,6 +71,7 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -105,13 +107,14 @@
                 <input style="display: none;" id="tipodepagoelegido" name="tipodepagoelegido" type="text">
             </div>
             <div id="listaproductos" style="display: none;" class="table-responsive">
-                <table id="tablaanunciosvender" class="display table table-striped">
+                <table id="tablaanunciosvender" class="display table table-striped" style="width: 100%!important;">
                     <thead>
                         <tr>
                             <th class="masmenoscolumna center">$ lista</th>
                             <th class="columnadedos">Menos</th>
                             <th class="descripcioncolumna">Descripción</th>
                             <th class="masmenoscolumna center">cantidad</th>
+                            <th class="masmenoscolumna center">Unidad Vta</th>
                             <th class="masmenoscolumna center">$ vta</th>
                             <th class="titulocolumna">Título</th>
                             <th class="columnadedos center">Mas</th>
@@ -126,6 +129,7 @@
                             <td class="masmenoscolumna center"></td>
                             <td class="masmenoscolumna center"></td>
                             <td class="descripcioncolumna"></td>
+                            <td class="masmenoscolumna center"></td>
                             <td class="masmenoscolumna center"></td>
                             <td class="masmenoscolumna center"></td>
                             <td class="titulocolumna"></td>
@@ -143,7 +147,7 @@
               
     <!-- ------------------------------ lista de ventas del dia ------------------------ -->
     <div class="card">
-        <div class="card-header" id="headingListaVenta">
+        <div class="" id="headingListaVenta">
             <h5 class="m-0">
                 <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaVenta"
                     aria-expanded="false" aria-controls="collapseListaVenta">
@@ -152,7 +156,7 @@
             </h5>
         </div>
         <div id="collapseListaVenta" class="collapse" aria-labelledby="headingListaVenta" data-parent="#accordionVentas">
-            <div class="card-body">
+            <div class="">
                 <!-- lista venta -->
                 <div class="row m-0 p-0">
                     <!-- Columna de tarjeta de ventas -->
@@ -166,11 +170,11 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table id="tablavender" class="display table table-striped">
+                            <table id="tablavender" class="display table table-striped" style="width: 100%!important;">
                                 <thead>
                                     <tr>
                                         <th>Título</th>
-                                        <th>Descripción</th>
+                                        <!-- <th>Descripción</th> -->
                                         <th class="masmenoscolumna">cantidad</th>
                                         <th>Precio</th>
 
@@ -186,7 +190,7 @@
                                 <tbody>
                                     <tr>
                                         <td></td>
-                                        <td></td>
+                                        <!-- <td></td> -->
                                         <td class="masmenoscolumna"></td>
                                         <td></td>
 

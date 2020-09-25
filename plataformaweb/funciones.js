@@ -781,12 +781,13 @@ function consultaranuncios(tipo)
         id = 0;
 
     var filtro = [];
-    if(tipo == "consultafiltros"){
+    if(tipo == "consultafiltros" || tipo == "consultalector"){
 
         // si el tipo no es rubro va a buscar por filtro
         var textobuscado = $("#cajabusqueda").val();
         textobuscado = document.getElementById("cajabusqueda").value;
-        
+        textobuscado = textobuscado.trim();
+
         if (textobuscado == "") {
             return false;
         }
@@ -797,6 +798,7 @@ function consultaranuncios(tipo)
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
     itemanuncio.tablarubros = tabladerubros;
+    itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
 
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
@@ -804,13 +806,15 @@ function consultaranuncios(tipo)
     itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
-
+    itemanuncio.codigobarra = textobuscado;
+   
     var objetoanuncio = JSON.stringify(itemanuncio);
 
     if(llama=="anuncios")
     {
         tanuncios.clear().draw(true);
     }
+
 
     $.ajax({
 
@@ -821,6 +825,7 @@ function consultaranuncios(tipo)
 
         success: function (data)
         {
+    
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
                 var esnov = "";
@@ -1895,13 +1900,13 @@ function configuraciontablacaja(tabla) {
 }
 
 
-function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,titulo)
+function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,titulo,unidadvta)
 {
     var key = window.event ? e.which : e.keyCode;
 
-    if (e.keyCode == 107) //tecla +
+    if (e.keyCode == 107 || e.keyCode == 13)  //tecla + o enter
     {
-       vender(id,idrubro,costo,titulo);
+        vender(id, idrubro, costo, titulo, unidadvta);
        return false;
     }
     
@@ -1922,17 +1927,14 @@ function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,ti
     return false;
 }
 
-function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo)
+function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo,unidadvta)
 {
     var key = window.event ? e.which : e.keyCode;
 
-    if (e.keyCode == 107) //tecla +
+    if (e.keyCode == 107 || e.keyCode == 13) //tecla + o enter
     {
-
-       vender(id,idrubro,costo,titulo);
-       
+       vender(id,idrubro,costo,titulo,unidadvta);
        return false;
-       
     }
     
     var unicode = e.keyCode ? e.keyCode : e.charCode;
@@ -1954,78 +1956,6 @@ totalpedido = 0;
     
 
 
-
-function consultaranunciosvenderLector() {
-
-    var tipo = "consultafiltros";
-    seleccionidrubro =0;
-
-    var bdd = conexionbdd;
-    var tabla = tablaanuncios;
-    var tabladerubros = tablarubros;
-    var rutaimagenes = "imagenes/";
-
-    var id;
-
-    if (document.getElementById('id')) {
-        id = document.getElementById('id').value;
-    } else
-        id = 0;
-
-    var filtro = [];
-    if(tipo == "consultafiltros"){
-
-        // si el tipo no es rubro va a buscar por filtro
-        var textobuscado = $("#cajabusqueda").val();
-        textobuscado = document.getElementById("cajabusqueda").value;
-        
-        if (textobuscado == "") {
-            return false;
-        }
-        filtro.push( textobuscado );
-    }
-    
-    var itemanuncio = new Object();
-    itemanuncio.bdd = bdd;
-    itemanuncio.tabla = tabla;
-    itemanuncio.tablarubros = tabladerubros;
-    itemanuncio.tipo = tipo;
-    itemanuncio.id = id;
-    itemanuncio.rutaimagenes = rutaimagenes;
-    itemanuncio.idrubro = seleccionidrubro ;
-    itemanuncio.filtro = filtro;
-
-
-    var objetoanuncio = JSON.stringify(itemanuncio);
-
-    if(tipo != "consultafiltros")
-        document.getElementById("cajabusqueda").value = "";
-
-    encontro = false;
-
-    $.ajax({
-
-        url: "consultaanuncios.php",
-        data: { objetoanuncio: objetoanuncio },
-        type: "post",
-        success: function (data)
-        {
-            
-            if (data != "consultavacia") {
-                dd = JSON.parse(data); //data decodificado
-                
-                $.each(dd, function (key, value) {
-                    encontro = true;
-                    insertarEnCarrito(dd[key].id, dd[key].idrubro, dd[key].costo, dd[key].titulo, dd[key].precio);
-                });
-                eligetipopago();
-            }
-        },
-        error: function (e) {
-            console.log("Error en la consulta." + e.value);
-        }
-    });
-}
 
 function insertarEnCarrito(id,idrubro,costo,titulo,precio)
 {
@@ -2069,18 +1999,21 @@ function consultaranunciosvender(tipo) {
         id = 0;
 
     var filtro = [];
-    if(tipo == "consultafiltros"){
+    if (tipo == "consultafiltros" || tipo == "consultalector"){
 
         // si el tipo no es rubro va a buscar por filtro
         var textobuscado = $("#cajabusqueda").val();
         textobuscado = document.getElementById("cajabusqueda").value;
-        
+        textobuscado = textobuscado.trim();
+
         if (textobuscado == "") {
             return false;
         }
         filtro.push( textobuscado );
     }
     
+   
+
     var itemanuncio = new Object();
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
@@ -2090,7 +2023,9 @@ function consultaranunciosvender(tipo) {
     itemanuncio.rutaimagenes = rutaimagenes;
     itemanuncio.idrubro = seleccionidrubro ;
     itemanuncio.filtro = filtro;
-
+    itemanuncio.codigobarra = textobuscado;
+    itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
+    
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     t.clear().draw(true);
@@ -2110,38 +2045,48 @@ function consultaranunciosvender(tipo) {
             
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
-                
                 $.each(dd, function (key, value) {
                     
                     encontro = true;
-
-                    t.row.add([
-
+                    
+                    if (tipo == "consultalector" && dd[key].prefijocompra > 0) //inserta directamente solo a productos por unidades
+                    {
+                        agregaritemventa(dd[key].id, dd[key].precio,1,dd[key].titulo,dd[key].precio,dd[key].nombreprefijoventa);
+                    }else
+                    {
+                        t.row.add([
+                            
                         dd[key].precio,
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
                         dd[key].descripcion,
-                        "<input onKeyDown='return validarinputcantidad(event, this.value, 8) ' onKeyUp ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type='text' class='validate masmenoscolumna saltacantidad'></input>",
-                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 8) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\") '  id ='precio_"   + dd[key].id + "' name ='precio_"   + dd[key].id     + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
+                        "<input onKeyDown='return validarinputcantidad(event, this.value, 8) ' onKeyUp ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\") '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type = 'text' class='validate masmenoscolumna saltacantidad' ></input>",
+                        dd[key].nombreprefijoventa,
+                        "<input onKeyDown='return validarinputcantidadprecio(event, this.value, 8) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\") '  id ='precio_"   + dd[key].id + "' name ='precio_"   + dd[key].id     + "' type ='text' class='validate escampoprecio saltaprecio' value=" + "'" + dd[key].precio + "'></input>",
                         dd[key].titulo,
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
-                        "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
+                        "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
                         "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>"
                         
-                    ]).draw(true);
-                    
-
+                        ]).draw(true);
+                
+                    }
+                
                     
                 });
-                t.columns.adjust().draw();
-                
-                mostrarResultadoBusqueda();
-                reconocerTooltipped();
-                imageneszoom();
-                eligetipopago();
-                identificasaltainput('saltacantidad');
-                identificasaltainput('saltaprecio');
-              
-                hacefoco();
+
+                if (tipo != "consultalector" || dd[key].prefijocompra == 0) //inserta directamente solo a productos por unidades
+                {
+                    t.columns.adjust().draw();
+    
+                    mostrarResultadoBusqueda();
+                    reconocerTooltipped();
+                    imageneszoom();
+                    eligetipopago();
+                    identificasaltainput('saltacantidad');
+                    identificasaltainput('saltaprecio');
+                    
+                    hacefoco();
+                }
             }else
             {
                 mostrarResultadoBusqueda();
@@ -2156,7 +2101,7 @@ function consultaranunciosvender(tipo) {
 function mostrarResultadoBusqueda()
 {
     if(encontro == true)
-        document.getElementById("listaproductos").style.display = "table";
+        document.getElementById("listaproductos").style.display = "block";
     else
     {
         Swal.fire({position: 'top-end',icon: 'warning',title: 'No hay coincidencias ',showConfirmButton: false,timer: 1500})
@@ -2166,33 +2111,33 @@ function mostrarResultadoBusqueda()
 
 function hacefoco()
 {
-    $('.saltacantidad')[0].focus();
     var posicion=0;
 
     var alturamenu = $('#my-nav').outerHeight(true);
 
     if(llama == "vender")
     {
+        $('.saltacantidad')[0].focus();
+
         posicion = $("#tablaanunciosvender").offset().top - alturamenu; 
     }else
     if(llama=="comprar")
     {
-        if($("#divNuevoProducto").hasClass("show"))
-        {
-            $('#codigobarra').focus();
-        }
         
-        posicion = $("#codigobarra").offset().top - alturamenu; 
+        $('.saltacantidad')[0].focus();
+        
+        posicion = $("#tablaanunciosmovimientos").offset().top - alturamenu; 
     }else
     if(llama=="anuncios")
     {
         posicion = $("#tablaanuncios_filter").offset().top - alturamenu; 
     }
-
     
     $("HTML, BODY").animate({ scrollTop: posicion}, 600);
     
 }
+
+
 
 function identificasaltainput(clase)
 {
@@ -2201,7 +2146,19 @@ function identificasaltainput(clase)
 
     $('.' + clase).on('keydown',function(e)
     {
-        if(e.keyCode === 13 || e.keyCode === 40) 
+        if(e.keyCode === 13 ) 
+        {
+            if(this.value == "")
+            {
+                e.preventDefault();
+                indice = $('.' + clase).index(this)+1;
+                if(indice == todos )
+                    indice = 0;
+                $('.' + clase)[indice].focus();
+            }
+        }
+
+        if( e.keyCode === 40) 
         {
             e.preventDefault();
             indice = $('.' + clase).index(this)+1;
@@ -2220,13 +2177,16 @@ function identificasaltainput(clase)
 
             $('.' + clase)[indice].focus();
         } 
-    });   
+    });
+    
+    
 }
 
 //es el metodo que queda ligado al boton en la linea del producto
-function vender(id,idrubro,costo,titulo){
+function vender(id, idrubro, costo, titulo, unidadvta){
 
-    
+
+
     if(!id){
         return false;
     }
@@ -2248,7 +2208,7 @@ function vender(id,idrubro,costo,titulo){
     if (parseInt(can.value, 10) > 0 && fechaventa != "" )
     {
         fechaventa = conviertefechaastringdmy(fechaventa);
-        reservaritemventa(id, pre.value, costo, idrubro, fechaventa, can.value, bonus,titulo);
+        reservaritemventa(id, pre.value, costo, idrubro, fechaventa, can.value, bonus, titulo, unidadvta);
         can.value = "";
 
     }else if (fechaventa == "" )
@@ -2263,11 +2223,11 @@ function vender(id,idrubro,costo,titulo){
 
 }
 
-function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechaventa_riv, cantidad_riv, bonus_riv,titulo_riv) {
+function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechaventa_riv, cantidad_riv, bonus_riv, titulo_riv, unidadvta) {
 
     itemsEnlaventa +=1;
    
-
+  
     var subtotal = precio_riv * cantidad_riv;
     subtotal = Math.round(subtotal * 100) / 100;
     // subtotal=Math.round10(subtotal, -1);
@@ -2281,6 +2241,7 @@ function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechavent
     objeto.idrubro = idrubro_riv;
     objeto.fechaventa = fechaventa_riv;
     objeto.cantidad = cantidad_riv;
+    objeto.unidadvta = unidadvta;
     objeto.bonus = bonus_riv;
     objeto.titulo = titulo_riv;
     objeto.subtotal = subtotal;
@@ -2289,11 +2250,11 @@ function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechavent
     arregloitemsventa.push(objeto);
 
     //agrega visualmente el item en la pagina
-    agregaritemventa(id_riv, precio_riv, cantidad_riv, titulo_riv,subtotal);
+    agregaritemventa(id_riv, precio_riv, cantidad_riv, titulo_riv, subtotal, unidadvta);
 }
 
 
-function agregaritemventa(id, precio, cantidad,titulo,subtotal) {
+function agregaritemventa(id, precio, cantidad,titulo,subtotal,unidadvta) {
 
     var t;
 
@@ -2311,6 +2272,7 @@ function agregaritemventa(id, precio, cantidad,titulo,subtotal) {
         id,
         titulo,          
         cantidad,
+        unidadvta,
         pre,
         subtotal,
         "<a class='borra' onclick='borrarfila(\"" + itemsEnlaventa + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
@@ -2321,6 +2283,7 @@ function agregaritemventa(id, precio, cantidad,titulo,subtotal) {
     
 
     calculatotal();
+    focoencajabusqueda("");
 
     M.toast(
     {
@@ -2605,15 +2568,15 @@ function consultarventasdeldia(fechaventa,e) {
 
                     tventas.row.add([
                         dd[key].titulo,
-                        dd[key].descripcion,
+                        // dd[key].descripcion,
                         dd[key].cantidad,
-                        dd[key].precio,
+                        "$ " + dd[key].precio,
                         
                         dd[key].idcliente,
                         dd[key].nombrecliente,
                         dd[key].bonus,
                         dd[key].tipopago,
-                        total,
+                        "$ " + total,
                         "<a onclick='quitar(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
 
                     ]).draw(false);
@@ -2690,11 +2653,11 @@ function eliminaventa(idventa, idcliente, bonusventa)
                 fechaventaenviada = conviertefechaastringdmy(fechaventa);
                 consultarventasdeldia(fechaventaenviada);
 
-                Swal.fire(
-                    'Eliminado!',
-                    'La venta fué borrada.',
-                    'success'
-                )
+                // Swal.fire(
+                //     'Eliminado!',
+                //     'La venta fué borrada.',
+                //     'success'
+                // )
             } else {
                 M.toast({ html: 'Error al intentar eliminar.' })
             }
@@ -4979,14 +4942,22 @@ function desdehastaajuste() {
 
 function volverAconsultar()
 {
+
     var cb = $("#cajabusqueda").val();
 
-    if( cb != "") 
+    if ($('#usalector').prop('checked'))
     {
-        consultaranunciosparamovimientos("consultafiltros","nolector");
+        consultaranunciosparamovimientos("consultalector");
     }else
     {
-        consultaranunciosparamovimientos("consultarubros","nolector");
+        if( cb != "") 
+        {
+            consultaranunciosparamovimientos("consultafiltros");
+        }else
+        {
+            consultaranunciosparamovimientos("consultarubros");
+        }
+
     }
 }
 
@@ -4994,7 +4965,7 @@ function validarinputcantidadpreciocompras(e, contenido, caracteres,id,costo,pre
 {
     var key = window.event ? e.which : e.keyCode;
 
-    if (e.keyCode == 107) //tecla +
+    if (e.keyCode == 107 || e.keyCode == 13) //tecla + o enter
     {
        moverstock(id,costo,precio);
        return false;
@@ -5017,13 +4988,13 @@ function validarinputcantidadpreciocompras(e, contenido, caracteres,id,costo,pre
     return false;
 }
 
-function validarinputcantidadcompras(e, contenido, caracteres,id,costo,precio)
+function validarinputcantidadcompras(e,contenido, caracteres, id, costo, precio,prefijocompra,prefijoventa,relacioncompraventa,codigobarra)
 {
     var key = window.event ? e.which : e.keyCode;
 
-    if (e.keyCode == 107) //tecla +
+    if (e.keyCode == 107 || e.keyCode == 13) //tecla + o enter
     {
-        moverstock(id,costo,precio);
+        moverstock(id, costo, precio, prefijocompra, prefijoventa, relacioncompraventa, codigobarra);
         return false;
     }
 
@@ -5039,7 +5010,7 @@ function validarinputcantidadcompras(e, contenido, caracteres,id,costo,precio)
     return false;
 }
 
-function consultaranunciosparamovimientos(tipo,lector,e) {
+function consultaranunciosparamovimientos(tipo,e) {
 
       
     if ($.fn.dataTable.isDataTable('#tablaanunciosmovimientos')) {
@@ -5076,12 +5047,12 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
         id = id;
 
     var filtro = [];
-    if(tipo == "consultafiltros"){
+    if(tipo == "consultafiltros" ||tipo == "consultalector" ){
 
         // si el tipo no es rubro va a buscar por filtro
         var textobuscado = $("#cajabusqueda").val();
         textobuscado = document.getElementById("cajabusqueda").value;
-        
+        textobuscado = textobuscado.trim();
         if (textobuscado == "") {
             return false;
         }
@@ -5107,6 +5078,7 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
     itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
+    itemanuncio.codigobarra = textobuscado;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     var opcioninicio;
@@ -5165,7 +5137,7 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
                         
 
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect  brown darken-3 " + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                        "<input onKeyDown='return validarinputcantidadcompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\") ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
+                        "<input onKeyDown='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\") ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\") ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
                         dd[key].nombreprefijocompra,
                         formaVta,
                         "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
@@ -5190,7 +5162,7 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
                 identificasaltainput('saltaprecio');
                 identificasaltainput('saltacosto');
 
-                colapsarCompras();
+                // colapsarCompras();
                 mostrarResultaodosBusquedaCompras();
                 hacefoco();
 
@@ -5208,7 +5180,7 @@ function consultaranunciosparamovimientos(tipo,lector,e) {
 function mostrarResultaodosBusquedaCompras()
 {
     if(encontro == true)
-        document.getElementById("tablaproductoscompras").style.display = "table";
+        document.getElementById("tablaproductoscompras").style.display = "block";
     else
     {
         Swal.fire({position: 'top-end',icon: 'warning',title: 'No hay coincidencias ',showConfirmButton: false,timer: 1500})
@@ -5262,26 +5234,30 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
 
     var canAjuste =0; //Los ajustes se realizan en cantidades de VENTA y no de compra
     //cantidad es la cantidad de compra sin fraccionar * relacioncompraventa, siempre que sea producto de vta x fraccion
+    var can="";
+    var pre="";
+    var cos="";
+    can = document.getElementById('cantidad_' + id);
+   
+    canAjuste = can.value;
+
     if(prefijocompra == 0)
     {
-        var can = document.getElementById('cantidad_' + id);
-        canAjuste = can.value;
 
         can = can.value;
-        var pre = document.getElementById('precio_' + id);
+        pre = document.getElementById('precio_' + id);
         pre = pre.value;
-        var cos = document.getElementById('costo_' + id);
+        cos = document.getElementById('costo_' + id);
         cos = cos.value;
     }else
     {
-        var can = document.getElementById('cantidad_' + id);
-        canAjuste = can.value;
+    
         can = can.value * relacioncompraventa;
-        var pre = document.getElementById('ventaxprefijo_' + id);
+        pre = document.getElementById('ventaxprefijo_' + id);
         ventaxprefijoenviado = pre.value;
         pre = pre.value / relacioncompraventa;
 
-        var cos = document.getElementById('costoxprefijo_' + id);
+        cos = document.getElementById('costoxprefijo_' + id);
         costoxprefijoenviado = cos.value;
         cos = cos.value / relacioncompraventa;
     }
@@ -5305,18 +5281,26 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
             guardarajuste(id, fechamovimiento, canAjuste, tipomovimientonombrecorto, prefijocompra,prefijoventa);
         }
         can = "";
-
+        setTimeout(() => {
+            document.getElementById('cantidad_' + id).value = "";
+            
+        }, 100);
+        
     } else {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Complete fecha, cantidad, proveedor y tipo de movimiento',
-            showConfirmButton: false,
-            timer: 2500
-        })
+        if(canAjuste > 0)
+        {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Complete fecha, cantidad, proveedor y tipo de movimiento',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
     }
 
-    colapsarCompras();
+
+    // colapsarCompras();
 }
 
 function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
@@ -5503,7 +5487,9 @@ function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, f
                 M.toast({ html: 'Ok compra guardada', displayLength: '1000', classes: 'rounded' });
                 actualizapreciocostoyventa(id, precionuevo, precioactual, costonuevo, costoactual, costoxprefijoenviado, ventaxprefijoenviado);
                 verificaproveedoranuncio(id, idproveedorelegido);
-                volverAconsultar();
+                // volverAconsultar();
+                focoencajabusqueda("");
+
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
@@ -5685,7 +5671,7 @@ function eliminarcompra(idcompra){
             if (data != "[]") {
                 M.toast({ html: 'Ok compra eliminada', displayLength: '1000', classes: 'rounded' });
                 desdehasta();
-                volverAconsultar();
+                // volverAconsultar();
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
@@ -5844,7 +5830,7 @@ function eliminarajuste(idajuste) {
 
                 M.toast({ html: 'Ok ajuste eliminado', displayLength: '1000', classes: 'rounded' });
                 desdehastaajuste();
-                volverAconsultar();
+                // volverAconsultar();
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
@@ -6324,10 +6310,10 @@ function eligetipopago(){
             $(this).prop("type", "number");
         });
 
-        $('#tablaanunciosvender tbody tr').each(function () {
-            var preciolista = $(this).find('td:eq(8)').text();
-            $(this).find('td:eq(3) input').val(preciolista);
-        });
+        // $('#tablaanunciosvender tbody tr').each(function () {
+        //     var preciolista = $(this).find('td:eq(8)').text();
+        //     $(this).find('td:eq(3) input').val(preciolista);
+        // });
     }
 
 }
@@ -7364,3 +7350,33 @@ function muestraanuncionarreglo(numerodepagina, tipoconsulta)
     inicializaselect();
 
 }
+
+function focoencajabusqueda(teclafoco) 
+{
+        
+    if (llama == "vender" || llama == "comprar" || llama == "anuncios") {
+        if ($('#usalector').prop('checked') || teclafoco == 115) 
+        {
+            document.getElementById('cajabusqueda').value = "";
+            $('#cajabusqueda').focus();
+            $("HTML, BODY").animate({ scrollTop: 0}, 600);
+        }
+    }
+    
+}
+
+$(function(){ 
+     
+     $("body").keydown(function(e)
+     { 
+         var teclapresionada = e.keyCode || e.which; 
+         
+         if(teclapresionada == 115) //F4 para hacer foco en la caja de busqueda
+         {
+            e.preventDefault(); 
+            focoencajabusqueda(teclapresionada);
+            
+        }
+            
+    }); 
+});

@@ -10,7 +10,7 @@
             <p>
                 <label>
                     <input id="usalector" type="checkbox" class="filled-in" />
-                    <span class="colorletras">Usar Lector</span>
+                    <span class="colorletras">Lector</span>
                 </label>
             </p>
         </div>
@@ -23,6 +23,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     
@@ -38,14 +39,26 @@
                 return false;
             }
 
-            if (llama == "vender")
-                consultaranunciosvender("consultafiltros");
-    
-            if (llama == "anuncios")
-                consultaranuncios("consultafiltros");
+            if ($('#usalector').prop('checked')) {
+                if (llama == "vender")
+                    consultaranunciosvender("consultalector");
 
-            if(llama == "comprar")
-                consultaranunciosparamovimientos("consultafiltros", "nolector");
+                if (llama == "anuncios")
+                    consultaranuncios("consultalector");
+
+                if (llama == "comprar")
+                    consultaranunciosparamovimientos("consultalector");
+            }else{
+                if (llama == "vender")
+                    consultaranunciosvender("consultafiltros");
+        
+                if (llama == "anuncios")
+                    consultaranuncios("consultafiltros");
+    
+                if(llama == "comprar")
+                    consultaranunciosparamovimientos("consultafiltros");
+            }
+
 
             M.toast(
             {
@@ -58,13 +71,13 @@
     function VerificaSiUsaLector() {
         if ($('#usalector').prop('checked')) {
             if (llama == "vender")
-                consultaranunciosvenderLector("consultafiltros");
+                consultaranunciosvender("consultalector");
 
             if(llama == "anuncios")
-                consultaranuncios("consultafiltros");
+                consultaranuncios("consultalector");
             
             if (llama == "comprar")
-                consultaranunciosparamovimientos("consultafiltros","silector");
+                consultaranunciosparamovimientos("consultalector");
 
         } else {
             if (llama == "vender")
@@ -74,7 +87,7 @@
                 consultaranuncios("consultafiltros");
             
             if (llama == "comprar")
-                consultaranunciosparamovimientos("consultafiltros", "nolector");
+                consultaranunciosparamovimientos("consultafiltros");
         }
     }
     
@@ -86,15 +99,28 @@
         
 
         $("#consulta").click(function (e) {
-            if(llama=="vender")
-                consultaranunciosvender("consultafiltros");
-
-            if (llama == "anuncios")
-                consultaranuncios("consultafiltros");
-            
-            if (llama == "comprar")
+            if ($('#usalector').prop('checked')) 
             {
-                consultaranunciosparamovimientos("consultafiltros", "nolector");
+                 if (llama == "vender")
+                    consultaranunciosvender("consultalector");
+
+                if (llama == "anuncios")
+                    consultaranuncios("consultalector");
+
+                if (llama == "comprar")
+                    consultaranunciosparamovimientos("consultalector");
+            }else{
+
+                if(llama=="vender")
+                    consultaranunciosvender("consultafiltros");
+                
+                if (llama == "anuncios")
+                    consultaranuncios("consultafiltros");
+            
+                if (llama == "comprar")
+                {
+                    consultaranunciosparamovimientos("consultafiltros");
+                }
             }
 
             M.toast(
@@ -120,7 +146,7 @@
                 var opcion = o.options[o.selectedIndex].text;
                 document.getElementById('rubro').value = opcion;
                 
-                consultaranunciosparamovimientos("consultarubros", "nolector");
+                consultaranunciosparamovimientos("consultarubros");
             }
 
             M.toast(

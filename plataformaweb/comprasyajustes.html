@@ -30,11 +30,11 @@
                
                 <div class="row justify-content-center bd-highlight mb-4 p-4">
                     <div class="col-sm-4">
-                        <label for="opcioneslistaproveedores" class="colorletras">Selecciona un Proveedor</label>
+                        <label for="opcioneslistaproveedores" class="colorletras">Proveedor</label>
                         <select class="form-control" id="opcioneslistaproveedores" name="opcioneslistaproveedores"></select>
                     </div>
                     <div class="col-sm-3">
-                        <label for="opcioneslistatiposmovimientostock" class="colorletras">Selecciona un tipo de movimiento</label>
+                        <label for="opcioneslistatiposmovimientostock" class="colorletras">Tipo de movimiento</label>
                         <select class="form-control" id="opcioneslistatiposmovimientostock" name="opcioneslistatiposmovimientostock"></select>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <!-- --------------------------------- -->
 
                 <div id="tablaproductoscompras" style="display: none;"  class="table-responsive">
-                    <table id="tablaanunciosmovimientos" class="display table table-striped">
+                    <table id="tablaanunciosmovimientos" class="display table table-striped" style="width: 100%!important;">
                         <thead>
                             <tr>
                                 <!-- <th style="display: none;" class="columnadedos center">Stock inicio</th> -->
@@ -119,19 +119,18 @@
                 <!-- <div class="card-body"> -->
 
                 <div class="card">
-                    <div class="card-header container" id="headingComprasAjustes">
+                    <div class="card-header" id="headingComprasAjustes">
                         
-                    <h2 class="m-0">
-                        <button id="consultacomprasajustes" class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseConsultaCompras" aria-expanded="false" aria-controls="collapseConsultaCompras">
-                        Consultar Compras y Ajustes
-                        </button>
-                    </h2>
+                        <h2 class="m-0">
+                            <button id="consultacomprasajustes" class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseConsultaCompras" aria-expanded="false" aria-controls="collapseConsultaCompras">
+                            Consultar Compras y Ajustes
+                            </button>
+                        </h2>
                             
                         
                     </div>
                     <div id="collapseConsultaCompras" class="collapse" aria-labelledby="headingComprasAjustes" data-parent="#accordionExample">
-                        <div class="card-body">
-
+                        
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="d-flex flex-row justify-content-center bd-highlight">
@@ -160,7 +159,7 @@
                                 
                                     </div>
                                     <div class="table-responsive">
-                                        <table id="tablamovimientostock" class="display table table-striped">
+                                        <table id="tablamovimientostock" class="display table table-striped" style="width: 100%!important;">
                                             <thead>
                                                 <tr>
                                                     <th >fecha compra</th>
@@ -216,7 +215,7 @@
                             
                                     </div>
                                     <div class="table-responsive">
-                                        <table id="tablamovimientostockajuste" class="display table table-striped">
+                                        <table id="tablamovimientostockajuste" class="display table table-striped" style="width: 100%!important;">
                                             <thead>
                                                 <tr>
                                                     <th>fecha ajuste</th>
@@ -247,7 +246,7 @@
                             </div>
                                                     
                                 
-                        </div>
+                        
                     </div>
                 </div>
 
