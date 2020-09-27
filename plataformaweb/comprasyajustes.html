@@ -56,6 +56,10 @@
                     
                 </div>
                 <!-- --------------------------------- -->
+                <div class="row justify-content-start"  style="display: none;">
+                    <button id="actualizarcompras" class="btn btn-primary">Actualizar <i class="fas fa-autorenew"></i></button>
+                </div>
+
 
                 <div id="tablaproductoscompras" style="display: none;"  class="table-responsive">
                     <table id="tablaanunciosmovimientos" class="display table table-striped" style="width: 100%!important;">
@@ -80,6 +84,7 @@
                                 <th class="columnadetres center">Guardar</th>
                                 <th class="columnadetres">Imagen</th>
                                 <th class="columnadetres center">Stock</th>
+                                <th class="columnadedos center">en Unid/Compra.</th>
 
                                 <!-- <th style="display: none;">Inicio stock</th> -->
 
@@ -104,7 +109,7 @@
                                 <td class="columnadetres center"></td>
                                 <td class="columnadetres"></td>
                                 <td class="columnadetres center"></td>
-                                <!-- <td style="display: none;"></td> -->
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -126,7 +131,8 @@
                             Consultar Compras y Ajustes
                             </button>
                         </h2>
-                            
+
+                        
                         
                     </div>
                     <div id="collapseConsultaCompras" class="collapse" aria-labelledby="headingComprasAjustes" data-parent="#accordionExample">
@@ -176,7 +182,7 @@
                                                     <th class="masmenoscolumna">Tipo movimiento</th>
                                                     <th>Eliminar</th>
 
-                                                    <th>Total comprado en Unid.venta</th>
+                                                    <th>Total comprado</th>
                                                     <th>Unid.Venta</th>
                                                     <th>Subtotal $</th>
                                                 </tr>
@@ -438,6 +444,10 @@ function MostrarDivNuevoProducto()
     }
 }
 
+    $("#actualizarcompras").click(function () {
+
+        volverAconsultar();
+    });
 
 
 </script>

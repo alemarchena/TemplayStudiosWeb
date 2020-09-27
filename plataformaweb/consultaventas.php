@@ -13,6 +13,8 @@
     $tablaclientes= $vendido['tablaclientes'];
     $tablarubros= $vendido['tablarubros'];
     $tipo = $vendido['tipo'];
+    $tablaunidadesgranel = $vendido['tablaunidadesgranel'];
+
 
     $fechaventarecibida =$vendido['fechaventa'];
     $fechaventacreada= date_create_from_format('dmY', $fechaventarecibida);
@@ -61,26 +63,30 @@
             $sql = "Select " 
             .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," 
             .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," 
-            .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion,"
+            .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion," .$tablaanuncios. ".codigobarra,"
             .$tablaclientes. ".idcliente,".$tablaclientes. ".nombrecliente," 
-            .$tablarubros. ".idrubro," .$tablarubros. ".nombrerubro as rubro from ( ( (" 
+            .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
+            .$tablarubros. ".idrubro," .$tablarubros. ".nombrerubro as rubro from ( ( ( (" 
                    .$tabla. " LEFT JOIN " .$tablaanuncios. 
             " ON " .$tabla. ".idproducto = " .$tablaanuncios. ".id)        LEFT JOIN " .$tablaclientes. 
             " ON " .$tabla. ".idcliente  = " .$tablaclientes. ".idcliente) LEFT JOIN " .$tablarubros. 
-            " ON " .$tabla. ".idrubro    = " .$tablarubros.    ".idrubro ) where fecha = '" . $fechaventa . "'";
+            " ON " .$tabla. ".idrubro    = " .$tablarubros.    ".idrubro ) LEFT JOIN " .$tablaunidadesgranel.
+            " ON " .$tablaanuncios. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tablaanuncios. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where fecha = '" . $fechaventa . "'";
 
         }else{
             // $sql = "Select * from `" .$tabla. "` where fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "' order by fecha desc";
             $sql = "Select " 
             .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," 
             .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," 
-            .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion,"
+            .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion," .$tablaanuncios. ".codigobarra,"
             .$tablaclientes. ".idcliente,".$tablaclientes. ".nombrecliente," 
-            .$tablarubros. ".idrubro," .$tablarubros. ".nombrerubro as rubro from ( ( (" 
+            .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
+            .$tablarubros. ".idrubro," .$tablarubros. ".nombrerubro as rubro from ( ( ( (" 
                    .$tabla. " LEFT JOIN " .$tablaanuncios. 
-            " ON " .$tabla. ".idproducto = " .$tablaanuncios. ".id)        LEFT JOIN " .$tablaclientes. 
-            " ON " .$tabla. ".idcliente  = " .$tablaclientes. ".idcliente) LEFT JOIN " .$tablarubros. 
-            " ON " .$tabla. ".idrubro    = " .$tablarubros.    ".idrubro ) where fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "' order by fecha desc";
+            " ON " .$tabla. ".idproducto = " .$tablaanuncios. ".id)         LEFT JOIN " .$tablaclientes. 
+            " ON " .$tabla. ".idcliente  = " .$tablaclientes. ".idcliente ) LEFT JOIN " .$tablarubros. 
+            " ON " .$tabla. ".idrubro    = " .$tablarubros.    ".idrubro  ) LEFT JOIN " .$tablaunidadesgranel.
+            " ON " .$tablaanuncios. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tablaanuncios. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "' order by fecha desc";
 
         }
 

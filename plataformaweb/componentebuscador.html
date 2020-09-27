@@ -1,25 +1,25 @@
 <div class="col-sm-12">
     <div class="row justify-content-center">
-        <div class="col-sm-6">
-            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
-            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-        </div>
-    </div>
-    <div class="row justify-content-center">
         <div class="col-sm-1">
             <p>
                 <label>
                     <input id="usalector" type="checkbox" class="filled-in" />
-                    <span class="colorletras">Lector</span>
+                    <span class="colorletras">F2 Lector</span>
                 </label>
             </p>
         </div>
         <div class="col-sm-3" id="contenedorbusqueda">
-            <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="Encuentra marcas y productos aquí"
+            <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="F4-Encuentra marcas y productos aquí"
                 class="form-control mr-sm-2" type="search" aria-label="Search">
         </div>
         <div class="col-sm-2">
             <button id="consulta" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
+            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
         </div>
     </div>
 </div>
@@ -111,15 +111,33 @@
                     consultaranunciosparamovimientos("consultalector");
             }else{
 
+                var cb = document.getElementById("cajabusqueda").value;
+                cb = cb.trim();
+
                 if(llama=="vender")
-                    consultaranunciosvender("consultafiltros");
+                {
+                    if(cb=="")
+                        consultaranunciosvender("consultarubros");
+                    else
+                        consultaranunciosvender("consultafiltros");
+                }
+                
                 
                 if (llama == "anuncios")
-                    consultaranuncios("consultafiltros");
+                {
+                    if (cb == "")
+                        consultaranuncios("consultarubros");
+                    else
+                        consultaranuncios("consultafiltros");
+                }
+
             
                 if (llama == "comprar")
                 {
-                    consultaranunciosparamovimientos("consultafiltros");
+                    if (cb == "")
+                        consultaranunciosparamovimientos("consultarubros");
+                    else
+                        consultaranunciosparamovimientos("consultafiltros");
                 }
             }
 
