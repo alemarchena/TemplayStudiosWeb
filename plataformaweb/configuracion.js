@@ -4,6 +4,7 @@ var empresa                 = "templay";
 var tablaanunciospaginaweb  = empresa + "_anuncios";
 var tablarubrospaginaweb    = empresa + "_rubros";
 var tablaclientespaginaweb  = empresa + "_clientes";
+var tablaunidadesgranelweb  = empresa + "_unidadesgranel";
 var conexionbddpaginaweb    = "conexiones/parametros.php";
 var rutaimagenespaginaweb   = "imagenes/";
 

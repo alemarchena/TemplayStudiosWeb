@@ -48,6 +48,10 @@
 
                 if (llama == "comprar")
                     consultaranunciosparamovimientos("consultalector");
+
+                 if (llama == "stock")
+                    consultaranunciosstock("consultalector");
+                
             }else{
                 if (llama == "vender")
                     consultaranunciosvender("consultafiltros");
@@ -57,6 +61,9 @@
     
                 if(llama == "comprar")
                     consultaranunciosparamovimientos("consultafiltros");
+
+                 if (llama == "stock")
+                    consultaranunciosstock("consultafiltros");
             }
 
 
@@ -78,6 +85,9 @@
             
             if (llama == "comprar")
                 consultaranunciosparamovimientos("consultalector");
+            
+             if (llama == "stock")
+                consultaranunciosstock("consultalector");
 
         } else {
             if (llama == "vender")
@@ -88,6 +98,9 @@
             
             if (llama == "comprar")
                 consultaranunciosparamovimientos("consultafiltros");
+            
+             if (llama == "stock")
+                consultaranunciosstock("consultafiltros");
         }
     }
     
@@ -95,9 +108,8 @@
     {
        
         consultarubros_seleccion_lista(); //llena la lista del buscador
+        focoencajabusqueda("manual");
         
-        
-
         $("#consulta").click(function (e) {
             if ($('#usalector').prop('checked')) 
             {
@@ -109,10 +121,15 @@
 
                 if (llama == "comprar")
                     consultaranunciosparamovimientos("consultalector");
+                
+                 if (llama == "stock")
+                    consultaranunciosstock("consultalector");
             }else{
 
                 var cb = document.getElementById("cajabusqueda").value;
                 cb = cb.trim();
+
+                var lis =  document.getElementById("opcioneslista").value;
 
                 if(llama=="vender")
                 {
@@ -138,6 +155,14 @@
                         consultaranunciosparamovimientos("consultarubros");
                     else
                         consultaranunciosparamovimientos("consultafiltros");
+                }
+
+                if (llama == "stock")
+                {
+                    if (lis == 0)
+                        consultaranunciosstock("consultafiltros");
+                    else
+                        consultaranunciosstock("consultarubros");
                 }
             }
 
@@ -166,6 +191,9 @@
                 
                 consultaranunciosparamovimientos("consultarubros");
             }
+
+             if (llama == "stock")
+                consultaranunciosstock("consultarubros");
 
             M.toast(
             {

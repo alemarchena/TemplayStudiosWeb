@@ -76,7 +76,7 @@
         var rutadeimagenes = rutaimagenespaginaweb;
         var tabla = tablaanunciospaginaweb;
         var tabladerubros = tablarubrospaginaweb;
-
+        var tablaunidadesgranel =tablaunidadesgranelweb;
         //Tamañio de la imagen del anuncio
         tamanioimagen = 150;
         anchocard = 200;
@@ -138,6 +138,8 @@
         itemanuncio.idrubro = seleccionidrubro;
         itemanuncio.imagen = "";
         itemanuncio.filtro = filtro;
+        itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
+        itemanuncio.codigobarra = "";
 
         var objetoanuncio = JSON.stringify(itemanuncio);
 

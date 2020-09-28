@@ -154,7 +154,9 @@ function consultaranuncioscarrito(e) {
     
         //actualizo la etiqueta
         var subt = document.getElementById('subtotal_' + idpasado);
-        var nuevosubtotal = parseInt(cantidad) * parseInt(precio);
+        // var nuevosubtotal = parseInt(cantidad) * parseInt(precio);
+        var nuevosubtotal = parseInt(cantidad) * precio;
+        
         subt.innerText = "$ " + (nuevosubtotal);
 
         //actualizo el arreglo

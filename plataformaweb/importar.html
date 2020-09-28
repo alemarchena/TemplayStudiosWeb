@@ -1,0 +1,66 @@
+<div style="margin-top: 3em;">
+
+    <form action="">
+        <label for="myfile">Select a file:</label>
+        <input type="file" id="archivoImportar" name="archivoImportar"><br><br>
+       
+    </form>
+    
+</div>
+<script>
+    function fileReader(oEvent) 
+    {
+            var oFile = oEvent.target.files[0];
+            var sFilename = oFile.name;
+
+            var reader = new FileReader();
+            var result = {};
+
+            reader.onload = function (e) {
+                var data = e.target.result;
+                data = new Uint8Array(data);
+
+                var workbook = XLSX.read(data, { type: 'array' });
+                
+
+                var result = {};
+                workbook.SheetNames.forEach(function (hoja) {
+                    var roa = XLSX.utils.sheet_to_json(workbook.Sheets[hoja], { header: 1 });
+                    if (roa.length) 
+                    {
+                        result[hoja] = roa;
+
+                        for(var fila=0 ;fila < roa.length;fila++)
+                        {
+                            console.log(roa[fila][0]);
+                            console.log(roa[fila][1]);
+                            console.log(roa[fila][2]);
+                            console.log(roa[fila][3]);
+                            console.log(roa[fila][4]);
+                            console.log(roa[fila][5]);
+                            console.log(roa[fila][6]);
+                            console.log("-----------");
+                        }
+                        
+                       
+                    }
+
+
+                });
+                
+                // see the result, caution: it works after reader event is done.
+                console.log(result);
+                
+
+
+                
+            };
+            reader.readAsArrayBuffer(oFile);
+        }
+
+        // Add your id of "File Input" 
+        $('#archivoImportar').change(function (ev) {
+            // Do something 
+            fileReader(ev);
+        });
+</script>

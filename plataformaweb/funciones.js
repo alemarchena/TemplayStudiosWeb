@@ -29,10 +29,12 @@ function escrolear(claseelemento) {
 
 function posicioninicial() {
  
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-
-   
+    setInterval(() => {
+        var elemento = document.getElementsByClassName("navbar");
+        var posicion = elemento.scrollTop;
+        $("HTML, body").animate({ scrollTop: posicion}, 400);
+       
+    }, 1000);
 }
 
 function configuracalendario() {
@@ -210,7 +212,7 @@ function agregarfiltroproductostock()
     if (identi != ""){
         af.append("<a onclick='eliminarEtiqueta_productos(\"" + identi + "\")' id='" + identi + "' class='btn chip' href='#' role='button'>" + $("#filtro_productos").val() + "</a>");
         document.getElementById("filtro_productos").value ="";
-        consultaranunciosstock_filtros();
+        consultaranunciosstock("consultafiltros");
         M.toast(
             {
                 html: 'Buscando productos filtrados...',
@@ -2048,13 +2050,26 @@ function consultaranunciosvender(tipo) {
             
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
+                
+                var porcentajebonus = $("#bonusestablecido").val();
+                var bonus = 0;
+                var fechaventa;
+
                 $.each(dd, function (key, value) {
-                    
                     encontro = true;
-                    
+
+                    bonus = Math.round(1 * (dd[key].costo * porcentajebonus / 100));
+                    fechaventa = $("#fechaventa").val();
+
                     if (tipo == "consultalector" && dd[key].prefijocompra > 0) //inserta directamente solo a productos por unidades
-                    {
-                        agregaritemventa(dd[key].id, dd[key].precio,1,dd[key].titulo,dd[key].precio,dd[key].nombreprefijoventa);
+                    {              
+                        if (fechaventa != "" )
+                        {
+                            reservaritemventa(dd[key].id, dd[key].precio, dd[key].costo, dd[key].idrubro, fechaventa, 1, bonus,  dd[key].titulo, dd[key].nombreprefijoventa );
+                        }else{
+                            Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
+                                timer: 2500})
+                        }          
                     }else
                     {
                         t.row.add([
@@ -2189,18 +2204,10 @@ function identificasaltainput(clase)
 
 //es el metodo que queda ligado al boton en la linea del producto
 function vender(id, idrubro, costo, titulo, unidadvta){
-
-
-
     if(!id){
         return false;
     }
-
-    
-    if ($.fn.dataTable.isDataTable('#tablavender')) {
-        tv = $('#tablavender').DataTable();
-    }
-    
+  
     var can = document.getElementById('cantidad_' + id);
     var cantisinmas = can.value.replace('+','');
     can.value = cantisinmas;
@@ -5026,11 +5033,12 @@ function validarinputcantidadcompras(e,contenido, caracteres, id, costo, precio,
 
 function consultaranunciosparamovimientos(tipo,e) {
 
+    console.log("Que busca");
       
     if ($.fn.dataTable.isDataTable('#tablaanunciosmovimientos')) {
         t = $('#tablaanunciosmovimientos').DataTable();
     }
-    var seleccion = document.getElementById("opcioneslista");
+    // var seleccion = document.getElementById("opcioneslista");
     // var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
 
     var seleccionidrubro = document.getElementById("opcioneslista").value;
@@ -5910,18 +5918,18 @@ function guardarajuste(id, fechamovimiento, cantidad, tipomovimientonombrecorto,
 // -------------------------------------------- Stock ---------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
-
 function configuraciontablastock() {
     $('#tablaanunciosstock').DataTable({
+        "pageLength": -1,
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA AQUI ABAJO:",
-            "lengthMenu": "Lista de anuncios",
+            "search": "Sub búsquedas:",
+            "lengthMenu": "Registros x página",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros guardados",
-            "zeroRecords": "No hay registros guardados",
-            "infoEmpty": "No hay anuncios para mostrar",
+            "emptyTable": "No hay registros para ver",
+            "zeroRecords": "No hay registros para ver",
+            "infoEmpty": "No hay registros  para ver",
             "paginate": {
                 "first": "Primera",
                 "previous": "Anterior",
@@ -5932,10 +5940,9 @@ function configuraciontablastock() {
                 "sortAscending": "Ordenar columna ascendente",
                 "sortDescending": "Ordenar columna descendente"
             },
-            "pageLength": 10
         }
-        ,
-        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+        // ,
+        // "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
     });
 }
 
@@ -5952,156 +5959,21 @@ function veronostinicio() {
     }
 }
 
-function consultaranunciosstock_rubros(e) {
-    var seleccion = document.getElementById("opcioneslista");
-    var seleccionrubro = seleccion.options[seleccion.selectedIndex].text;
 
-    var seleccionidrubro = document.getElementById("opcioneslista").value;
-
-
-    if (seleccionrubro != "Categoría") {
-        $('#collapseBuscaxRubro').collapse('toggle');
-        
-        var bdd = conexionbdd;
-        var rutadeimagenes = rutaimagenes;
-        var tabla = tablaanuncios;
-        var tabladerubros = tablarubros;
-        var tabladecompras = tablacompras;
-        var tabladeventas = tablaventas;
-        var tabladeajustes = tablaajustes;
-        var tabladeproveedores = tablaproveedores;
-        var tabladeproveedoresanuncios = tablaproveedoresanuncios;
-
-        var tipo = "consultarubros";
-
-        var t = null;
-
-        if ($.fn.dataTable.isDataTable('#tablaanunciosstock'))
-            tas = $('#tablaanunciosstock').DataTable();
-        else return;
-
-
-        var id = "";
-        if (id == "") id = 0;
-        else id = id;
-
-        var itemanuncio = new Object();
-
-        itemanuncio.bdd = bdd;
-        itemanuncio.tabla = tabla;
-        itemanuncio.tablarubros = tabladerubros;
-        itemanuncio.tablacompras = tabladecompras;
-        itemanuncio.tablaventas = tabladeventas;
-        itemanuncio.tablaajustes = tabladeajustes;
-        itemanuncio.tablaproveedores = tabladeproveedores;
-        itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
-
-        itemanuncio.tipo = tipo;
-        itemanuncio.id = id;
-
-        itemanuncio.titulo = "";
-        itemanuncio.descripcion = "";
-        itemanuncio.precio = "";
-        itemanuncio.costo = "";
-        itemanuncio.esnovedad = "";
-        itemanuncio.esoferta = "";
-        itemanuncio.nopublicar = "";
-        itemanuncio.observaciones = "";
-        itemanuncio.comentarios = "";
-
-        itemanuncio.rutaimagenes = rutadeimagenes;
-        itemanuncio.idrubro = seleccionidrubro;
-        itemanuncio.imagen = "";
-        itemanuncio.filtro = "";
-
-        var objetoanuncio = JSON.stringify(itemanuncio);
-        // veronostinicio();
-        tas.clear().draw(true);
-
-        // console.log(objetoanuncio);
-        $.ajax({
-
-            url: "consultastock.php",
-
-            data: { objetoanuncio: objetoanuncio },
-            type: "post",
-            
-            success: function (data) {
-
-                // console.log(data);
-                
-                if (data != "consultavacia") {
-
-                    dd = JSON.parse(data); //data decodificado
-
-                    $.each(dd, function (key, value) {
-
-                        if (dd[key].fechastockinicio == "0000-00-00")
-                            fsi = "";
-                        else
-                            fsi = vista_ymdAdmy(dd[key].fechastockinicio)
-
-                        var precio;
-                        if (dd[key].precio > 0)
-                            precio = "$ " + dd[key].precio;
-                        else
-                            precio = "Consultar Precio";
-                        
-                        if(dd[key].precioanterior > 0)
-                            precioant = "$ " + dd[key].precioanterior;
-                        else
-                            precioant = "$ ";
-
-                        if(dd[key].costoanterior > 0)
-                            costoant = "$ " + dd[key].costoanterior;
-                        else
-                            costoant = "$ ";
-                            
-                        tas.row.add([
-                            precio,
-                            dd[key].titulo,
-                            dd[key].descripcion,
-                            dd[key].rubro,
-                            dd[key].stock,
-                            dd[key].nombreproveedor,
-                            precioant,
-                            costoant,
-                            fsi
-
-
-                        ]).draw(false);
-                        
-                    });
-                    tas.columns.adjust().draw();
-                } else {
-                    M.toast(
-                        {
-                            html: 'No hay datos para mostrar!',
-                            displayLength: '1500'
-                        });
-                }
-            },
-            error: function (e) {
-                M.toast(
-                    {
-                        html: 'No hay buena conexión!',
-                        displayLength: '4000'
-                    });
-                console.log("Error de comunicación");
-            }
-        });
-    }
-}
-
-function consultaranunciosstock_filtros(e) 
+function consultaranunciosstock(tipo) 
 {
+    var seleccionidrubro = document.getElementById("opcioneslista").value;
+    var filtro = [];
+    if(tipo == "consultafiltros" ||tipo == "consultalector" ){
 
-
-    //$('#collapseFiltro').collapse('toggle')
-    var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
-    var poscontacto = $("#btnconsultaxrubro").offset().top - alturamenu; 
-    $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-
+        // si el tipo no es rubro va a buscar por filtro
+        var textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
+        textobuscado = textobuscado.trim();
+       
+        filtro.push( textobuscado );
+    }
+    
     var bdd = conexionbdd;
     var rutadeimagenes = rutaimagenes;
     var tabla = tablaanuncios;
@@ -6112,18 +5984,14 @@ function consultaranunciosstock_filtros(e)
     var tabladeproveedores = tablaproveedores;
     var tabladeproveedoresanuncios = tablaproveedoresanuncios;
 
-    var tipo = "consultafiltros";
+    var tipo = tipo;
 
     var t = null;
 
     if ($.fn.dataTable.isDataTable('#tablaanunciosstock'))
-        tf = $('#tablaanunciosstock').DataTable();
+        tas = $('#tablaanunciosstock').DataTable();
     else return;
 
-    var filtro = [];
-    $("#criterios_productos .btn").each(function () {
-        filtro.push($(this).text());
-    });
 
     var id = "";
     if (id == "") id = 0;
@@ -6139,59 +6007,77 @@ function consultaranunciosstock_filtros(e)
     itemanuncio.tablaajustes = tabladeajustes;
     itemanuncio.tablaproveedores = tabladeproveedores;
     itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
+    itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
 
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
 
-    itemanuncio.titulo = "";
-    itemanuncio.descripcion = "";
-    itemanuncio.precio = "";
-    itemanuncio.costo = "";
-    itemanuncio.esnovedad = "";
-    itemanuncio.esoferta = "";
-    itemanuncio.nopublicar = "";
-    itemanuncio.observaciones = "";
-    itemanuncio.comentarios = "";
-
     itemanuncio.rutaimagenes = rutadeimagenes;
-    itemanuncio.idrubro = "";
+    itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
+    itemanuncio.codigobarra = textobuscado;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     // veronostinicio();
+    tas.clear().draw(true);
 
     // console.log(objetoanuncio);
-    tf.clear().draw(true);
-
-
     $.ajax({
 
         url: "consultastock.php",
 
         data: { objetoanuncio: objetoanuncio },
         type: "post",
-
+        
         success: function (data) {
 
-            //   console.log(data);
-
+            // console.log(data);
+            
             if (data != "consultavacia") {
+
                 dd = JSON.parse(data); //data decodificado
 
                 $.each(dd, function (key, value) {
-                   
-                    if (dd[key].fechastockinicio == "0000-00-00")
-                        fsi = "";
-                    else
-                        fsi = vista_ymdAdmy(dd[key].fechastockinicio)
+
+                    // if (dd[key].fechastockinicio == "0000-00-00")
+                    //     fsi = "";
+                    // else
+                    //     fsi = vista_ymdAdmy(dd[key].fechastockinicio)
+
+                    var preciocompra=0;
+                    var precioventa=0;
+
+                    if(dd[key].prefijocompra > 0)
+                    {
+                        if (dd[key].costoxprefijo > 0)
+                            preciocompra = "$ " + dd[key].costoxprefijo;
+                        else
+                            preciocompra = "Consultar Precio";
+
+                        if (dd[key].ventaxprefijo > 0)
+                            precioventa = "$ " + dd[key].ventaxprefijo;
+                        else
+                            precioventa = "Consultar Precio";
+                    }else
+                    {
+                        if (dd[key].costo > 0)
+                            preciocompra = "$ " + dd[key].costo;
+                        else
+                            preciocompra = "Consultar Precio";
+
+                        if (dd[key].precio > 0)
+                            precioventa = "$ " + dd[key].precio;
+                        else
+                            precioventa = "Consultar Precio";
+                    }
 
                     var precio;
                     if (dd[key].precio > 0)
                         precio = "$ " + dd[key].precio;
                     else
                         precio = "Consultar Precio";
-
+                    
                     if(dd[key].precioanterior > 0)
                         precioant = "$ " + dd[key].precioanterior;
                     else
@@ -6201,23 +6087,33 @@ function consultaranunciosstock_filtros(e)
                         costoant = "$ " + dd[key].costoanterior;
                     else
                         costoant = "$ ";
+                        
+                    tas.row.add([
+                        dd[key].id,
+                        dd[key].codigobarra,
+                        preciocompra,
+                        precioventa,
+                        dd[key].nombreprefijocompra,
+                        dd[key].titulo,
+                        dd[key].descripcion,
+                        dd[key].rubro,
+                        dd[key].stock,
+                        dd[key].nombreproveedor,
+                        precio,
+                        dd[key].nombreprefijoventa,
+                        costoant,
+                        precioant
+                        // fsi
 
-                        tf.row.add([
-                            precio,
-                            dd[key].titulo,
-                            dd[key].descripcion,
-                            dd[key].rubro,
-                            dd[key].stock,
-                            dd[key].nombreproveedor,
-                            precioant,
-                            costoant,
-                            fsi
 
-
-                        ]).draw(false);
+                    ]).draw(false);
+                    
                 });
-                tf.columns.adjust().draw();
+                tas.columns.adjust().draw();
+                verListaReg(1);
             } else {
+                verListaReg(0);
+
                 M.toast(
                     {
                         html: 'No hay datos para mostrar!',
@@ -6225,7 +6121,7 @@ function consultaranunciosstock_filtros(e)
                     });
             }
         },
-        error: function (e) {
+        error: function () {
             M.toast(
                 {
                     html: 'No hay buena conexión!',
@@ -6233,9 +6129,9 @@ function consultaranunciosstock_filtros(e)
                 });
             console.log("Error de comunicación");
         }
-    });
+    });    
+}
 
-}   
 
 // ------------------------------------------------------------------------------------------------------------
 //------------------------------------------- Tipos de Pago ----------------------------------------------
@@ -6697,34 +6593,50 @@ function conviertefechadmy(fecharecibidatextodmy) {
 
 // ------------------------------------------ Exportacion a excel -----------------------------
 
-function exportTableToExcel(tableID, filename){
-    var downloadLink;
-    var dataType = 'application/vnd.ms-excel';
-    var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    
-    // Specify file name
-    filename = filename?filename+'.xls':'excel_data.xls';
-    
-    // Create download link element
-    downloadLink = document.createElement("a");
-    
-    document.body.appendChild(downloadLink);
-    
-    if(navigator.msSaveOrOpenBlob){
-        var blob = new Blob(['ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob( blob, filename);
-    }else{
-        // Create a link to the file
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-    
-        // Setting the file name
-        downloadLink.download = filename;
+function exportTableToExcel(tableID, filename)
+{
+    if(filename != '')
+    {
+        var downloadLink;
+        var dataType = 'application/vnd.ms-excel';
         
-        //triggering the function
-        downloadLink.click();
+        var tableSelect = document.getElementById(tableID);
+        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+        
+        // Specify file name
+        filename = filename?filename+'.xls':'excel_data.xls';
+        
+        // Create download link element
+        downloadLink = document.createElement("a");
+        
+        document.body.appendChild(downloadLink);
+        
+        if(navigator.msSaveOrOpenBlob){
+            var blob = new Blob(['ufeff', tableHTML], {
+                type: dataType
+            });
+            navigator.msSaveOrOpenBlob( blob, filename);
+        }else{
+            // Create a link to the file
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+        
+            // Setting the file name
+            downloadLink.download = filename;
+            
+            //triggering the function
+            downloadLink.click();
+        }
+
+        Swal.fire(
+                'Excelente',
+                'Ya tienes la descarga!!!',
+        )
+    }else{
+            
+        Swal.fire(
+            'Atención!',
+            'Seleccione primero una consulta.',
+            )
     }
 }
 
@@ -7379,7 +7291,9 @@ function focoencajabusqueda(teclafoco)
         {
             document.getElementById('cajabusqueda').value = "";
             $('#cajabusqueda').focus();
-            $("HTML, BODY").animate({ scrollTop: 0}, 600);
+        }else if(teclafoco == "manual")
+        {
+            document.getElementById('cajabusqueda').value = "";
         }
     }
     
@@ -7396,6 +7310,7 @@ function ActivarCheckLector()
     }
 }
 
+//Funcion para capturar teclas
 $(function(){ 
      
      $("body").keydown(function(e)
@@ -7406,6 +7321,7 @@ $(function(){
         {
             e.preventDefault(); 
             focoencajabusqueda(teclapresionada);
+            posicioninicial();
         }
         
         if(teclapresionada == 113) //F2 para activar el check del lector
@@ -7415,3 +7331,30 @@ $(function(){
         } 
     }); 
 });
+
+//Funcion para la cantidad ver registros en las tablas Datatable
+function verRegistros(tabla,cantidad)
+{
+    var table = $('#' + tabla).DataTable();
+    if(cantidad == -1)
+        table.page.len( -1 ).draw();
+    else    
+        table.page.len( cantidad ).draw();
+}
+
+function verListaReg(ver)
+{
+    if(ver==0)
+        $("#listareg").css('display', 'none');
+    else
+        $("#listareg").css('display', 'block');
+}
+
+function buscarYcambiar(valor,buscado,reemplazo)
+{
+    var posicion = valor.toString().indexOf(buscado);
+    if(posicion >=0)
+        valor = valor.toString().slice(0, posicion) + reemplazo + valor.toString().slice(posicion + 1); 
+
+    return valor;
+}

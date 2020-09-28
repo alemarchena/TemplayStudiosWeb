@@ -26,22 +26,7 @@
 
     $("#exportararchivo").click(function()
     {
-        if(nombrearchivo != ''){
-            exportTableToExcel('tablalista',nombrearchivo);
-             Swal.fire(
-                'Excelente',
-                'Ya tienes la descarga!!!',
-
-            )
-        }else{
-            
-            Swal.fire(
-                'Atención!',
-                'Seleccione primero una consulta.',
-                
-            )
-        }
-
+        exportTableToExcel('tablalista',nombrearchivo);
     });
 
     function vaciartabla(){
@@ -73,6 +58,7 @@
         var tabladeajustes = tablaajustes;
         var tabladeproveedores = tablaproveedores;
         var tabladeproveedoresanuncios = tablaproveedoresanuncios;
+
         var tipo = "consultafiltros";
         var filtro = [];
        
@@ -90,6 +76,7 @@
         itemanuncio.tipo = tipo;
         itemanuncio.id = id;
         itemanuncio.filtro = filtro;
+        itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
 
         var objetoanuncio = JSON.stringify(itemanuncio);
    
@@ -105,58 +92,117 @@
                 if (data != "consultavacia") 
                 {
                     dd = JSON.parse(data); //data decodificado
+
                     var table = document.getElementById("tablalista");
-
                     var row = table.insertRow(0);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-                    var cell4 = row.insertCell(3);
-                    var cell5 = row.insertCell(4);
-                    var cell6 = row.insertCell(5);
-                    var cell7 = row.insertCell(6);
+                    var cell = [14];
 
-                    $.each(dd, function (key, value) {
-                        row = table.insertRow(0);
-                        cell1 = row.insertCell(0);
-                        cell2 = row.insertCell(1);
-                        cell3 = row.insertCell(2);
-                        cell4 = row.insertCell(3);
-                        cell5 = row.insertCell(4);
-                        cell6 = row.insertCell(5);
-                        cell7 = row.insertCell(6);
-
-                        cell1.innerHTML = dd[key].titulo;
-                        cell2.innerHTML = dd[key].descripcion;
-                        cell3.innerHTML = dd[key].precio;
-                        cell4.innerHTML = dd[key].costo;
-                        cell5.innerHTML = dd[key].stock;
-                        cell6.innerHTML = dd[key].nombreproveedor;
-                        cell7.innerHTML = dd[key].rubro;
-                    });
-
-                    cell1.innerHTML = "Titulo";
-                    cell2.innerHTML = "Descripcion";
-                    cell3.innerHTML = "Precio";
-                    cell4.innerHTML = "Costo";
-                    cell5.innerHTML = "Stock";
-                    cell6.innerHTML = "Proveedor";
-                    cell7.innerHTML = "Rubro";
-                    
-                }else {
-                    M.toast(
+                    for(var v = 0;v < 14;v++)
                     {
-                        html: 'No hay datos para mostrar!',
-                        displayLength: '1500'
+                        cell[v+1] = row.insertCell(v);
+                    }
+                   
+                    $.each(dd, function (key, value) {
+
+                        var preciocompra = 0;
+                        var precioventa = 0;
+
+                        if (dd[key].prefijocompra > 0) {
+                            if (dd[key].costoxprefijo > 0)
+                                preciocompra = dd[key].costoxprefijo;
+                            else
+                                preciocompra = 0;
+
+                            if (dd[key].ventaxprefijo > 0)
+                                precioventa = dd[key].ventaxprefijo;
+                            else
+                                precioventa = 0;
+                        } else {
+                            if (dd[key].costo > 0)
+                                preciocompra = dd[key].costo;
+                            else
+                                preciocompra = 0;
+
+                            if (dd[key].precio > 0)
+                                precioventa = dd[key].precio;
+                            else
+                                precioventa = 0;
+                        }
+
+                        preciocompra = Math.round(preciocompra * 100) / 100;
+                        preciocompra = parseFloat(preciocompra);
+
+                        precioventa = Math.round(precioventa * 100) / 100;
+                        precioventa = parseFloat(precioventa);
+
+                        var precio;
+                        if (dd[key].precio > 0)
+                            precio = dd[key].precio;
+                        else
+                            precio = 0;
+
+                        if (dd[key].precioanterior > 0)
+                            precioant = dd[key].precioanterior;
+                        else
+                            precioant = 0;
+
+                        if (dd[key].costoanterior > 0)
+                            costoant =  dd[key].costoanterior;
+                        else
+                            costoant = 0;
+                        
+
+                        precio = Math.round(precio * 100) / 100;                        
+                        precio = parseFloat(precio);
+                        
+                        precioant = Math.round(precioant * 100) / 100;                        
+                        precioant = parseFloat(precioant);
+
+                        costoant = Math.round(costoant * 100) / 100;
+                        costoant = parseFloat(costoant);
+
+                        
+                        row = table.insertRow(0);
+                        for (var v = 0; v < 14; v++) {
+                            cell[v + 1] = row.insertCell(v);
+                        }
+                       
+                        cell[1].innerHTML = dd[key].id;
+                        cell[2].innerHTML = dd[key].codigobarra;
+                        cell[3].innerHTML = dd[key].titulo;
+                        cell[4].innerHTML =  preciocompra;
+                        cell[5].innerHTML =  precioventa;
+                        cell[6].innerHTML = dd[key].nombreprefijocompra;
+                        cell[7].innerHTML = dd[key].descripcion;
+                        cell[8].innerHTML = dd[key].rubro;
+                        cell[9].innerHTML = dd[key].stock;
+                        cell[10].innerHTML = dd[key].nombreproveedor;
+                        cell[11].innerHTML =  parseFloat(precio);
+                        cell[12].innerHTML = dd[key].nombreprefijoventa;
+                        cell[13].innerHTML = parseFloat(costoant);
+                        cell[14].innerHTML =  parseFloat(precioant);
                     });
+
+
+                    cell[1].innerHTML = "id";
+                    cell[2].innerHTML = "Codigo de barra";
+                    cell[3].innerHTML = "Nombre del producto";
+                    cell[4].innerHTML = "Precio de compra";
+                    cell[5].innerHTML = "Precio de venta";
+                    cell[6].innerHTML = "Unidad de compra";
+                    cell[7].innerHTML = "Descripcion";
+                    cell[8].innerHTML = "Rubro";
+                    cell[9].innerHTML = "Stock";
+                    cell[10].innerHTML = "Proveedor";
+                    cell[11].innerHTML = "Precio Vta unit";
+                    cell[12].innerHTML = "Unidad vta unit";
+                    cell[13].innerHTML = "Costo Anterior";
+                    cell[14].innerHTML = "Precio vta anterior";
+                    
+                }else {M.toast({html: 'No hay datos para mostrar!',displayLength: '1500'});
                 }
             },
-            error: function (e) {
-                M.toast(
-                {
-                    html: 'No hay buena conexión!',
-                    displayLength: '4000'
-                });
+            error: function (e) {M.toast({html: 'No hay buena conexión!',displayLength: '4000'});
                 console.log("Error de comunicación");
             }
         });
@@ -177,64 +223,84 @@
         itemanuncio.tabla = tabla;
         itemanuncio.tablarubros = tabladerubros;
         itemanuncio.tipo = tipo;
+        itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
+
         var objetoanuncio = JSON.stringify(itemanuncio);
 
         $.ajax({
-
             url: "consultaanuncios.php",
-
             data: { objetoanuncio: objetoanuncio },
             type: "post",
-
             success: function (data) {
-                if (data != "consultavacia") {
+                if (data != "consultavacia") 
+                {
                     dd = JSON.parse(data); //data decodificado
                     var table = document.getElementById("tablalista");
-
                     var row = table.insertRow(0);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-                    var cell4 = row.insertCell(3);
-                    var cell5 = row.insertCell(4);
-                    var cell6 = row.insertCell(5);
+                    var cell = [9];
 
-                    $.each(dd, function (key, value) 
-                    {
+                    for (var v = 0; v < 8; v++) {
+                        cell[v + 1] = row.insertCell(v);
+                    }
+
+                    $.each(dd, function (key, value) {
+
+                        var preciocompra = 0;
+                        var precioventa = 0;
+
+                        if (dd[key].prefijocompra > 0) {
+                            if (dd[key].ventaxprefijo > 0)
+                                precioventa = dd[key].ventaxprefijo;
+                            else
+                                precioventa = 0;
+                        } else {
+                            if (dd[key].precio > 0)
+                                precioventa = dd[key].precio;
+                            else
+                                precioventa = 0;
+                        }
+
+                        precioventa = Math.round(precioventa * 100) / 100;
+                        precioventa = parseFloat(precioventa);
+
+
+                        var precio;
+                        if (dd[key].precio > 0)
+                            precio = dd[key].precio;
+                        else
+                            precio = 0;
+
+                        precio = Math.round(precio * 100) / 100;
+                        precio = parseFloat(precio);
+
                         row = table.insertRow(0);
-                        cell1 = row.insertCell(0);
-                        cell2 = row.insertCell(1);
-                        cell3 = row.insertCell(2);
-                        cell4 = row.insertCell(3);
-                        cell5 = row.insertCell(4);
-                        cell6 = row.insertCell(5);
+                        for (var v = 0; v < 8; v++) {
+                            cell[v + 1] = row.insertCell(v);
+                        }
 
-                        cell1.innerHTML = dd[key].id;
-                        cell2.innerHTML = dd[key].precio;
-                        cell3.innerHTML = dd[key].titulo;
-                        cell4.innerHTML = dd[key].descripcion;
-                        cell5.innerHTML = dd[key].idrubro;
-                        cell6.innerHTML = dd[key].rubro;  
+                       
+                        cell[1].innerHTML = dd[key].codigobarra;
+                        cell[2].innerHTML = dd[key].titulo;
+                        cell[3].innerHTML = parseFloat(precioventa);
+                        cell[4].innerHTML = dd[key].nombreprefijocompra;
+                        cell[5].innerHTML = dd[key].descripcion;
+                        cell[6].innerHTML = dd[key].rubro;
+                        cell[7].innerHTML = parseFloat(precio);
+                        cell[8].innerHTML = dd[key].nombreprefijoventa;
                     });
 
-                    cell1.innerHTML = "Id";
-                    cell2.innerHTML = "Precio";
-                    cell3.innerHTML = "Titulo";
-                    cell4.innerHTML = "Descripcion";
-                    cell5.innerHTML = "Id Rubro";
-                    cell6.innerHTML = "Rubro";
-                   
-                } else {
-                    M.toast(
-                        {
-                            html: 'No hay datos para mostrar!',
-                            displayLength: '1500'
-                        });
-                }
+                    cell[1].innerHTML = "Codigo de barra";
+                    cell[2].innerHTML = "Nombre del producto";
+                    cell[3].innerHTML = "Precio de venta";
+                    cell[4].innerHTML = "Unidad de compra";
+                    cell[5].innerHTML = "Descripcion";
+                    cell[6].innerHTML = "Rubro";
+                    cell[7].innerHTML = "Precio Vta unit";
+                    cell[8].innerHTML = "Unidad vta unit";
+                    
+                } else {M.toast({html: 'No hay datos para mostrar!',displayLength: '1500'});}
             },
-            error: function (e) {
-                console.log("Error de comunicación");
-            }
+            error: function (e) {console.log("Error de comunicación");}
         });
     }
 
@@ -298,7 +364,7 @@
                         cell6.innerHTML = dd[key].bonus
                     });
                     
-                     cell1.innerHTML = "Id";
+                    cell1.innerHTML = "Id";
                     cell2.innerHTML = "Nombre";
                     cell3.innerHTML = "Dirección";
                     cell4.innerHTML = "Teléfono";

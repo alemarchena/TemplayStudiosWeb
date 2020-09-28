@@ -1,0 +1,37 @@
+<div class="col-sm-1">
+    <select class="form-control" id="listareg" name="listareg" style="display: none;"></select>
+</div>
+
+<script>
+    function cargarLista(lista) 
+    {
+        $("#" + lista).empty();
+        var a = [];
+        a.push('<option value = "" selected >Todo</option >');
+        a = a.concat('<option value = 10 >10</option>');
+        a = a.concat('<option value = 25 >25</option>');
+        a = a.concat('<option value = 50 >50</option>');
+        a = a.concat('<option value = 100>100</option>');
+        $("#" + lista).append(a);
+
+        //selecciona el primer item
+        $("#" + lista + " option:selected").prop("selected", false);
+        $(this).prop("selected", true);
+    }
+
+    $("#listareg").on('change',function () {
+        var lr = document.getElementById("listareg").value;
+        var valor = -1;
+        if (lr > 0)
+            valor = lr;
+
+        if(llama == "stock")
+            verRegistros("tablaanunciosstock", valor);
+    });
+    
+    $(document).ready(function () 
+    {
+        cargarLista("listareg");
+    });
+
+</script>

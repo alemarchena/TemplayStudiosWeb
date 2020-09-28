@@ -40,7 +40,6 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a id="botcaja" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-money-bill-alt"></i>Venta de Caja</a>
                         <a id="botlistastock" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-align-justify"></i>Precios y Stock</a>
-                        <a id="botlista" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-list-alt"></i>Lista de precios</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -65,6 +64,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a id="bottijera" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-crop-alt"></i>Cortar Imagen</a>
                         <a id="botexportar" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-file-download"></i>Exportar</a>
+                        <a id="botimportar" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-file-download"></i>Importar</a>
                     </div>
                 </li>
 
@@ -131,13 +131,7 @@ $(document).ready(function ()
             $("#contenido").load("publicaranuncios.html");
         });
 
-        $("#botlista").click(function (e) {
-            e.preventDefault();
-            contraerMenu();
-
-            $("#contenido").load("anuncios_lista.html");
-        });
-
+       
         $("#botbuscador").click(function (e) {
             e.preventDefault();
             contraerMenu();
@@ -221,6 +215,12 @@ $(document).ready(function ()
             contraerMenu();
 
             $("#contenido").load("exportar.html");
+        });
+        $("#botimportar").click(function (e) {
+            e.preventDefault();
+            contraerMenu();
+
+            $("#contenido").load("importar.html");
         });
         
     });
