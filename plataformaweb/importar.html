@@ -1,66 +1,179 @@
 <div style="margin-top: 3em;">
-
-    <form action="">
-        <label for="myfile">Select a file:</label>
-        <input type="file" id="archivoImportar" name="archivoImportar"><br><br>
-       
-    </form>
-    
+    <div class="row justify-content-center">
+        <div class="col-sm-3">
+            <select class="form-control" id="opcionesimportacion" name="opcionesimportacion"></select>
+        </div>
+    </div>
+    <div id="divimportar" style="display: none;">
+        <div class="row justify-content-center">
+            <form action="">
+            <label for="myfile">Select a file:</label>
+            <input type="file" id="archivoImportar" name="archivoImportar"><br><br>
+            </form>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <button class="btn" id="importar" name="importar">Importar</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <label id="registros" for=""></label>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
+    
+    arrobjimp = [];
+    opcionimportar="";
+    paquete = [];
+
     function fileReader(oEvent) 
     {
-            var oFile = oEvent.target.files[0];
-            var sFilename = oFile.name;
+        var oFile = oEvent.target.files[0];
+        var sFilename = oFile.name;
 
-            var reader = new FileReader();
+        var reader = new FileReader();
+        var result = {};
+        arrobjimp = [];
+
+        reader.onload = function (e) {
+            var data = e.target.result;
+            data = new Uint8Array(data);
+
+            var workbook = XLSX.read(data, { type: 'array' });
+            
+
             var result = {};
+            workbook.SheetNames.forEach(function (hoja) {
+                var roa = XLSX.utils.sheet_to_json(workbook.Sheets[hoja], { header: 1 });
+                if (roa.length) 
+                {
+                    result[hoja] = roa;
 
-            reader.onload = function (e) {
-                var data = e.target.result;
-                data = new Uint8Array(data);
-
-                var workbook = XLSX.read(data, { type: 'array' });
-                
-
-                var result = {};
-                workbook.SheetNames.forEach(function (hoja) {
-                    var roa = XLSX.utils.sheet_to_json(workbook.Sheets[hoja], { header: 1 });
-                    if (roa.length) 
+                    // console.log(roa);
+                    //Importacion de productos nuevos
+                    if(opcionimportar == "idimportini") //opcion seleccionada en el downlist
                     {
-                        result[hoja] = roa;
-
-                        for(var fila=0 ;fila < roa.length;fila++)
+                        if(roa[0][0]=="idimportini")    //valor de verificacion en el primer registro del archivo
                         {
-                            console.log(roa[fila][0]);
-                            console.log(roa[fila][1]);
-                            console.log(roa[fila][2]);
-                            console.log(roa[fila][3]);
-                            console.log(roa[fila][4]);
-                            console.log(roa[fila][5]);
-                            console.log(roa[fila][6]);
-                            console.log("-----------");
+                            for(var fila=1 ;fila < roa.length;fila++)
+                            {
+                                var itemfila = new Object();
+                                roa[fila][0] != undefined ? itemfila.id             = roa[fila][0] :  itemfila.id               = 0;
+                                roa[fila][1] != undefined ? itemfila.codigobarra    = roa[fila][1] : itemfila.codigobarra       = "";
+                                roa[fila][2] != undefined ? itemfila.titulo         = roa[fila][2] : itemfila.titulo            ="";
+                                roa[fila][3] != undefined ? itemfila.descripcion    = roa[fila][3] : itemfila.descripcion       = "";
+                                //fila 4 como vende y 5 nombre unidad de compra no se guardan
+                                roa[fila][6] != undefined ? itemfila.prefijocompra  = roa[fila][6] : itemfila.prefijocompra     = 0;
+                                //fila 7 no se guarda nombre unidad vta
+                                roa[fila][8] != undefined ? itemfila.prefijoventa   = roa[fila][8] : itemfila.prefijoventa      = 0 ;
+                                if(roa[fila][6]==0)
+                                {
+                                    roa[fila][9] != undefined ? itemfila.costo          = roa[fila][9] : itemfila.costo             = 0;
+                                    roa[fila][9] != undefined ? itemfila.costoxprefijo  = roa[fila][9] : itemfila.costoxprefijo     = 0;
+
+                                    roa[fila][10] != undefined ? itemfila.precio        = roa[fila][10] : itemfila.precio           = 0;
+                                    roa[fila][10] != undefined ? itemfila.ventaxprefijo = roa[fila][10] : itemfila.ventaxprefijo    = 0;
+                                }else{
+                                    roa[fila][9] != undefined ? itemfila.costoxprefijo  = roa[fila][9] : itemfila.costoxprefijo     = 0;
+                                    roa[fila][10] != undefined ? itemfila.ventaxprefijo = roa[fila][10] : itemfila.ventaxprefijo    = 0;
+                                    //fila 11 relacion compra venta no se guarda
+                                    roa[fila][12] != undefined ? itemfila.costo         = roa[fila][12] : itemfila.costo            = 0;
+                                    roa[fila][13] != undefined ? itemfila.precio        = roa[fila][13] : itemfila.precio           = 0;
+                                }
+
+                                var objetoJsonfila = JSON.stringify(itemfila);
+
+                                arrobjimp.push(objetoJsonfila);
+                                // console.log(objetoJsonfila);
+                            }
                         }
-                        
-                       
                     }
+                }
+            });
+            
+            // see the result, caution: it works after reader event is done.
+            // console.log(result);
+        };
+        reader.readAsArrayBuffer(oFile);
+    }
+
+    $('#archivoImportar').change(function (ev) {
+        fileReader(ev);
+    });
+
+    function cargarLista(lista) {
+        $("#" + lista).empty();
+        var a = [];
+        a.push('<option value = "" selected >Tipo de importación</option >');
+        a = a.concat('<option value = \'idimportini\' >Nuevos Productos</option>');
+        a = a.concat('<option value = \'idimportact\' >Actualizar Productos</option>');
+        
+        $("#" + lista).append(a);
+
+        //selecciona el primer item
+        $("#" + lista + " option:selected").prop("selected", false);
+        $(this).prop("selected", true);
+    }
+
+    
+
+    $("#opcionesimportacion").on('change',function () {
+
+        opcionimportar = document.getElementById("opcionesimportacion").value;
+    
+        if (opcionimportar != "")
+            document.getElementById("divimportar").style.display = "block";
+        else
+            document.getElementById("divimportar").style.display = "none";
+    });
+
+    $("#importar").click(function () {
+
+        if (opcionimportar == "idimportini")
+            prepararPaquete();
+    });
 
 
-                });
-                
-                // see the result, caution: it works after reader event is done.
-                console.log(result);
-                
+    function prepararPaquete()
+    {
+        paquete = [];
+        document.getElementById("registros").innerHTML = "";
 
-
-                
-            };
-            reader.readAsArrayBuffer(oFile);
+        for(var a=0;a<arrobjimp.length;a++)
+        {
+            JSON.parse( arrobjimp[a] ,function(k,v)
+            {
+                if(k=="titulo" && v!="") //solo va a tener en cuenta los items con titulo
+                    paquete.push(arrobjimp[a]);
+            });
         }
 
-        // Add your id of "File Input" 
-        $('#archivoImportar').change(function (ev) {
-            // Do something 
-            fileReader(ev);
+        var bdd = conexionbdd;
+        var tabla = tablaanuncios;
+
+        $.ajax({
+
+            url: "importarpaquete.php",
+            data: { bdd:bdd,tabla:tabla,paqueteFilas: paquete },
+            type: "post",
+
+            success: function (data) {
+                document.getElementById("registros").innerHTML = data + " registros importados";
+            }
+            ,
+            error: function (e) {
+                console.log("Error en la consulta." + e.value);
+            }
         });
+
+    }
+
+    $(document).ready(function () {
+        cargarLista("opcionesimportacion");
+    });
+
+
 </script>

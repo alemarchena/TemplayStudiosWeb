@@ -2039,6 +2039,7 @@ function consultaranunciosvender(tipo) {
         document.getElementById("cajabusqueda").value = "";
 
     encontro = false;
+    var peco = "";
 
     $.ajax({
 
@@ -2060,11 +2061,13 @@ function consultaranunciosvender(tipo) {
 
                     bonus = Math.round(1 * (dd[key].costo * porcentajebonus / 100));
                     fechaventa = $("#fechaventa").val();
+                    peco = dd[key].prefijocompra;
 
-                    if (tipo == "consultalector" && dd[key].prefijocompra > 0) //inserta directamente solo a productos por unidades
+                    if (tipo == "consultalector" && peco > 0) //inserta directamente solo a productos por unidades
                     {              
                         if (fechaventa != "" )
                         {
+                            fechaventa = conviertefechaastringdmy(fechaventa);
                             reservaritemventa(dd[key].id, dd[key].precio, dd[key].costo, dd[key].idrubro, fechaventa, 1, bonus,  dd[key].titulo, dd[key].nombreprefijoventa );
                         }else{
                             Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
@@ -2094,7 +2097,7 @@ function consultaranunciosvender(tipo) {
                     
                 });
 
-                if (tipo != "consultalector" || dd[key].prefijocompra == 0) //inserta directamente solo a productos por unidades
+                if (tipo != "consultalector" || peco == 0) //inserta directamente solo a productos por unidades
                 {
                     t.columns.adjust().draw();
     
@@ -2465,6 +2468,8 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
         data: { vendido: vendido },
         type: "post",
         success: function (data) {
+
+      
             if (data != "[]") {
 
                 var tipobonus = "bonussumado";
