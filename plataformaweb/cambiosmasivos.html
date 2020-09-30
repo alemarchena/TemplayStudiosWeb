@@ -1,0 +1,311 @@
+<div id="accordion">
+
+    <h5 style="margin-top: 1em;">Cambios masivos<i class="fas fa-bullseye"></i></h5>
+    <p class="p-1">Aquí es posible cambiar datos masivamente</p>
+
+
+    <div id="divBuscador" class="row justify-content-center">
+        <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
+
+
+        <!-- ---------------------------------------------------------- -->
+    </div>
+
+
+    <div class="row justify-content-center">
+
+        <div class="col-sm-4">
+
+            <!-- ------------------------------------------- -->
+            
+            <div class="card">
+                <div class="card-header container " id="headingThree">
+                    <h5 class="m-0">
+                        <button id="btnAsignarproductos" class="btn collapsed" data-toggle="collapse"
+                            data-target="#collapseThreeProveedor" aria-expanded="false" aria-controls="collapseThreeProveedor">
+                            Asigna proveedor
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThreeProveedor" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="divproveedores" class="row justify-content-center">
+            
+                        </div>
+                        <div id="divoperacionproveedores" class="row justify-content-center">
+                            <div class="col">
+                                <button id="desasignaproveedor" class="btn btn-warning">Desasignar</button>
+                            </div>
+                            <div class="col">
+                                <button id="asignaproveedor" class="btn btn-primary">Asignar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-4">
+        
+        
+            <div class="card">
+                <div class="card-header container " id="headingCate">
+                    <h5 class="m-0">
+                        <button id="btnAsignarcategoria" class="btn collapsed" data-toggle="collapse"
+                            data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
+                            Asigna categoria
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThreeCategoria" class="collapse" aria-labelledby="headingCate" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="divcategorias" class="row justify-content-center">
+        
+                        </div>
+                        <div id="divoperacioncategorias" class="row justify-content-center">
+                            <div class="col">
+                                <button id="asignaproveedor" class="btn btn-primary">Asignar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-4">
+        
+            <div class="card">
+                <div class="card-header container " id="headingComodin">
+                    <h5 class="m-0">
+                        <button id="btncomodin" class="btn collapsed" data-toggle="collapse" data-target="#collapseComodin"
+                            aria-expanded="false" aria-controls="collapseComodin">
+                            Busca por comodín
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseComodin" class="collapse" aria-labelledby="headingComodin" data-parent="#accordion">
+        
+                    <div class="row justify-content-center">
+                        <label for="divoperacioncomodin" class="colorletras">Búsqueda de productos por palabra comodín</label>
+                    </div>
+                    <div id="divoperacioncomodin" class="row justify-content-center">
+                        <div class="col">
+                            <input type="text">
+                        </div>
+                        <div class="col">
+                            <button id="buscacomodin" class="btn btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-4">
+            
+            <div class="card">
+                <div class="card-header container " id="headingPublica">
+                    <h5 class="m-0">
+                        <button id="btnPublicaroNo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePublica"
+                            aria-expanded="false" aria-controls="collapsePublica">
+                            Publica producto
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapsePublica" class="collapse" aria-labelledby="headingPublica" data-parent="#accordion">
+            
+                    <div class="row justify-content-center">
+                        <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de productos</label>
+                    </div>
+                    <div id="divoperacionpublicar" class="row justify-content-center">
+                        <div class="col">
+                            <button id="nopublica" class="btn btn btn-warning">No publicar</button>
+                        </div>
+                        <div class="col">
+                            <button id="sipublicar" class="btn btn btn-primary">Publicar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-4">
+            
+            <div class="card">
+                <div class="card-header container " id="headingPromo">
+                    <h5 class="m-0">
+                        <button id="btnPromo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePromo"
+                            aria-expanded="false" aria-controls="collapsePromo">
+                            Publica Promoción
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapsePromo" class="collapse" aria-labelledby="headingPromo" data-parent="#accordion">
+            
+                    <div class="row justify-content-center">
+                        <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de promociones</label>
+                    </div>
+                    <div id="divoperacionpublicar" class="row justify-content-center">
+                        <div class="col">
+                            <button id="nopublicapromo" class="btn btn btn-warning">No es promo</button>
+                        </div>
+                        <div class="col">
+                            <button id="sipublicarpromo" class="btn btn btn-primary">Si es Promo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------- -->
+    
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card">
+                <div class="card-header container " id="headingPrecios">
+                    <h5 class="m-0">
+                        <button id="btnPrecios" class="btn collapsed" data-toggle="collapse" data-target="#collapsePrecios"
+                            aria-expanded="false" aria-controls="collapsePrecios">
+                            Modifica precios
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapsePrecios" class="collapse" aria-labelledby="headingPrecios" data-parent="#accordion">
+            
+                    <div class="row justify-content-center">
+                        <label for="divoperacionprecios" class="colorletras">Operaciones con cambio de precios de productos</label>
+                    </div>
+                    <div id="divoperacionprecios" class="row justify-content-center">
+                        <div class="col-sm-3" style="text-align: end;">
+                            <label>
+                                <input id="chkaplicacosto" type='checkbox'
+                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica al costo</span>
+                            </label>
+                        </div>
+                        <div class="col-sm-3" style="text-align: start;">
+                            <label>
+                                <input id="chkaplicaventa" type='checkbox'
+                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica a la venta</span>
+                            </label>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="divoperacionprecios" class="row justify-content-center">
+                        <div class="col-sm-3" style="text-align: end;">
+                            <label>
+                                <input id="chkaplicamonto" type='checkbox'
+                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica monto $</span>
+                            </label>
+                        </div>
+                        <div class="col-sm-3" style="text-align: start;">
+                            <label>
+                                <input id="chkaplicaporcentaje"  type='checkbox'
+                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica un %</span>
+                            </label>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="divoperacionprecios" class="row justify-content-center">
+                        <div class="col-sm-2">
+                            <button id="disminuyeprecio" class="btn btn btn-warning">Disminuir</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="valorcambio">Valor a aplicar</label>
+                            <input id="valorcambio" name="valorcambio" type="number" min="0" maxlength="8" step="0.01"
+                                class="validate border border-danger center" placeholder="Solo el número"><del></del>
+                        </div>
+                        <div class="col-sm-2">
+                            <button id="aumentaprecio" class="btn btn btn-primary">Aumentar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+                            <!-- ----------------------------------------------- -->
+
+    <div class="row justify-content-center">
+
+        <div class="col-sm-12">
+            <div id="divverdata" class="row justify-content-start">
+                
+            </div>
+            <label>
+                <input id="todostilde" onclick='checktodostilde()' type='checkbox'
+                    class='filled-in columnadedos' /><span class='colorletras'>Todos</span>
+            </label>
+            <div class="table-responsive">
+                <table id="tablaanunciosmasivos" class="display table table-striped" style="font-size: 1.3em;">
+                    <thead>
+                        <tr>
+                            <th>Check</th>
+                            <th>Id</th>
+                            <th>Cód.Barra</th>
+                            <th>Costo Compra</th>
+                            <th>Precio Vta</th>
+                            <th>Stock</th>
+                            <th>Uni.Compra</th>
+                            <th>Título</th>
+                            <th>Rubro</th>
+                            <th>Proveedor</th>
+                            <th>Es Novedad</th>
+                            <th>Es Promoción</th>
+                            <th>Publicado</th>
+                            <th>Tiene Bonus</th>
+                            <th>Ventaja comercial</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    
+$(document).ready(function ()
+{
+    llama = "masivos";
+    $("#divBuscador").load("componentebuscador.html");
+    $("#divverdata").load("componentelistaverdata.html");
+    $("#divproveedores").load("componenteproveedores.html");
+    $("#divcategorias").load("componentecategorias.html");
+    
+
+    window.addEventListener("load", iniciolista());
+
+    function iniciolista() {
+        configuraciontablamasivos();
+    }
+
+    $("#opcioneslista").on('change',function(){
+        document.getElementById("todostilde").checked = false;
+    });
+});
+
+</script>

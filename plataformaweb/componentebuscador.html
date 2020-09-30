@@ -1,10 +1,11 @@
 <div class="col-sm-12">
     <div class="row justify-content-center">
-        <div class="col-sm-1">
+        <div class="col-sm-2">
+            <label class="fas fa-barcode" for="usalector"></label> 
             <p>
                 <label>
                     <input id="usalector" type="checkbox" class="filled-in" />
-                    <span class="colorletras">F2 Lector</span>
+                    <span class="colorletras">F2-Cod.Barra</span>
                 </label>
             </p>
         </div>
@@ -12,7 +13,7 @@
             <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="F4-Encuentra marcas y productos aquí"
                 class="form-control mr-sm-2" type="search" aria-label="Search">
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <button id="consulta" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
         </div>
     </div>
@@ -51,7 +52,10 @@
 
                  if (llama == "stock")
                     consultaranunciosstock("consultalector");
-                
+
+                if (llama == "masivos")
+                    consultaranunciosmasivos("consultalector");
+
             }else{
                 if (llama == "vender")
                     consultaranunciosvender("consultafiltros");
@@ -62,8 +66,11 @@
                 if(llama == "comprar")
                     consultaranunciosparamovimientos("consultafiltros");
 
-                 if (llama == "stock")
+                if (llama == "stock")
                     consultaranunciosstock("consultafiltros");
+                
+                if (llama == "masivos")
+                    consultaranunciosmasivos("consultafiltros");
             }
 
 
@@ -89,6 +96,9 @@
              if (llama == "stock")
                 consultaranunciosstock("consultalector");
 
+            if (llama == "masivos")
+                consultaranunciosmasivos("consultalector");
+
         } else {
             if (llama == "vender")
                 consultaranunciosvender("consultafiltros");
@@ -99,14 +109,16 @@
             if (llama == "comprar")
                 consultaranunciosparamovimientos("consultafiltros");
             
-             if (llama == "stock")
+            if (llama == "stock")
                 consultaranunciosstock("consultafiltros");
+            
+            if (llama == "masivos")
+                consultaranunciosmasivos("consultafiltros");
         }
     }
     
     $(document).ready(function () 
     {
-       
         consultarubros_seleccion_lista(); //llena la lista del buscador
         focoencajabusqueda("manual");
         
@@ -122,8 +134,12 @@
                 if (llama == "comprar")
                     consultaranunciosparamovimientos("consultalector");
                 
-                 if (llama == "stock")
+                if (llama == "stock")
                     consultaranunciosstock("consultalector");
+
+                if (llama == "masivos")
+                    consultaranunciosmasivos("consultalector");
+
             }else{
 
                 var cb = document.getElementById("cajabusqueda").value;
@@ -164,6 +180,15 @@
                     else
                         consultaranunciosstock("consultarubros");
                 }
+
+                if (llama == "masivos")
+                {
+                    if (lis == 0)
+                        consultaranunciosmasivos("consultafiltros");
+                    else
+                        consultaranunciosmasivos("consultarubros");
+
+                }
             }
 
             M.toast(
@@ -192,8 +217,11 @@
                 consultaranunciosparamovimientos("consultarubros");
             }
 
-             if (llama == "stock")
+            if (llama == "stock")
                 consultaranunciosstock("consultarubros");
+            
+             if (llama == "masivos")
+                consultaranunciosmasivos("consultarubros");
 
             M.toast(
             {

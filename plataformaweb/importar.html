@@ -83,7 +83,8 @@
                                     roa[fila][12] != undefined ? itemfila.costo         = roa[fila][12] : itemfila.costo            = 0;
                                     roa[fila][13] != undefined ? itemfila.precio        = roa[fila][13] : itemfila.precio           = 0;
                                 }
-
+                                //fila 14 no se guarda relacion compraventa
+                                roa[fila][15] != undefined ? itemfila.comodin = roa[fila][15] : itemfila.comodin = 0;
                                 var objetoJsonfila = JSON.stringify(itemfila);
 
                                 arrobjimp.push(objetoJsonfila);

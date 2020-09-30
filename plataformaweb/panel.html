@@ -43,18 +43,12 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-lightbulb"></i>Marketing</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bullseye"></i>Actualizar</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a id="botbonus" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-gift"></i>Bonus</a>
-                        <a id="direccioncatalogoweb" class="nav-link" href=""  target="_BLANK" tabindex="-1" aria-disabled="true"><i class="fas fa-newspaper"></i>Catálogo papel</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-globe"></i>Venta Online</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">                        
-                        <a id="botcarrito" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-shopping-cart"></i>Pedidos online</a>
+                        <a id="botactualizar" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i
+                                class="fas fa-check-circle"></i>Masivamente</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -62,9 +56,25 @@
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-toolbox"></i>Herramientas</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a id="bottijera" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-crop-alt"></i>Cortar Imagen</a>
                         <a id="botexportar" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-file-download"></i>Exportar</a>
                         <a id="botimportar" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-cloud-upload-alt"></i>Importar</a>
+                        <a id="bottijera" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-crop-alt"></i>Cortar Imagen</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-lightbulb"></i>Marketing</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a id="botbonus" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-gift"></i>Bonus</a>
+                        <a id="direccioncatalogoweb" class="nav-link" href=""  target="_BLANK" tabindex="-1" aria-disabled="true"><i class="fas fa-newspaper"></i>Catálogo papel</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-globe"></i>Venta Online</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">                        
+                        <a id="botcarrito" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-shopping-cart"></i>Pedidos online</a>
                     </div>
                 </li>
 
@@ -221,6 +231,13 @@ $(document).ready(function ()
             contraerMenu();
 
             $("#contenido").load("importar.html");
+        });
+
+        $("#botactualizar").click(function (e) {
+            e.preventDefault();
+            contraerMenu();
+
+            $("#contenido").load("cambiosmasivos.html");
         });
         
     });

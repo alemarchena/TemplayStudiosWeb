@@ -15,7 +15,7 @@ paginastotalesbuscados = 0;
 
 arregloUnidades = []; //unidades de compra y venta de los productos fraccionados
 relacionCV = ""; //relacion compra venta para los productos fraccionados, se usa como multiplicador o divison en los precios
-
+arreglochecktilde = []; //arreglo para tildas cambios masivos
 
 encontro = false;
 llama = "";
@@ -3397,14 +3397,13 @@ function consultaproveedores_seleccion_lista(e) {
     datosproveedores.tabla = tabla;
     datosproveedores.tipo = tipo;
     datosproveedores.id = id;
-    datosproveedores.nombreproveedor = "";
-    datosproveedores.direccionproveedor = "";
-    datosproveedores.telefonoproveedor = "";
-    datosproveedores.emailproveedor = "";
+    // datosproveedores.nombreproveedor = "";
+    // datosproveedores.direccionproveedor = "";
+    // datosproveedores.telefonoproveedor = "";
+    // datosproveedores.emailproveedor = "";
 
     var objetoproveedor = JSON.stringify(datosproveedores);
 
-    // var oplista = $("#opcioneslistaclientes");
 
 
     $.ajax({
@@ -5038,7 +5037,6 @@ function validarinputcantidadcompras(e,contenido, caracteres, id, costo, precio,
 
 function consultaranunciosparamovimientos(tipo,e) {
 
-    console.log("Que busca");
       
     if ($.fn.dataTable.isDataTable('#tablaanunciosmovimientos')) {
         t = $('#tablaanunciosmovimientos').DataTable();
@@ -5923,6 +5921,8 @@ function guardarajuste(id, fechamovimiento, cantidad, tipomovimientonombrecorto,
 // -------------------------------------------- Stock ---------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
+
+
 function configuraciontablastock() {
     $('#tablaanunciosstock').DataTable({
         "pageLength": -1,
@@ -6093,16 +6093,19 @@ function consultaranunciosstock(tipo)
                     else
                         costoant = "$ ";
                         
+                    stok = dd[key].stock / dd[key].relacioncompraventa;
+
+
                     tas.row.add([
                         dd[key].id,
                         dd[key].codigobarra,
                         preciocompra,
                         precioventa,
+                        stok,
                         dd[key].nombreprefijocompra,
                         dd[key].titulo,
                         dd[key].descripcion,
                         dd[key].rubro,
-                        dd[key].stock,
                         dd[key].nombreproveedor,
                         precio,
                         dd[key].nombreprefijoventa,
@@ -6138,6 +6141,288 @@ function consultaranunciosstock(tipo)
 }
 
 
+// ------------------------------------------------------------------------------------------------------------
+//------------------------------------------- Cambios masivos ----------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+
+function configuraciontablamasivos() {
+    $('#tablaanunciosmasivos').DataTable({
+        "pageLength": -1,
+        "language": {
+
+            "processing": "Procesando...",
+            "search": "Sub búsquedas:",
+            "lengthMenu": "Registros x página",
+            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+            "emptyTable": "No hay registros para ver",
+            "zeroRecords": "No hay registros para ver",
+            "infoEmpty": "No hay registros  para ver",
+            "paginate": {
+                "first": "Primera",
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "last": "Ultima"
+            },
+            "aria": {
+                "sortAscending": "Ordenar columna ascendente",
+                "sortDescending": "Ordenar columna descendente"
+            },
+        }
+        // ,
+        // "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+    });
+}
+
+function consultaranunciosmasivos(tipo) 
+{
+    var seleccionidrubro = document.getElementById("opcioneslista").value;
+    var filtro = [];
+    if(tipo == "consultafiltros" ||tipo == "consultalector" ){
+        // si el tipo no es rubro va a buscar por filtro
+        var textobuscado = $("#cajabusqueda").val();
+        textobuscado = document.getElementById("cajabusqueda").value;
+        textobuscado = textobuscado.trim();
+       
+        filtro.push( textobuscado );
+    }
+    
+    var bdd = conexionbdd;
+    var rutadeimagenes = rutaimagenes;
+    var tabla = tablaanuncios;
+    var tabladerubros = tablarubros;
+    var tabladecompras = tablacompras;
+    var tabladeventas = tablaventas;
+    var tabladeajustes = tablaajustes;
+    var tabladeproveedores = tablaproveedores;
+    var tabladeproveedoresanuncios = tablaproveedoresanuncios;
+
+    var tipo = tipo;
+
+    var t = null;
+
+    if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
+        tas = $('#tablaanunciosmasivos').DataTable();
+    else return;
+
+
+    var id = "";
+    if (id == "") id = 0;
+    else id = id;
+
+    var itemanuncio = new Object();
+
+    itemanuncio.bdd = bdd;
+    itemanuncio.tabla = tabla;
+    itemanuncio.tablarubros = tabladerubros;
+    itemanuncio.tablacompras = tabladecompras;
+    itemanuncio.tablaventas = tabladeventas;
+    itemanuncio.tablaajustes = tabladeajustes;
+    itemanuncio.tablaproveedores = tabladeproveedores;
+    itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
+    itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
+
+    itemanuncio.tipo = tipo;
+    itemanuncio.id = id;
+
+    itemanuncio.rutaimagenes = rutadeimagenes;
+    itemanuncio.idrubro = seleccionidrubro;
+    itemanuncio.imagen = "";
+    itemanuncio.filtro = filtro;
+    itemanuncio.codigobarra = textobuscado;
+
+    var objetoanuncio = JSON.stringify(itemanuncio);
+    // veronostinicio();
+    tas.clear().draw(true);
+
+    $.ajax({
+
+        url: "consultastock.php",
+
+        data: { objetoanuncio: objetoanuncio },
+        type: "post",
+        
+        success: function (data) {
+
+            if (data != "consultavacia") {
+
+                dd = JSON.parse(data); //data decodificado
+
+                arreglochecktilde = [];
+
+                $.each(dd, function (key, value) {
+
+                    if (dd[key].esnovedad == 1)
+                        esnov = "Novedad";
+                    else
+                        esnov = "";
+
+                    if (dd[key].esoferta == 1)
+                        esofe = "Promo";
+                    else
+                        esofe = "";
+
+                    if (dd[key].nopublicar == 1)
+                        nopub = "No publicado";
+                    else
+                        nopub = "";
+
+                    if (dd[key].productobonus == 1)
+                        probo = "Bonus";
+                    else
+                        probo = "";
+
+                    if (dd[key].tieneventaja == 1)
+                        opant = "Ventaja";
+                    else
+                        opant = "";
+
+                    var preciocompra=0;
+                    var precioventa=0;
+
+                    if(dd[key].prefijocompra > 0)
+                    {
+                        if (dd[key].costoxprefijo > 0)
+                            preciocompra = "$ " + dd[key].costoxprefijo;
+                        else
+                            preciocompra = "Consultar Precio";
+
+                        if (dd[key].ventaxprefijo > 0)
+                            precioventa = "$ " + dd[key].ventaxprefijo;
+                        else
+                            precioventa = "Consultar Precio";
+                    }else
+                    {
+                        if (dd[key].costo > 0)
+                            preciocompra = "$ " + dd[key].costo;
+                        else
+                            preciocompra = "Consultar Precio";
+
+                        if (dd[key].precio > 0)
+                            precioventa = "$ " + dd[key].precio;
+                        else
+                            precioventa = "Consultar Precio";
+                    }
+
+                    var precio;
+                    if (dd[key].precio > 0)
+                        precio = "$ " + dd[key].precio;
+                    else
+                        precio = "Consultar Precio";
+                    
+                    if(dd[key].precioanterior > 0)
+                        precioant = "$ " + dd[key].precioanterior;
+                    else
+                        precioant = "$ ";
+
+                    if(dd[key].costoanterior > 0)
+                        costoant = "$ " + dd[key].costoanterior;
+                    else
+                        costoant = "$ ";
+                        
+                    stok = dd[key].stock / dd[key].relacioncompraventa;
+                    
+                    //cracion del arreglo de checks
+                    var objetoarreglo = new Object();
+                    objetoarreglo.idanuncio = dd[key].id;
+                    objetoarreglo.prefijocompra = dd[key].nombreprefijocompra;
+                    objetoarreglo.costoxprefijo = dd[key].costoxprefijo;
+                    objetoarreglo.ventaxprefijo = dd[key].ventaxprefijo;
+                    objetoarreglo.costo = dd[key].costo;
+                    objetoarreglo.precio = dd[key].precio;
+                    objetoarreglo.relacioncompraventa = dd[key].relacioncompraventa;
+                    objetoarreglo.idproveedor = dd[key].idproveedor;
+                    objetoarreglo.tildado = false;
+
+
+                    arreglochecktilde.push(objetoarreglo);
+
+                    tas.row.add([
+                        "<label><input onclick = 'checktilde(\"" + dd[key].id + "\")' id='chk" + dd[key].id  + "' type='checkbox' class='filled-in columnadedos'/><span id='spn" + dd[key].id + "' class='colorletras'>No</span></label>",
+                        dd[key].id,
+                        dd[key].codigobarra,
+                        preciocompra,
+                        precioventa,
+                        stok,
+                        dd[key].nombreprefijocompra,
+                        dd[key].titulo,
+                        dd[key].rubro,
+                        dd[key].nombreproveedor,
+                        esnov,
+                        esofe,
+                        nopub,
+                        probo,
+                        opant
+                    ]).draw(false);
+                    
+                });
+                tas.columns.adjust().draw();
+                verListaReg(1);
+            } else {
+                verListaReg(0);
+
+                M.toast(
+                    {
+                        html: 'No hay datos para mostrar!',
+                        displayLength: '1500'
+                    });
+            }
+        },
+        error: function () {
+            M.toast(
+                {
+                    html: 'No hay buena conexión!',
+                    displayLength: '4000'
+                });
+            console.log("Error de comunicación");
+        }
+    });    
+}
+
+function checktilde(id)
+{
+
+    tilde = document.getElementById("chk"+id);
+    spn = document.getElementById("spn"+id);
+    quehace = false;
+
+    if (tilde.checked == false) 
+    {
+        spn.innerHTML = "NO";
+        quehace = false;
+    }else
+    {
+        spn.innerHTML = "SI";
+        quehace = true;
+    }
+
+    arreglochecktilde.forEach(element => {
+        if(element.idanuncio == id)
+        {
+            element.tildado = quehace;
+            return;
+        }
+    });
+
+}
+
+function checktodostilde()
+{
+    todost = document.getElementById("todostilde");
+    if(todost.checked == true)
+    {
+        arreglochecktilde.forEach(element => {
+            document.getElementById("chk"+element.idanuncio).checked = true;
+            document.getElementById("spn"+element.idanuncio).innerHTML = "SI";
+            element.tildado = true;
+        });     
+    }else{
+        arreglochecktilde.forEach(element => {
+            document.getElementById("chk"+element.idanuncio).checked = false;
+            document.getElementById("spn"+element.idanuncio).innerHTML = "NO";
+            element.tildado = false;
+         });  
+    }
+}
 // ------------------------------------------------------------------------------------------------------------
 //------------------------------------------- Tipos de Pago ----------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
@@ -7291,7 +7576,7 @@ function muestraanuncionarreglo(numerodepagina, tipoconsulta)
 function focoencajabusqueda(teclafoco) 
 {
         
-    if (llama == "vender" || llama == "comprar" || llama == "anuncios") {
+    if (llama == "vender" || llama == "comprar" || llama == "anuncios" || llama == "stock") {
         if ($('#usalector').prop('checked') || teclafoco == 115) 
         {
             document.getElementById('cajabusqueda').value = "";
@@ -7306,7 +7591,7 @@ function focoencajabusqueda(teclafoco)
 
 function ActivarCheckLector()
 {
-    if (llama == "vender" || llama == "comprar" || llama == "anuncios") 
+    if (llama == "vender" || llama == "comprar" || llama == "anuncios" || llama == "stock") 
     {
         if($('#usalector').prop('checked'))
             $('#usalector').prop('checked',false);
@@ -7333,6 +7618,8 @@ $(function(){
         {
             e.preventDefault(); 
             ActivarCheckLector();
+            focoencajabusqueda(teclapresionada);
+            posicioninicial();
         } 
     }); 
 });
