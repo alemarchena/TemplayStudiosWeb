@@ -514,6 +514,7 @@ function EnviarFormulario()
         pea = document.getElementById('precioantes').value;
         tle = document.getElementById('textolinkexterno').value;
         le = document.getElementById('linkexterno').value;
+        comodin = document.getElementById('comodin').value;
 
         observacion = document.getElementById('observaciones').value;
         o = observacion.trim();
@@ -647,7 +648,7 @@ function EnviarFormulario()
             {//esta modificando pero dejo la misma imagen
                 var i = "";
             }
-            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
+            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin);
 
         }else{
             var i = imagen.files[0].name;
@@ -659,7 +660,7 @@ function EnviarFormulario()
                 if (this.readyState == 4 && this.status == 200) {
                     console.log("ok");
                     //guardar el anuncio en la base de datos
-                    altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo);
+                    altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin);
                     // limpiarformulario();
 
                 } else
@@ -674,7 +675,7 @@ function EnviarFormulario()
 
 
 
-function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo)
+function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin)
 {
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
@@ -720,6 +721,8 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
     itemanuncio.prefijoxventa =pfixv;
     itemanuncio.costoxprefijo = costoxprefijo;
     itemanuncio.ventaxprefijo = ventaxprefijo;
+    itemanuncio.comodin = comodin.trim();
+
 
     var objetoanuncio = JSON.stringify(itemanuncio);
 
@@ -878,6 +881,7 @@ function consultaranuncios(tipo)
                     objeto.prefijoxventa = dd[key].prefijoventa;
                     objeto.costoxprefijo = dd[key].costoxprefijo;
                     objeto.ventaxprefijo = dd[key].ventaxprefijo;
+                    objeto.comodin       = dd[key].comodin;
                     objeto.relacioncompraventa = dd[key].relacioncompraventa;
 
                     arreglo.push(objeto);
@@ -896,6 +900,7 @@ function consultaranuncios(tipo)
                         esofe,
                         esnov,
                         nopub,
+                        dd[key].comodin,
                         // opant,
                         // dd[key].tituloventaja,
                         // dd[key].precioventaja,
@@ -1238,12 +1243,13 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
 
         if (arreglo[indice].id == id)
         {
-            document.getElementById('titulo').value = arreglo[indice].titulo;
-            document.getElementById('descripcion').value = arreglo[indice].descripcion;
-            document.getElementById('observaciones').value = arreglo[indice].observaciones;
-            document.getElementById('comentarios').value = arreglo[indice].comentarios;
-            document.getElementById('precioantes').value = arreglo[indice].precioventaja;
-            document.getElementById('codigobarra').value = arreglo[indice].codigobarra;
+            document.getElementById('titulo').value         = arreglo[indice].titulo;
+            document.getElementById('descripcion').value    = arreglo[indice].descripcion;
+            document.getElementById('observaciones').value  = arreglo[indice].observaciones;
+            document.getElementById('comentarios').value    = arreglo[indice].comentarios;
+            document.getElementById('precioantes').value    = arreglo[indice].precioventaja;
+            document.getElementById('codigobarra').value    = arreglo[indice].codigobarra;
+            document.getElementById('comodin').value        = arreglo[indice].comodin;
         
             // relacionCV = arreglo[indice].relacioncompraventa;
 

@@ -56,9 +56,9 @@
     foreach ($filtro as $filtros)
     {
         if($sentencia == "")
-            $sentencia = $sentencia . " ( (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%') ";
+            $sentencia = $sentencia . " ( (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%'  or (comodin like '%" . $filtros . "%' and comodin != '') ) ";
         else
-            $sentencia = $sentencia . " or (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%') ";
+            $sentencia = $sentencia . " or (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%'  or (comodin like '%" . $filtros . "%' and comodin != '') ) ";
     }
      
     
