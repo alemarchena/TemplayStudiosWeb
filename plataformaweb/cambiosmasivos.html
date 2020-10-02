@@ -1,6 +1,6 @@
 <div id="accordion">
 
-    <h5 style="margin-top: 1em;">Cambios masivos<i class="fas fa-bullseye"></i></h5>
+    <h5 style="margin-top: 1em;">Cambios masivos<i class="fas fa-bullseye m-1"></i></h5>
     <p class="p-1">Aquí es posible cambiar datos masivamente</p>
 
 
@@ -11,10 +11,10 @@
         <!-- ---------------------------------------------------------- -->
     </div>
 
-    
+    <hr>
     <!-- ------------------------------------------- -->
     <div class="row justify-content-center">
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             
                 
                 <h5 class="m-0">
@@ -41,9 +41,11 @@
                 </div>
             
         </div>
-        
+        <div class="col">
+            <h5><small>Acciones</small></h5>
+        </div>
         <!-- ------------------------------------------- -->
-        <div class="col-sm-6">
+        <div class="col-sm-5">
         
         
            
@@ -141,13 +143,13 @@
                     <div id="divoperacionprecios" class="row justify-content-center">
                         <div class="col-sm-3" style="text-align: end;">
                             <label>
-                                <input id="chkaplicacosto" type='checkbox'
+                                <input id="aplicaacosto" type='checkbox'
                                     class='filled-in columnadedos' /><span class='colorletras'>Aplica al costo</span>
                             </label>
                         </div>
                         <div class="col-sm-3" style="text-align: start;">
                             <label>
-                                <input id="chkaplicaventa" type='checkbox'
+                                <input id="aplicaaventa" type='checkbox'
                                     class='filled-in columnadedos' /><span class='colorletras'>Aplica a la venta</span>
                             </label>
                         </div>
@@ -162,15 +164,23 @@
                         </div>
                         <div class="col-sm-3" style="text-align: start;">
                             <label>
-                                <input id="chkaplicaporcentaje"  type='checkbox'
+                                <input id="chkaplicaporcentaje"  type='checkbox' checked
                                     class='filled-in columnadedos' /><span class='colorletras'>Aplica un %</span>
                             </label>
                         </div>
                     </div>
+                    <div class="row justify-content-center">
+                        <p>
+                            <label>
+                                <input id="opcionredondear" type="checkbox" class="filled-in" checked="checked" />
+                                <span>Redondear a decena</span>
+                            </label>
+                        </p>
+                    </div>
                     <br>
                     <div id="divoperacionprecios" class="row justify-content-center">
                         <div class="col-sm-2">
-                            <button id="disminuyeprecio" class="btn btn btn-warning">Disminuir</button>
+                            <button id="disminuyeprecio"  onclick='cambiapreciosmasivamente("restar")' class="btn btn btn-warning">Disminuir</button>
                         </div>
                         <div class="col-sm-2">
                             <label for="valorcambio">Valor a aplicar</label>
@@ -178,7 +188,7 @@
                                 class="validate border border-danger center" placeholder="Solo el número"><del></del>
                         </div>
                         <div class="col-sm-2">
-                            <button id="aumentaprecio" class="btn btn btn-primary">Aumentar</button>
+                            <button id="aumentaprecio" onclick='cambiapreciosmasivamente("sumar")' class="btn btn btn-primary">Aumentar</button>
                         </div>
                     </div>
                 </div>
@@ -205,6 +215,7 @@
                             <th>Check</th>
                             <th>Id</th>
                             <th>Cód.Barra</th>
+                            <th>Comodín</th>
                             <th>Costo Compra</th>
                             <th>Precio Vta</th>
                             <th>Stock</th>
@@ -222,6 +233,7 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -268,7 +280,23 @@ $(document).ready(function ()
         document.getElementById("todostilde").checked = false;
     });
 
+    $("#chkaplicaporcentaje").click(function(){
+        if(this.checked)
+        {
+            document.getElementById("chkaplicamonto").checked = false;
+        }else
+        {
+            document.getElementById("chkaplicamonto").checked = true;
+        }
+    });
 
+    $("#chkaplicamonto").click(function () {
+        if (this.checked) {
+            document.getElementById("chkaplicaporcentaje").checked = false;
+        } else {
+            document.getElementById("chkaplicaporcentaje").checked = true;
+        }
+    });
 });
 
 </script>

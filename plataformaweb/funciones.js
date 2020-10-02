@@ -3947,6 +3947,266 @@ function altabajaproveedoranuncio(idanuncio, seleccionidproveedor, tipo, mensaje
 
 }
 
+function cambiapreciosmasivamente(tip) 
+{
+    var aplicaalcosto = 0;
+    var aplicaalaventa = 0;
+    var aplicamontoporcentaje = 0;
+
+    if ($('#aplicaacosto').prop('checked')) {
+        aplicaalcosto = 1;
+    }
+
+    if ($('#aplicaaventa').prop('checked')) {
+        aplicaalaventa = 1;
+    }
+
+    aplica = document.getElementById("chkaplicaporcentaje");
+    if(aplica.checked){
+        aplicamontoporcentaje = "porce";
+    }else
+    {
+        aplicamontoporcentaje = "monto";
+    }
+
+    if (aplicaalcosto == 1 || aplicaalaventa == 1) 
+    {
+        var alcancemodificacion = "";
+
+        if (aplicaalcosto == 1 && aplicaalaventa == 1) {
+            alcancemodificacion = "costoyventa";
+        } else if (aplicaalcosto == 1 && aplicaalaventa == 0) {
+            alcancemodificacion = "costo";
+        } else
+            alcancemodificacion = "venta";
+
+
+        var valorcambio = document.getElementById("valorcambio");
+        if(aplicamontoporcentaje == "porce")
+        {
+
+            if (tip == "restar" && valorcambio.value > 100) {
+                Swal.fire({
+                    position: 'top-end',icon: 'warning',title: 'No puede restar mas del 100%',showConfirmButton: false,timer: 2500})
+                    return;
+            }
+
+            if (valorcambio.value != "" && valorcambio.value > 0) {
+
+                console.log("punto 1");
+                const swalWithBootstrapButtons = Swal.mixin({customClass: {confirmButton: 'btn btn-success',cancelButton: 'btn btn-danger'},buttonsStyling: false})
+                if (tip == "sumar") var mt = "¿Desea SUMAR el " + valorcambio.value + "% al precio de venta ?";
+                if (tip == "restar") var mt = "¿Desea RESTAR el " + valorcambio.value + "% al precio de venta ?";
+
+                swalWithBootstrapButtons.fire({title: 'Modificar precios',text: mt,icon: 'warning',showCancelButton: true,
+                    confirmButtonText: 'Si!',cancelButtonText: 'No!',reverseButtons: true}).then((result) => {
+                    if (result.value) {
+                        cambiarporcentajePreciosVentaMasivamente(valorcambio.value, tip, alcancemodificacion);
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {swalWithBootstrapButtons.fire('Perfecto','Los precios siguen iguales!!!')}
+                })
+            
+            } else {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'Ingrese el porcentaje para el cambio de precios !',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            }
+        }else
+        {
+
+            //cambiar montos
+        }
+
+
+
+    } else {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Debe aplicarse el cambio al costo,venta o ambos !',
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+}
+
+
+function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodificacion)
+{
+
+
+    for (var a = 0; a < arreglochecktilde.length; a++) 
+    {
+        idproducto          = arreglochecktilde[a].idanuncio;
+        costoactualxprefijo = parseFloat(arreglochecktilde[a].costoxprefijo);
+        ventaactualxprefijo = parseFloat(arreglochecktilde[a].ventaxprefijo);
+        costoanterior       = parseFloat(arreglochecktilde[a].costo);
+        precioanterior      = parseFloat(arreglochecktilde[a].precio);
+        relacioncove        = parseFloat(arreglochecktilde[a].relacioncompraventa);
+        porcentaje          = parseFloat(porcentaje);
+        
+        comocompra          = arreglochecktilde[a].prefijocompra;
+        var costonuevo      = 0;
+        var precionuevo     = 0;
+       
+
+        if(comocompra == 0)
+        {
+            costonuevo = costoanterior;
+            precionuevo = precioanterior;
+            
+            
+        }else
+        {
+            costonuevo = costoactualxprefijo;
+            precionuevo = ventaactualxprefijo;
+            
+        }
+
+        var redondeo = $('#opcionredondear').prop('checked');
+
+        if (tip == "sumar")
+        {
+            if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+            {
+                costonuevo = costonuevo + costonuevo * porcentaje / 100;
+                if(redondeo)
+                    costonuevo = Math.ceil(costonuevo/10)*10;
+
+                if(comocompra > 0)
+                    costoactualxprefijo = costonuevo;                 
+
+                costonuevo = costonuevo / relacioncove;
+                costonuevo = Math.round(costonuevo * 100) / 100;
+            }
+            
+            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+            {
+                precionuevo = precionuevo + precionuevo * porcentaje / 100;
+                if(redondeo)
+                    precionuevo = Math.ceil(precionuevo/10)*10;
+               
+                if(comocompra > 0)
+                    ventaactualxprefijo = precionuevo;
+                precionuevo = precionuevo / relacioncove;
+                precionuevo = Math.round(precionuevo * 100) / 100;
+            }
+        }else
+        {
+            if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+            {
+                costonuevo = costonuevo - costonuevo * porcentaje / 100;
+                if(redondeo)
+                    costonuevo = Math.ceil(costonuevo/10)*10;
+
+                if(comocompra > 0)
+                    costoactualxprefijo = costonuevo;                                               
+                costonuevo = costonuevo / relacioncove;
+                costonuevo = Math.round(costonuevo * 100) / 100;
+            }
+            
+            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+            {
+                precionuevo = precionuevo - precionuevo * porcentaje / 100;
+                if(redondeo)
+                    precionuevo = Math.ceil(precionuevo/10)*10;
+
+                if(comocompra > 0)
+                    ventaactualxprefijo = precionuevo;
+                precionuevo = precionuevo / relacioncove;
+                precionuevo = Math.round(precionuevo * 100) / 100;
+            }
+        }
+
+        
+        if (arreglochecktilde[a].tildado == true) {
+            actualizaporcentajepreciocostoyventa(idproducto, precionuevo, precioanterior, costonuevo, costoanterior, costoactualxprefijo, ventaactualxprefijo)
+        }
+
+        var tas = null;
+        if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
+            tas = $('#tablaanunciosmasivos').DataTable();
+        else return;
+
+        tas.clear().draw(true);
+    }
+
+    
+}
+
+
+function actualizaporcentajepreciocostoyventa(idproducto,precionuevo, precioactual,costonuevo,costoactual,costoxprefijoenviado,ventaxprefijoenviado)
+{
+    
+    if (precionuevo != precioactual || costonuevo != costoactual)
+    {
+        var bdd = conexionbdd;
+        var tabla = tablaanuncios;
+        var tipo = "actualizapreciocostoyventa";
+
+        var itemanuncio = new Object();
+        itemanuncio.bdd = bdd;
+        itemanuncio.tabla = tabla;
+        itemanuncio.tablarubros = "";
+        itemanuncio.tipo = tipo;
+        itemanuncio.id = idproducto;
+        itemanuncio.idrubro = "";
+        itemanuncio.titulo = "";
+        itemanuncio.descripcion = "";
+        itemanuncio.precio = precionuevo;
+        itemanuncio.costo = costonuevo;
+        itemanuncio.precioanterior = precioactual;
+        itemanuncio.costoanterior = costoactual;
+        itemanuncio.imagen = "";
+        itemanuncio.esnovedad = "";
+        itemanuncio.esoferta = "";
+        itemanuncio.nopublicar = "";
+        itemanuncio.observaciones = "";
+        itemanuncio.comentarios = "";
+
+        itemanuncio.rutaimagenes = "";
+        itemanuncio.filtro = "";
+        itemanuncio.costoxprefijo = costoxprefijoenviado;
+        itemanuncio.ventaxprefijo = ventaxprefijoenviado;
+
+
+        var objetoanuncio = JSON.stringify(itemanuncio);
+        console.log("Cambio de porcentaje de precio");
+        console.log(objetoanuncio);
+
+        $.ajax({
+            url: "consultaanuncios.php",
+            data: { objetoanuncio: objetoanuncio },
+            type: "post",
+            success: function (data) {
+
+                console.log(data);
+                if (data == 1) {
+                    // if (precionuevo != precioactual) {
+                    //     M.toast({ html: 'Ok, precio de venta actualizado!', displayLength: '2000', classes: 'rounded' });
+                    // }
+                    // if (costonuevo != costoactual) {
+                    //     M.toast({ html: 'Ok, costo actualizado', displayLength: '2000', classes: 'rounded' });
+                    // }
+                } else {
+                    M.toast({ html: 'Error al actualizar el registro : ' + data })
+                    console.log("retorno:" + data);
+
+                }
+            },
+            error: function (e) {
+                M.toast({ html: 'Error al intentar guardar.' })
+            }
+        });
+    }
+}
+//--------------------------- cambios de precios modificados xxx
 function cambiapreciosmasivos(tip)
 {
     var aplicaalcosto = 0;
@@ -6033,7 +6293,7 @@ function consultaranunciosstock(tipo)
     // veronostinicio();
     tas.clear().draw(true);
 
-    // console.log(objetoanuncio);
+     console.log(objetoanuncio);
     $.ajax({
 
         url: "consultastock.php",
@@ -6043,7 +6303,7 @@ function consultaranunciosstock(tipo)
         
         success: function (data) {
 
-            // console.log(data);
+             console.log(data);
             
             if (data != "consultavacia") {
 
@@ -6248,6 +6508,7 @@ function consultaranunciosmasivos(tipo)
         type: "post",
         
         success: function (data) {
+            
 
             if (data != "consultavacia") {
 
@@ -6330,7 +6591,7 @@ function consultaranunciosmasivos(tipo)
                     //cracion del arreglo de checks
                     var objetoarreglo = new Object();
                     objetoarreglo.idanuncio = dd[key].id;
-                    objetoarreglo.prefijocompra = dd[key].nombreprefijocompra;
+                    objetoarreglo.prefijocompra = dd[key].prefijocompra;
                     objetoarreglo.costoxprefijo = dd[key].costoxprefijo;
                     objetoarreglo.ventaxprefijo = dd[key].ventaxprefijo;
                     objetoarreglo.costo = dd[key].costo;
@@ -6346,6 +6607,7 @@ function consultaranunciosmasivos(tipo)
                         "<label><input onclick = 'checktilde(\"" + dd[key].id + "\")' id='chk" + dd[key].id  + "' type='checkbox' class='filled-in columnadedos'/><span id='spn" + dd[key].id + "' class='colorletras'>No</span></label>",
                         dd[key].id,
                         dd[key].codigobarra,
+                        dd[key].comodin,
                         preciocompra,
                         precioventa,
                         stok,
@@ -6357,7 +6619,8 @@ function consultaranunciosmasivos(tipo)
                         esofe,
                         nopub,
                         probo,
-                        opant
+                        opant,
+
                     ]).draw(false);
                     
                 });

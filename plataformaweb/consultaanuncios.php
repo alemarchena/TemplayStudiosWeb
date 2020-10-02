@@ -72,9 +72,9 @@
         foreach ($filtro as $filtros)
    		{
             if($sentencia == "")
-                $sentencia = $sentencia . " ( ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or (comodin like '%" . $filtros . "%' and comodin != '') ) ";
+                $sentencia = $sentencia . " ( ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') ) ";
             else
-                $sentencia = $sentencia . " or ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or (comodin like '%" . $filtros . "%' and comodin != '') ) ";
+                $sentencia = $sentencia . " or ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') ) ";
 
         }
      
@@ -148,6 +148,8 @@
 
                 
             }
+
+            
 
         }else if($tipo == "consulta"){
             $sql = "Select * from " .$tabla. " where id =" . $id;
@@ -233,7 +235,9 @@
         unlink($rutaimagenes.$imagen);
         echo $rutaimagenes.$imagen;
     }else if($tipo == "actualizapreciocostoyventa"){
-            $sql = "update " .$tabla. " set precio = '$precio',costo = '$costo',precioanterior = '$precioanterior',costoanterior = '$costoanterior', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo' where id= $id";
+            $sql = "update " .$tabla. " set costoxprefijo = '$costoxprefijo',ventaxprefijo = '$ventaxprefijo',precio = '$precio',costo = '$costo',precioanterior = '$precioanterior',costoanterior = '$costoanterior', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo' where id= $id";
+            
+            
             $resultado  = $mysqli->query($sql);
             echo $resultado;
     }
