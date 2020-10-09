@@ -14,7 +14,7 @@
             </div>
 
             <div class="col-sm-2 center">
-                <input id="numerocomprobantecompra" style="background-color: white;" type="text" maxlength="30">
+                <input id="numerocomprobantecompra" style="background-color: white;text-align: center;" class="border border-success" type="text" maxlength="30">
             </div>
 
             <div class="col-sm-3">
@@ -157,12 +157,32 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <div class="col-sm-12 notapedido">
                                     <div class="d-flex flex-row justify-content-center bd-highlight">
                                         <div class="col-sm-12">
                                             <h5>Compras</h5>
                                         </div>
                                 
+                                    </div>
+                                    <div class="row justify-content-center bd-highlight">
+                                        
+                                        <div class="col-sm-2">
+                                            <label for="subtotalcomprobante" class=" bd-highlight colorletras">Total comprobante</label>
+                                            <input id="subtotalcomprobante" type="text" readonly style="text-align:center;">
+                                        </div>
+                                        <div class="col-sm-2 center">
+                                            <label for="comprobanteconsulta" class=" bd-highlight colorletras">Comprobante a consultar</label>
+                                            <input id="comprobanteconsulta" style="background-color: white;text-align: center;"
+                                                class="border border-success" type="text" maxlength="30">
+                                        </div>
+                                        
+                                        <div class="col-sm-2">
+                                            <button id="consultarcomprobante" style="color: white;" class="waves-effect waves-light btn-small"><i
+                                                    class="material-icons right">search</i>Consultar</button>
+                                        </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table id="tablamovimientostock" class="display table table-striped" style="width: 100%!important;">
@@ -372,6 +392,10 @@ $(document).ready(function ()
         }
     });
 
+    $("#consultarcomprobante").click(function(){
+        consultarcomprobantecompra();
+    });
+
     function colocafechaactual() {
 
 
@@ -382,7 +406,11 @@ $(document).ready(function ()
             mes = "0" + mes;
         }
 
-        var fechaactual = f.getDate() + "-" + mes + "-" + f.getFullYear();
+        var dia = f.getDate();
+        if (dia.toString().length == 1) {
+            dia = "0" + dia;
+        }
+        var fechaactual = dia + "-" + mes + "-" + f.getFullYear();
         document.getElementById("fechamovimientodesde").value = fechaactual;
         document.getElementById("fechamovimientohasta").value = fechaactual;
         document.getElementById("fechacompraajuste").value = fechaactual;

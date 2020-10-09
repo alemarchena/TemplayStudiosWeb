@@ -5569,37 +5569,52 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
 
     var tipomovimientonombrecorto = document.getElementById("opcioneslistatiposmovimientostock").value;
 
-    
-    if (parseInt(can, 10) > 0 && fechamovimiento != "" && nombreproveedor != "Selecciona un Proveedor" && nombreproveedor != "" && tipomovimientonombrecorto != "") {
-        fechamovimiento = conviertefechaastringdmy(fechamovimiento);
-
-        tipomovimientonombrecorto = eligetipomovimiento();
-
-        if (tipomovimientonombrecorto == "CO") {
-            guardarcompra(id, pre, precioactual, cos, costoactual, fechamovimiento, can, idproveedorelegido, tipomovimientonombrecorto, prefijocompra,prefijoventa,costoxprefijoenviado,ventaxprefijoenviado,codigobarra);
-        } else {
-            guardarajuste(id, fechamovimiento, canAjuste, tipomovimientonombrecorto, prefijocompra,prefijoventa);
-        }
-        can = "";
-        setTimeout(() => {
-            document.getElementById('cantidad_' + id).value = "";
-            
-        }, 100);
-        
-    } else {
-        if(canAjuste > 0)
+    if( fechamovimiento != "")
+    {
+        if(nombreproveedor != "Selecciona un Proveedor" && nombreproveedor != "" )        
         {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'warning',
-                title: 'Complete fecha, cantidad, proveedor y tipo de movimiento',
-                showConfirmButton: false,
-                timer: 2500
-            })
+            if(tipomovimientonombrecorto != "")
+            {
+                if(parseInt(can, 10) > 0)
+                {
+                    fechamovimiento = conviertefechaastringdmy(fechamovimiento);
+                    tipomovimientonombrecorto = eligetipomovimiento();
+
+                    if (tipomovimientonombrecorto == "CO") {
+                        guardarcompra(id, pre, precioactual, cos, costoactual, fechamovimiento, can, idproveedorelegido, tipomovimientonombrecorto, prefijocompra,prefijoventa,costoxprefijoenviado,ventaxprefijoenviado,codigobarra);
+                    } else {
+                        guardarajuste(id, fechamovimiento, canAjuste, tipomovimientonombrecorto, prefijocompra,prefijoventa);
+                    }
+                    can = "";
+                    setTimeout(() => {
+                        document.getElementById('cantidad_' + id).value = "";
+                        
+                    }, 100);
+                }
+                else
+                {
+                    Swal.fire({
+                    position: 'top-end',icon: 'warning',title: 'Ingrese una cantidad por favor',
+                    showConfirmButton: false,timer: 2500})
+                }
+            }else
+            {
+                Swal.fire({
+                    position: 'top-end',icon: 'warning',title: 'Ingrese tipo de movimiento por favor',
+                    showConfirmButton: false,timer: 2500})
+            }
+        }else
+        {
+            Swal.fire({position: 'top-end',icon: 'warning',title: 'Ingrese el proveedor por favor',
+                showConfirmButton: false,timer: 2500})
         }
+
+    }else
+    {
+        Swal.fire({position: 'top-end',icon: 'warning',title: 'Ingrese la fecha por favor',
+            showConfirmButton: false,timer: 2500})
     }
-
-
+    
     // colapsarCompras();
 }
 
@@ -5655,6 +5670,9 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
                 fsi = "";
+                arreglocomprobantes = [];
+                
+
                 $.each(dd, function (key, value) {
 
                     if (dd[key].fechastockinicio == "0000-00-00")
@@ -5674,6 +5692,11 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                     cantidadEnPrefijo   = dd[key].cantidad / dd[key].relacioncompraventa;
                     costoEnPrefijo      = dd[key].costocompra * dd[key].relacioncompraventa;
                     precioEnPrefijo     = dd[key].precio * dd[key].relacioncompraventa;
+
+                    var objeto = new Object();
+                    objeto.subtotal = subtotal;
+                    objeto.comprobante = dd[key].comprobantecompra;
+                    arreglocomprobantes.push(objeto);
 
                     tcompra.row.add([
                         fco,
@@ -5708,6 +5731,33 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     });
 }
 
+function consultarcomprobantecompra()
+{
+     var fechamovimiento = $("#fechacompraajuste").val();
+     
+    $("#fechamovimientodesde").val(fechamovimiento);
+    $("#fechamovimientohasta").val(fechamovimiento);
+
+    fechamovimientoenviada = conviertefechaastringdmy(fechamovimiento);
+    consultarcomprasdeldia(fechamovimientoenviada, fechamovimientoenviada);
+
+    tipomovimientonombrecorto = eligetipomovimiento();
+    consultarajustesdeldia(fechamovimientoenviada,fechamovimientoenviada);
+    
+    setInterval(() => {
+        var suma = 0;
+        comprobantebuscado = document.getElementById("comprobanteconsulta");
+        for(var a=0;a<arreglocomprobantes.length ;a++)
+        {
+            if(arreglocomprobantes[a].comprobante == comprobantebuscado.value.trim())
+            {
+                suma = suma + arreglocomprobantes[a].subtotal;
+            }
+        }
+        document.getElementById("subtotalcomprobante").value = "$ " + suma;
+    }, 1000);
+    
+}
 function guardanumerocomprobantemodificado(nuevonumerocompra,idcompra)
 {
     var bdd = conexionbdd;
@@ -6690,6 +6740,74 @@ function checktodostilde()
             document.getElementById("spn"+element.idanuncio).innerHTML = "NO";
             element.tildado = false;
          });  
+    }
+}
+
+function asignarcategoriamasivamente()
+{
+    var categoria = document.getElementById("opciones");
+    if(categoria.value !="")
+    {
+        verificarsiquiere();
+    }
+}
+
+function verificarsiquiere(){
+ const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {confirmButton: 'btn btn-success',cancelButton: 'btn btn-danger' },buttonsStyling: false})
+
+        swalWithBootstrapButtons.fire({title: 'Desea procesar ?',text: "Esta acción no se podrá revertir!",
+        icon: 'warning',showCancelButton: true,confirmButtonText: 'Si!',cancelButtonText: 'No!',reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+             asignarcategoriasmasivamente();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {}
+    })
+}
+
+function asignarcategoriasmasivamente()
+{
+
+    paquete = [];
+    var categoria = document.getElementById("opciones");
+
+    for (var a = 0; a < arreglochecktilde.length; a++) 
+    {
+        if (arreglochecktilde[a].tildado == true) 
+        {
+
+            var datos = new Object();
+            datos.id = arreglochecktilde[a].idanuncio;
+            datos.idrubro = categoria.value;
+
+            var datosjson = JSON.stringify(datos);
+            paquete.push(datosjson);
+        }
+    }
+
+    if(paquete.length > 0)
+    {
+
+        var bdd = conexionbdd;
+        var tabla = tablaanuncios;
+
+        $.ajax({
+
+            url: "consultamasivos.php",
+            data: { bdd: bdd, tabla: tabla, paquete: paquete },
+            type: "post",
+
+            success: function (data) {
+                Swal.fire(
+                    'Actualizados',
+                    data + ' productos',
+                )
+            }
+            ,
+            error: function (e) {
+                console.log("Error en la consulta." + e.value);
+            }
+        });
     }
 }
 // ------------------------------------------------------------------------------------------------------------

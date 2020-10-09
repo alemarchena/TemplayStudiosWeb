@@ -14,116 +14,106 @@
     <hr>
     <!-- ------------------------------------------- -->
     <div class="row justify-content-center">
-        <div class="col-sm-5">
-            
-                
-                <h5 class="m-0">
-                    <button id="btnAsignarproductos" class="btn collapsed" data-toggle="collapse"
-                        data-target="#collapseThreeProveedor" aria-expanded="false" aria-controls="collapseThreeProveedor">
-                        Asigna proveedor
-                    </button>
-                </h5>
-                
-                <div id="collapseThreeProveedor" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">
-                        <div id="divproveedores" class="row justify-content-center">
-            
-                        </div>
-                        <div id="divoperacionproveedores" class="row justify-content-center">
-                            <div class="col">
-                                <button id="desasignaproveedor" class="btn btn-warning">Desasignar</button>
-                            </div>
-                            <div class="col">
-                                <button id="asignaproveedor" class="btn btn-primary">Asignar</button>
-                            </div>
+        <div class="col-sm-3">
+            <h5 class="m-0">
+                <button id="btnAsignarcategoria" class="btn collapsed" data-toggle="collapse"
+                    data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
+                    Asigna categoria
+                </button>
+            </h5>
+        
+            <div id="collapseThreeCategoria" class="collapse" aria-labelledby="headingCate" data-parent="#accordion">
+                <div class="card-body">
+                    <div id="divcategorias" class="row justify-content-center">
+        
+                    </div>
+                    <div id="divoperacioncategorias" class="row justify-content-center">
+                        <div class="col">
+                            <button id="asignacategoria" class="btn btn-primary">Asignar</button>
                         </div>
                     </div>
                 </div>
-            
-        </div>
-        <div class="col">
-            <h5><small>Acciones</small></h5>
+            </div>
         </div>
         <!-- ------------------------------------------- -->
-        <div class="col-sm-5">
+
+        <div class="col-sm-3">
+            <h5 class="m-0">
+                <button id="btnAsignarproductos" class="btn collapsed" data-toggle="collapse"
+                    data-target="#collapseThreeProveedor" aria-expanded="false" aria-controls="collapseThreeProveedor">
+                    Asigna proveedor
+                </button>
+            </h5>
+            
+            <div id="collapseThreeProveedor" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <div id="divproveedores" class="row justify-content-center">
         
-        
-           
-                
-                <h5 class="m-0">
-                    <button id="btnAsignarcategoria" class="btn collapsed" data-toggle="collapse"
-                        data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
-                        Asigna categoria
-                    </button>
-                </h5>
-                
-                <div id="collapseThreeCategoria" class="collapse" aria-labelledby="headingCate" data-parent="#accordion">
-                    <div class="card-body">
-                        <div id="divcategorias" class="row justify-content-center">
-        
+                    </div>
+                    <div id="divoperacionproveedores" class="row justify-content-center">
+                        <div class="col">
+                            <button id="desasignaproveedor" class="btn btn-warning">Desasignar</button>
                         </div>
-                        <div id="divoperacioncategorias" class="row justify-content-center">
-                            <div class="col">
-                                <button id="asignaproveedor" class="btn btn-primary">Asignar</button>
-                            </div>
+                        <div class="col">
+                            <button id="asignaproveedor" class="btn btn-primary">Asignar</button>
                         </div>
                     </div>
                 </div>
-            
+            </div>
         </div>
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-3">
+        
+        
+            <h5 class="m-0">
+                <button id="btnPublicaroNo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePublica"
+                    aria-expanded="false" aria-controls="collapsePublica">
+                    Publica producto
+                </button>
+            </h5>
+            <div id="collapsePublica" class="collapse" aria-labelledby="headingPublica" data-parent="#accordion">
+        
+                <div class="row justify-content-center">
+                    <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de productos</label>
+                </div>
+                <div id="divoperacionpublicar" class="row justify-content-center">
+                    <div class="col">
+                        <button id="nopublica" class="btn btn btn-warning">No publicar</button>
+                    </div>
+                    <div class="col">
+                        <button id="sipublicar" class="btn btn btn-primary">Publicar</button>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-3">
+        
+            <h5 class="m-0">
+                <button id="btnPromo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePromo"
+                    aria-expanded="false" aria-controls="collapsePromo">
+                    Publica Promoción
+                </button>
+            </h5>
+            <div id="collapsePromo" class="collapse" aria-labelledby="headingPromo" data-parent="#accordion">
+        
+                <div class="row justify-content-center">
+                    <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de promociones</label>
+                </div>
+                <div id="divoperacionpublicar" class="row justify-content-center">
+                    <div class="col">
+                        <button id="nopublicapromo" class="btn btn btn-warning">No es promo</button>
+                    </div>
+                    <div class="col">
+                        <button id="sipublicarpromo" class="btn btn btn-primary">Si es Promo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
-    <div class="row justify-content-center">
-        <!-- ------------------------------------------- -->
-        <div class="col-sm-6">
-            
-            
-                <h5 class="m-0">
-                    <button id="btnPublicaroNo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePublica"
-                        aria-expanded="false" aria-controls="collapsePublica">
-                        Publica producto
-                    </button>
-                </h5>
-                <div id="collapsePublica" class="collapse" aria-labelledby="headingPublica" data-parent="#accordion">
-            
-                    <div class="row justify-content-center">
-                        <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de productos</label>
-                    </div>
-                    <div id="divoperacionpublicar" class="row justify-content-center">
-                        <div class="col">
-                            <button id="nopublica" class="btn btn btn-warning">No publicar</button>
-                        </div>
-                        <div class="col">
-                            <button id="sipublicar" class="btn btn btn-primary">Publicar</button>
-                        </div>
-                    </div>
-                </div>
-            
-        </div>
-        <!-- ------------------------------------------- -->
-        <div class="col-sm-6">
-            
-                <h5 class="m-0">
-                    <button id="btnPromo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePromo"
-                        aria-expanded="false" aria-controls="collapsePromo">
-                        Publica Promoción
-                    </button>
-                </h5>
-                <div id="collapsePromo" class="collapse" aria-labelledby="headingPromo" data-parent="#accordion">
-            
-                    <div class="row justify-content-center">
-                        <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de promociones</label>
-                    </div>
-                    <div id="divoperacionpublicar" class="row justify-content-center">
-                        <div class="col">
-                            <button id="nopublicapromo" class="btn btn btn-warning">No es promo</button>
-                        </div>
-                        <div class="col">
-                            <button id="sipublicarpromo" class="btn btn btn-primary">Si es Promo</button>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
+   
 
     <!-- ------------------------------------------- -->
     
@@ -296,6 +286,10 @@ $(document).ready(function ()
         } else {
             document.getElementById("chkaplicaporcentaje").checked = true;
         }
+    });
+
+    $("#asignacategoria").click(function(){
+        asignarcategoriamasivamente();
     });
 });
 

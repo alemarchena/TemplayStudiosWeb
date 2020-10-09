@@ -26,7 +26,7 @@ function conviertefechaparabdd(fecharecibidatexto)
 
 function conviertefechaastringdmy(fecharecibidatexto) {
 	fec = fecharecibidatexto;
-
+	
 	dia = fec.substring(0, 2);
 	mes = fec.substring(3, 5);
 	anio = fec.substring(6, 10);
