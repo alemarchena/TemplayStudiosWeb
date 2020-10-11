@@ -3993,7 +3993,6 @@ function cambiapreciosmasivamente(tip)
 
             if (valorcambio.value != "" && valorcambio.value > 0) {
 
-                console.log("punto 1");
                 const swalWithBootstrapButtons = Swal.mixin({customClass: {confirmButton: 'btn btn-success',cancelButton: 'btn btn-danger'},buttonsStyling: false})
                 if (tip == "sumar") var mt = "¿Desea SUMAR el " + valorcambio.value + "% al precio de venta ?";
                 if (tip == "restar") var mt = "¿Desea RESTAR el " + valorcambio.value + "% al precio de venta ?";
@@ -4021,6 +4020,35 @@ function cambiapreciosmasivamente(tip)
         {
 
             //cambiar montos
+
+            if (valorcambio.value != "" && valorcambio.value > 0) 
+            {
+
+                const swalWithBootstrapButtons = Swal.mixin({ customClass: { confirmButton: 'btn btn-success', cancelButton: 'btn btn-danger' }, buttonsStyling: false })
+                if (tip == "sumar") var mt = "¿Desea SUMAR $ " + valorcambio.value + " al precio de venta ?";
+                if (tip == "restar") var mt = "¿Desea RESTAR $ " + valorcambio.value + " al precio de venta ?";
+
+                swalWithBootstrapButtons.fire({
+                    title: 'Modificar precios', text: mt, icon: 'warning', showCancelButton: true,
+                    confirmButtonText: 'Si!', cancelButtonText: 'No!', reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        cambiarmontoPreciosVentaMasivamente(valorcambio.value, tip, alcancemodificacion);
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) { swalWithBootstrapButtons.fire('Perfecto', 'Los precios siguen iguales!!!') }
+                })
+
+            } else {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'Ingrese el monto para el cambio de precios !',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            }
         }
 
 
@@ -4036,6 +4064,112 @@ function cambiapreciosmasivamente(tip)
     }
 }
 
+
+
+function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
+{
+
+
+    for (var a = 0; a < arreglochecktilde.length; a++) 
+    {
+        idproducto          = arreglochecktilde[a].idanuncio;
+        costoactualxprefijo = parseFloat(arreglochecktilde[a].costoxprefijo);
+        ventaactualxprefijo = parseFloat(arreglochecktilde[a].ventaxprefijo);
+        costoanterior       = parseFloat(arreglochecktilde[a].costo);
+        precioanterior      = parseFloat(arreglochecktilde[a].precio);
+        relacioncove        = parseFloat(arreglochecktilde[a].relacioncompraventa);
+        
+        monto               = parseFloat(monto);
+        
+
+        comocompra          = arreglochecktilde[a].prefijocompra;
+        var costonuevo      = 0;
+        var precionuevo     = 0;
+       
+
+        if(comocompra == 0)
+        {
+            costonuevo = costoanterior;
+            precionuevo = precioanterior;
+            
+            
+        }else
+        {
+            costonuevo = costoactualxprefijo;
+            precionuevo = ventaactualxprefijo;
+            
+        }
+
+        var redondeo = $('#opcionredondear').prop('checked');
+
+        if (tip == "sumar")
+        {
+            if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+            {
+                costonuevo = costonuevo + monto;
+                if(redondeo)
+                    costonuevo = Math.ceil(costonuevo/10)*10;
+
+                if(comocompra > 0)
+                    costoactualxprefijo = costonuevo;                 
+
+                costonuevo = costonuevo / relacioncove;
+                costonuevo = Math.round(costonuevo * 100) / 100;
+            }
+            
+            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+            {
+                precionuevo = precionuevo + monto;
+                if(redondeo)
+                    precionuevo = Math.ceil(precionuevo/10)*10;
+               
+                if(comocompra > 0)
+                    ventaactualxprefijo = precionuevo;
+                precionuevo = precionuevo / relacioncove;
+                precionuevo = Math.round(precionuevo * 100) / 100;
+            }
+        }else
+        {
+            if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
+            {
+                costonuevo = costonuevo - monto;
+                if(redondeo)
+                    costonuevo = Math.ceil(costonuevo/10)*10;
+
+                if(comocompra > 0)
+                    costoactualxprefijo = costonuevo;                                               
+                costonuevo = costonuevo / relacioncove;
+                costonuevo = Math.round(costonuevo * 100) / 100;
+            }
+            
+            if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
+            {
+                precionuevo = precionuevo - monto;
+                if(redondeo)
+                    precionuevo = Math.ceil(precionuevo/10)*10;
+
+                if(comocompra > 0)
+                    ventaactualxprefijo = precionuevo;
+                precionuevo = precionuevo / relacioncove;
+                precionuevo = Math.round(precionuevo * 100) / 100;
+            }
+        }
+
+        
+        if (arreglochecktilde[a].tildado == true) {
+            actualizaporcentajepreciocostoyventa(idproducto, precionuevo, precioanterior, costonuevo, costoanterior, costoactualxprefijo, ventaactualxprefijo)
+        }
+
+    }
+    
+    var tas = null;
+    if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
+        tas = $('#tablaanunciosmasivos').DataTable();
+    else return;
+
+    tas.clear().draw(true);
+    
+}
 
 function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodificacion)
 {
@@ -4129,14 +4263,14 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
             actualizaporcentajepreciocostoyventa(idproducto, precionuevo, precioanterior, costonuevo, costoanterior, costoactualxprefijo, ventaactualxprefijo)
         }
 
-        var tas = null;
-        if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
-            tas = $('#tablaanunciosmasivos').DataTable();
-        else return;
-
-        tas.clear().draw(true);
     }
+    
+    var tas = null;
+    if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
+        tas = $('#tablaanunciosmasivos').DataTable();
+    else return;
 
+    tas.clear().draw(true);
     
 }
 
@@ -4177,16 +4311,14 @@ function actualizaporcentajepreciocostoyventa(idproducto,precionuevo, precioactu
 
 
         var objetoanuncio = JSON.stringify(itemanuncio);
-        console.log("Cambio de porcentaje de precio");
-        console.log(objetoanuncio);
-
+        
         $.ajax({
             url: "consultaanuncios.php",
             data: { objetoanuncio: objetoanuncio },
             type: "post",
             success: function (data) {
 
-                console.log(data);
+               
                 if (data == 1) {
                     // if (precionuevo != precioactual) {
                     //     M.toast({ html: 'Ok, precio de venta actualizado!', displayLength: '2000', classes: 'rounded' });
@@ -7358,6 +7490,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     var rutadeimagenes = rutaimagenespaginaweb;
     var tabla = tablaanunciospaginaweb;
     var tabladerubros = tablarubrospaginaweb;
+    var tablaunidadesgranel = tablaunidadesgranelweb;
 
     var seleccion="";
     var seleccionidrubro="";
@@ -7432,6 +7565,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
+    itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
 
@@ -7457,6 +7591,8 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         html: '...Buscando',
         displayLength: '3000'
     });
+
+    
     
     $.ajax({
         url: "consultaanuncios.php",
@@ -7466,10 +7602,9 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
         success: function (data) 
         {
+           
 
-            
-
-            if (data != '[]') {
+            if (data != '[]' && data != 'consultavacia') {
 
                 dd = JSON.parse(data); //data decodificado
                 

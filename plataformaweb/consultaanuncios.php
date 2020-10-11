@@ -93,6 +93,7 @@
                                  .$tablarubros. ".nombrerubro as rubro from ((" .$tabla. " LEFT JOIN " 
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
                                  .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " .$tabla. ".esoferta = '1'";
+            // echo $sql;
         }else if($tipo == "consultarubros"){
             if($sentencia == ""){
                 // $sql = "Select * from " .$tabla. "," .$tablarubros. ".rubro where idrubro like '%" . $idrubro . "%' order by titulo";
