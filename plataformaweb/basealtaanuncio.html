@@ -92,13 +92,13 @@
 
         <div class="row justify-content-center">
             <div class="col-sm-2">
-                <input id="costo" name="costo" type="text" min="0" maxlength="8" step="0.01"
+                <input id="costo" name="costo" type="text" min="0" maxlength="12" step="0.01"
                     class="validate border border-primary center tooltipped" data-position="top"
                     data-tooltip="Costo del producto" placeholder="$ Costo">
             </div>
             <div class="col-sm-2">
                 <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return validartecla(event,this.value,6)"
-                    id="precio" name="precio" type="text" min="0" maxlength="8" step="0.01" placeholder="$ Precio de venta"
+                    id="precio" name="precio" type="text" min="0" maxlength="12" step="0.01" placeholder="$ Precio de venta"
                     class="validate border border-success center" data-position="top" data-tooltip="Precio de venta">
             </div>
         
@@ -125,10 +125,10 @@
         </div>
         <div class="row justify-content-center">
             <div id="divpreciocomprapref" class="col-sm-2" style="display: none;">
-                <input onKeyUp="return CalcularValoresFraccionados()" id="costofraccionado" class="border-2 border-primary center" type="text" placeholder="Costo segun unid compra" min="0" maxlength="8" step="0.01">
+                <input onKeyUp="return CalcularValoresFraccionados()" id="costofraccionado" class="border-2 border-primary center" type="text" placeholder="Costo segun unid compra" min="0" maxlength="12" step="0.01">
             </div>
             <div id="divprecioventapref" class="col-sm-2"  style="display: none;">
-                <input onKeyUp="return CalcularValoresFraccionados()" id="ventafraccionado" class="border-2 border-success center" type="text" placeholder="Precio Vta x unid compra" min="0" maxlength="8" step="0.01">
+                <input onKeyUp="return CalcularValoresFraccionados()" id="ventafraccionado" class="border-2 border-success center" type="text" placeholder="Precio Vta x unid compra" min="0" maxlength="12" step="0.01">
             </div>
         </div>
         <div class="row justify-content-center">

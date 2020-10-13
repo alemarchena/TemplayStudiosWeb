@@ -193,6 +193,7 @@ p.explicacion{
     transition: color 1s cubic-bezier(0.075, 0.82, 0.165, 1) 3s;
 
     color: rgba(230, 230, 230, 0.7);
+    margin: 1em;
 }
 
 .textoweb{
@@ -250,6 +251,10 @@ canvas {
     color : rgb(133, 207, 139);
 }
 
+.tarjeta{
+   
+    background-color: rgb(236, 236, 236)!important;
+}
 .imagenmia{
  
     border-radius: 127px 0px 200px 0px!important;

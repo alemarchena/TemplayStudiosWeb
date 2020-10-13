@@ -365,8 +365,10 @@
                             rutaimagenes = dd[key].rutaimagenes;
                             dominio = dd[key].dominio;
                            
+
                         });
                         
+                        console.log(empresa);
     
                         $("#plataforma").load("panel.html");
                     }    

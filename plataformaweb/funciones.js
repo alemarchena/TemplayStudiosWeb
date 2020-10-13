@@ -2058,7 +2058,7 @@ function consultaranunciosvender(tipo) {
         type: "post",
         success: function (data)
         {
-            
+
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
                 
@@ -2073,7 +2073,7 @@ function consultaranunciosvender(tipo) {
                     fechaventa = $("#fechaventa").val();
                     peco = dd[key].prefijocompra;
 
-                    if (tipo == "consultalector" && peco > 0) //inserta directamente solo a productos por unidades
+                    if (tipo == "consultalector" && peco == 0) //inserta directamente solo a productos por unidades
                     {              
                         if (fechaventa != "" )
                         {
@@ -4284,7 +4284,7 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
 
     tas.clear().draw(true);
     document.getElementById("todostilde").checked = false;
-    
+
 }
 
 
