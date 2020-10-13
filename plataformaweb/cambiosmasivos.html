@@ -14,36 +14,82 @@
     <hr>
     <!-- ------------------------------------------- -->
     <div class="row justify-content-center">
-        <div class="col-sm-3">
-            <h5 class="m-0">
-                <button id="btnAsignarcategoria" class="btn collapsed" data-toggle="collapse"
-                    data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
-                    Asigna categoria
-                </button>
-            </h5>
+       
+        <div class="col-sm-12">
+            <p class="m-0">
+                <a href="#" id="btnPrecios" class="collapsed" data-toggle="collapse" data-target="#collapsePrecios"
+                    aria-expanded="false" aria-controls="collapsePrecios">
+                    Modifica precios
+                </a>
+            </p>
+            <div id="collapsePrecios" class="collapse" aria-labelledby="headingPrecios" data-parent="#accordion">
         
-            <div id="collapseThreeCategoria" class="collapse" aria-labelledby="headingCate" data-parent="#accordion">
-                <div class="card-body">
-                    <div id="divcategorias" class="row justify-content-center">
-        
+                <div class="row justify-content-center">
+                    <label for="divoperacionprecios" class="colorletras">Operaciones con cambio de precios de productos</label>
+                </div>
+                <div id="divoperacionprecios" class="row justify-content-center">
+                    <div class="col-sm-3" style="text-align: end;">
+                        <label>
+                            <input id="aplicaacosto" type='checkbox' class='filled-in columnadedos' /><span
+                                class='colorletras'>Aplica al costo</span>
+                        </label>
                     </div>
-                    <div id="divoperacioncategorias" class="row justify-content-center">
-                        <div class="col">
-                            <button id="asignacategoria" class="btn btn-primary">Asignar</button>
-                        </div>
+                    <div class="col-sm-3" style="text-align: start;">
+                        <label>
+                            <input id="aplicaaventa" type='checkbox' class='filled-in columnadedos' /><span
+                                class='colorletras'>Aplica a la venta</span>
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <div id="divoperacionprecios" class="row justify-content-center">
+                    <div class="col-sm-3" style="text-align: end;">
+                        <label>
+                            <input id="chkaplicamonto" type='checkbox' class='filled-in columnadedos' /><span
+                                class='colorletras'>Aplica monto $</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-3" style="text-align: start;">
+                        <label>
+                            <input id="chkaplicaporcentaje" type='checkbox' checked class='filled-in columnadedos' /><span
+                                class='colorletras'>Aplica un %</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <p>
+                        <label>
+                            <input id="opcionredondear" type="checkbox" class="filled-in" checked="checked" />
+                            <span>Redondear a decena</span>
+                        </label>
+                    </p>
+                </div>
+                <br>
+                <div id="divoperacionprecios" class="row justify-content-center">
+                    <div class="col-sm-2">
+                        <button id="disminuyeprecio" onclick='cambiapreciosmasivamente("restar")'
+                            class="btn btn btn-warning">Disminuir</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="valorcambio">Valor a aplicar</label>
+                        <input id="valorcambio" name="valorcambio" type="number" min="0" maxlength="8" step="0.01"
+                            class="validate border border-danger center" placeholder="Solo el número"><del></del>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="aumentaprecio" onclick='cambiapreciosmasivamente("sumar")'
+                            class="btn btn btn-primary">Aumentar</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- ------------------------------------------- -->
 
-        <div class="col-sm-3">
-            <h5 class="m-0">
-                <button id="btnAsignarproductos" class="btn collapsed" data-toggle="collapse"
+        <!-- <div class="col-sm-3">
+            <p class="m-0">
+                <a href="#" id="btnAsignarproductos" class="collapsed" data-toggle="collapse"
                     data-target="#collapseThreeProveedor" aria-expanded="false" aria-controls="collapseThreeProveedor">
-                    Asigna proveedor
-                </button>
-            </h5>
+                    Asigna proveedor</a>
+            </p>
             
             <div id="collapseThreeProveedor" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
@@ -60,17 +106,40 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+    </div>
+    <div class="row justify-content-center">
+
+        <div class="col-sm-3">
+            <p class="m-0">
+                <a href="#" id="btnAsignarcategoria" class="collapsed" data-toggle="collapse"
+                    data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
+                    Asigna categoria</a>
+            </p>
+        
+            <div id="collapseThreeCategoria" class="collapse" aria-labelledby="headingCate" data-parent="#accordion">
+                <div class="card-body">
+                    <div id="divcategorias" class="row justify-content-center">
+        
+                    </div>
+                    <div id="divoperacioncategorias" class="row justify-content-center">
+                        <div class="col">
+                            <button id="asignacategoria" class="btn btn-primary">Asignar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- ------------------------------------------- -->
         <div class="col-sm-3">
         
         
-            <h5 class="m-0">
-                <button id="btnPublicaroNo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePublica"
+            <p class="m-0">
+                <a href="#" id="btnPublicaroNo" class="collapsed" data-toggle="collapse" data-target="#collapsePublica"
                     aria-expanded="false" aria-controls="collapsePublica">
                     Publica producto
-                </button>
-            </h5>
+                </a>
+            </p>
             <div id="collapsePublica" class="collapse" aria-labelledby="headingPublica" data-parent="#accordion">
         
                 <div class="row justify-content-center">
@@ -78,7 +147,7 @@
                 </div>
                 <div id="divoperacionpublicar" class="row justify-content-center">
                     <div class="col">
-                        <button id="nopublica" class="btn btn btn-warning">No publicar</button>
+                        <button id="nopublicar" class="btn btn btn-warning">No publicar</button>
                     </div>
                     <div class="col">
                         <button id="sipublicar" class="btn btn btn-primary">Publicar</button>
@@ -90,12 +159,12 @@
         <!-- ------------------------------------------- -->
         <div class="col-sm-3">
         
-            <h5 class="m-0">
-                <button id="btnPromo" class="btn collapsed" data-toggle="collapse" data-target="#collapsePromo"
+            <p class="m-0">
+                <a href="#" id="btnPromo" class="collapsed" data-toggle="collapse" data-target="#collapsePromo"
                     aria-expanded="false" aria-controls="collapsePromo">
                     Publica Promoción
-                </button>
-            </h5>
+                </a>
+            </p>
             <div id="collapsePromo" class="collapse" aria-labelledby="headingPromo" data-parent="#accordion">
         
                 <div class="row justify-content-center">
@@ -103,7 +172,7 @@
                 </div>
                 <div id="divoperacionpublicar" class="row justify-content-center">
                     <div class="col">
-                        <button id="nopublicapromo" class="btn btn btn-warning">No es promo</button>
+                        <button id="nopublicarpromo" class="btn btn btn-warning">No promo</button>
                     </div>
                     <div class="col">
                         <button id="sipublicarpromo" class="btn btn btn-primary">Si es Promo</button>
@@ -111,82 +180,34 @@
                 </div>
             </div>
         </div>
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-3">
         
+            <p class="m-0">
+                <a href="#" id="btnNove" class="collapsed" data-toggle="collapse" data-target="#collapseNovedad"
+                    aria-expanded="false" aria-controls="collapseNovedad">
+                    Publica Novedad
+                </a>
+            </p>
+            <div id="collapseNovedad" class="collapse" aria-labelledby="headingNovedad" data-parent="#accordion">
+        
+                <div class="row justify-content-center">
+                    <label for="divoperacionnovedad" class="colorletras">Operaciones de publicación de novedades</label>
+                </div>
+                <div id="divoperacionnovedad" class="row justify-content-center">
+                    <div class="col">
+                        <button id="nopublicarnovedad" class="btn btn btn-warning">No novedad</button>
+                    </div>
+                    <div class="col">
+                        <button id="sipublicarnovedad" class="btn btn btn-primary">Si novedad</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
    
 
-    <!-- ------------------------------------------- -->
-    
-    <div class="row justify-content-center">
-        <div class="col">
-                <h5 class="m-0">
-                    <button id="btnPrecios" class="btn collapsed" data-toggle="collapse" data-target="#collapsePrecios"
-                        aria-expanded="false" aria-controls="collapsePrecios">
-                        Modifica precios
-                    </button>
-                </h5>
-                <div id="collapsePrecios" class="collapse" aria-labelledby="headingPrecios" data-parent="#accordion">
-            
-                    <div class="row justify-content-center">
-                        <label for="divoperacionprecios" class="colorletras">Operaciones con cambio de precios de productos</label>
-                    </div>
-                    <div id="divoperacionprecios" class="row justify-content-center">
-                        <div class="col-sm-3" style="text-align: end;">
-                            <label>
-                                <input id="aplicaacosto" type='checkbox'
-                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica al costo</span>
-                            </label>
-                        </div>
-                        <div class="col-sm-3" style="text-align: start;">
-                            <label>
-                                <input id="aplicaaventa" type='checkbox'
-                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica a la venta</span>
-                            </label>
-                        </div>
-                    </div>
-                    <br>
-                    <div id="divoperacionprecios" class="row justify-content-center">
-                        <div class="col-sm-3" style="text-align: end;">
-                            <label>
-                                <input id="chkaplicamonto" type='checkbox'
-                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica monto $</span>
-                            </label>
-                        </div>
-                        <div class="col-sm-3" style="text-align: start;">
-                            <label>
-                                <input id="chkaplicaporcentaje"  type='checkbox' checked
-                                    class='filled-in columnadedos' /><span class='colorletras'>Aplica un %</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <p>
-                            <label>
-                                <input id="opcionredondear" type="checkbox" class="filled-in" checked="checked" />
-                                <span>Redondear a decena</span>
-                            </label>
-                        </p>
-                    </div>
-                    <br>
-                    <div id="divoperacionprecios" class="row justify-content-center">
-                        <div class="col-sm-2">
-                            <button id="disminuyeprecio"  onclick='cambiapreciosmasivamente("restar")' class="btn btn btn-warning">Disminuir</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <label for="valorcambio">Valor a aplicar</label>
-                            <input id="valorcambio" name="valorcambio" type="number" min="0" maxlength="8" step="0.01"
-                                class="validate border border-danger center" placeholder="Solo el número"><del></del>
-                        </div>
-                        <div class="col-sm-2">
-                            <button id="aumentaprecio" onclick='cambiapreciosmasivamente("sumar")' class="btn btn btn-primary">Aumentar</button>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-    
-
-                            <!-- ----------------------------------------------- -->
+    <!-- ----------------------------------------------- -->
 
     <div class="row justify-content-center">
 
@@ -209,15 +230,15 @@
                             <th>Costo Compra</th>
                             <th>Precio Vta</th>
                             <th>Stock</th>
-                            <th>Uni.Compra</th>
+                            <th style="text-align: center;">Uni.Compra</th>
                             <th>Título</th>
                             <th>Categoría</th>
                             <th>Proveedor</th>
                             <th>Es Novedad</th>
                             <th>Es Promoción</th>
                             <th>Publicado</th>
-                            <th>Tiene Bonus</th>
-                            <th>Ventaja comercial</th>
+                            <!-- <th>Tiene Bonus</th>
+                            <th>Ventaja comercial</th> -->
                             
                         </tr>
                     </thead>
@@ -230,7 +251,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
+                            <td style="text-align: center;"></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -238,8 +259,8 @@
                             <td style="text-align: center;"></td>
                             <td style="text-align: center;"></td>
                             <td style="text-align: center;"></td>
-                            <td style="text-align: center;"></td>
-                            <td style="text-align: center;"></td>
+                            <!-- <td style="text-align: center;"></td>
+                            <td style="text-align: center;"></td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -291,6 +312,43 @@ $(document).ready(function ()
     $("#asignacategoria").click(function(){
         asignarcategoriamasivamente();
     });
+
+    $("#asignaproveedor").click(function(){
+        asignarproveedormasivamente("alta");
+    });
+    
+    $("#desasignaproveedor").click(function () {
+        asignarproveedormasivamente("baja");
+    });
+   
+    $("#sipublicar").click(function () {
+        publicamasivamente("si");
+    });
+
+    $("#nopublicar").click(function () {
+        publicamasivamente("no");
+    });
+
+    
+
+    $("#sipublicarpromo").click(function () {
+        publicapromomasivamente("si");
+    });
+
+    $("#nopublicarpromo").click(function () {
+        publicapromomasivamente("no");
+    });
+
+    
+    
+    $("#sipublicarnovedad").click(function () {
+        publicanovedadmasivamente("si");
+    });
+
+    $("#nopublicarnovedad").click(function () {
+        publicanovedadmasivamente("no");
+    });
+
 });
 
 </script>

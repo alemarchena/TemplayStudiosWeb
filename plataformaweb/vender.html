@@ -188,7 +188,7 @@
                                         <th class="masmenoscolumna">Id Cliente</th>
                                         <th>Cliente</th>
                                         <th class="masmenoscolumna">Bonus Vta</th>
-                                        <th>Eliminar</th>
+                                        <th class="blockeliminar">Eliminar</th>
 
                                     </tr>
                                 </thead>
@@ -205,7 +205,7 @@
                                         <td class="masmenoscolumna"></td>
                                         <td></td>
                                         <td class="masmenoscolumna"></td>
-                                        <td></td>
+                                        <td class="blockeliminar"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -297,6 +297,8 @@ function consultaventadiaactual() {
 
         llama = "vender";
         $("#divBuscador").load("componentebuscador.html");
+
+        verificabloqueo();
     });
 
    
@@ -306,4 +308,5 @@ function consultaventadiaactual() {
 
     $('.tooltipped').tooltip();
 
+    
 </script>

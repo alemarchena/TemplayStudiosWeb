@@ -181,7 +181,7 @@
         else if( $tipo == "baja")
             $sql = "delete from " .$tablaproveedoresanuncios." where idproveedor=" .$idproveedor. " and idanuncio = " .$id;
 
-        echo $sql;
+        // echo $sql;
 
         $resultado  = $mysqli->query($sql);
         if($resultado) { echo $resultado;}

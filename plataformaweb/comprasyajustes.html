@@ -74,16 +74,12 @@
                                 <th class="columnadetres center">cantidad Unid.Compradas</th>
                                 <th class="columnadedos center">Unidad de Compra.</th>
                                 <th class="columnadedos center">Unidad de Venta</th>
-
                                 <th class="columnadedos center">Mas</th>
-
-                                <th class="columnadetres center">Costo x Unid.Compra</th>
-                                <th class="columnadetres center">$ Vta x Unid.Compra</th>
-
-
+                                <th class="columnadetres center ">Costo x Unid.Compra</th>
+                                <th class="columnadetres center ">$ Vta x Unid.Compra</th>
                                 <th class="columnadetres center">Guardar</th>
                                 <th class="columnadetres">Imagen</th>
-                                <th class="columnadetres center">Stock</th>
+                                <th class="columnadetres center ">Stock</th>
                                 <th class="columnadedos center">en Unid/Compra.</th>
 
                                 <!-- <th style="display: none;">Inicio stock</th> -->
@@ -99,16 +95,13 @@
                                 <td class="columnadedos center"></td>
                                 <td class="columnadetres center"></td>
                                 <td class="columnadedos center"></td>
-
                                 <td class="columnadedos center"></td>
-                                
-                                <td class="columnadetres center"></td>
-                                <td class="columnadetres center"></td>
+                                <td class="columnadetres center blockcosto"></td>
+                                <td class="columnadetres center blockmodiprecio"></td>
                                 <td class="columnadedos center"></td>
-
                                 <td class="columnadetres center"></td>
-                                <td class="columnadetres"></td>
-                                <td class="columnadetres center"></td>
+                                <td class="columnadetres "></td>
+                                <td class="columnadetres center blockstock"></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -195,12 +188,12 @@
                                                     <th>Título</th>
                                                     <th class="masmenoscolumna">cantidad</th>
                                                     <th class="masmenoscolumna">Unididad de Compra</th>
-                                                    <th>Costo compra</th>
-                                                    <th class="masmenoscolumna">Precio Vta</th>
+                                                    <th >Costo compra</th>
+                                                    <th class="masmenoscolumna ">Precio Vta</th>
                                                     
                                                     <th>Proveedor</th>
                                                     <th class="masmenoscolumna">Tipo movimiento</th>
-                                                    <th>Eliminar</th>
+                                                    <th >Eliminar</th>
 
                                                     <th>Total comprado</th>
                                                     <th>Unid.Venta</th>
@@ -217,11 +210,11 @@
                                                     <td class="masmenoscolumna"></td>
                                                     <td></td>
                                                     
+                                                    <td class="blockcosto"></td>
+                                                    <td class="masmenoscolumna blockmodiprecio"></td>
                                                     <td></td>
-                                                    <td class="masmenoscolumna"></td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td class="blockeliminar"></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
@@ -298,6 +291,8 @@ function validarentercompras(e) {
         }
 
         consultaranunciosparamovimientos("consultafiltros","nolector");
+        verificabloqueo();
+
         M.toast(
             {
                 html: 'Buscando productos...',
@@ -336,7 +331,6 @@ $(document).ready(function ()
 
     llama = "comprar";
     $("#divBuscador").load("componentebuscador.html");
-    
     $("#opciones").change(function () {
         var o = document.getElementById("opciones");
         var opcion = o.options[o.selectedIndex].text;
@@ -364,6 +358,9 @@ $(document).ready(function ()
 
         tipomovimientonombrecorto = eligetipomovimiento();
         consultarajustesdeldia(fechamovimientoenviada,fechamovimientoenviada);
+
+        verificabloqueo();
+
     });
 
     
@@ -371,6 +368,8 @@ $(document).ready(function ()
         if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
             desdehasta();
             desdehastaajuste();
+            verificabloqueo();
+
         }
     });
 
@@ -394,6 +393,8 @@ $(document).ready(function ()
 
     $("#consultarcomprobante").click(function(){
         consultarcomprobantecompra();
+        verificabloqueo();
+
     });
 
     function colocafechaactual() {
@@ -444,14 +445,16 @@ $(document).ready(function ()
             )
         }
     });
-});
 
-
-$(document).ready(function () {
     $('.tooltipped').tooltip();
 
     $("#divNuevoProducto").load("basealtaanuncio.html");
+
+    verificabloqueo();
+
 });
+
+
     
 $("#nuevoproductocompras").click(function(){
 

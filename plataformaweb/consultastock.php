@@ -71,7 +71,7 @@
             // $sqlpor rubro
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"  
                                  .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," 
-                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".bonus," .$tabla. ".tieneventaja," .$tabla. ".comodin," 
+                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja," .$tabla. ".comodin," 
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro," 
                                  .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor," 
@@ -90,7 +90,7 @@
                 // $sql todo 
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"  
                                  .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
-                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
+                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro," 
                                  .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor," 
@@ -108,7 +108,7 @@
                 // $sql con $sentencia 
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"  
                                  .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
-                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
+                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro,"
                                  .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor,"
@@ -128,7 +128,7 @@
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                 .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"                    
                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta,"
-                                .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
+                                .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," 
                                 .$tabla. ".observaciones," .$tabla. ".comentarios," .$tabla. ".fechastockinicio," 
                                 .$tablarubros. ".nombrerubro as rubro from ((" .$tabla. " LEFT JOIN " 
@@ -139,7 +139,7 @@
         {
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"  
                                  .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," 
-                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
+                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro," 
                                  .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor," 

@@ -147,7 +147,7 @@
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
                                  .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " . $sentencia . " ) order by " .$tabla. ".titulo";
 
-                
+                // echo $sql;
             }
 
             

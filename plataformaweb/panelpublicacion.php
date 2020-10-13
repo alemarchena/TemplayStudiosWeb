@@ -73,14 +73,14 @@
     var tablabonus              = "";
     var tablacompras            = "";
     var tablaajustes            = "";
-    var tablaproveedoresanuncios = "";
-    var tablaunidadesgranel = "";
-
+    var tablaproveedoresanuncios= "";
+    var tablaunidadesgranel     = "";
+    var tablabloqueos           = "";
     var conexionbdd             = "";
     var tablatiposdepago        = "";
     var tablatiposdemovimientos = "";
     var rutaimagenes            = "";
-
+    idencontrado=-1;
       
         /**
          * INGRESO AL SISTEMA.
@@ -356,6 +356,7 @@
                             tablacompras = dd[key].tablacompras;
                             tablaproveedores = dd[key].tablaproveedores;
                             tablaunidadesgranel = dd[key].tablaunidadesgranel;
+                            tablabloqueos   = dd[key].tablabloqueos
                             tablaproveedoresanuncios = dd[key].tablaproveedoresanuncios;
                             tablarubros = dd[key].tablarubros;
                             tablaventas = dd[key].tablaventas;
@@ -366,6 +367,7 @@
                            
                         });
                         
+    
                         $("#plataforma").load("panel.html");
                     }    
                 },error: function(e){
@@ -728,7 +730,7 @@ function verificaenter(e){
 
                     var cuenta = 0;
                     var esad = -1;
-                    var idencontrado=-1;
+                    // var idencontrado=-1;
 
                     var dd = JSON.parse(data);
                     $.each(dd,function(key){
