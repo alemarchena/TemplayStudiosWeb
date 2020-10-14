@@ -188,6 +188,8 @@ p, h1,h2,h3,h4{
     transition: color 1s cubic-bezier(0.075, 0.82, 0.165, 1) 2s;
 
     color: rgb(255,0,0,0.85);
+    padding: 1em;
+    text-align: center;
 }
 
 
