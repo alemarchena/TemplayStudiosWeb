@@ -91,7 +91,7 @@ function CargarMaterilizeYcontacto(){
         function Esfumar() {
 
             var scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
-            if (scrollpercent < 80)
+            if (scrollpercent < 98)
                 $("#seccionproyectos").css("opacity", scrollpercent);
             else
                 $("#seccionproyectos").css("opacity", "1");

@@ -54,6 +54,8 @@ function CargarMaterilizeYcontacto(){
                 $(".iconoarriba").css("visibility", "visible");
 
             }, 550);
+            $("#contenedorcontactoacercade").css("opacity", 1);
+
             
         }
         function irarriba() {
@@ -61,7 +63,7 @@ function CargarMaterilizeYcontacto(){
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);
             setTimeout(function(){
                 $("#contenedorcontactoacercade").empty();
-                $(".iconoarriba").css("visibility", "hidden");
+                // $(".iconoarriba").css("visibility", "hidden");
 
             },550);
         }
@@ -91,10 +93,21 @@ function CargarMaterilizeYcontacto(){
         function Esfumar() {
 
             var scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
-            if (scrollpercent < 20)
-                $("#contenedorcontactoacercade").css("opacity",scrollpercent);
+
+            if (scrollpercent < 10)
+            {
+                $("#contenedorcontactoacercade").css("opacity", scrollpercent);
+                $(".claseesfumada").css("opacity",scrollpercent/5);
+                
+            }
             else
+            {
                 $("#contenedorcontactoacercade").css("opacity", "1");
+                $(".claseesfumada").css("opacity", 1);
+
+            }
+
+            // console.log(scrollpercent);
         }
 
     });
