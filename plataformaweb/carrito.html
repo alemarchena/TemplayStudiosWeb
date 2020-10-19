@@ -72,9 +72,9 @@
             <p id="direccionfisica" style="margin:0em 0em 0em 1em;font-size: 0.9em;"></p>
         </form>            
         
-        <form id="botonesingreso" class="form-inline justify-content-center" style="color: black;" >
-            <button id="ingreso" class="btn">Login</button>
-            <button id="registro" class="btn">Registrarme</button>
+        <form id="botonesingreso" class="form-inline justify-content-center" style="color: white;" >
+            <a id="ingreso" class="btn">Login</a>
+            <a id="registro" class="btn">Registrarme</a>
         </form>
 
         <form class="form-inline justify-content-center" style="color: black;" id="botonescarrito" >
@@ -142,6 +142,9 @@
                                         <input class="mdl-textfield__input center" onKeyUp="return verificaenter(event)"
                                             style="display:inline,width 65%;" type="password" id="password" name="password"
                                             placeholder="Password" />
+                                            <div class="col-sm-2" style="padding: 0em!important;">
+                                                <button class="btn icon fa fa-eye" type="button" id="button-addon2"></button>
+                                            </div>
                                         <br /><br />
                                     </div>
                 
@@ -848,4 +851,18 @@
                 return;
             }
         });
+        
+    function mostrarPassword() {
+        var cambio = document.getElementById("password");
+        if (cambio.type == "password") {
+            cambio.type = "text";
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        } else {
+            cambio.type = "password";
+            $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+        }
+    }
+
+    $("#button-addon2").click(function () { mostrarPassword(); });
+
 </script>

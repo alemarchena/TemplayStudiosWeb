@@ -321,7 +321,7 @@ Particle.prototype = (function (o) {
 
   var BACKGROUND_COLOR = 'rgba(0, 0, 0, 1)',
     PARTICLE_RADIUS = 1,
-    G_POINT_RADIUS = 10,
+    G_POINT_RADIUS = 5,
     G_POINT_RADIUS_LIMITS = 65;
 
 
@@ -428,7 +428,7 @@ Particle.prototype = (function (o) {
   // GUI Control
 
   control = {
-    particleNum: 100
+    particleNum: 150
   };
 
 

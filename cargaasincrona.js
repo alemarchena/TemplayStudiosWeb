@@ -31,6 +31,22 @@ function loadScript(src, callback) {
     t.parentNode.insertBefore(s, t);
 }
 
+function reemplazar() {
+    var imagen = document.getElementById('flecha').src = "images/icoarriba_a.png";
+}
+
+
+function iniciar() {
+
+    var imagen = document.getElementById('flecha');
+
+    imagen.addEventListener('mouseover', reemplazar, false);
+    imagen.addEventListener('mouseout', restaurar, false);
+}
+
+function restaurar() {
+    var imagen = document.getElementById('flecha').src = "images/icoarriba_0.png";
+}
 
 function CargarMaterilizeYcontacto(){
     loadScript('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js');
@@ -43,13 +59,13 @@ function CargarMaterilizeYcontacto(){
             contactooacerca = true;
         });
         $("#acercade").click(function () {
-            $("#contenedorcontactoacercade").load("acercade.html");
+            $("#contenedorcontactoacercade").load("acercade.html?1");
             contactooacerca = true;
         });
 
-        function ira() {
+        function ira(velocidad) {
             var posproyectosweb = $("#contenedorcontactoacercade").offset().top;
-            $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);
+            $("HTML, BODY").animate({ scrollTop: posproyectosweb }, velocidad);
             setTimeout(function () {
                 $(".iconoarriba").css("visibility", "visible");
 
@@ -69,24 +85,32 @@ function CargarMaterilizeYcontacto(){
         }
 
         $("#contactar").on('click', function (e) {
-            ira();
+            ira(600);
         });
         $("#acercade").on('click', function (e) {
-            ira();
+            ira(600);
         });
      
         $(".iconoarriba").on('click', function (e) {
             irarriba();
         });
 
+        $("#capacitar").on('click', function (e) {
+            cargarformulario();
+            ira(1200);
+        });
+        
         setTimeout(function () {
 
             //Carga el archivo con las particulas
-            loadScript('js/dat.gui.min.js', function () { loadScript('js/particulas.js') });
-
+            loadScript('js/dat.gui.min.js', function () { loadScript('particulas.js?1') });
+            setTimeout(function(){desaparececontrol()},1000);
         }, 1200);
 
-        
+        function desaparececontrol(){
+            var elem = document.getElementsByClassName("close-button");
+            elem[0].style.visibility = "hidden";
+        }
 
         window.addEventListener("scroll", Esfumar);
 
@@ -97,7 +121,7 @@ function CargarMaterilizeYcontacto(){
             if (scrollpercent < 10)
             {
                 $("#contenedorcontactoacercade").css("opacity", scrollpercent);
-                $(".claseesfumada").css("opacity",scrollpercent/5);
+                $(".claseesfumada").css("opacity",scrollpercent/3);
                 
             }
             else
@@ -108,8 +132,22 @@ function CargarMaterilizeYcontacto(){
             }
 
             // console.log(scrollpercent);
+
         }
 
+       
+        iniciar();
+
+        function cargarformulario(){
+
+            $("#contenedorcontactoacercade").load("capacitacion.html");
+        }
+        $("#cursos").on("click",function(){
+
+            cargarformulario();
+        });
+
+        
     });
 }
 
@@ -117,7 +155,7 @@ addEvent(window, 'load', function () { loadScript('https://code.jquery.com/jquer
     function(){ 
         //console.log("Jquery cargado");
         CargarMaterilizeYcontacto();   
-});
+    });
 
 
 

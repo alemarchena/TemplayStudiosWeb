@@ -5422,7 +5422,7 @@ function validarinputcantidadpreciocompras(e, contenido, caracteres,id,costo,pre
     return false;
 }
 
-function validarinputcantidadcompras(e,contenido, caracteres, id, costo, precio,prefijocompra,prefijoventa,relacioncompraventa,codigobarra,downup)
+function validarinputcantidadcompras(e,contenido, caracteres,uping, id, costo, precio,prefijocompra,prefijoventa,relacioncompraventa,codigobarra,downup)
 {
     var key = window.event ? e.which : e.keyCode;
 
@@ -5436,11 +5436,17 @@ function validarinputcantidadcompras(e,contenido, caracteres, id, costo, precio,
 
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 8 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+        
         return true;
     }
 
     if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
     {
+        if (uping == 1) {
+            var cantidad = document.getElementById("cantidad_" + id);
+            console.log(cantidad.value + "-" + costo);
+            document.getElementById("subtotalcompra_" + id).innerHTML = cantidad.value * costo;
+        }
         return true;
     }
     return false;
@@ -5563,8 +5569,6 @@ function consultaranunciosparamovimientos(tipo,e) {
                         filaCosto = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costoxprefijo + "\",\"" + dd[key].ventaxprefijo + "\") ' id ='costoxprefijo_" + dd[key].id + "' name ='costoxprefijo_" + dd[key].id + "' type ='text' class='validate escampocosto saltacosto blockcosto' value=" + "'" + dd[key].costoxprefijo + "'></input>";
                         filaVenta = "<input onKeyDown='return validarinputcantidadpreciocompras(event, this.value, 8) ' onKeyUp ='return validarinputcantidadpreciocompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costoxprefijo + "\",\"" + dd[key].ventaxprefijo + "\") ' id ='ventaxprefijo_" + dd[key].id + "' name ='ventaxprefijo_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio blockmodiprecio' value=" + "'" + dd[key].ventaxprefijo + "'></input>";
                         formaVta = "Fraccionado en " + dd[key].nombreprefijoventa;
-
-                       
                     }
 
                     t.row.add([
@@ -5576,12 +5580,13 @@ function consultaranunciosparamovimientos(tipo,e) {
                         
 
                         "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect  brown darken-3 " + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                        "<input onKeyDown='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",0) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",1) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
+                        "<input onKeyDown='return validarinputcantidadcompras(event, this.value, 8,0,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",0) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,1,\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",1) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
                         dd[key].nombreprefijocompra,
-                        formaVta,
-                        "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                         filaCosto,
+                        "<label id ='subtotalcompra_" + dd[key].id + "' name ='subtotalcompra_" + dd[key].id + "'></label>",
+                        formaVta,
                         filaVenta,
+                        "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                         "<a onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos " + "\"><i class=" + "\"material-icons\"" + ">save</i>",
 
                         "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",                                                
