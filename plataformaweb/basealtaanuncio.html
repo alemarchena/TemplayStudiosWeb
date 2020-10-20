@@ -97,7 +97,12 @@
                     data-tooltip="Costo del producto" placeholder="$ Costo">
             </div>
             <div class="col-sm-2">
-                <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return validartecla(event,this.value,6)"
+                <input id="margenganancia" name="margenganancia" onKeyUp="return calcularprecio()" type="text" min="0" maxlength="12" step="0.01"
+                    class="validate border border-primary center tooltipped" data-position="top" data-tooltip="Margen de ganancia"
+                    placeholder="% ganancia">
+            </div>
+            <div class="col-sm-2">
+                <input onKeyDown="return validartecla(event,this.value,6)" onKeyUp="return calcularmargen()"
                     id="precio" name="precio" type="text" min="0" maxlength="12" step="0.01" placeholder="$ Precio de venta"
                     class="validate border border-success center" data-position="top" data-tooltip="Precio de venta">
             </div>
@@ -128,7 +133,7 @@
                 <input onKeyUp="return CalcularValoresFraccionados()" id="costofraccionado" class="border-2 border-primary center" type="text" placeholder="Costo segun unid compra" min="0" maxlength="12" step="0.01">
             </div>
             <div id="divprecioventapref" class="col-sm-2"  style="display: none;">
-                <input onKeyUp="return CalcularValoresFraccionados()" id="ventafraccionado" class="border-2 border-success center" type="text" placeholder="Precio Vta x unid compra" min="0" maxlength="12" step="0.01">
+                <input onKeyUp="return CalcularValoresFraccionadosventa()" id="ventafraccionado" class="border-2 border-success center" type="text" placeholder="Precio Vta x unid compra" min="0" maxlength="12" step="0.01">
             </div>
         </div>
         <div class="row justify-content-center">
@@ -153,7 +158,70 @@
 
 <script>
 
-    
+
+    function comovende() {
+        document.getElementById("idcomovende").value = document.getElementById("comovende").value;
+        var op = $("#idcomovende").val();
+        return op;
+    }
+
+    function CalcularValoresFraccionadosventa()
+    {
+        CalcularValoresFraccionados();
+        calcularmargen();
+        
+    }
+
+    function calcularmargen() {
+            var pv = 0;
+            var co = 0;
+
+            if (comovende() == 0) {
+                pv = document.getElementById("precio").value;
+                co = document.getElementById("costo").value;
+            }
+            else {
+                pv = document.getElementById("ventafraccionado").value;
+                co = document.getElementById("costofraccionado").value;
+            }
+
+            var ma = document.getElementById("margenganancia");
+
+            ma.value = CalculaMargenSegunPrecio(pv, co);
+
+           
+            
+    }
+
+    function calcularprecio() {
+        var ma = 0;
+        var co = 0;
+        if (comovende() == 0) {
+            ma = document.getElementById("margenganancia").value;
+            co = document.getElementById("costo").value;
+        }
+        else {
+            ma = document.getElementById("margenganancia").value;
+            co = document.getElementById("costofraccionado").value;
+        }
+
+        var pr = 0;
+        if(ma == NaN) ma = 0;
+
+        pr = CalculaPrecioSegunMargen(co, ma);
+
+        if (comovende() == 0) {
+            document.getElementById("precio").value = pr;
+
+        } else {
+            document.getElementById("ventafraccionado").value = pr;
+            CalcularValoresFraccionadosventa();
+
+           
+        }
+
+       
+    }
 
     
     $(document).ready(function () 
@@ -191,6 +259,8 @@
             unCambioPrefijoVenta();
         });
 
+        
+        
     });
 
 </script>
