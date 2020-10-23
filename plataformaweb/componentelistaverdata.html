@@ -30,6 +30,13 @@
         
         if (llama == "masivos")
             verRegistros("tablaanunciosmasivos", valor);
+
+        if (llama == "comprar")
+            verRegistros("tablaanunciosmovimientos", valor);
+
+        if(llama == "vender")
+            verRegistros("tablaanunciosvender", valor);
+
     });
     
     $(document).ready(function () 

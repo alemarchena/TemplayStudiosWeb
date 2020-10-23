@@ -13,23 +13,36 @@
     <div id="divverdata" class="row justify-content-start">
         
     </div>
+    <div id="totalesstockvalor" class="row justify-content-center">
+        <div class="col-sm-2">
+            <label for="totalstockcompra">Stock valor compra</label>
+            <input style="text-align: center;" id="totalstockcompra" class="blockcosto" readonly></input>
+        </div>
+        <div class="col-sm-2">
+            <a id="exportararchivo" class="btn">Exportar</a>
+        </div>
+        <div class="col-sm-2">
+            <label for="totalstockventa">Stock valor venta</label>
+            <input style="text-align: center;" id="totalstockventa" class="blockcosto" readonly></input>
+        </div>
+
+    </div>
     <div class="table-responsive">
         <table id="tablaanunciosstock" class="display table table-striped" style="font-size: 1.3em;">
             <thead>
                 <tr>
                     
                     <th>Id</th>
-                    <th>Cód.Barra</th>
+                    <th>Cod.Barra</th>
+                    <th>Titulo</th>                  
                     <th>Costo Compra</th>
                     <th>Precio Vta</th>
                     <th>Stock</th>
+                    <th>Stock Valor compra</th>
+                    <th>Stock Valor venta</th>
                     <th>Uni.Compra</th>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Categoría</th>
+                    <th>Categoria</th>
                     <th>Proveedor</th>
-                    <th>Precio Vta</th>
-                    <th>Uni.Vta</th>
                     <th>Costo anterior</th>
                     <th>Precio anterior</th>
                     
@@ -37,20 +50,20 @@
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                     <td ALIGN=center></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td ALIGN=center></td>
+                    <td style='text-align: center;'></td>
+                    <td style='text-align: center;'></td>
+                    <td ALIGN=center></td>
+                    <td style='text-align: center;'></td>
+                    <td style='text-align: center;'></td>
+                    <td style='text-align: center;'r></td>
+                    <td ALIGN=center></td>
+                    <td ALIGN=center></td>
+                    <td ALIGN=center></td>
+                    <td ALIGN=center></td>
+                    <td ALIGN=center></td>
+                
                 </tr>
             </tbody>
         </table>
@@ -70,10 +83,11 @@
         llama = "stock";
         $("#divBuscador").load("componentebuscador.html");
         $("#divverdata").load("componentelistaverdata.html");
-    });
-
-    $(document).ready(function () {
         $('.tooltipped').tooltip();
     });
-    
+
+    $("#exportararchivo").click(function () {
+        exportTableToExcel('tablaanunciosstock', 'listapreciostock');
+    });
+
 </script>

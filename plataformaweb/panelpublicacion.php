@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
 
-    <script>r = Math.random();version=2;</script>
+    <script>r = Math.random();version=23;</script>
 
 
     <!-- estilos -->
@@ -65,22 +65,23 @@
     <script type="text/javascript">
    
 
-    var tablaanuncios           = "";
-    var tablarubros             = "";
-    var tablaventas             = "";
-    var tablaclientes           = "";
-    var tablaproveedores        = "";
-    var tablabonus              = "";
-    var tablacompras            = "";
-    var tablaajustes            = "";
-    var tablaproveedoresanuncios= "";
-    var tablaunidadesgranel     = "";
-    var tablabloqueos           = "";
-    var conexionbdd             = "";
-    var tablatiposdepago        = "";
-    var tablatiposdemovimientos = "";
-    var rutaimagenes            = "";
-    idencontrado=-1;
+    tablaanuncios           = "";
+    tablarubros             = "";
+    tablaventas             = "";
+    tablaclientes           = "";
+    tablaproveedores        = "";
+    tablabonus              = "";
+    tablacompras            = "";
+    tablaajustes            = "";
+    tablaproveedoresanuncios= "";
+    tablaunidadesgranel     = "";
+    tablabloqueos           = "";
+    conexionbdd             = "";
+    tablatiposdepago        = "";
+    tablatiposdemovimientos = "";
+    rutaimagenes            = "";
+    idencontrado            =-1;
+    emailingreso            ="";
       
         /**
          * INGRESO AL SISTEMA.
@@ -435,6 +436,7 @@
                     // User is signed in.
                     var displayName = user.displayName;
                     var email = user.email;
+                    emailingreso = user.email;
                     var emailVerified = user.emailVerified;
                     var photoURL = user.photoURL;
                     var isAnonymous = user.isAnonymous;

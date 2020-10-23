@@ -59,7 +59,9 @@
                 <div class="row justify-content-start"  style="display: none;">
                     <button id="actualizarcompras" class="btn btn-primary">Actualizar <i class="fas fa-autorenew"></i></button>
                 </div>
-
+                <div id="divverdata" class="row justify-content-start">
+                
+                </div>
 
                 <div id="tablaproductoscompras" style="display: none;"  class="table-responsive">
                     <table id="tablaanunciosmovimientos" class="display table table-striped" style="width: 100%!important;">
@@ -74,17 +76,15 @@
                                 <th class="columnadedos center">Unidad de Compra.</th>
                                 <th class="columnadedos center ">Costo x Unid.Compra</th>
                                 <th class="columnadedos center ">Subtotal Compra</th>
-                                
                                 <th class="columnadedos center">% Margen</th>
-                                <!-- <th class="columnadedos center">Unidad de Venta</th> -->
                                 <th class="columnadedos center ">$ Vta x Unid.Compra</th>
                                 <th class="columnadedos center">Guardar</th>
+                                <th class="columnadedos center ">Stock</th>
+                                <th class="columnadedos center">Uni/Compra</th>
+                                <!-- <th class="columnadedos center">Unidad de Venta</th> -->
                                 <!-- <th class="columnadedos">Imagen</th> -->
                                 <!-- <th class="columnadedos center">Menos</th>
                                 <th class="columnadedos center">Mas</th> -->
-                                <th class="columnadedos center ">Stock</th>
-                                <th class="columnadedos center">Uni/Compra</th>
-
                                 <!-- <th style="display: none;">Inicio stock</th> -->
 
                             </tr>
@@ -98,15 +98,15 @@
                                 <td class="columnadedos center"></td>
                                 <td class="columnadedos center"></td>
                                 <td class="columnadedos center"></td>
-                                <td class="columnadedos center"></td>
+                                <td class="columnadedos" style='text-align: center;'></td>
                                 <td class="columnadedos center"></td>
                                 <td class="columnadedos center "></td>
+                                <td class="columnadedos" style='text-align: center;'></td>
                                 <td class="columnadedos center "></td>
+                                <td></td>
                                 <!-- <td class="columnadedos center"></td> -->
                                 <!-- <td class="columnadedos center"></td>
                                 <td class="columnadedos center"></td> -->
-                                <td class="columnadedos center "></td>
-                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -479,10 +479,12 @@ function MostrarDivNuevoProducto()
     }
 }
 
-    $("#actualizarcompras").click(function () {
+$("#actualizarcompras").click(function () {
 
-        volverAconsultar();
-    });
+    volverAconsultar();
+});
+
+$("#divverdata").load("componentelistaverdata.html");
 
 
 </script>

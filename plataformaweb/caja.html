@@ -4,12 +4,15 @@
     <p class="p-1">Consulta tus ventas entre fechas</p>
 
     <div class="row justify-content-center bd-highlight">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="row">
                 <div class="col">
                     <label for="totalcosto" class=" bd-highlight colorletras">Total Costo</label>
                     <input id="totalcosto" type="text" class="text center blockcosto" readonly>
-                </div>    
+                </div>
+                <div class="col">
+                    <a id="exportararchivo" class="btn">Exportar</a>
+                </div>
                 <div class="col">
                     <label for="totalventa" class=" bd-highlight colorletras">Total Venta</label>
                     <input id="totalventa" type="text" class="text center" readonly>
@@ -17,15 +20,15 @@
             </div>
            
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <label for="fechaventadesde" class=" bd-highlight colorletras"> Desde Fecha</label>
             <input id="fechaventadesde" style="font-size: 1.3em;" type="text" class="datepicker center" readonly>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <label for="fechaventahasta" class=" bd-highlight colorletras">Hasta Fecha</label>
             <input id="fechaventahasta" style="font-size: 1.3em;" type="text" class="datepicker center" readonly>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="row">
                 <div class="col">
                     <label for="rentabilidadpesos" class=" bd-highlight colorletras">Rentabilidad $</label>
@@ -45,22 +48,24 @@
             <thead>
                 <tr>
                     <th>Fecha</th>
+                    <th>Nº item</th>
                     <th>Id</th>
-                    <th>Código Barra</th>
-                    <th>Título</th>
-                    <th>Descripción</th>
+                    <th>Codigo Barra</th>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
                     <th class="masmenoscolumna">Cantidad</th>
                     <th>Unidad vta</th>
                     <th>Precio vta</th>
                     <th>Total vta</th>
                     <th>Cliente</th>
-                    <th>Rubro</th>
+                    <th>Categoria</th>
                     <th class="columnadedos">Costo Unidad</th>
                     <th class="columnadedos">Costo Total</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -97,6 +102,10 @@ function consultacajaenterdias()
     
     consultacaja(fechaventaenviadadesde, fechaventaenviadahasta);
 }
+
+$("#exportararchivo").click(function () {
+    exportTableToExcel('tablacaja', 'caja');
+});
 
 $(document).ready(function () 
 {

@@ -107,6 +107,7 @@
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
                                  .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " .$tabla. ".idrubro = " 
                                  .$idrubro . " order by " .$tabla. ".titulo";
+                                
             }else{
 
                 // $sql = "Select * from " .$tabla. " where idrubro like '%" . $idrubro . "%' " . $sentencia . " ) order by titulo";
