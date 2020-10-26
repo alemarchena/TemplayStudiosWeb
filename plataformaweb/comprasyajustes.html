@@ -167,6 +167,8 @@
                                     <div class="row justify-content-center bd-highlight">
                                         
                                         <div class="col-sm-2">
+                                        </div>
+                                        <div class="col-sm-2">
                                             <label for="subtotalcomprobante" class=" bd-highlight colorletras">Total comprobante</label>
                                             <input id="subtotalcomprobante" type="text" readonly style="text-align:center;">
                                         </div>
@@ -180,6 +182,10 @@
                                             <button id="consultarcomprobante" style="color: white;" class="waves-effect waves-light btn-small"><i
                                                     class="material-icons right">search</i>Consultar</button>
                                         </div>
+                                        <div class="col-sm-2">
+                                            <a id="exportararchivo" style="color: white;" class="waves-effect waves-light btn-small">Exportar</a>
+                                        </div>
+
                                     </div>
                                     <div class="table-responsive">
                                         <table id="tablamovimientostock" class="display table table-striped" style="width: 100%!important;">
@@ -188,10 +194,10 @@
                                                     <th >fecha compra</th>
                                                     <th >Comprobante</th>
                                                     <th>Id</th>
-                                                    <th>Código Barra</th>
-                                                    <th>Título</th>
+                                                    <th>Codigo Barra</th>
+                                                    <th>Titulo</th>
                                                     <th class="masmenoscolumna">cantidad</th>
-                                                    <th class="masmenoscolumna">Unididad de Compra</th>
+                                                    <th class="masmenoscolumna">Unidad de Compra</th>
                                                     <th >Costo compra</th>
                                                     <th class="masmenoscolumna ">Precio Vta</th>
                                                     
@@ -486,5 +492,8 @@ $("#actualizarcompras").click(function () {
 
 $("#divverdata").load("componentelistaverdata.html");
 
+$("#exportararchivo").click(function () {
+    exportTableToExcel('tablamovimientostock', 'compras');
+});
 
 </script>

@@ -2068,6 +2068,7 @@ function consultaranunciosvender(tipo) {
     itemanuncio.imagen = "";
 
     var objetoanuncio = JSON.stringify(itemanuncio);
+
     t.clear().draw(true);
 
     if(tipo != "consultafiltros")
@@ -2084,7 +2085,6 @@ function consultaranunciosvender(tipo) {
         type: "post",
         success: function (data)
         {
-
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
                 
@@ -2118,6 +2118,7 @@ function consultaranunciosvender(tipo) {
                         {
                             stok = dd[key].stock / dd[key].relacioncompraventa;
                             
+                            
                             colorfondo = 'white';
                             colorsegun = 'black';
 
@@ -2145,7 +2146,7 @@ function consultaranunciosvender(tipo) {
                             "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                             "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
                             "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
-                            "<input style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly value=" + stok + "></input>",
+                            "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ stok + "</p>",
                             ]).draw(true);
                             
                             
@@ -2237,18 +2238,6 @@ function identificasaltainput(clase)
 
     $('.' + clase).on('keydown',function(e)
     {
-        // if(e.keyCode === 13 ) 
-        // {
-        //     if(this.value == "")
-        //     {
-        //         e.preventDefault();
-        //         indice = $('.' + clase).index(this)+1;
-        //         if(indice == todos )
-        //             indice = 0;
-        //         $('.' + clase)[indice].focus();
-        //     }
-        // }
-
         if( e.keyCode === 40) 
         {
             e.preventDefault();
@@ -2630,10 +2619,11 @@ function consultarventasdeldia(fechaventa,e) {
     itemventa.tipo = tipo;
     itemventa.tablaunidadesgranel = tablaunidadesgranel;
     itemventa.email = emailingreso;
-
+    itemventa.jerarquia = jerarquia;
     itemventa.fechaventa = fechaventa;
     
     var vendido = JSON.stringify(itemventa);
+    
     tventas.clear().draw(true);
 
     $.ajax({
@@ -2662,11 +2652,12 @@ function consultarventasdeldia(fechaventa,e) {
                         dd[key].titulo,
                         dd[key].cantidad,
                         "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>" ,
-                        "$ " + dd[key].precio,
-                        "$ " + total,
+                        "$ " + dd[key].precio.toString().replace(".",","),
+                        "$ " + total.toString().replace(".", ","),
                         dd[key].tipopago,
                         "<label style='text-align: center;'>" + dd[key].idcliente + "</label>" ,
                         "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
+                        "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
                         "<label style='text-align: center;'>" + dd[key].bonus + "</label>" ,
                         "<a onclick='quitar(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
 
@@ -2916,6 +2907,8 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
     itemventa.fechaventadesde = fechaventadesde;
     itemventa.fechaventahasta = fechaventahasta;
     itemventa.tablaunidadesgranel = tablaunidadesgranel;
+    itemventa.email = emailingreso;
+    itemventa.jerarquia = jerarquia;
     
     itemventa.id = "";
     itemventa.titulo = "";
@@ -2931,7 +2924,6 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
     itemventa.fechaventa = "";
 
     var vendido = JSON.stringify(itemventa);
-    
     $.ajax({
 
         url: "consultaventas.php",
@@ -2941,7 +2933,6 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
 
         success: function (data) {
 
-        
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
                 
@@ -2969,13 +2960,15 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                         "<label style='text-align: center;'>" + dd[key].descripcion + "</label>" ,
                         dd[key].cantidad,
                         "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>" ,
-                        dd[key].precio,
-                        cantidadxprecio,
+                        dd[key].precio.toString().replace(".",","),
+                        cantidadxprecio.toString().replace(".",","),
+                        dd[key].tipopago,
                         "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
                         "<label style='text-align: center;'>" + dd[key].rubro + "</label>" ,
+                        "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
 
-                        "<label class='blockcosto'>"+  dd[key].costo + "</label>",
-                        "<label class='blockcosto'>" + cantidadxcosto + "</label>",
+                        "<label class='blockcosto'>"+  dd[key].costo.toString().replace(".",",") + "</label>",
+                        "<label class='blockcosto'>" + cantidadxcosto.toString().replace(".", ",") + "</label>",
                         
                     ]).draw(false);
                 });
@@ -5579,8 +5572,12 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
     
     if (e.keyCode == 13) //tecla + o enter
     {
-        if (uping == 0)
-            $('#costo_' + id).focus();
+        if (uping == 0){
+            if(prefijocompra == 0)
+                $('#costo_' + id).focus();
+            else
+                $('#costoxprefijo_' + id).focus();
+        }
     }
 
     if(key == 120)
@@ -5870,6 +5867,21 @@ function consultaranunciosparamovimientos(tipo,e) {
                     var unfr="";
                     stok = dd[key].stock / dd[key].relacioncompraventa;
 
+                    
+                    colorfondo = 'white';
+                    colorsegun = 'black';
+
+                    if(stok > 0){
+                        colorfondo = 'cornflowerblue';
+                        colorsegun = 'white';
+                    }
+                    else if(stok < 0)
+                    {
+                        colorfondo = 'red';
+                        colorsegun = 'white';
+                    }
+
+                    
                     if(dd[key].prefijocompra == 0) //es un producto de venta unitaria
                     {
                         unfr = 'un';
@@ -5902,8 +5914,8 @@ function consultaranunciosparamovimientos(tipo,e) {
                             "<label style='text-align: center;' id ='subtotalcompra_" + dd[key].id + "' name ='subtotalcompra_" + dd[key].id + "'></label>",
                             "<input style='text-align: center;' onKeyDown='return validarinputporcentaje(event, this.value, 8,1,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].prefijocompra + "\",\"porcentajem_\") ' onKeyUp ='return validarinputporcentaje(event, this.value, 8,0,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].prefijocompra + "\",\"porcentajem_\") ' id ='porcentajem_" + dd[key].id + "' name ='porcentajem_" + dd[key].id + "' type ='text' class='validate columnadetres saltamargen'></input>",
                             filaVenta,
-                            "<a onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos " + "\"><i class=" + "\"material-icons\"" + ">save</i>",
-                            "<label style='text-align: center;' class='blockstock'>" + stok + "</label>",
+                            "<a onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"small material-icons\"" + ">save</i>",
+                            "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ stok + "</p>",
                             "<label style='text-align: center;' >"+ dd[key].nombreprefijocompra +"</label>",
 
                             // formaVta,
@@ -6197,16 +6209,16 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                         dd[key].titulo,
                         cantidadEnPrefijo,
                         dd[key].nombreprefijocompra,
-                        "<label class='blockcosto'>" + "$ " + costoEnPrefijo + "</label>",
+                        "<label class='blockcosto'>" + "$ " + costoEnPrefijo.toString().replace(".",",") + "</label>",
 
-                        "$ " + precioEnPrefijo,
+                        "$ " + precioEnPrefijo.toString().replace(".", ","),
                         
                         dd[key].nombreproveedor,
                         "Compra",
                         "<a onclick='quitarcompra(\"" + dd[key].idcompra + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar " + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
                         dd[key].cantidad,
                         dd[key].nombreprefijoventa,
-                        "<label class='blockcosto'>" + "$ " + subtotal + "</label>",
+                        "<label class='blockcosto'>" + "$ " + subtotal.toString().replace(".",",") + "</label>",
                         // fsi
 
                     ]).draw(false);
@@ -6724,6 +6736,80 @@ function guardarajuste(id, fechamovimiento, cantidad, tipomovimientonombrecorto,
     });
 }
 
+function consultaxid(id)
+{
+    var bdd = conexionbdd;
+    var tabla = tablaanuncios;
+    var tipo = "consulta";
+
+    var itemanuncio = new Object();
+    itemanuncio.bdd = bdd;
+    itemanuncio.tabla = tabla;
+    itemanuncio.tipo = tipo;
+    itemanuncio.id = id;
+    var objetoanuncio = JSON.stringify(itemanuncio);
+    $.ajax({
+        url: "consultaanuncios.php",
+        data: { objetoanuncio: objetoanuncio },
+        type: "post",
+        success: function (data) {
+            if (data != '[]' && data != 'consultavacia') {
+                dd = JSON.parse(data); //data decodificado
+
+                $.each(dd, function (key, value) {
+                    M.toast({html: 'Producto encontrado'})
+                });
+
+            } else {
+                M.toast({ html: 'Error al buscar el producto. ' + data })
+                console.log("retorno:" + data);
+            }
+        },
+        error: function (e) {
+            M.toast({ html: 'Error al intentar guardar.' })
+        }
+    });
+}
+
+function guardarajusteimportacion(codigobarra, fechamovimiento, cantidad, tipomovimientonombrecorto, prefijocompra,prefijoventa)
+{
+    var bdd = conexionbdd;
+    var tabla = tablaanuncios;
+    var tipo = "consultaxcodigobarra";
+
+    var itemanuncio = new Object();
+    itemanuncio.bdd = bdd;
+    itemanuncio.tabla = tabla;
+    itemanuncio.tipo = tipo;
+    itemanuncio.codigobarra = codigobarra;
+    var objetoanuncio = JSON.stringify(itemanuncio);
+
+    $.ajax({
+        url: "consultaanuncios.php",
+        data: { objetoanuncio: objetoanuncio },
+        type: "post",
+        success: function (data) {
+            if (data != '[]' && data != 'consultavacia')
+            {
+                dd = JSON.parse(data); //data decodificado
+               
+                $.each(dd, function (key, value) 
+                {
+                    guardarajuste(dd[key].id, fechamovimiento, cantidad, tipomovimientonombrecorto, prefijocompra,prefijoventa);
+                });
+
+            } else {
+                M.toast({ html: 'Error al buscar el producto. ' + data })
+                console.log("retorno:" + data);
+            }
+        },
+        error: function (e) {
+            M.toast({ html: 'Error al intentar guardar.' })
+        }
+    });
+}
+
+
 
 // ------------------------------------------------------------------------------------------------------------
 // -------------------------------------------- Stock ---------------------------------------------------
@@ -6867,6 +6953,18 @@ function consultaranunciosstock(tipo)
                         var stokvalorizadov=0;
                         stok = dd[key].stock / dd[key].relacioncompraventa;
 
+                        colorfondo = 'white';
+                        colorsegun = 'black';
+
+                        if(stok > 0){
+                            colorfondo = 'cornflowerblue';
+                            colorsegun = 'black';
+                        }
+                        else if(stok < 0)
+                        {
+                            colorfondo = 'red';
+                            colorsegun = 'black';
+                        }
 
                         if(dd[key].prefijocompra > 0)
                         {
@@ -6959,8 +7057,9 @@ function consultaranunciosstock(tipo)
                             "<label style='text-align: center;' >"+ dd[key].codigobarra +"</label>",
                             dd[key].titulo,
                             "<label style='text-align: center;' class='blockcosto'>" + preciocompra + "</label>",
-                            precioventa,
-                            "<label style='text-align: center;' class='blockstock'>" + stok + "</label>",
+                            precioventa,                            
+                            "<p style='border:none; text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly>" + stok + "</p>",
+
                             "<label style='text-align: center;' class='blockcosto'>" + stokvalorizadoc + "</label>",
                             "<label style='text-align: center;' class='blockcosto'>" + stokvalorizadov + "</label>",
                             "<label style='text-align: center;' >"+ dd[key].nombreprefijocompra +"</label>",
@@ -7012,8 +7111,15 @@ function consultaranunciosstock(tipo)
 }
 
 function muestraValorStock(acumvalorcompra,acumvalorventa){
-    document.getElementById("totalstockcompra").value = parseFloat(acumvalorcompra);
-    document.getElementById("totalstockventa").value = parseFloat(acumvalorventa);
+
+    acumvalorcompra = parseFloat(acumvalorcompra);
+    acumvalorcompra = Math.round(acumvalorcompra * 100) /100;
+
+    acumvalorventa = parseFloat(acumvalorventa);
+    acumvalorventa = Math.round(acumvalorventa * 100) /100;
+
+    document.getElementById("totalstockcompra").value = acumvalorcompra;
+    document.getElementById("totalstockventa").value = acumvalorventa;
 }
 // ------------------------------------------------------------------------------------------------------------
 //------------------------------------------- Cambios masivos ----------------------------------------------
@@ -8041,6 +8147,8 @@ function verificamayoriaedad()
 
 
 
+
+
 function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
     var tipoconsulta = tipo;
@@ -8842,6 +8950,39 @@ function verificabloqueo()
                     bloquearcosto();
                 if (element == 3)
                     bloquearstock();
+            });
+        }
+    }
+
+    if(llama == "panel")
+    {
+        if(arreglobloqueos.length > 0)
+        {
+            arreglobloqueos.forEach(element => {                
+                if(element == 100)
+                    ocultar();
+                if(element == 101)
+                    ocultar();
+                if(element == 102)
+                    ocultar();
+                if(element == 103)
+                    ocultar();
+                if(element == 104)
+                    ocultar();
+                if(element == 105)
+                    ocultar();
+                if(element == 106)
+                    ocultar();
+                if(element == 107)
+                    ocultar();
+                if(element == 108)
+                    ocultar();
+                if(element == 109)
+                    ocultar();
+                if(element == 110)
+                    ocultar();
+                if(element == 111)
+                    ocultar();
             });
         }
     }

@@ -72,16 +72,16 @@
         foreach ($filtro as $filtros)
    		{
             if($sentencia == "")
-                $sentencia = $sentencia . " ( ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') ) ";
+                $sentencia = $sentencia . " ( ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "') ) ";
             else
-                $sentencia = $sentencia . " or ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') ) ";
+                $sentencia = $sentencia . " or ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "') ) ";
 
         }
      
     
     //--------------------------- Acciones -------------------------
     
-     if($tipo == "consultalector" || $tipo == "consultatodosanunciosoferta" || $tipo == "consultarubros" || $tipo == "consultatodosanuncios" || $tipo == "consulta" || $tipo == "consultafiltros")
+     if($tipo == "consultaxcodigobarra" || $tipo == "consultalector" || $tipo == "consultatodosanunciosoferta" || $tipo == "consultarubros" || $tipo == "consultatodosanuncios" || $tipo == "consulta" || $tipo == "consultafiltros")
     {
         if($tipo == "consultatodosanunciosoferta"){
             // $sql = "Select * from " .$tabla. " where esoferta = '1'";
@@ -154,8 +154,10 @@
             
 
         }else if($tipo == "consulta"){
-            $sql = "Select * from " .$tabla. " where id =" . $id;
-
+            $sql = "Select * from " .$tabla. " where " .$tabla. ".id =" . $id;
+        }else if($tipo == "consultaxcodigobarra"){
+            $sql = "Select " .$tabla. ".id from " .$tabla. " where " .$tabla. ".codigobarra = '" . $codigobarra . "'";
+            
         }else if($tipo == "consultatodosanuncios"){
             $sql = "Select "    .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".precio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," .$tabla. ".comodin," 
                                 .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"

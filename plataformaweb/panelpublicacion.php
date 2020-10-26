@@ -80,9 +80,9 @@
     tablatiposdepago        = "";
     tablatiposdemovimientos = "";
     rutaimagenes            = "";
-    idencontrado            =-1;
-    emailingreso            ="";
-      
+    idencontrado            = -1;
+    emailingreso            = "";
+    jerarquia               = ""
         /**
          * INGRESO AL SISTEMA.
          */
@@ -743,6 +743,7 @@ function verificaenter(e){
                             esad = 1;
                         }
                         idencontrado=dd[key].idusuario;
+                        jerarquia=dd[key].jerarquia;
 
                         tr.row.add([
                             dd[key].idplataforma,

@@ -47,7 +47,7 @@
         if($tipo == "consultar")
             $sql = "select * from " .$tabla. " where email = '" .$email. "'";
         else if( $tipo == "verificar"){
-            $sql = "select " .$tabla. ".email,".$tabla. ".esadmin,"
+            $sql = "select " .$tabla. ".email,".$tabla. ".esadmin,".$tabla. ".jerarquia,"
             .$plataforma. ".nombre," 
             .$usuarioplataforma. ".idusuario," .$usuarioplataforma. ".idplataforma from (( "
             .$tabla. " LEFT JOIN " .$usuarioplataforma. " ON " .$tabla. ".id = " .$usuarioplataforma. ".idusuario ) LEFT JOIN "
