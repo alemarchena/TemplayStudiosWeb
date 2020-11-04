@@ -67,42 +67,45 @@ $("#menuanuncios").on('click', function (e) {
 	e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
 
+$("#menucategorias").on('click', function (e) {
+	var poscontacto = $("#contenedorcategoria").offset().top - (alturamenu * 2);
+	e.preventDefault();
+	$("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
 $("#menuofertas").on('click', function (e) {
 	var poscontacto = $("#seccionpromociones").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
-
-$("#menucategorias").on('click', function (e) {
-	var poscontacto = $("#contenedorcategoria").offset().top - (alturamenu * 2); 
-	e.preventDefault(); 
-	$("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+$("#menunovedades").on('click', function (e) {
+	var poscontacto = $("#seccionnovedades").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
-
-
-$("#menugaleria").on('click', function (e) 
-{
+$("#menugaleria").on('click', function (e) {
 	var poscontacto = $("#secciongaleria").offset().top - alturamenu;
 	e.preventDefault();
 	$("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
-
 
 $("#menuhomeo").on('click', function (e) {
 	e.preventDefault();
 	$('html, body').animate({ scrollTop: 0 }, 600);
 });
 
+$("#menucategoriaso").on('click', function (e) {
+	var poscontacto = $("#contenedorcategoria").offset().top - (alturamenu * 2);
+	e.preventDefault();
+	$("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
 
 $("#menuofertaso").on('click', function (e) {
 	var poscontacto = $("#seccionpromociones").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
+$("#menunovedadeso").on('click', function (e) {
+	var poscontacto = $("#seccionnovedades").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
+});
 $("#menugaleriao").on('click', function (e) {
-	
 	var poscontacto = $("#secciongaleria").offset().top - alturamenu;
 	e.preventDefault();
 	$("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-
 });
-
 $("#menuubicaciono").on('click', function (e) {
 	var posclientes = $("#seccionubicacion").offset().top - alturamenu;
 	e.preventDefault();
@@ -113,11 +116,6 @@ $("#menucontactoo").on('click', function (e) {
 	e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 });
 
-$("#menucategoriaso").on('click', function (e) {
-	var poscontacto = $("#contenedorcategoria").offset().top - (alturamenu * 2); 
-	e.preventDefault(); 
-	$("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
-});
 //----------------------------------------------------- PANEL PUBLICACION -------------------------------------------------
 $("#botpublicar").on('click', function (e) {
 	var poscontacto = $("#contenido").offset().top - alturamenu; e.preventDefault(); $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);

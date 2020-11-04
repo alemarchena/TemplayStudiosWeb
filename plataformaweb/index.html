@@ -31,8 +31,8 @@
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" type="text/css" href="animate.css">
     
-    <script>r = Math.random();version=1;</script>
-    <link rel="stylesheet" href="cover.css?" + r>
+    <script>r = Math.random();version=2;</script>
+    <link rel="stylesheet" href="cover.css?" + version + r>
     <script src="configuracion.js?" + version + r></script>
 
     <title></title>
@@ -60,6 +60,7 @@
                     <li class="tab"><a id="menugaleria" href="#">Galería</a></li>
                     <li class="tab"><a id="menucategorias" href="#">Categorías</a></li>
                     <li class="tab"><a id="menuofertas" href="#">Promociones</a></li>
+                    <li class="tab"><a id="menunovedades" href="#">Novedades</a></li>
                     <li class="tab"><a id="menucontacto" href="#">Contacto</a></li>
                     <li class="tab"><a id="menuubicacion" href="#">Ubicación</a></li>
                     <li class="tab"><a id="botoncarrito" href='#' target='_blank' class='waves-effect '><small><i class='small fas fa-shopping-cart' style='color:rgb(4, 179, 33)'></i></small></a></li>
@@ -81,6 +82,7 @@
         <li class="tab"><a class="sidenav-close" id="menucategoriaso"   href="#">Categorías <i class="material-icons">class</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menugaleriao"      href="#">Galería    <i class="material-icons">collections</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menuofertaso"      href="#">Promociones<i class="material-icons">card_giftcard</i></a></li>
+        <li class="tab"><a class="sidenav-close" id="menunovedadeso"      href="#">Novedades<i class="material-icons">card_giftcard</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menucontactoo"     href="#">Contacto   <i class="material-icons">contact_mail</i></a></li>
         <li class="tab"><a class="sidenav-close" id="menuubicaciono"    href="#">Ubicación  <i class="material-icons">location_on</i></a></li>
         <li class="tab"><a class="sidenav-close" id="volver"            href="#">Volver     <i class="material-icons">arrow_back</i></a></li>
@@ -149,15 +151,15 @@
         </div>
 
         <!-- novedades -->
+        <div id="seccionnovedades">
+    
+        </div>
         <div class="row" style="margin-bottom: 0em!important;" >
             <div class="col s12 m8 offset-m2 l6 offset-l3 center">
                 <ul id="listaencontradosnovedades" class="pagination">
         
                 </ul>
             </div>
-        </div>
-        <div id="seccionnovedades">
-    
         </div>
     
         <div id="secciongaleria" class="container">
@@ -195,7 +197,7 @@
     
 <script>ra = Math.random();</script>
 
-<script src="scrollmenu.js?" + ra ></script> <!-- codigo que permite el scroll de menu-->
+<script src="scrollmenu.js?" + version + ra ></script> <!-- codigo que permite el scroll de menu-->
 <script src="funciones.js?" + ra ></script>
 <script src="subscriptionPopup.js?" + ra ></script>
 <script src="establecerparametrosweb.js?" + ra ></script>
@@ -259,6 +261,8 @@
         $("#secciongaleria").load("galeria.html");
         $("#seccionpromociones").load("anuncios_ofertas.html"); //ofertas y promociones
         
+        $("#seccionnovedades").load("anuncios_novedad.html"); //novedades
+        
         var velocidad = 500;
         var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
 
@@ -300,7 +304,12 @@
             versimuestra();
         });
     
-        
+        $("#menunovedades").click(function () {
+            versimuestra();
+        });
+
+
+
         $("#menuofertaso").click(function () {
             versimuestra();
         });
@@ -308,7 +317,9 @@
         $("#menugaleriao").click(function () {
             versimuestra();
         });
-        
+        $("#menunovedadeso").click(function () {
+            versimuestra();
+        });
     });
 
     function asignarrutacarrito() {

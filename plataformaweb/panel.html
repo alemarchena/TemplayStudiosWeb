@@ -8,7 +8,7 @@
         <div id="my-nav" class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
 
-                <li class="nav-item dropdown">
+                <li id="ciencientouno" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bullhorn"></i>Producto - Categoría</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -17,7 +17,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li id="cientodoscientotres" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-database"></i>Clientes - Proveedores</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -26,7 +26,7 @@
                     </div>
                 </li>
                 
-                <li class="nav-item dropdown">
+                <li id="cientocuatrocientocinco" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-store"></i>Venta - Compra/Ajuste</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -34,7 +34,7 @@
                         <a id="botmovimientos" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-cubes"></i>Comprar/Ajustar</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li id="cientoseiscientosiete" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-eye"></i>Consultar</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -42,7 +42,7 @@
                         <a id="botlistastock" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-align-justify"></i>Precios y Stock</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li id="cientoochocientonueve" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bullseye"></i>Actualizaciones</a>
@@ -51,7 +51,7 @@
                                 class="fas fa-check-circle"></i>Masivas</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li id="cientodiezcientoonce" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-toolbox"></i>Herramientas</a>
@@ -123,10 +123,10 @@
 
 <script>
 
+llama = "panel";
 $(document).ready(function ()
 {
     console.log("version " + version);
-    llama = "panel";
     
         $("#botpublicar").click(function(e){
             e.preventDefault();
@@ -256,5 +256,4 @@ $(document).ready(function ()
 
     colorblancofondo();
     asignardireccionweb();
-    verificabloqueo();
 </script>

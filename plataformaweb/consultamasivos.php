@@ -29,7 +29,7 @@
         $accion= $_POST['accion'];
     }
     
-    if($tipo == "publica" || $tipo == "publicapromo" || $tipo == "publicanovedad")
+    if($tipo == "publica" || $tipo == "publicapromo" || $tipo == "publicanovedad" || $tipo == "ocultaprecios")
     {
         $accion= $_POST['accion'];
     }
@@ -83,6 +83,14 @@
                 $sql = "update " .$tabla. " set esnovedad = '1' where id= $id";
             else
                 $sql = "update " .$tabla. " set esnovedad = '0' where id= $id";
+        }
+
+        if($tipo == "ocultaprecios")
+        {
+            if($accion == "si")
+                $sql = "update " .$tabla. " set ocultarprecio = '1' where id= $id";
+            else
+                $sql = "update " .$tabla. " set ocultarprecio = '0' where id= $id";
         }
 
         $resultado = $mysqli->query($sql);

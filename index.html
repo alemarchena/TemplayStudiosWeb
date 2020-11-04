@@ -16,21 +16,44 @@
     </script>
     
     <script>r = Math.random(); version=6;</script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap&family=Bebas+Neue&family=Open+Sans+Condensed:wght@300&family=Palanquin+Dark:wght@700&display=swap"
+        rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logomartillo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>Templay Studios</title>
-    <script src="cargaasincrona.js?33" type="text/javascript" async="async"></script>
-    <link rel="stylesheet" href="css/estilos.css?44" + r + version>
+    <script src="cargaasincrona.js?44" type="text/javascript" async="async"></script>
+    <link rel="stylesheet" href="css/estilos.css?52" + r + version>
 </head>
 <body>
-    <ul class="listamenu">
-        <li><a href="proyectos.html" target="_blank">Productos y servicios</a></li>        
-        <li><a id="capacitar" href="#">Capacitación</a></li>        
-        <li><a id="contactar" href="#">Contacto</a></li>
-        <li><a id="acercade" href="#">Quienes somos</a></li>
-    </ul>
+
+<nav  class="listamenu">
+    <div class="nav-wrapper">
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="proyectos.html" target="_blank">Productos y servicios</a></li>
+            <li><a id="capacitar" href="#">Capacitación</a></li>
+            <li><a id="contactar" href="#">Contacto</a></li>
+            <li><a id="acercade" href="#">Quienes somos</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="proyectos.html" target="_blank">Productos y servicios</a></li>
+    <li><a id="capacitaro" href="#">Capacitación</a></li>
+    <li><a id="contactaro" href="#">Contacto</a></li>
+    <li><a id="acercadeo" href="#">Quienes somos</a></li>
+    <li><a class="sidenav-close" href="#!">Cerrar</a></li>
+</ul>
+    <!-- ---------------------------------------- -->
+   
+   
+    
+    
+
+   <!-- ---------------------------------- -->
     <div id="contenedorlogos" class="contenedor ">
         <img src="images/logopluma.png" id="logopluma" class="logopluma" alt="">
         <img src="images/logomartillo.png" id="logomartillo" class="logomartillo" alt="">
@@ -41,28 +64,28 @@
     <div class="bordelinea contenedor"></div>
 
     <div class="contenedorsinfondo">
-        <p class="titulo">Nuestro mundo es el arte digital y la programación...</p>
+        <p class="bebas titulo">Nuestro mundo es el arte digital y la programación...</p>
     </div>
     <br>
     
     <canvas id="c"></canvas>
 
     <div class="row claseesfumada" style="opacity: 0;">
-        <div class="col  s10 m4 offset-m4 videojuegos">
-            <div class="card videojuegos">
-                <div class="card-image">
-                    
-                        <img id="imagenvideojuego" src="images/memofriend.png" style="width: 15em;">
-                    
-                </div>
-                <div class="card-content videojuegos">
-                    <p class="centrado">Creamos videojuegos casuales, capacitamos a jovenes y adultos.</p>                    
-                </div>
+        <div class="col  s12 m4 offset-m4 videojuegos">
+            <div class="card-image centrado">
+                    <img id="imagenvideojuego" src="images/memofriend.png" style="width: 15em;">
+            </div>
+            <div class="card-content videojuegos">
+                <h4 class="bebas textogris centrado">Videojuegos casuales</h4>
+                <p class="bebas tam1y5 centrado">Creamos videojuegos y capacitamos a jovenes y adultos.</p>                    
             </div>
         </div>
     </div>
-
-    <div class="row claseesfumada soluciones espacioarriba" >
+    <br>
+    <hr>
+    <h4 class="bebas textogris centrado">Soluciones de Software</h4>
+    
+    <div class="row claseesfumada soluciones espacioarriba espacioabajo" >
         <div class="col s12 m8 offset-m2">
             
                 <div class="card-image centrado">
@@ -71,25 +94,33 @@
                 </div>
                 <div class="card-content">
                     <p class="centrado" >Nos enfocamos en brindar soluciones que agilizan el trabajo de nuestros clientes y facilitan el acceso a la información.</p>
-                    Agilizamos procesos de trabajo, creamos sitios web, software para empresas, aplicaciones móviles.
+                    <p class="centrado" >Agilizamos procesos de trabajo, creamos sitios web, software para empresas, aplicaciones móviles.</p>
                 </div>
             
         </div>
     </div>
-    <div class="row claseesfumada soluciones espacioarriba">
+    <br>
+    <hr>
+    <h4 class="bebas textogris centrado">Capacitación</h4>
+    <div id="divcapacitacion" class="row claseesfumada soluciones espacioarriba">
         <div class="col s12 m8 offset-m2">
     
             <div class="card-image centrado">
                 <img src="images/capacitacion.png" class="responsive-img">
     
             </div>
+
             <div class="card-content">                
                 <p class="centrado">Nuestros cursos en informática son agrupados por áreas temáticas como administración,
                     contaduría, salud, etc.
                     Adecuamos el material de estudio según el ámbito en los que se desempeñan los alumnos.</p>
-                    <p class="centrado"><a class="btn" id="cursos" >Mira y Postula a nuestros cursos</a></p>
+                <div id="divcursos" style="background-color: white;"></div>
+
             </div>
-            
+            <br>
+            <hr>
+            <h5 class="bebas centrado">Capacitaciones para empresas</h5>
+            <p class="centrado"><a class="btn" id="cursos" >Postula a nuestros cursos</a></p>
         </div>
     </div>
     <!-- ------------------------------------------ SECCION CONTACTO --------------------------------- -->

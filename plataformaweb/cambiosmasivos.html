@@ -84,33 +84,10 @@
         </div>
         <!-- ------------------------------------------- -->
 
-        <!-- <div class="col-sm-3">
-            <p class="m-0">
-                <a href="#" id="btnAsignarproductos" class="collapsed" data-toggle="collapse"
-                    data-target="#collapseThreeProveedor" aria-expanded="false" aria-controls="collapseThreeProveedor">
-                    Asigna proveedor</a>
-            </p>
-            
-            <div id="collapseThreeProveedor" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body">
-                    <div id="divproveedores" class="row justify-content-center">
-        
-                    </div>
-                    <div id="divoperacionproveedores" class="row justify-content-center">
-                        <div class="col">
-                            <button id="desasignaproveedor" class="btn btn-warning">Desasignar</button>
-                        </div>
-                        <div class="col">
-                            <button id="asignaproveedor" class="btn btn-primary">Asignar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
     <div class="row justify-content-center">
 
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <p class="m-0">
                 <a href="#" id="btnAsignarcategoria" class="collapsed" data-toggle="collapse"
                     data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
@@ -129,6 +106,35 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-sm-3">
+        
+        
+            <p class="m-0">
+                <a href="#" id="btnOcultaprecio" class="collapsed" data-toggle="collapse" data-target="#collapseOculta"
+                    aria-expanded="false" aria-controls="collapseOculta">
+                    Oculta precio web
+                </a>
+            </p>
+            <div id="collapseOculta" class="collapse" aria-labelledby="headingOculta" data-parent="#accordion">
+        
+                <div class="row justify-content-center">
+                    <label for="divoperacionocultar" class="colorletras">Ocultar precios de productos en la web</label>
+                </div>
+                <div id="divoperacionocultar" class="row justify-content-center">
+                    <div class="col">
+                        <button id="noocultar" class="btn btn btn-warning">Mostrar</button>
+                    </div>
+                    <div class="col">
+                        <button id="siocultar" class="btn btn btn-primary">Ocultar</button>
+                    </div>
+                </div>
+            </div>
+        
         </div>
         <!-- ------------------------------------------- -->
         <div class="col-sm-3">
@@ -329,6 +335,13 @@ $(document).ready(function ()
         publicamasivamente("no");
     });
 
+    $("#siocultar").click(function () {
+        ocultamasivamente("si");
+    });
+
+    $("#noocultar").click(function () {
+        ocultamasivamente("no");
+    });
     
 
     $("#sipublicarpromo").click(function () {

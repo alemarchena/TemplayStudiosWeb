@@ -4,9 +4,7 @@ body{
 }
 /*------------------------ Menu ----------------------------*/
 
-.listamenu{
-    margin: 2em;
-}
+
 ul {
   font-family: 'Noto Sans JP', sans-serif;
   font-size:0.9em ;
@@ -87,8 +85,8 @@ p, h1,h2,h3,h4{
 /*----------------------- Logos dinamicos ---------------------------------*/
 .logopluma{
     left: -1000px;
-    width: 60px;
-    height: 50%;
+    width: 30px;
+    height: 65px;
     -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
     -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
     -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
@@ -102,8 +100,8 @@ p, h1,h2,h3,h4{
 
 .logomartillo{
     left: 1000px;
-    width: 140px;
-    height: auto;
+    width: 70px;
+    height: 75px;
     -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
     -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
     -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
@@ -117,7 +115,8 @@ p, h1,h2,h3,h4{
    
 
     top: 2000px;
-    width: 280px;
+    width: 200px;
+    height: 100px;
     -webkit-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
     -moz-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
     -o-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
@@ -142,7 +141,10 @@ p, h1,h2,h3,h4{
     padding-top: 2em;
     margin-bottom: 0em;
 }
-
+.espacioabajo{
+    padding-bottom: 2em;
+    margin-bottom: 0em;
+}
 .espacioabajo{
     padding-bottom: 2em;
 }
@@ -242,6 +244,9 @@ canvas {
     left: 0;
 }
 
+.listamenu{
+    background-color: black;
+}
 /*----------------------------- Sección Contacto ---------------------*/
 
 .contenedorcontacto{
@@ -329,6 +334,20 @@ canvas {
     border-color: darkgoldenrod;
     
 }
+
+.bebas{
+  font-family: 'Bebas Neue', cursive;
+}
+.paladin{
+  font-family: 'Palanquin Dark', sans-serif;
+}
+.textogris{
+    color: rgb(196, 196, 196)!important;
+
+}
+.tam1y5{
+    font-size: 1.5em;
+}
 /*--------------------------- Media Query --------------------------------*/
 
 
@@ -369,19 +388,6 @@ canvas {
         
     }
 
-
-    .logopluma{
-        width: 40px;
-        height: 35%;
-    }
-    .logomartillo{
-        width: 80px;
-    }
-
-    .logonombre{
-        width: 70%;
-
-    }
     
     li {
         float: left;
@@ -402,4 +408,47 @@ canvas {
         width:40%!important;
         height: auto;
     }
+
+    .logopluma{
+    left: -1000px;
+    width: 20px;
+    height: 55px;
+    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    
+    position: relative;
+    transform:translate(1000px,0);
+    border: 2px;
+    border-color: black;
+}
+
+.logomartillo{
+    left: 1000px;
+    width: 60px;
+    height: 65px;
+    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+
+    position: relative;
+    transform:translate(-1000px,0);
+}
+
+.logonombre{
+   
+
+    top: 2000px;
+    width: 100px;
+    height: 50px;
+    -webkit-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+    -moz-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+    -o-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+    transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+
+    position : relative;
+    transform: translate(0,-2000px);
+}
 }

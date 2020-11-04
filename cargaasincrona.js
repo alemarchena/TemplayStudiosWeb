@@ -54,13 +54,35 @@ function CargarMaterilizeYcontacto(){
     $(document).ready(function () {
        
         var contactooacerca = false;
-        $("#contactar").click(function () {
+        $("#contactar").on('click', function (e) {
             $("#contenedorcontactoacercade").load("contacto.html");
             contactooacerca = true;
+            setTimeout(function () {
+                ira(600);
+            }, 550);
         });
-        $("#acercade").click(function () {
-            $("#contenedorcontactoacercade").load("acercade.html?1");
+        $("#acercade").on('click', function (e) {
+            $("#contenedorcontactoacercade").load("acercade.html");
             contactooacerca = true;
+            setTimeout(function () {
+                ira(600);
+            }, 550);
+           
+        });
+        $("#contactaro").on('click', function (e) {
+            $("#contenedorcontactoacercade").load("contacto.html");
+            contactooacerca = true;
+            setTimeout(function () {
+                ira(600);
+            }, 550);
+        });
+
+        $("#acercadeo").on('click', function (e) {
+            $("#contenedorcontactoacercade").load("acercade.html");
+            contactooacerca = true;
+            setTimeout(function () {
+                ira(600);
+            }, 550);
         });
 
         function ira(velocidad) {
@@ -74,32 +96,44 @@ function CargarMaterilizeYcontacto(){
 
             
         }
+        function iracapacitar(velocidad) {
+            var posproyectosweb = $("#divcapacitacion").offset().top;
+            $("HTML, BODY").animate({ scrollTop: posproyectosweb }, velocidad);
+            setTimeout(function () {
+                $(".iconoarriba").css("visibility", "visible");
+
+            }, 550);
+            $("#divcapacitacion").css("opacity", 1);
+
+
+        }
         function irarriba() {
             var posproyectosweb = $(".listamenu").offset().top;
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);
             setTimeout(function(){
                 $("#contenedorcontactoacercade").empty();
-                // $(".iconoarriba").css("visibility", "hidden");
-
             },550);
+            contactooacerca = false;
+
         }
 
-        $("#contactar").on('click', function (e) {
-            ira(600);
+      
+        $("#capacitar").on('click', function (e) {
+            cargarformulario();
+            iracapacitar(1200);
         });
-        $("#acercade").on('click', function (e) {
-            ira(600);
+
+       
+       
+        $("#capacitaro").on('click', function (e) {
+            cargarformulario();
+            iracapacitar(1200);
         });
-     
+
         $(".iconoarriba").on('click', function (e) {
             irarriba();
         });
 
-        $("#capacitar").on('click', function (e) {
-            cargarformulario();
-            ira(1200);
-        });
-        
         setTimeout(function () {
 
             //Carga el archivo con las particulas
@@ -122,17 +156,12 @@ function CargarMaterilizeYcontacto(){
             {
                 $("#contenedorcontactoacercade").css("opacity", scrollpercent);
                 $(".claseesfumada").css("opacity",scrollpercent/3);
-                
             }
             else
             {
                 $("#contenedorcontactoacercade").css("opacity", "1");
                 $(".claseesfumada").css("opacity", 1);
-
             }
-
-            // console.log(scrollpercent);
-
         }
 
        
@@ -146,17 +175,19 @@ function CargarMaterilizeYcontacto(){
 
             cargarformulario();
         });
+        $("#divcursos").load("cursos.html");
+        setTimeout(function () { $('.sidenav').sidenav(); }, 500);
 
-        
+
     });
+
 }
 
-addEvent(window, 'load', function () { loadScript('https://code.jquery.com/jquery-3.3.1.min.js',
-    function(){ 
-        //console.log("Jquery cargado");
+    addEvent(window, 'load', function () { loadScript('https://code.jquery.com/jquery-3.3.1.min.js',
+        function(){ 
+
         CargarMaterilizeYcontacto();   
     });
 
-
-
+    
 });

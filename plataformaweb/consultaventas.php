@@ -32,6 +32,7 @@
         $idcliente      = $vendido["idclienteelegido"];
         $bonus          = $vendido["bonus"];
         $tipopago       = $vendido["tipopago"];
+        $hora           = $vendido["hora"];
     }
 
     if($tipo == "baja")
@@ -71,7 +72,7 @@
         {
             // $sql = "Select * from `" .$tabla. "` where fecha = '" . $fechaventa . "'";
             $sql = "Select " 
-            .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," .$tabla. ".email," 
+            .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," .$tabla. ".email," .$tabla. ".hora," 
             .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," .$tabla. ".email,"
             .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion," .$tablaanuncios. ".codigobarra,"  
             .$tablaclientes. ".idcliente,".$tablaclientes. ".nombrecliente," 
@@ -86,7 +87,7 @@
         }else{
             // $sql = "Select * from `" .$tabla. "` where fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "' order by fecha desc";
             $sql = "Select " 
-            .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," 
+            .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," .$tabla. ".hora," 
             .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," .$tabla. ".email,"
             .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion," .$tablaanuncios. ".codigobarra," 
             .$tablaclientes. ".idcliente,".$tablaclientes. ".nombrecliente," 
@@ -115,8 +116,8 @@
     }else if($tipo == "alta" || $tipo == "baja")
     {
         if($tipo == "alta"){
-            $sql = "Insert Into " .$tabla. "(idproducto, precio, costo, idrubro, fecha, cantidad,idcliente,bonus,tipopago,email)
-                values('$idproducto','$precio','$costo','$idrubro','$fechaventa','$cantidad','$idcliente','$bonus','$tipopago','$email')";
+            $sql = "Insert Into " .$tabla. "(idproducto, precio, costo, idrubro, fecha, hora, cantidad,idcliente,bonus,tipopago,email)
+                values('$idproducto','$precio','$costo','$idrubro','$fechaventa','$hora','$cantidad','$idcliente','$bonus','$tipopago','$email')";
         
         }else{
             $sql = "delete from " .$tabla. " where id = $id";

@@ -6,11 +6,14 @@ var arregloproveedoranuncio = [];
 cantidadporpagina = 12; //cantidad de anuncios que entran en una pagina
 var muestrastockinicio = false;
 
-arregloconsultaofertas = []; //arreglo que guarda los anuncios de la consulta
-arregloconsultabuscados = []; //arreglo que guarda los anuncios de la consulta
+arregloconsultaofertas = []; 
+arregloconsultanovedades = [];
+arregloconsultabuscados = [];
 paginaactualofertas = 0;
+paginaactualnovedad = 0;
 paginaactualbuscados = 0;
 paginastotalesofertas = 0;
+paginastotalesnovedad = 0;
 paginastotalesbuscados = 0;
 
 arregloUnidades = []; //unidades de compra y venta de los productos fraccionados
@@ -507,7 +510,7 @@ function EnviarFormulario()
     var pb=0;
     var np=0;
     var oa=0;
-
+    var ocp=0;
 
     if(llama == "anuncios")
     {
@@ -561,6 +564,12 @@ function EnviarFormulario()
             oa = 0;
         }
 
+        if ($('#opcionocultarprecio').prop('checked')) {
+            ocp = 1;
+        } else {
+            ocp = 0;
+        }
+        
     }else if(llama == "comprar")
     {
         rnombre = document.getElementById('rubro').value;
@@ -653,7 +662,7 @@ function EnviarFormulario()
             {//esta modificando pero dejo la misma imagen
                 var i = "";
             }
-            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin);
+            altaanuncio(id, r, t, d, p, c, i, en, eo,np,o,come,pb,bonus,oa,tia,pea,tle,le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin,ocp);
 
         }else{
             var i = imagen.files[0].name;
@@ -665,7 +674,7 @@ function EnviarFormulario()
                 if (this.readyState == 4 && this.status == 200) {
                     console.log("ok");
                     //guardar el anuncio en la base de datos
-                    altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin);
+                    altaanuncio(id, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin,ocp);
                     // limpiarformulario();
 
                 } else
@@ -680,7 +689,7 @@ function EnviarFormulario()
 
 
 
-function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin)
+function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus, oa, tia, pea, tle, le,codbar,pfixc,pfixv,costoxprefijo,ventaxprefijo,comodin,ocp)
 {
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
@@ -717,7 +726,7 @@ function altaanuncio(idpasado, r, t, d, p, c, i, en, eo, np, o, come, pb, bonus,
     itemanuncio.precioantes = pea;
     itemanuncio.textolinkexterno = tle;
     itemanuncio.linkexterno = le;
-    
+    itemanuncio.ocultarprecio = ocp;
     itemanuncio.rutaimagenes = "";
     itemanuncio.filtro = "";
 
@@ -842,6 +851,7 @@ function consultaranuncios(tipo)
                 var nopub = "";
                 var probo = "";
                 var opant = "";
+                var ocpre = "";
                 arreglo = [];
                 $.each(dd, function (key, value) 
                 {
@@ -870,6 +880,11 @@ function consultaranuncios(tipo)
                     else
                         opant = "";
 
+                     if (dd[key].ocultarprecio == 1)
+                        ocpre = "PRECIO OCULTO";
+                    else
+                         ocpre = "";
+
                     var objeto          = new  Object();
                     objeto.id           = dd[key].id;
                     objeto.titulo       = dd[key].titulo;
@@ -886,6 +901,7 @@ function consultaranuncios(tipo)
                     objeto.costoxprefijo = dd[key].costoxprefijo;
                     objeto.ventaxprefijo = dd[key].ventaxprefijo;
                     objeto.comodin       = dd[key].comodin;
+                    objeto.ocultarprecio       = dd[key].ocultarprecio;
                     objeto.relacioncompraventa = dd[key].relacioncompraventa;
 
                     arreglo.push(objeto);
@@ -893,7 +909,7 @@ function consultaranuncios(tipo)
                     {
                         tanuncios.row.add( [
                             dd[key].id,
-                            "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
+                            "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\",\"" + dd[key].ocultarprecio+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
                             "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
                             dd[key].rubro,
                             dd[key].id,
@@ -905,6 +921,7 @@ function consultaranuncios(tipo)
                             esofe,
                             esnov,
                             nopub,
+                            ocpre,
                             dd[key].comodin,
                             // opant,
                             // dd[key].tituloventaja,
@@ -1181,7 +1198,7 @@ function unCambioPrefijoVenta()
 
 
 // function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea,tle,le)
-function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
+function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le,ocpre)
 {
     
     limpiarinputimagen();
@@ -1242,6 +1259,12 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le)
     }
     else {
         $("#opcionantes").prop("checked", false);
+    }
+    if (ocpre == 1) {
+        $("#opcionocultarprecio").prop("checked", true);
+    }
+    else {
+        $("#opcionocultarprecio").prop("checked", false);
     }
     
     //Verifica el id pasado y lo compara con el arreglo que armo durante la consulta
@@ -2045,6 +2068,7 @@ function consultaranunciosvender(tipo) {
         filtro.push( textobuscado );
     }
     
+   
     var objetoanuncio = JSON.stringify(itemanuncio);
 
     var itemanuncio = new Object();
@@ -2058,6 +2082,7 @@ function consultaranunciosvender(tipo) {
     itemanuncio.filtro = filtro;
     itemanuncio.codigobarra = textobuscado;
     itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
+
     //traido de consulta stock
     itemanuncio.tablacompras = tabladecompras;
     itemanuncio.tablaventas = tabladeventas;
@@ -2518,9 +2543,10 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
     itemventa.tipopago = tipopagonombrecorto;
     itemventa.fechaventa = fechaventa;
     itemventa.email = emailingreso;
+    itemventa.hora = damelahora();
 
     var vendido = JSON.stringify(itemventa);
-
+    console.log(vendido);
     $.ajax({
         url: "consultaventas.php",
         data: { vendido: vendido },
@@ -2655,6 +2681,7 @@ function consultarventasdeldia(fechaventa,e) {
                         "$ " + dd[key].precio.toString().replace(".",","),
                         "$ " + total.toString().replace(".", ","),
                         dd[key].tipopago,
+                        dd[key].hora,
                         "<label style='text-align: center;'>" + dd[key].idcliente + "</label>" ,
                         "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
                         "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
@@ -2963,6 +2990,7 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                         dd[key].precio.toString().replace(".",","),
                         cantidadxprecio.toString().replace(".",","),
                         dd[key].tipopago,
+                        dd[key].hora,
                         "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
                         "<label style='text-align: center;'>" + dd[key].rubro + "</label>" ,
                         "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
@@ -7420,6 +7448,11 @@ function publicapromomasivamente(accion){
 function publicamasivamente(accion){
     verificarsiquiere("publica",accion); 
 }
+
+function ocultamasivamente(accion){
+    verificarsiquiere("ocultaprecios",accion); 
+}
+
 function asignarcategoriamasivamente()
 {
     var categoria = document.getElementById("opciones");
@@ -7453,13 +7486,54 @@ function verificarsiquiere(llamado, accion){
                 asignarproveedoresmasivamente(accion);
             else if (llamado == "publica" || llamado == "publicapromo" || llamado == "publicanovedad")
                 publicacion(accion,llamado);
-
+            else if (llamado == "ocultaprecios")
+                ocultarprecios(accion,llamado);
         } else if (result.dismiss === Swal.DismissReason.cancel) {}
     })
 }
 
 
 function publicacion(accion,tipo){
+    paquete = [];
+    for (var a = 0; a < arreglochecktilde.length; a++) 
+    {
+        if (arreglochecktilde[a].tildado == true) 
+        {
+            var datos = new Object();
+            datos.id = arreglochecktilde[a].idanuncio;
+            var datosjson = JSON.stringify(datos);
+            paquete.push(datosjson);
+        }
+    }
+
+    if(paquete.length > 0)
+    {
+        var bdd = conexionbdd;
+        var tabla = tablaanuncios;
+
+        $.ajax({
+
+            url: "consultamasivos.php",
+            data: { bdd: bdd, tabla: tabla, tipo:tipo,accion:accion,paquete: paquete },
+            type: "post",
+
+            success: function (data) {
+                limpiaanunciosmasivos();
+                
+                Swal.fire(
+                    'Actualizados',
+                    data + ' productos',
+                )
+            }
+            ,
+            error: function (e) {
+                console.log("Error en la consulta." + e.value);
+            }
+        });
+    }
+}
+
+function ocultarprecios(accion, tipo){
     paquete = [];
     for (var a = 0; a < arreglochecktilde.length; a++) 
     {
@@ -8150,7 +8224,6 @@ function verificamayoriaedad()
 
 
 function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
-
     var tipoconsulta = tipo;
     var tamaniotarjeta = "large";
     var bdd = conexionbddpaginaweb;
@@ -8158,7 +8231,6 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     var tabla = tablaanunciospaginaweb;
     var tabladerubros = tablarubrospaginaweb;
     var tablaunidadesgranel = tablaunidadesgranelweb;
-
     var seleccion="";
     var seleccionidrubro="";
     var filtro ="";
@@ -8168,35 +8240,29 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     if(tipo == "consultarubros")
     {
         verificamayoriaedad();
-        
         seleccion = document.getElementById(opcion);
         seleccionidrubro = document.getElementById(opcion).value;
-
         if (seleccionidrubro == "") 
         {
             return false;
         }
-       
     }else if (tipo == "consultatodosanunciosoferta")
-    {
-       
+    { 
+
+    }else if (tipo == "consultanovedades")
+    { 
 
     }else if (tipo == "consultafiltros")
     {
-
         verificamayoriaedad();
-
         textobuscado = $("#cajabusqueda").val();
         textobuscado = document.getElementById("cajabusqueda").value;
 
         if (textobuscado == "") {
             return false;
         }
-
         filtro = [];
         filtro.push( textobuscado );
-        
-
     }else
     {
         return false;
@@ -8217,17 +8283,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
-
-    itemanuncio.titulo = "";
-    itemanuncio.descripcion = "";
-    itemanuncio.precio = "";
-    itemanuncio.costo = "";
-    itemanuncio.esnovedad = "";
-    itemanuncio.esoferta = "";
-    itemanuncio.nopublicar = "";
-    itemanuncio.observaciones = "";
-    itemanuncio.comentarios = "";
-
+   
     itemanuncio.rutaimagenes = rutadeimagenes;
     itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
@@ -8235,6 +8291,8 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
+
+
 
     var nombrehijo="";
     if(tipo == "consultarubros")
@@ -8246,6 +8304,10 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     {
         nombrehijo = "hijosofer";
         arregloconsultaofertas = [];
+
+    } else if (tipo == "consultanovedades") {
+        nombrehijo = "hijosnove";
+        arregloconsultanovedades = [];
 
     }else  if (tipo == "consultafiltros")
     {
@@ -8259,18 +8321,13 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         displayLength: '3000'
     });
 
-    
-    
     $.ajax({
         url: "consultaanuncios.php",
-
         data: { objetoanuncio: objetoanuncio },
         type: "post",
 
         success: function (data) 
         {
-           
-
             if (data != '[]' && data != 'consultavacia') {
 
                 dd = JSON.parse(data); //data decodificado
@@ -8282,7 +8339,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                 var textolinkexterno = "";
                 var linkexterno= "";
                 var descripcionacotada="";
-
+                var ocultarprecio="";
                 $.each(dd, function (key, value) {
 
                     if (dd[key].nopublicar == 0) 
@@ -8294,6 +8351,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                         listaobservacioncomentario = "";
                         partemastexto = "";
                         descripcionacotada = "";
+                        ocultarprecio = dd[key].ocultarprecio;
 
                         if (dd[key].productobonus == 1) {
                             valorbonus = "Cange por " + dd[key].bonus + " bonus";
@@ -8301,13 +8359,12 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                             valorbonus = "";
                         }
 
-
                         if (dd[key].tieneventaja) {
 
                             tituloventaja = dd[key].tituloventaja;
                             precioventaja = "$ " + dd[key].precioventaja;
 
-                            if (tituloventaja.trim() == "" || precioventaja == 0) {
+                            if (tituloventaja.trim() == "" || precioventaja == 0 || ocultarprecio == 0) {
                                 tituloventaja = "";
                                 precioventaja = "";
                             }
@@ -8324,14 +8381,12 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                             parteobservacion = "<li class=''> <div class='collapsible-header'><i class='material-icons icosabermas'>chrome_reader_mode</i>Saber mas...</div><div class='collapsible-body'><span>" + dd[key].observaciones + "</span></div></li>";
                         } else {
                             parteobservacion = "";
-
                         }
 
                         if (dd[key].comentarios != "") {
                             partecomentario = "<li class=''> <div class='collapsible-header'><i class='material-icons icosugerencias'>comment</i>Sugerencias</div><div class='collapsible-body'><span>" + dd[key].comentarios + "</span></div></li>"
                         } else {
                             partecomentario = ""
-
                         }
 
                         descripcionacotada = dd[key].descripcion;
@@ -8358,20 +8413,21 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                             iconomasinfo = "<i class='material-icons right'>pageview</i>";
                         }
                         // -----------------------------
-
-                        
                             if (tarjetaconprecio  == "si") {
 
-                                var precio;
-                                if (dd[key].precio > 0) {
-                                    precio = "$ " + dd[key].precio;
-                                    verpreciotarjeta = "preciotarjeta";
-                                } else {
-                                    precio = "Consultar Precio";
-                                    tituloventaja = "";
-                                    precioventaja = "";
-                                    verpreciotarjeta = "preciotarjetaconsultar";
+                                var precio='';
 
+                                if(ocultarprecio == 0)
+                                {
+                                    if (dd[key].precio > 0) {
+                                        precio = "$ " + dd[key].precio;
+                                        verpreciotarjeta = "preciotarjeta";
+                                    } else {
+                                        precio = "Consultar Precio";
+                                        tituloventaja = "";
+                                        precioventaja = "";
+                                        verpreciotarjeta = "preciotarjetaconsultar";
+                                    }
                                 }
 
                                 var objeto = new Object();
@@ -8383,7 +8439,10 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                                 } else if (tipo == "consultatodosanunciosoferta") {
                                     paginaactualofertas = 1;
                                     arregloconsultaofertas.push(objeto);
-                                } 
+                                } else if (tipo == "consultanovedades") {
+                                    paginaactualnovedad = 1;
+                                    arregloconsultanovedades.push(objeto);
+                                }  
                             }
                     }
                 });
@@ -8398,18 +8457,16 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                         cantidadpaginas = Math.floor(cuenta / cantidadporpagina) + 1;
                     else
                         cantidadpaginas = cuenta / cantidadporpagina;
-                        
                     
                     crearpaginador(cantidadpaginas,tipoconsulta);
                     muestraanuncionarreglo(1, tipoconsulta);   //inserto los anuncios del resultado
-
-                    
                 }else
                 {
                     crearpaginador(cantidadpaginas,tipoconsulta)
                     muestraanuncionarreglo(1, tipoconsulta);   //inserto los anuncios del resultado
-
                 }
+
+                Verificaresultadosbusqueda(tipo);
             }
             else {
                 if (seleccionidrubro != "") {
@@ -8435,34 +8492,87 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         
 }
 
+function Verificaresultadosbusqueda(tipo)
+{
+    var dp = document.getElementById("divpromociones");
+    var mof = document.getElementById("menuofertas");
+    var mofo = document.getElementById("menuofertaso");
+    var dn = document.getElementById("divnovedad");
+    var mn = document.getElementById("menunovedades");
+    var mno = document.getElementById("menunovedadeso");
+
+    if(arregloconsultaofertas.length == 0)
+    {
+        if(dp)
+            dp.style.display = "none";
+        if(mof)
+            mof.style.display = "none";
+        if(mofo)
+            mofo.style.display = "none";
+    }else
+    {
+        if(dp)
+            dp.style.display = "block";
+        if(mof)
+            mof.style.display = "block";
+        if(mofo)
+            mofo.style.display = "block";
+    }
+
+    if(arregloconsultanovedades.length == 0)
+    {
+        if(dn)
+            dn.style.display = "none";
+        if(mn)
+            mn.style.display = "none";
+        if(mno)
+            mno.style.display = "none";
+    }else
+    {
+        if(dn)
+            dn.style.display = "block";
+        if(mn)
+            mn.style.display = "block";
+        if(mno)
+            mno.style.display = "block";
+    }
+}
+
 // ------------------- Crea los botones de navegacion en el resultado de la consulta -----------
 
-function crearpaginador(cantidadpaginas, tipoconsulta){
+function crearpaginador(cantidadpaginas, tipoconsulta)
+{
+    var lis = null;
+    var t = null;
 
+    //segun quien es el objeto que busca, elimina los botones del paginador, de la busqueda anterior
+    if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros") {
 
-        var lis = null;
-        var t = null;
+        $("#listaencontradosbuscador").empty();  
+        
+        if (cantidadpaginas > 1) {
+            paginastotalesbuscados = cantidadpaginas;
+            insertabotonespaginas("listaencontradosbuscador", paginastotalesbuscados, tipoconsulta);
+        }
 
-        //segun quien es el objeto que busca, elimina los botones del paginador, de la busqueda anterior
-        if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros") {
+    } else if (tipoconsulta == "consultatodosanunciosoferta") {
 
-            $("#listaencontradosbuscador").empty();  
-            
-            if (cantidadpaginas > 1) {
-                paginastotalesbuscados = cantidadpaginas;
-                insertabotonespaginas("listaencontradosbuscador", paginastotalesbuscados, tipoconsulta);
-            }
+        $("#listaencontradospromociones").empty();  
 
-        } else if (tipoconsulta == "consultatodosanunciosoferta") {
+        if (cantidadpaginas > 1) {
+            paginastotalesofertas = cantidadpaginas;
+            insertabotonespaginas("listaencontradospromociones", paginastotalesofertas,tipoconsulta);
+        }
+    } else if (tipoconsulta == "consultanovedades") {
 
-            $("#listaencontradospromociones").empty();  
+        $("#listaencontradosnovedades").empty();  
 
-            if (cantidadpaginas > 1) {
-                paginastotalesofertas = cantidadpaginas;
-                insertabotonespaginas("listaencontradospromociones", paginastotalesofertas,tipoconsulta);
-            }
-        } 
-    
+        if (cantidadpaginas > 1) {
+            paginastotalesnovedad = cantidadpaginas;
+            insertabotonespaginas("listaencontradosnovedades", paginastotalesnovedad,tipoconsulta);
+        }
+    }
+
 }
 
 function insertabotonespaginas(nombrelista, cantidadpaginastotales, tipoconsulta)
@@ -8477,6 +8587,10 @@ function insertabotonespaginas(nombrelista, cantidadpaginastotales, tipoconsulta
     }
     else if (tipoconsulta == "consultatodosanunciosoferta") {
         referencia = "#seccionpromociones";
+        referenciabotones = referencia;
+
+    }else if (tipoconsulta == "consultanovedades") {
+        referencia = "#seccionnovedades";
         referenciabotones = referencia;
 
     }
@@ -8584,8 +8698,34 @@ function verificaestadoaa(tipoconsulta,nombrelista){
             atr.classList.remove("disabled"); 
             atr.classList.add("enabled");
         }
+    }else if (tipoconsulta == "consultanovedades")
+    {
+         //verifico como deben quedar los botones de adelante y atras
+        if(paginaactualnovedad == paginastotalesnovedad) //es la ultima pagina
+        {
+            ade.classList.remove("enabled"); 
+            ade.classList.add("disabled");
 
-       
+            atr.classList.remove("disabled"); 
+            atr.classList.add("enabled");
+
+
+        }else if(paginaactualnovedad == 1) //es la primer pagina
+        {
+            ade.classList.remove("disabled"); 
+            ade.classList.add("enabled");
+
+            atr.classList.remove("enabled"); 
+            atr.classList.add("disabled");
+            
+        }else //esta en una pagina intermedia
+        {
+            ade.classList.remove("disabled");
+            ade.classList.add("enabled");
+
+            atr.classList.remove("disabled"); 
+            atr.classList.add("enabled");
+        }
     }
 }
 
@@ -8634,6 +8774,18 @@ function irapagina(pagina, tipoconsulta,nombrelista,referencia)
 
 
         muestraanuncionarreglo(paginaactualofertas, tipoconsulta);
+    } else if (tipoconsulta == "consultanovedades")
+    {
+        var pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
+        pag.classList.remove("active"); 
+
+        paginaactualnovedad = pagina;
+
+        pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
+        pag.classList.add("active"); 
+
+
+        muestraanuncionarreglo(paginaactualnovedad, tipoconsulta);
     }
 
     verificaestadoaa(tipoconsulta,nombrelista);
@@ -8674,6 +8826,20 @@ function iradelante(tipoconsulta, nombrelista, referencia){
             pag.classList.add("active"); 
 
         }
+    } else if (tipoconsulta == "consultanovedades")
+    {
+        if(paginaactualnovedad < paginastotalesnovedad)
+        {
+            var pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
+            pag.classList.remove("active"); 
+
+            paginaactualnovedad = paginaactualnovedad + 1;
+            muestraanuncionarreglo(paginaactualnovedad, tipoconsulta);
+
+            pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
+            pag.classList.add("active"); 
+
+        }
     }
 
     verificaestadoaa(tipoconsulta,nombrelista);
@@ -8711,6 +8877,19 @@ function iratras(tipoconsulta, nombrelista,referencia)
             pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
             pag.classList.add("active"); 
         }
+    } else if (tipoconsulta == "consultanovedades")
+    {
+        if(paginaactualnovedad > 1)
+        {
+            var pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
+            pag.classList.remove("active"); 
+
+            paginaactualnovedad = paginaactualnovedad - 1;
+            muestraanuncionarreglo(paginaactualnovedad, tipoconsulta);
+            
+            pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
+            pag.classList.add("active"); 
+        }
     }
 
     verificaestadoaa(tipoconsulta,nombrelista);
@@ -8744,6 +8923,12 @@ function muestraanuncionarreglo(numerodepagina, tipoconsulta)
         $(".hijosofer").remove();
         arregloconsulta = arregloconsultaofertas;
 
+    } else if (tipoconsulta == "consultanovedades") 
+    {
+        t = $('#novedadesanuncios');
+        $(".hijosnove").remove();
+        arregloconsulta = arregloconsultanovedades;
+
     } 
 
     //+1 porque el primer elemento a mostrar debe ser uno mas al registro del bloque anterior
@@ -8762,9 +8947,9 @@ function muestraanuncionarreglo(numerodepagina, tipoconsulta)
 
 }
 
+// ---------------------------- funcionalidad para la busqueda en el panel ------------------
 function focoencajabusqueda(teclafoco) 
 {
-        
     if (llama == "vender" || llama == "comprar" || llama == "anuncios" || llama == "stock") {
         if ($('#usalector').prop('checked') || teclafoco == 115) 
         {
@@ -8775,7 +8960,6 @@ function focoencajabusqueda(teclafoco)
             document.getElementById('cajabusqueda').value = "";
         }
     }
-    
 }
 
 function ActivarCheckLector()
@@ -8791,7 +8975,6 @@ function ActivarCheckLector()
 
 //Funcion para capturar teclas
 $(function(){ 
-     
      $("body").keydown(function(e)
      { 
          var teclapresionada = e.keyCode || e.which; 
@@ -8840,6 +9023,13 @@ function buscarYcambiar(valor,buscado,reemplazo)
     return valor;
 }
 
+function damelahora(){
+
+    var fecha = new Date();
+    var hora = fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
+    return hora;
+
+}
 //---------------------------------- Bloqueos ------------------------------------
 
 function consultarbloqueos()
@@ -8869,6 +9059,9 @@ function consultarbloqueos()
                 {
                     arreglobloqueos.push(dd[key].bloqueo);
                 });
+
+                verificabloqueo();
+
             }
         },
         error:function(e)
@@ -8956,36 +9149,126 @@ function verificabloqueo()
 
     if(llama == "panel")
     {
+        var cien        = false;
+        var cientouno   = false;
+        var cientodos   = false;
+        var cientotres  = false;
+        var cientocuatro= false;
+        var cientocinco = false;
+        var cientoseis  = false;
+        var cientosiete = false;
+        var cientoocho  = false;
+        var cientonueve = false;
+        var cientodiez  = false;
+        var cientoonce  = false;
+
         if(arreglobloqueos.length > 0)
         {
             arreglobloqueos.forEach(element => {                
-                if(element == 100)
-                    ocultar();
+                if(element == 100){
+                    ocultarmenu('botpublicar');
+                    cien = true;
+                    if(cientouno)
+                        ocultarmenu('ciencientouno');
+                }
                 if(element == 101)
-                    ocultar();
+                {
+                    ocultarmenu('botrubro');
+                    cientouno = true;
+
+                    if(cien)
+                        ocultarmenu('ciencientouno');
+                }    
+
                 if(element == 102)
-                    ocultar();
+                {
+                    ocultarmenu('botclientes');
+                    cientodos = true;
+                    if(cientotres)
+                        ocultarmenu('cientodoscientotres');
+                }
                 if(element == 103)
-                    ocultar();
+                {
+                    ocultarmenu('botproveedores');
+                    cientotres = true;
+                    if(cientodos)
+                        ocultarmenu('cientodoscientotres');
+                }
+
                 if(element == 104)
-                    ocultar();
+                {
+                    ocultarmenu('botvender');
+                    cientocuatro = true;
+
+                    if(cientocinco)
+                        ocultarmenu('cientocuatrocientocinco');
+                }
                 if(element == 105)
-                    ocultar();
+                {
+                    ocultarmenu('botmovimientos');
+                    cientocinco = true;
+
+                    if(cientoseis)
+                        ocultarmenu('cientocuatrocientocinco');
+                }
+
                 if(element == 106)
-                    ocultar();
+                {
+                    ocultarmenu('botcaja');
+                    cientoseis = true;
+
+                    if(cientosiete)
+                        ocultarmenu('cientoseiscientosiete');
+                }
                 if(element == 107)
-                    ocultar();
+                {
+                    ocultarmenu('botlistastock');
+                    cientosiete = true;
+
+                    if(cientoseis)
+                        ocultarmenu('cientoseiscientosiete');
+                }
+
                 if(element == 108)
-                    ocultar();
+                {
+                    ocultarmenu('botactualizar');
+                    cientoocho = true;
+                    ocultarmenu('cientoochocientonueve');
+
+                }
+
                 if(element == 109)
-                    ocultar();
+                {
+                    ocultarmenu('botexportar');
+                    cientonueve = true;
+
+                    if(cientodiez && cientoonce)
+                        ocultarmenu('cientodiezcientoonce');
+                }    
                 if(element == 110)
-                    ocultar();
+                {
+                    ocultarmenu('botimportar');
+                    if(cientoonce && cientonueve)
+                        ocultarmenu('cientodiezcientoonce');
+
+                }
                 if(element == 111)
-                    ocultar();
+                {
+                    ocultarmenu('botbonus');
+                    cientodiez = true;
+
+                    if(cientodiez && cientonueve)
+                        ocultarmenu('cientodiezcientoonce');
+                }
             });
         }
     }
+}
+
+function ocultarmenu(objmenu){
+    document.getElementById(objmenu).style.display = 'none';
+    
+
 }
 
 function bloquearcosto(){
@@ -9024,7 +9307,8 @@ function bloqueareliminar()
 function bloquearmodificaprecio()
 {
     var obj = document.getElementsByClassName("blockmodiprecio");
-    for (var a = 0; a < obj.length; a++) {
+    for (var a = 0; a < obj.length; a++) 
+    {
         obj[a].readOnly = true;
     }
 }

@@ -266,46 +266,56 @@ li.active{
   
 }
 
-#seccionpromociones{
-  
-  position: relative;
-  
-}
-
-#seccionnovedades{
-  
-  position: relative;
-  background-color: rgb(235, 235, 235);
-  opacity: 95%;
-
-}
-
-#secciongaleria{
-  
-  position: relative;
-
-}
 #divpromociones{
   height: 4em;
   color: white!important;
-  background-color: #009ee3!important;
+  background-color: rgb(67, 138, 114)!important;
+  padding-top: 0.5em;
+}
+#seccionpromociones{
+  
+  position: relative;
+  background-color: rgb(77, 160, 132)!important;
+  
+}
+/* ---------------------------------- */
+#divnovedad{
+  height: 4em;
+  color: white!important;
+  background-color:  rgb(114, 99, 70)!important;
   padding-top: 0.5em;
 
 }
+#seccionnovedades{
+  
+  position: relative;
+  background-color: rgb(179, 162, 129)!important;
+
+}
+/* ---------------------------------- */
 
 #divgaleria{
   height: 3em;
   color: white!important;
   background-color: #009ee3!important;
 }
-
+#secciongaleria{
+  position: relative;
+  background-color:#00567a!important;
+  color: white;
+}
 
 #seccioncontacto{
   opacity: 95%;
   position: relative!important;
 }
 
-
+ul.especial > li{
+  color: #303030;
+}
+.especial{
+  color: rgb(56, 56, 56);
+}
 #subcontenedorcontacto{
 
   padding: 2%;
