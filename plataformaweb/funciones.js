@@ -8315,12 +8315,6 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         arregloconsultabuscados = [];
     }
 
-    M.toast(
-    {
-        html: '...Buscando',
-        displayLength: '3000'
-    });
-
     $.ajax({
         url: "consultaanuncios.php",
         data: { objetoanuncio: objetoanuncio },
@@ -8431,7 +8425,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                                 }
 
                                 var objeto = new Object();
-                                objeto.insercion = "<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>";
+                                objeto.insercion = "<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>";
                                 
                                 if (tipo == "consultarubros" || tipo == "consultafiltros"){
                                     paginaactualbuscados = 1;
@@ -8469,6 +8463,8 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                 Verificaresultadosbusqueda(tipo);
             }
             else {
+                Verificaresultadosbusqueda(tipo);
+
                 if (seleccionidrubro != "") {
                     Swal.fire({
                         closeOnEsc: false,
