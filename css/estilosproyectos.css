@@ -14,16 +14,19 @@ font-family: 'Noto Sans JP', sans-serif;
 
 @keyframes cambiocolor{
     0%{
-        background-color: rgb(0, 0, 0);
+        background-color: rgb(200, 200, 200);
     }
     10%{
-        background-color: rgb(0, 0, 0.8);
+        background-color: rgb(210, 210, 210);
     }
     100%{
         background-color : rgb(236, 236, 236);
     }
 }
 
+.textoagua{
+    color: rgb(80, 145, 125)!important;
+}
 /*------------------------ Menu ----------------------------*/
 
 /* .listamenu{
@@ -92,6 +95,11 @@ li a:hover {
 .button{
   font-family: 'Noto Sans JP', sans-serif!important;
 
+}
+
+.title{
+    color: rgb(41, 85, 56);
+    margin-bottom: 1em!important;
 }
 
 .msimple{

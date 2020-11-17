@@ -33,7 +33,7 @@
     
     <script>r = Math.random();version=2;</script>
     <link rel="stylesheet" href="cover.css?" + version + r>
-    <script src="configuracion.js?" + version + r></script>
+    <script src="configuracion.js?2" + version + r></script>
 
     <title></title>
 </head>
@@ -100,6 +100,8 @@
             <div class="pink-text text-darken-4" id="seccionbuscados"></div>
         </div>
     </div>
+    
+    <div id="seccionfiltros"></div>
     
     
     <!-- ------------------------------------------ AUTORIZACION MAYORES ------------------------------------------------- -->
@@ -198,7 +200,7 @@
 <script>ra = Math.random();</script>
 
 <script src="scrollmenu.js?" + version + ra ></script> <!-- codigo que permite el scroll de menu-->
-<script src="funciones.js?" + ra ></script>
+<script src="funciones.js?35" + ra ></script>
 <script src="subscriptionPopup.js?" + ra ></script>
 <script src="establecerparametrosweb.js?" + ra ></script>
 
@@ -250,6 +252,7 @@
         
         $('.pushpin').pushpin();
         $('.sidenav').sidenav();
+        $('.collapsible').collapsible();
 
         $("#seccionbusqueda").load("buscador.html");            //ubicacion de la  caja de busqueda
         $("#seccionpublicidad").load("publicidad.html");        //imagenes carrusel
@@ -262,6 +265,7 @@
         $("#seccionpromociones").load("anuncios_ofertas.html"); //ofertas y promociones
         
         $("#seccionnovedades").load("anuncios_novedad.html"); //novedades
+        $("#seccionfiltros").load("anuncios_filtros.html"); //filtros
         
         var velocidad = 500;
         var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo

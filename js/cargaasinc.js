@@ -41,13 +41,6 @@ function CargarMaterilizeYcontacto(){
 
         $('.sidenav').sidenav();
 
-        $("#plataforma").click(function () {
-            $("#seccionproyectos").load("explicaplataforma.html");
-        });
-        $("#paneldecontrol").click(function () {
-            $("#seccionproyectos").load("explicapanel.html");
-        });
-
         function ira() {
             var posproyectosweb = $("#seccionproyectos").offset().top;
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);
@@ -58,11 +51,10 @@ function CargarMaterilizeYcontacto(){
         }
         
         $("#plataforma").on('click', function (e) {
+            $("#seccionproyectos").load("explicaplataforma.html?1");
             ira();
         });
-        $("#paneldecontrol").on('click', function (e) {
-            ira();
-        });
+       
 
         function irarriba() {
             var posproyectosweb = $(".listamenu").offset().top;

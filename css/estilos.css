@@ -128,7 +128,7 @@ p, h1,h2,h3,h4{
 
 .videojuegos{
     background-color: black!important;
-    color : rgb(255, 231, 16)!important;
+    color : rgb(255, 243, 138)!important;
     opacity: 1;
 }
 
@@ -342,8 +342,10 @@ canvas {
   font-family: 'Palanquin Dark', sans-serif;
 }
 .textogris{
-    color: rgb(196, 196, 196)!important;
-
+    color: rgb(131, 131, 131)!important;
+}
+.textoagua{
+    color: rgb(80, 145, 125)!important;
 }
 .tam1y5{
     font-size: 1.5em;
@@ -402,11 +404,12 @@ canvas {
     
     }
 
-
+    
 
     #c{
-        width:40%!important;
-        height: auto;
+        display: none;
+        /* width:40%!important;
+        height: auto; */
     }
 
     .logopluma{

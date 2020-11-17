@@ -1,0 +1,148 @@
+
+    <div id="accordionFiltros">
+
+        <div class="card">
+            
+            <h5>Filtros <i class="fas fa-address-book"></i></h5>
+            <p class="p-1">Los filtros son palabras que ayudan en las búsquedas a tus visitantes en la web</p>
+
+            <div class="card-header" id="headingCli">
+                <h5 class="m-0">
+                    <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseFil" aria-expanded="true"
+                        aria-controls="collapseFil">
+                        Nuevo Filtro
+                    </button>
+                </h5>
+            </div>
+    
+            <div id="collapseFil" class="collapse" aria-labelledby="headingCli" data-parent="#accordionFiltros">
+                <div class="card-body">
+                   <!-- Nuevos filtros -->
+                    <div class="row justify-content-center">
+
+                        <!-- Columna de tarjeta de filtros -->
+                        <div class="col-sm-10">
+                            <div class="card text-center">
+                                
+                                <div class="card-body">
+                        
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                        
+                                            <div class="row  justify-content-center">
+                                                <div class="col-sm-2 ">
+                                                    <!-- id -->
+                                                    <input id="idfiltro" disabled value=""
+                                                        name="idfiltro                                                                                                                             "
+                                                        type="text">
+                                                </div>
+                                                <div class="col col-sm-6">
+                                                    <!-- Nuevo -->
+                                                    <button class="btn chip " type="button" id="limpiarfiltro" name="limpiarfiltro">Limpiar
+                                                </div>
+                        
+                                            </div>
+                        
+                                            <div class="row justify-content-center">
+                                                <div class=" col-sm-4 ">
+                                                    <!-- nombre -->
+                                                    <input id="nombrefiltro" min="1" max="40" name="nombrefiltro" type="text" class="validate center">
+                                                    <label for="nombrefiltro">Nombre</label>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                        
+                                            <!-- Boton publicar -->
+                                            <div class="row  justify-content-center">
+                                                <div class="col-sm-12">
+                                                    <button class="btn waves-effect  orange green-4" type="button" id="enviarfiltro"
+                                                        name="enviarfiltro">Guardar Filtro
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <a href="" target="_blank"></a>
+                            </div>
+                        </div>
+                    </div>
+                   <!-- Fin nuevos filtros -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingListaFil">
+                <h5 class="m-0">
+                    <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaFil"
+                        aria-expanded="false" aria-controls="collapseListaFil">
+                        Editar/Eliminar filtros
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseListaFil" class="collapse" aria-labelledby="headingListaFil" data-parent="#accordionFiltros">
+                <div class="card-body">
+                   <!-- Editar/Eliminar -->
+                    <div class="row">
+                        <!-- Columna de lista de filtros -->
+                        <div class="col-sm-8 offset-sm-2">
+                            <div class="row">
+                                Lista de Filtros
+                                <!-- <button id="consultar">Consultar</button> -->
+                            </div>
+                            <div class="table-responsive">
+                                <table id="tablafiltros" class="display table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Editar</th>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                   <!-- Fin editar eliminar -->
+                </div>
+            </div>
+        </div>
+        
+    </div>
+        
+
+
+<script>
+    $(document).ready(function () 
+    {
+        //configuracion de la tabla
+        configuraciontablafiltros();
+
+       $("#enviarfiltro").click(function () {
+            EnviarFormularioFiltros();
+        });
+
+        //trae los anuncios al cargar la pagina
+        consultarfiltros();
+
+        $("#limpiarfiltro").click(function () {
+            limpiarformulariofiltros();
+        });
+
+       
+    });
+</script>

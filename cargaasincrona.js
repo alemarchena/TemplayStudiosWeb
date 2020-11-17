@@ -155,7 +155,7 @@ function CargarMaterilizeYcontacto(){
             if (scrollpercent < 10)
             {
                 $("#contenedorcontactoacercade").css("opacity", scrollpercent);
-                $(".claseesfumada").css("opacity",scrollpercent/3);
+                $(".claseesfumada").css("opacity",scrollpercent/2);
             }
             else
             {
@@ -175,7 +175,7 @@ function CargarMaterilizeYcontacto(){
 
             cargarformulario();
         });
-        $("#divcursos").load("cursos.html");
+        $("#divcursos").load("cursos.html?1");
         setTimeout(function () { $('.sidenav').sidenav(); }, 500);
 
 

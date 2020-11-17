@@ -58,7 +58,7 @@
             
 
             $sql = "select " .$plataforma.".id,".$plataforma. ".nombre,"    .$plataforma.".bdd,".$plataforma.".tablaajustes,"
-            .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,"
+            .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,".$plataforma.".tablafiltros,"
             .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,".$plataforma.".tablaunidadesgranel,".$plataforma.".tablabloqueos,"
             .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos,".$plataforma.".rutaimagenes,"
             .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 
@@ -69,7 +69,7 @@
             
 
             $sql = "select " .$plataforma.".id,".$plataforma. ".nombre,"    .$plataforma.".bdd,".$plataforma.".tablaajustes,"
-            .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,"
+            .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,".$plataforma.".tablafiltros,"
             .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,".$plataforma.".tablaunidadesgranel,".$plataforma.".tablabloqueos,"
             .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos,".$plataforma.".rutaimagenes,"
             .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 

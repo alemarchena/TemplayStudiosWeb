@@ -25,42 +25,26 @@
         </div>
         
     </div>
-    <div id="divNoLimpiar" class='row justify-content-center show' style="display: block;" >
-        <div class="col-sm 12">
-
-            <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
-            <div id="divNuevoProducto" class="row">
-
-            </div>
-            <hr>
-            <div class="row justify-content-center">
-                <div class="col-sm-4">
-                    <a id="nuevoanuncio" href="#">Nuevo Producto</a>
-                </div>
-            </div>
-            <hr>
-        </div>
-    </div>
 
     <!-- --------------------------------- -->
-    <div id="divDatosComplementariosProducto" class='row justify-content-center' style="display: none;">
+    <div id="divDatosComplementariosProducto" class='row justify-content-center' style="display: none;background-color: rgb(231, 231, 231);margin-top: 1em;padding-top: 2em;">
         <div class="col-sm-2">
             <textarea rows="7" onKeyDown="return validartecla(event,this.value,1000)"
-                onKeyUp="return validartecla(event,this.value,1000)" class="form-control tooltipped" data-position="top" data-tooltip="Amplia la descripción" id="observaciones"
-                name="observaciones" aria-label="observaciones"
+                onKeyUp="return validartecla(event,this.value,1000)" class="form-control tooltipped" data-position="top"
+                data-tooltip="Amplia la descripción" id="observaciones" name="observaciones" aria-label="observaciones"
                 placeholder="SABER MAS : Esta sección permite extender la descripción de su producto"></textarea>
         </div>
         <div class="col-sm-2">
             <textarea rows="7" onKeyDown="return validartecla(event,this.value,1000)"
-                onKeyUp="return validartecla(event,this.value,1000)" class="form-control tooltipped" data-position="top" data-tooltip="Info que da valor agregado" id="comentarios"
-                name="comentarios" aria-label="comentarios"
+                onKeyUp="return validartecla(event,this.value,1000)" class="form-control tooltipped" data-position="top"
+                data-tooltip="Info que da valor agregado" id="comentarios" name="comentarios" aria-label="comentarios"
                 placeholder="SUGERENCIAS : Esta sección le agrega valor sugiriendo algo mas sobre el producto"></textarea>
         </div>
-
+    
         <div class="col-sm-4">
             <div class="row justify-content-center">
                 <div class="col-sm-6">
-                    
+    
                     <div class="row justify-content-center">
                         <label for="opcionantes">
                             <input id="opcionantes" type="checkbox" class="filled-in" />
@@ -68,18 +52,20 @@
                         </label>
                     </div>
                     <div class="row justify-content-center">
-                        <input onKeyDown="return validartecla(event,this.value,30)" onKeyUp="return validartecla(event,this.value,30)"
-                        id="tituloantes" name="tituloantes" type="text" class="validate border border-danger center tooltipped" data-position="top" data-tooltip="Ej: Precio anterior"
-                        placeholder="Título del precio tachado">
+                        <input onKeyDown="return validartecla(event,this.value,30)"
+                            onKeyUp="return validartecla(event,this.value,30)" id="tituloantes" name="tituloantes"
+                            type="text" class="validate border border-danger center tooltipped" data-position="top"
+                            data-tooltip="Ej: Precio anterior" placeholder="Título del precio tachado">
                     </div>
                     <div class="row justify-content-center">
-                        <input id="precioantes" name="precioantes" type="number" min="0" maxlength="12" step="0.01" placeholder="Precio tachado" class="validate border border-danger center"><del></del>
+                        <input id="precioantes" name="precioantes" type="number" min="0" maxlength="12" step="0.01"
+                            placeholder="Precio tachado" class="validate border border-danger center"><del></del>
                     </div>
                     <div class="row justify-content-center">
                         <p class='left'>Ej<del id='precioantesprevia'> $ 30000</del></p>
                     </div>
                 </div>
-
+    
                 <div class="col-sm-6">
                     <div class="row justify-content-start">
                         <!-- ------- Check de opcion es oferta ------- -->
@@ -99,7 +85,7 @@
                             </label>
                         </p>
                     </div>
-
+    
                     <!-- ------- Check de opcion es producto para bonus ------- -->
                     <div class="row justify-content-start">
                         <p>
@@ -110,28 +96,32 @@
                         </p>
                     </div>
                     <!-- <label class="colorletras" for="bonus">Cantidad</label> -->
-                
+    
                     <div class="row justify-content-start">
-                        <input onKeyDown="return validarnumero(event,this.value,6)" onKeyUp="return validarnumero(event,this.value,6)"
-                        id="bonus" name="bonus" type="number" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Por cuantos puntos bonus puede canjearse" placeholder="Cantidad de bonus">
+                        <input onKeyDown="return validarnumero(event,this.value,6)"
+                            onKeyUp="return validarnumero(event,this.value,6)" id="bonus" name="bonus" type="number"
+                            class="validate border border-success center tooltipped" data-position="top"
+                            data-tooltip="Por cuantos puntos bonus puede canjearse" placeholder="Cantidad de bonus">
                     </div>
                 </div>
             </div>
-
+    
         </div>
         <div class="col-sm-4">
             <div class="row justify-content-center">
                 <p class='center'>Link a sitio externo</p>
             </div>
             <div class="row justify-content-center">
-                <input onKeyDown="return validartecla(event,this.value,50)" onKeyUp="return validartecla(event,this.value,50)"
-                    id="textolinkexterno" name="textolinkexterno" type="text" class="validate border border-success center  tooltipped" data-position="top" data-tooltip="Texto a un link externo"
-                    placeholder="Ej:Link de Pago">
+                <input onKeyDown="return validartecla(event,this.value,50)"
+                    onKeyUp="return validartecla(event,this.value,50)" id="textolinkexterno" name="textolinkexterno"
+                    type="text" class="validate border border-success center  tooltipped" data-position="top"
+                    data-tooltip="Texto a un link externo" placeholder="Ej:Link de Pago">
             </div>
             <div class="row justify-content-center">
-                <input onKeyDown="return validartecla(event,this.value,200)" onKeyUp="return validartecla(event,this.value,200)"
-                    id="linkexterno" name="linkexterno" type="text" class="validate border border-success center tooltipped" data-position="top" data-tooltip="Pegar el enlace"
-                    placeholder="Link al sitio externo">
+                <input onKeyDown="return validartecla(event,this.value,200)"
+                    onKeyUp="return validartecla(event,this.value,200)" id="linkexterno" name="linkexterno" type="text"
+                    class="validate border border-success center tooltipped" data-position="top"
+                    data-tooltip="Pegar el enlace" placeholder="Link al sitio externo">
             </div>
             <div class="row justify-content-start">
                 <div class="col-sm-12">
@@ -147,9 +137,28 @@
                 </div>
             </div>
         </div>
-
-        
+    
+    
     </div>
+
+    <div id="divNoLimpiar" class='row justify-content-center show' style="display: block;" >
+        <div class="col-sm 12">
+
+            <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
+            <div id="divNuevoProducto" class="row">
+
+            </div>
+            <hr>
+            <div class="row justify-content-center">
+                <div class="col-sm-4">
+                    <a id="nuevoanuncio" href="#">Nuevo Producto</a>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+    
     
     <div id="accordionVentas" class="mt-3 pt-2">
    

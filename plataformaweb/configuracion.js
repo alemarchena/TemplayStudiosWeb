@@ -5,6 +5,7 @@ tablaanunciospaginaweb  = empresa + "_anuncios";
 tablarubrospaginaweb    = empresa + "_rubros";
 tablaclientespaginaweb  = empresa + "_clientes";
 tablaunidadesgranelweb  = empresa + "_unidadesgranel";
+tablafiltrosweb         = empresa + "_filtros";
 
 conexionbddpaginaweb    = "conexiones/parametros.php";
 rutaimagenespaginaweb   = "imagenes/";

@@ -6,7 +6,7 @@ var arregloproveedoranuncio = [];
 cantidadporpagina = 12; //cantidad de anuncios que entran en una pagina
 var muestrastockinicio = false;
 
-arregloconsultaofertas = []; 
+arregloconsultaofertas = [];
 arregloconsultanovedades = [];
 arregloconsultabuscados = [];
 paginaactualofertas = 0;
@@ -30,18 +30,18 @@ function escrolear(claseelemento) {
 
          $('html, body').animate({
             scrollTop: $("." + claseelemento).offset().top
-        }, 600);      
+        }, 600);
     }, 1000);
 
 }
 
 function posicioninicial() {
- 
+
     setInterval(() => {
         var elemento = document.getElementsByClassName("navbar");
         var posicion = elemento.scrollTop;
         $("HTML, body").animate({ scrollTop: posicion}, 400);
-       
+
     }, 1000);
 }
 
@@ -118,7 +118,7 @@ function limpiarformulario() {
     document.getElementById('id').value = "";
 
     //imagen
-    
+
     if(llama == "anuncios")
     {
         document.getElementById("muestra").src = "img/agregarimagen.jpg";
@@ -147,7 +147,7 @@ function limpiarformulario() {
 
             document.getElementById('textolinkexterno').value = "";
             document.getElementById('linkexterno').value = "";
-        
+
             $('#opcionbonus').prop('checked', false);
             $('#opcionantes').prop('checked', false);
             $('#esnovedad').prop('checked', false);
@@ -155,11 +155,11 @@ function limpiarformulario() {
             $('#opcionnopublicar').prop('checked',false);
 
             var op = $("#idcomovende").val();
-            if (op > 0) 
+            if (op > 0)
             {
                 var pco = $("#prefijoxcompra").val();
                 var pve = $("#prefijoxventa").val();
-            
+
                 if(pco > 0 && pve > 0)
                 {
                     BlanqueCamposCostoPrecio(1);
@@ -167,7 +167,7 @@ function limpiarformulario() {
                 else
                 {
                     if(pco == 0 )
-                    {                        
+                    {
                         $("#divprefijoventa").css('display', 'none');
                         $("#divpreciocomprapref").css('display', 'none');
                         $("#divprecioventapref").css('display', 'none');
@@ -189,7 +189,7 @@ function limpiarformulario() {
                 $("#divprefijocompra").css('display', 'none');
                 $("#divprefijoventa").css('display', 'none');
             }
-            
+
         }
 
         document.getElementById('costofraccionado').value = "";
@@ -197,7 +197,7 @@ function limpiarformulario() {
         document.getElementById('codigobarra').value = "";
 
     }
-        
+
     posicioninicial();
 }
 
@@ -206,7 +206,7 @@ function imageneszoom(){
         $('.materialboxed').materialbox();
 }
 
-function eliminarEtiqueta_productos(identificacion) 
+function eliminarEtiqueta_productos(identificacion)
 {
     var id = document.getElementById(identificacion);
     id.remove();
@@ -232,7 +232,7 @@ function agregarfiltroproductostock()
 function validarfiltrostock(e)
 {
     var key = window.event ? e.which : e.keyCode;
-    
+
     if (key == 13){
         agregarfiltroproductostock();
     }
@@ -290,7 +290,7 @@ function validartecla(e, contenido, caracteres) {
         return true;
     }
 
-    
+
      //punto del teclado numerico o coma del teclado alfa
     if (e.keyCode == 110 || e.keyCode == 188) {
         return true;
@@ -452,7 +452,7 @@ function consultaUnidadesGranel(tipo, e) {
                 $("#prefijoxcompra option:selected").prop("selected", false);
                 $(this).prop("selected", true);
 
-            } 
+            }
         },
         error: function (e) {
             alert("Error en la consulta." + e.value);
@@ -467,7 +467,7 @@ function LlenaUnidadesVenta()
 
     var opc = [];
     opc.push('<option value = "" selected >Unid.Venta</option >'); //crea la primera opcion de la lista de venta
-    
+
     for (a = 0 ; a < arregloUnidades.length;a++)
     {
         if(arregloUnidades[a].prefijocompra == prefijoelegido)
@@ -501,10 +501,10 @@ function EnviarFormulario()
 
     var observacion = "";
     var o ="";
-    
+
     var comentario = "";
     var come = comentario.trim();
-    
+
     var en=0;
     var eo=0;
     var pb=0;
@@ -557,7 +557,7 @@ function EnviarFormulario()
             pb = 0;
         }
 
-        
+
         if ($('#opcionantes').prop('checked')) {
             oa = 1;
         } else {
@@ -569,24 +569,24 @@ function EnviarFormulario()
         } else {
             ocp = 0;
         }
-        
+
     }else if(llama == "comprar")
     {
         rnombre = document.getElementById('rubro').value;
         r = document.getElementById("opcioneslista").value;
     }
-    
+
     //------------ validaciones para campos fraccionados ----------
     var codbar = document.getElementById('codigobarra').value;
     codbar = codbar.trim();
-    
+
     var pfixc = 0;
     var pfixv = 0;
     var costoxprefijo = 0;
     var ventaxprefijo = 0;
 
     var comovende = document.getElementById('comovende').value;
-    
+
     if(comovende == 1)
     {
         pfixc = document.getElementById("prefijoxcompra").value;
@@ -601,17 +601,17 @@ function EnviarFormulario()
     var d = document.getElementById('descripcion').value;
     var p = document.getElementById('precio').value;
     var c = document.getElementById('costo').value;
-    
 
-    
+
+
     // validaciones de campos
     if (rnombre == "") { mostrarToastError("Categoría"); return; }
     if (t == "") { mostrarToastError("Titulo"); return; }
     if (d == ""){ mostrarToastError("Descripción"); return; }
-    if (p == "" || p < 0) { 
-        p = 0; 
+    if (p == "" || p < 0) {
+        p = 0;
     }
-    if (c == "" || c < 0) { 
+    if (c == "" || c < 0) {
         c = 0;
     }
     if (pb == 1 && (bonus == "" || bonus == 0)) { mostrarToastError("Bonus"); return; }
@@ -620,35 +620,35 @@ function EnviarFormulario()
     {
         if(tle == "")
         {
-            mostrarToastError("Texto link externo"); return; 
+            mostrarToastError("Texto link externo"); return;
         }
-        
+
         if(le == "")
         {
-            mostrarToastError("Link externo"); return; 
+            mostrarToastError("Link externo"); return;
         }
     }
-    
+
      //------------------ detecta mas de un punto en el numero -----------
     var posicion = -1;
-    
-    
+
+
     posicion = p.toString().indexOf(",");
     if(posicion >=0)
-        p = p.slice(0, posicion) + "." + p.slice(posicion + 1); 
-    
+        p = p.slice(0, posicion) + "." + p.slice(posicion + 1);
+
     posicion = -1;
 
     posicion = c.toString().indexOf(",");
     if(posicion >=0)
-        c = c.slice(0, posicion) + "." + c.slice(posicion + 1); 
-    
+        c = c.slice(0, posicion) + "." + c.slice(posicion + 1);
+
     posicion = -1;
-    
+
     posicion = pea.toString().indexOf(",");
     if(posicion >=0)
-        pea = pea.slice(0, posicion) + "." + pea.slice(posicion + 1); 
-    
+        pea = pea.slice(0, posicion) + "." + pea.slice(posicion + 1);
+
 
         if (imagen.files.length == 0)
         {
@@ -825,7 +825,7 @@ function consultaranuncios(tipo)
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
     itemanuncio.codigobarra = textobuscado;
-   
+
     var objetoanuncio = JSON.stringify(itemanuncio);
 
     if(llama=="anuncios")
@@ -853,7 +853,7 @@ function consultaranuncios(tipo)
                 var opant = "";
                 var ocpre = "";
                 arreglo = [];
-                $.each(dd, function (key, value) 
+                $.each(dd, function (key, value)
                 {
                     if (dd[key].esnovedad == 1)
                         esnov = "ES NOVEDAD";
@@ -1068,16 +1068,16 @@ function mostrarDivPrefijoCompra(mostrar){
 
 
     }else{
-        
+
         $("#divprefijocompra").css('display', 'flex');
         $("#prefijoxcompra option:selected").prop("selected", false);
     }
 }
 
-    
+
 function mostrarDivPrefijoVenta(mostrar)
 {
-    if (mostrar == "0") 
+    if (mostrar == "0")
     {
         $("#divprefijoventa").css('display', 'none');
         $("#divpreciocomprapref").css('display', 'none');
@@ -1105,7 +1105,7 @@ function mostrarCamposCostoPrecio(mostrar)
 
 function BlanqueCamposCostoPrecio(mostrar)
 {
-    if (mostrar == "0") 
+    if (mostrar == "0")
     {
         document.getElementById("costofraccionado").value = "";
         document.getElementById("ventafraccionado").value = "";
@@ -1149,7 +1149,7 @@ function CamposValoresAcero(){
     }
 }
 
-    
+
 
 function unCambioPrefijoCompra()
 {
@@ -1182,7 +1182,7 @@ function unCambioPrefijoVenta()
     document.getElementById("idprefijoventa").value = document.getElementById("prefijoxventa").value;
     BuscarRelacionCompraVenta();
 
-    var pre = $("#idprefijoventa").val();  
+    var pre = $("#idprefijoventa").val();
     if (pre != ""){
         mostrarCamposCostoPrecio(1);
         CalcularValoresFraccionados();
@@ -1200,7 +1200,7 @@ function unCambioPrefijoVenta()
 // function seleccionarproducto(id, rub, pre, cos, ima, en, eo, np,pb,bonus,oa,tia,pea,tle,le)
 function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le,ocpre)
 {
-    
+
     limpiarinputimagen();
     document.getElementById('id').value = id;
     document.getElementById('rubro').value = rub;
@@ -1213,7 +1213,7 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le,ocp
             $(this).prop("selected", true);
         }
     });
-    
+
     document.getElementById('bonus').value = bonus;
     document.getElementById('tituloantes').value = tia;
     document.getElementById("muestra").src = "imagenes/" + ima; //vista previa de la imagen
@@ -1266,7 +1266,7 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le,ocp
     else {
         $("#opcionocultarprecio").prop("checked", false);
     }
-    
+
     //Verifica el id pasado y lo compara con el arreglo que armo durante la consulta
     arreglo.forEach(function (valor, indice) {
 
@@ -1279,7 +1279,7 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le,ocp
             document.getElementById('precioantes').value    = arreglo[indice].precioventaja;
             document.getElementById('codigobarra').value    = arreglo[indice].codigobarra;
             document.getElementById('comodin').value        = arreglo[indice].comodin;
-        
+
             // relacionCV = arreglo[indice].relacioncompraventa;
 
             apc = arreglo[indice].prefijoxcompra;
@@ -1290,10 +1290,10 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le,ocp
                 document.getElementById("comovende").value = 1;
                 //seleccionar comovende a 1
                 $("#comovende option[value='1']").attr("selected", true);
-                
+
                 $("#divprefijocompra").css('display', 'flex');
                 $("#prefijoxcompra option[value='" + apc + "']").attr("selected", true);
-                document.getElementById("idprefijocompra").value = document.getElementById("prefijoxcompra").value;                
+                document.getElementById("idprefijocompra").value = document.getElementById("prefijoxcompra").value;
 
                 $("#divprefijoventa").css('display', 'flex');
                 LlenaUnidadesVenta();
@@ -1326,7 +1326,7 @@ function seleccionarproducto(id, rub, ima, en, eo, np,pb,bonus,oa,tia,tle,le,ocp
                 $("#divprefijoventa").css('display', 'none');
                 $("#divpreciocomprapref").css('display', 'none');
                 $("#divprecioventapref").css('display', 'none');
-                
+
                 document.getElementById('precio').value = arreglo[indice].precio;
                 document.getElementById('costo').value = arreglo[indice].costo;
                 document.getElementById("costo").readOnly = false;
@@ -1482,7 +1482,7 @@ function consultarrubros(e) {
         tr = $('#tablarubros').DataTable();
     }
 
-    var bdd = conexionbdd ; 
+    var bdd = conexionbdd ;
     var tabla = tablarubros;
     var tipo = "consultatodosanuncios";
 
@@ -1540,7 +1540,7 @@ function consultarubros_seleccion(e) {
 
     var bdd = conexionbdd;
     var tabla = tablarubros;
-    
+
     var tipo = "consultatodosanuncios";
 
     var id;
@@ -1815,7 +1815,7 @@ function intentaEliminarRubro(idpasado){
                     timer: 2500
                 })
             }else{
-                
+
                 console.log(data);
             }
             consultarrubros();
@@ -1869,7 +1869,7 @@ function eliminarrubro(idpasado) {
             alert("Error en el alta.");
         }
     });
- 
+
 
 }
 
@@ -1951,7 +1951,7 @@ function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,ti
             vender(id, idrubro, costo, titulo, unidadvta);
        return false;
     }
-    
+
     //punto del teclado numerico o coma del teclado alfa
     if (e.keyCode == 110 || e.keyCode == 188) {
         return true;
@@ -1962,7 +1962,7 @@ function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,ti
         return true;
     }
 
-    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres))
     {
         return true;
     }
@@ -1985,14 +1985,14 @@ function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo,u
 
        return false;
     }
-    
+
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
         return true;
     }
 
 
-    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres))
     {
         return true;
     }
@@ -2002,7 +2002,7 @@ function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo,u
 
 arregloitemsventa = [];
 totalpedido = 0;
-    
+
 
 
 
@@ -2067,8 +2067,8 @@ function consultaranunciosvender(tipo) {
         }
         filtro.push( textobuscado );
     }
-    
-   
+
+
     var objetoanuncio = JSON.stringify(itemanuncio);
 
     var itemanuncio = new Object();
@@ -2112,13 +2112,13 @@ function consultaranunciosvender(tipo) {
         {
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
-                
+
                 var porcentajebonus = $("#bonusestablecido").val();
                 var bonus = 0;
                 var fechaventa;
                 var stok = 0;
                 var tituloanterior = "";
-                $.each(dd, function (key, value) 
+                $.each(dd, function (key, value)
                 {
                     if(tituloanterior != dd[key].titulo)
                     {
@@ -2130,7 +2130,7 @@ function consultaranunciosvender(tipo) {
                         peco = dd[key].prefijocompra;
 
                         if (tipo == "consultalector" && peco == 0) //inserta directamente solo a productos por unidades
-                        {              
+                        {
                             if (fechaventa != "" )
                             {
                                 fechaventa = conviertefechaastringdmy(fechaventa);
@@ -2138,12 +2138,12 @@ function consultaranunciosvender(tipo) {
                             }else{
                                 Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
                                     timer: 2500})
-                            }          
+                            }
                         }else
                         {
                             stok = dd[key].stock / dd[key].relacioncompraventa;
-                            
-                            
+
+
                             colorfondo = 'white';
                             colorsegun = 'black';
 
@@ -2158,7 +2158,7 @@ function consultaranunciosvender(tipo) {
                             }
 
                             t.row.add([
-                                
+
                             dd[key].precio,
                             "<label style='text-align: center;' >" + dd[key].id + "</label>" ,
                             dd[key].codigobarra,
@@ -2173,10 +2173,10 @@ function consultaranunciosvender(tipo) {
                             "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
                             "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ stok + "</p>",
                             ]).draw(true);
-                            
-                            
+
+
                         }
-                    
+
                     }
                 });
 
@@ -2186,14 +2186,14 @@ function consultaranunciosvender(tipo) {
                 if (tipo != "consultalector" || peco == 0) //inserta directamente solo a productos por unidades
                 {
                     t.columns.adjust().draw();
-    
+
                     mostrarResultadoBusqueda();
                     reconocerTooltipped();
                     imageneszoom();
                     eligetipopago();
                     identificasaltainput('saltacantidad');
                     identificasaltainput('saltaprecio');
-                    
+
                     hacefoco();
                     verListaReg(1);
 
@@ -2236,22 +2236,22 @@ function hacefoco()
     {
         $('.saltacantidad')[0].focus();
 
-        posicion = $("#tablaanunciosvender").offset().top - alturamenu; 
+        posicion = $("#tablaanunciosvender").offset().top - alturamenu;
     }else
     if(llama=="comprar")
     {
-        
+
         $('.saltacantidad')[0].focus();
-        
-        posicion = $("#tablaanunciosmovimientos").offset().top - alturamenu; 
+
+        posicion = $("#tablaanunciosmovimientos").offset().top - alturamenu;
     }else
     if(llama=="anuncios")
     {
-        posicion = $("#tablaanuncios_filter").offset().top - alturamenu; 
+        posicion = $("#tablaanuncios_filter").offset().top - alturamenu;
     }
-    
+
     $("HTML, BODY").animate({ scrollTop: posicion}, 600);
-    
+
 }
 
 
@@ -2263,7 +2263,7 @@ function identificasaltainput(clase)
 
     $('.' + clase).on('keydown',function(e)
     {
-        if( e.keyCode === 40) 
+        if( e.keyCode === 40)
         {
             e.preventDefault();
             indice = $('.' + clase).index(this)+1;
@@ -2281,10 +2281,10 @@ function identificasaltainput(clase)
                 indice = todos-1;
 
             $('.' + clase)[indice].focus();
-        } 
+        }
     });
-    
-    
+
+
 }
 
 //es el metodo que queda ligado al boton en la linea del producto
@@ -2292,7 +2292,7 @@ function vender(id, idrubro, costo, titulo, unidadvta){
     if(!id){
         return false;
     }
-  
+
     var can = document.getElementById('cantidad_' + id);
     var cantisinmas = can.value.replace('+','');
     can.value = cantisinmas;
@@ -2323,13 +2323,13 @@ function vender(id, idrubro, costo, titulo, unidadvta){
 function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechaventa_riv, cantidad_riv, bonus_riv, titulo_riv, unidadvta) {
 
     itemsEnlaventa +=1;
-   
-  
+
+
     var subtotal = precio_riv * cantidad_riv;
     subtotal = Math.round(subtotal * 100) / 100;
     // subtotal=Math.round10(subtotal, -1);
 
-   
+
     var objeto = new Object();
 
     objeto.id = id_riv;
@@ -2358,16 +2358,16 @@ function agregaritemventa(id, precio, cantidad,titulo,subtotal,unidadvta) {
     if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
         t = $('#tablaitemsventa').DataTable();
     }
-    
+
     var pre= precio;
 
     posicion = pre.toString().indexOf(".");
     if(posicion >=0)
-        pre = pre.slice(0, posicion) + "," + pre.slice(posicion + 1); 
+        pre = pre.slice(0, posicion) + "," + pre.slice(posicion + 1);
 
     t.row.add([
         id,
-        titulo,          
+        titulo,
         cantidad,
         unidadvta,
         pre,
@@ -2375,9 +2375,9 @@ function agregaritemventa(id, precio, cantidad,titulo,subtotal,unidadvta) {
         "<a class='borra' onclick='borrarfila(\"" + itemsEnlaventa + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
     ]);
     t.columns.adjust().draw();
-    
+
     document.getElementById("pedido").style.display  = "block";
-    
+
 
     calculatotal();
     focoencajabusqueda("");
@@ -2394,7 +2394,7 @@ function calculatotal()
 {
     totalpedido = 0;
     subtotal = 0;
-    for (var a = 0; a < arregloitemsventa.length; a++) 
+    for (var a = 0; a < arregloitemsventa.length; a++)
     {
         subtotal = arregloitemsventa[a].subtotal;
         totalpedido = totalpedido + subtotal;
@@ -2409,7 +2409,7 @@ function borrarfila(iditemsEnlaventa)
     //borra la fila visualmente
     $("#tablaitemsventa").on('click', '.borra', function () {
         $(this).parent().parent().css('display', 'none');
-    }); 
+    });
 
     calculatotal();
 
@@ -2420,7 +2420,7 @@ function borrarfila(iditemsEnlaventa)
     //borra la fila del arreglo
     for(var a = 0 ; a < arregloitemsventa.length ; a++)
     {
-        if (iditemsEnlaventa == arregloitemsventa[a].itemsEnlaventa) 
+        if (iditemsEnlaventa == arregloitemsventa[a].itemsEnlaventa)
         {
             subtotal = arregloitemsventa[a].subtotal;
             totalpedido = parseFloat(totalpedido) - subtotal;
@@ -2439,8 +2439,8 @@ function borrarfila(iditemsEnlaventa)
             o.subtotal =  arregloitemsventa[a].subtotal;
             o.itemsEnlaventa = arregloitemsventa[a].itemsEnlaventa;
             //agrega el item en el objeto
-            arregloAux.push(o);            
-        }        
+            arregloAux.push(o);
+        }
     }
 
     //---------------------- Re armo el arreglo de items de la venta --------------------------
@@ -2484,7 +2484,7 @@ function procesarventa(){
         Swal.fire({position: 'top-end',icon: 'warning',title: 'Indique el cliente',showConfirmButton: false,
             timer: 1500})
         return false;
-     
+
     }else  if (tipopagonombrecorto == ""){
 
         Swal.fire({position: 'top-end',icon: 'warning',title: 'Indique el tipo de pago',showConfirmButton: false,
@@ -2505,7 +2505,7 @@ function procesarventa(){
     {
         guardarventa(ar[a].id, ar[a].precio, ar[a].costo, ar[a].idrubro, ar[a].fechaventa, ar[a].cantidad,idclienteelegido, ar[a].bonus, tipopagonombrecorto);
     }
-    
+
     var fechaventa = $("#fechaventa").val();
     fechaventa = conviertefechaastringdmy(fechaventa);
 
@@ -2514,9 +2514,9 @@ function procesarventa(){
     // arregloitemsventa = [];
     ar = [];
     // totalpedido = 0;
-    
+
     var t = $("#tablaitemsventa").DataTable();
-    
+
     t.clear().draw(true);
     limpiacamposventa();
 
@@ -2553,7 +2553,7 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
         type: "post",
         success: function (data) {
 
-      
+
             if (data != "[]") {
 
                 var tipobonus = "bonussumado";
@@ -2581,7 +2581,7 @@ function limpiacamposventa()
     document.getElementById("totalpedido").value = totalpedido;
     document.getElementById("pedido").style.display = "none";
     arregloitemsventa = [];
-    
+
 }
 function guardarbonusencliente(id, bonus, tipo)
 {
@@ -2632,7 +2632,7 @@ function consultarventasdeldia(fechaventa,e) {
     var tabladeanuncios = tablaanuncios;
     var tabladeclientes = tablaclientes;
     var tabladerubro = tablarubros;
-    
+
 
     var tipo = "consulta";
 
@@ -2647,9 +2647,9 @@ function consultarventasdeldia(fechaventa,e) {
     itemventa.email = emailingreso;
     itemventa.jerarquia = jerarquia;
     itemventa.fechaventa = fechaventa;
-    
+
     var vendido = JSON.stringify(itemventa);
-    
+
     tventas.clear().draw(true);
 
     $.ajax({
@@ -2842,7 +2842,7 @@ function configuraciontablaPedido() {
        "paging":   false,
         "ordering": false,
         "info":     false
-    });   
+    });
 }
 
 function configuraciontablavender() {
@@ -2936,7 +2936,7 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
     itemventa.tablaunidadesgranel = tablaunidadesgranel;
     itemventa.email = emailingreso;
     itemventa.jerarquia = jerarquia;
-    
+
     itemventa.id = "";
     itemventa.titulo = "";
     itemventa.precio = "";
@@ -2962,7 +2962,7 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
 
             if (data != "consultavacia") {
                 dd = JSON.parse(data); //data decodificado
-                
+
                 t.clear().draw(true);
                 $("#totalventa").attr("value", "");
                 $("#totalcosto").attr("value", "");
@@ -2997,7 +2997,7 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
 
                         "<label class='blockcosto'>"+  dd[key].costo.toString().replace(".",",") + "</label>",
                         "<label class='blockcosto'>" + cantidadxcosto.toString().replace(".", ",") + "</label>",
-                        
+
                     ]).draw(false);
                 });
 
@@ -3027,7 +3027,7 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
 
 
                     $("#rentabilidadpesos").attr("value", rentapesosvista);
-                    
+
                     var renta = Math.floor( (totalventa - totalcosto) / totalcosto  *100);
                     var rentavista = Math.round(renta *100)/100;
 
@@ -3113,7 +3113,7 @@ function configuraciontablaproveedorproductos() {
             // "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
             "dom": '<"top"fl>rt<"bottom"p><"clear">'
         });
-   
+
 }
 
 function limpiarformularioproveedor() {
@@ -3359,7 +3359,7 @@ function intentaEliminarProveedor(idpasado){
 
     var bdd = conexionbdd;
     var tabladeproveedoresanuncios = tablaproveedoresanuncios;
-    
+
     var tipo = "consultaunproveedorenrelacion";
 
     var id;
@@ -3395,10 +3395,10 @@ function intentaEliminarProveedor(idpasado){
                     timer: 2500
                 })
             }else{
-                
+
                 console.log(data);
             }
-            
+
         },
         error: function (e) {
             alert("Error en el intento de eliminar un proveedor.");
@@ -3537,7 +3537,7 @@ function consultaproveedores_seleccion_lista(e) {
 
 function consultarProveedoresProductosXrubro(tipopasado,e) {
 
-   
+
     var seleccionidproveedor = document.getElementById("opcioneslistaproveedores").value;
 
     if (seleccionidproveedor == "") {
@@ -3578,7 +3578,7 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
             var tabladerubros = tablarubros;
             var tabladeproveedores = tablaproveedores;
             var tabladeproveedoresanuncios = tablaproveedoresanuncios;
-            
+
             var tipo = tipopasado;
             // var tipo = "consultarubros";
             var idanuncio = "";
@@ -3603,7 +3603,7 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
             itemanuncio.idproveedor = seleccionidproveedor;
             itemanuncio.id = idanuncio;
             itemanuncio.filtro = "";
-            
+
             itemanuncio.filtro = "";
 
             var objetoanuncio = JSON.stringify(itemanuncio);
@@ -3649,7 +3649,7 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
                                 dd[key].descripcion,
                                 dd[key].costo,
                                 dd[key].precio
-                                
+
                             ]).draw(false);
 
                         });
@@ -3683,7 +3683,7 @@ function consultarProveedoresProductosXrubro(tipopasado,e) {
 function consultarProveedoresProductosXfiltro(tipopasado, e ) {
 
     var seleccionidproveedor = document.getElementById("opcioneslistaproveedores").value;
-    
+
     if (seleccionidproveedor==""){
         Swal.fire({
             position: 'top-end',
@@ -3731,7 +3731,7 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
 
         var objetoanuncio = JSON.stringify(itemanuncio);
 
-        
+
         tas.clear().draw(true);
         arregloproveedoranuncio = [];
 
@@ -3746,11 +3746,11 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
 
                 if (data != "consultavacia") {
                     dd = JSON.parse(data); //data decodificado
-                    
+
                     $.each(dd, function (key, value) {
-                        
+
                         opcionproveedoranuncio = "opcionproveedoranuncio_" + dd[key].id;
-                       
+
                         if(dd[key].anunciodelproveedor == "SI")
                             estado = "checked";
                         else
@@ -3799,7 +3799,7 @@ function consultarProveedoresProductosXfiltro(tipopasado, e ) {
             }
         });
     }
-}   
+}
 
 
 function agregarfiltroproveedoranuncio(tipopasado) {
@@ -3836,9 +3836,9 @@ function agregaquitaproveedoranuncio(idanuncio, opcionproveedoranuncio) {
     // var seleccionpro = document.getElementById("opcioneslistaproveedores");
     // var seleccionproveedor = seleccionpro.options[seleccionpro.selectedIndex].text;
     var seleccionidproveedor = document.getElementById("opcioneslistaproveedores").value;
-    
+
     tilde = document.getElementById(opcionproveedoranuncio);
-    
+
     if (tilde.checked == true) {
         if (seleccionidproveedor == "") {
             tilde.checked = false;
@@ -3862,7 +3862,7 @@ function agregaquitaproveedoranuncio(idanuncio, opcionproveedoranuncio) {
                         arregloproveedoranuncio[a].tildado = "checked"
                     }
                 }
-               
+
             }
         }
     }
@@ -3880,7 +3880,7 @@ function agregaquitaproveedoranuncio(idanuncio, opcionproveedoranuncio) {
                     arregloproveedoranuncio[a].tildado = ""
                 }
             }
-            
+
         }
     }
 
@@ -3910,7 +3910,7 @@ function agregaquitatodosprovanun(altabaja){
             confirmButtonText: 'Si, Asignar!',
             cancelButtonText: 'No, Cancelar!',
             reverseButtons: true
-        }).then((result) => 
+        }).then((result) =>
         {
             if (result.value) {
                 agregarquitartodos(altabaja);
@@ -3932,8 +3932,8 @@ function agregaquitatodosprovanun(altabaja){
             showConfirmButton: false,
             timer: 2500
         })
-       
-        
+
+
     }
 }
 
@@ -3944,12 +3944,12 @@ function agregarquitartodos(altabaja)
     {
         var anu = document.getElementById(arregloproveedoranuncio[a].opcionproveedoranuncio);
         if(anu){
-            
+
             if (altabaja == "alta"){
-                anu.checked = true; 
+                anu.checked = true;
             }
             else{
-                anu.checked = false; 
+                anu.checked = false;
             }
         }
 
@@ -3961,9 +3961,9 @@ function agregarquitartodos(altabaja)
 
     if ($.fn.dataTable.isDataTable('#tablaanunciosproveedores'))
         tas = $('#tablaanunciosproveedores').DataTable();
-    
+
     tas.clear().draw(true);
-    
+
     arregloproveedoranuncio = [];
 
 }
@@ -4024,14 +4024,14 @@ function altabajaproveedoranuncio(idanuncio, seleccionidproveedor, tipo, mensaje
                     html: 'No hay buena conexión!',
                     displayLength: '4000'
                 });
-                
+
             console.log("Error de comunicación");
         }
     });
 
 }
 
-function cambiapreciosmasivamente(tip) 
+function cambiapreciosmasivamente(tip)
 {
     var aplicaalcosto = 0;
     var aplicaalaventa = 0;
@@ -4053,7 +4053,7 @@ function cambiapreciosmasivamente(tip)
         aplicamontoporcentaje = "monto";
     }
 
-    if (aplicaalcosto == 1 || aplicaalaventa == 1) 
+    if (aplicaalcosto == 1 || aplicaalaventa == 1)
     {
         var alcancemodificacion = "";
 
@@ -4089,7 +4089,7 @@ function cambiapreciosmasivamente(tip)
                         result.dismiss === Swal.DismissReason.cancel
                     ) {swalWithBootstrapButtons.fire('Perfecto','Los precios siguen iguales!!!')}
                 })
-            
+
             } else {
 
                 Swal.fire({
@@ -4105,7 +4105,7 @@ function cambiapreciosmasivamente(tip)
 
             //cambiar montos
 
-            if (valorcambio.value != "" && valorcambio.value > 0) 
+            if (valorcambio.value != "" && valorcambio.value > 0)
             {
 
                 const swalWithBootstrapButtons = Swal.mixin({ customClass: { confirmButton: 'btn btn-success', cancelButton: 'btn btn-danger' }, buttonsStyling: false })
@@ -4154,7 +4154,7 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
 {
 
 
-    for (var a = 0; a < arreglochecktilde.length; a++) 
+    for (var a = 0; a < arreglochecktilde.length; a++)
     {
         idproducto          = arreglochecktilde[a].idanuncio;
         costoactualxprefijo = parseFloat(arreglochecktilde[a].costoxprefijo);
@@ -4162,26 +4162,26 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
         costoanterior       = parseFloat(arreglochecktilde[a].costo);
         precioanterior      = parseFloat(arreglochecktilde[a].precio);
         relacioncove        = parseFloat(arreglochecktilde[a].relacioncompraventa);
-        
+
         monto               = parseFloat(monto);
-        
+
 
         comocompra          = arreglochecktilde[a].prefijocompra;
         var costonuevo      = 0;
         var precionuevo     = 0;
-       
+
 
         if(comocompra == 0)
         {
             costonuevo = costoanterior;
             precionuevo = precioanterior;
-            
-            
+
+
         }else
         {
             costonuevo = costoactualxprefijo;
             precionuevo = ventaactualxprefijo;
-            
+
         }
 
         var redondeo = $('#opcionredondear').prop('checked');
@@ -4195,18 +4195,18 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
                     costonuevo = Math.ceil(costonuevo/10)*10;
 
                 if(comocompra > 0)
-                    costoactualxprefijo = costonuevo;                 
+                    costoactualxprefijo = costonuevo;
 
                 costonuevo = costonuevo / relacioncove;
                 costonuevo = Math.round(costonuevo * 100) / 100;
             }
-            
+
             if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
             {
                 precionuevo = precionuevo + monto;
                 if(redondeo)
                     precionuevo = Math.ceil(precionuevo/10)*10;
-               
+
                 if(comocompra > 0)
                     ventaactualxprefijo = precionuevo;
                 precionuevo = precionuevo / relacioncove;
@@ -4221,11 +4221,11 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
                     costonuevo = Math.ceil(costonuevo/10)*10;
 
                 if(comocompra > 0)
-                    costoactualxprefijo = costonuevo;                                               
+                    costoactualxprefijo = costonuevo;
                 costonuevo = costonuevo / relacioncove;
                 costonuevo = Math.round(costonuevo * 100) / 100;
             }
-            
+
             if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
             {
                 precionuevo = precionuevo - monto;
@@ -4239,7 +4239,7 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
             }
         }
 
-        
+
         if (arreglochecktilde[a].tildado == true) {
             actualizaporcentajepreciocostoyventa(idproducto, precionuevo, precioanterior, costonuevo, costoanterior, costoactualxprefijo, ventaactualxprefijo)
             M.toast({ html: 'Hecho,' + arreglochecktilde[a].idproducto, displayLength: '300', classes: 'rounded' });
@@ -4247,7 +4247,7 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
         }
 
     }
-    
+
     var tas = null;
     if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
         tas = $('#tablaanunciosmasivos').DataTable();
@@ -4255,14 +4255,14 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
 
     tas.clear().draw(true);
     document.getElementById("todostilde").checked = false;
-    
+
 }
 
 function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodificacion)
 {
 
 
-    for (var a = 0; a < arreglochecktilde.length; a++) 
+    for (var a = 0; a < arreglochecktilde.length; a++)
     {
         idproducto          = arreglochecktilde[a].idanuncio;
         costoactualxprefijo = parseFloat(arreglochecktilde[a].costoxprefijo);
@@ -4271,23 +4271,23 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
         precioanterior      = parseFloat(arreglochecktilde[a].precio);
         relacioncove        = parseFloat(arreglochecktilde[a].relacioncompraventa);
         porcentaje          = parseFloat(porcentaje);
-        
+
         comocompra          = arreglochecktilde[a].prefijocompra;
         var costonuevo      = 0;
         var precionuevo     = 0;
-       
+
 
         if(comocompra == 0)
         {
             costonuevo = costoanterior;
             precionuevo = precioanterior;
-            
-            
+
+
         }else
         {
             costonuevo = costoactualxprefijo;
             precionuevo = ventaactualxprefijo;
-            
+
         }
 
         var redondeo = $('#opcionredondear').prop('checked');
@@ -4301,18 +4301,18 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
                     costonuevo = Math.ceil(costonuevo/10)*10;
 
                 if(comocompra > 0)
-                    costoactualxprefijo = costonuevo;                 
+                    costoactualxprefijo = costonuevo;
 
                 costonuevo = costonuevo / relacioncove;
                 costonuevo = Math.round(costonuevo * 100) / 100;
             }
-            
+
             if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
             {
                 precionuevo = precionuevo + precionuevo * porcentaje / 100;
                 if(redondeo)
                     precionuevo = Math.ceil(precionuevo/10)*10;
-               
+
                 if(comocompra > 0)
                     ventaactualxprefijo = precionuevo;
                 precionuevo = precionuevo / relacioncove;
@@ -4327,11 +4327,11 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
                     costonuevo = Math.ceil(costonuevo/10)*10;
 
                 if(comocompra > 0)
-                    costoactualxprefijo = costonuevo;                                               
+                    costoactualxprefijo = costonuevo;
                 costonuevo = costonuevo / relacioncove;
                 costonuevo = Math.round(costonuevo * 100) / 100;
             }
-            
+
             if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
             {
                 precionuevo = precionuevo - precionuevo * porcentaje / 100;
@@ -4345,14 +4345,14 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
             }
         }
 
-        
+
         if (arreglochecktilde[a].tildado == true) {
             actualizaporcentajepreciocostoyventa(idproducto, precionuevo, precioanterior, costonuevo, costoanterior, costoactualxprefijo, ventaactualxprefijo)
             M.toast({ html: 'Hecho,' + arreglochecktilde[a].idproducto, displayLength: '300', classes: 'rounded' });
         }
 
     }
-    
+
     var tas = null;
     if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
         tas = $('#tablaanunciosmasivos').DataTable();
@@ -4366,7 +4366,7 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
 
 function actualizaporcentajepreciocostoyventa(idproducto,precionuevo, precioactual,costonuevo,costoactual,costoxprefijoenviado,ventaxprefijoenviado)
 {
-    
+
     if (precionuevo != precioactual || costonuevo != costoactual)
     {
         var bdd = conexionbdd;
@@ -4400,14 +4400,14 @@ function actualizaporcentajepreciocostoyventa(idproducto,precionuevo, precioactu
 
 
         var objetoanuncio = JSON.stringify(itemanuncio);
-        
+
         $.ajax({
             url: "consultaanuncios.php",
             data: { objetoanuncio: objetoanuncio },
             type: "post",
             success: function (data) {
 
-               
+
                 if (data == 1) {
                     // if (precionuevo != precioactual) {
                     //     M.toast({ html: 'Ok, precio de venta actualizado!', displayLength: '2000', classes: 'rounded' });
@@ -4435,8 +4435,8 @@ function cambiapreciosmasivos(tip)
 
     if ($('#aplicaacosto').prop('checked')) {
         aplicaalcosto = 1;
-    } 
-    
+    }
+
     if ($('#aplicaaventa').prop('checked')) {
         aplicaalaventa = 1;
     }
@@ -4444,7 +4444,7 @@ function cambiapreciosmasivos(tip)
     if(aplicaalcosto == 1 || aplicaalaventa == 1)
     {
         var alcancemodificacion = "";
-        
+
         if(aplicaalcosto == 1 && aplicaalaventa == 1)
         {
             alcancemodificacion = "costoyventa";
@@ -4454,7 +4454,7 @@ function cambiapreciosmasivos(tip)
         }else
             alcancemodificacion = "venta";
 
-        
+
         var porcentaje = document.getElementById("porcentaje");
         if (tip == "restar" && porcentaje.value > 100){
 
@@ -4466,7 +4466,7 @@ function cambiapreciosmasivos(tip)
                 showConfirmButton: false,
                 timer: 2500
             })
-        
+
             return;
         }
 
@@ -4493,7 +4493,7 @@ function cambiapreciosmasivos(tip)
                 reverseButtons: true
             }).then((result) => {
                 if (result.value) {
-                    
+
                     cambiarPreciosVentaMasivamente(porcentaje.value, tip, alcancemodificacion);
                 } else if (
                     /* Read more about handling dismissals below */
@@ -4530,10 +4530,10 @@ function cambiapreciosmasivos(tip)
 
 
 function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
-    
-    for (var a = 0; a < arregloproveedoranuncio.length; a++) 
+
+    for (var a = 0; a < arregloproveedoranuncio.length; a++)
     {
-   
+
         idproducto = arregloproveedoranuncio[a].idanuncio;
         costoactual = parseInt(arregloproveedoranuncio[a].costo);
         precioactual = parseInt(arregloproveedoranuncio[a].precio);
@@ -4552,7 +4552,7 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
             else
                 costonuevo = parseInt(costoactual);
 
-            
+
             if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa")
             {
                 precionuevo = parseInt(precioactual + precioactual * porcentaje / 100);
@@ -4562,7 +4562,7 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
             else
                 precionuevo = parseInt(precioactual);
 
-            
+
         }else
         {
             if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
@@ -4573,7 +4573,7 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
             }
             else
                 costonuevo = parseInt( costoactual);
-            
+
             if (alcancemodificacion == "venta" || alcancemodificacion == "costoyventa"){
                 precionuevo = parseInt(precioactual - precioactual * porcentaje / 100);
                 if(redondeo)
@@ -4584,7 +4584,7 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
 
         }
 
-        
+
         if (arregloproveedoranuncio[a].tildado == "checked") {
             actualizapreciocostoyventa(idproducto, precionuevo, precioactual, costonuevo, costoactual)
         }
@@ -4597,7 +4597,7 @@ function cambiarPreciosVentaMasivamente(porcentaje, tip, alcancemodificacion){
         tas.clear().draw(true);
     }
 
-    
+
 }
 
 
@@ -4637,7 +4637,7 @@ function verificaproveedoranuncio(idanuncio, seleccionidproveedor)
 
             if (data == "[]") {
                 altabajaproveedoranuncio(idanuncio, seleccionidproveedor, "alta", "Ok producto asociado al proveedor")
-            } 
+            }
         },
         error: function (e) {
             M.toast(
@@ -4645,10 +4645,405 @@ function verificaproveedoranuncio(idanuncio, seleccionidproveedor)
                     html: 'No hay buena conexión!',
                     displayLength: '4000'
                 });
-                
+
             console.log("Error de comunicación");
         }
     });
+
+}
+
+
+// ------------------------------------------------------------------------------------------------------------
+//------------------------------------------------ FILTROS ----------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+
+function configuraciontablafiltros () {
+
+    $("#tablafiltros").DataTable({
+        "language": {
+
+            "processing": "Procesando...",
+            "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+            "lengthMenu": "",
+            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+            "emptyTable": "No hay registros guardados",
+            "zeroRecords": "No hay registros guardados",
+            "infoEmpty": "No hay rubros para mostrar",
+            "paginate": {
+                "first": "Primera",
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "last": "Ultima"
+            },
+            "aria": {
+                "sortAscending": "Ordenar columna ascendente",
+                "sortDescending": "Ordenar columna descendente"
+            }
+        },
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+        ],
+        "pageLength": 10
+
+    });
+}
+
+function limpiarformulariofiltros() {
+    document.getElementById('idfiltro').value = "";
+    document.getElementById('nombrefiltro').value = "";
+}
+
+function EnviarFormularioFiltros() {
+
+    var id = document.getElementById('idfiltro').value;
+    var n = document.getElementById('nombrefiltro').value;
+
+
+
+
+    // validaciones de campos
+    if (n == "") { mostrarToastError("Nombre"); return; }
+
+
+
+    //guardar el anuncio en la base de datos
+    altafiltro(id, n);
+    limpiarformulariofiltros();
+
+}
+
+function altafiltro(idpasado, n) {
+
+
+    var bdd = conexionbdd;
+    var tabla = tablafiltros;
+    var tipo = "alta";
+
+    var id;
+    if (idpasado == "")
+        id = 0;
+    else
+        id = idpasado;
+
+    var datosfiltros = new Object();
+    datosfiltros.bdd = bdd;
+    datosfiltros.tabla = tabla;
+    datosfiltros.tipo = tipo;
+    datosfiltros.id = id;
+    datosfiltros.nombrefiltro = n;
+
+
+    var filtro = JSON.stringify(datosfiltros);
+    $.ajax({
+        url: "consultafiltros.php?8",
+        data: { filtro: filtro },
+        type: "post",
+
+        success: function (data) {
+
+            if (data != "consultavacia") {
+                // M.toast({ html: 'Registro Guardado!' })
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Guardado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                consultarfiltros();
+
+            } else {
+                M.toast({ html: 'Error al crear el registro' });
+                console.log("retorno:" + data);
+
+            }
+        },
+        error: function (e) {
+            M.toast({ html: 'Error al intentar guardar.' });
+        }
+    });
+
+}
+
+function consultarfiltros(e) {
+    if ($.fn.dataTable.isDataTable('#tablafiltros')) {
+        tr = $('#tablafiltros').DataTable();
+    }
+
+    var bdd = conexionbdd;
+    var tabla = tablafiltros;
+    var tipo = "consultatodosanuncios";
+
+    var id;
+
+    if (document.getElementById('idfiltro')) {
+        id = document.getElementById('idfiltro').value;
+    } else
+        id = "";
+
+
+    if (id == "")
+        id = 0;
+    else
+        id = id;
+
+    var datosfiltros = new Object();
+    datosfiltros.bdd = bdd;
+    datosfiltros.tabla = tabla;
+    datosfiltros.tipo = tipo;
+    datosfiltros.id = id;
+    datosfiltros.nombrefiltro = "";
+
+
+    var filtro = JSON.stringify(datosfiltros);
+    $.ajax({
+
+        url: "consultafiltros.php",
+        data: { filtro: filtro },
+
+        type: "post",
+
+        success: function (data) {
+            if (data != "consultavacia") {
+                dd = JSON.parse(data); //data decodificado
+
+                tr.clear().draw(true);
+
+                $.each(dd, function (key, value) {
+
+
+                        tr.row.add([
+                            "<a onclick='seleccionarfiltros(\"" + dd[key].idfiltro + "\",\"" + dd[key].nombrefiltro + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2" + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
+                            dd[key].idfiltro,
+                            dd[key].nombrefiltro,
+                            "<a onclick='eliminarf(\"" + dd[key].idfiltro + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+
+                        ]).draw(false);
+
+                });
+                limpiarformulariofiltros();
+
+            }
+        },
+        error: function (e) {
+            alert("Error en la consulta." + e.value);
+        }
+    });
+}
+
+function seleccionarfiltros(id, nom) {
+
+    document.getElementById('idfiltro').value = id;
+    document.getElementById('nombrefiltro').value = nom;
+
+    $('#collapseFil').collapse('toggle');
+
+    posicioninicial();
+}
+
+function eliminarf(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Desea eliminar ?',
+        text: "Esta acción no se podrá revertir!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+            eliminarfiltro(id);
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Perfecto',
+                'Su filtro permanece guardado :)'
+            )
+        }
+    })
+}
+
+function eliminarfiltro(idpasado) {
+    var bdd = conexionbdd;
+    var tabla = tablafiltros;
+
+    var tipo = "baja";
+
+    var id;
+
+    if (idpasado == "")
+        id = 0;
+    else
+        id = idpasado;
+
+
+    var datosfiltros = new Object();
+    datosfiltros.bdd = bdd;
+    datosfiltros.tabla = tabla;
+    datosfiltros.tipo = tipo;
+    datosfiltros.id = id;
+    datosfiltros.nombrefiltro = "";
+
+
+    var filtro = JSON.stringify(datosfiltros);
+
+    $.ajax({
+        url: "consultafiltros.php",
+        data: { filtro: filtro },
+        type: "post",
+        success: function (data) {
+
+            if (data != "consultavacia") {
+                Swal.fire(
+                    'Eliminado!',
+                    'El filtro fué borrado.',
+                    'success'
+                )
+
+                consultarfiltros();
+                posicioninicial();
+            } else {
+                M.toast({ html: 'Error al intentar eliminar.' })
+            }
+        },
+        error: function (e) {
+            alert("Error en el alta.");
+        }
+    });
+}
+
+
+function consultafiltros_seleccion_lista(e) {
+
+    var bdd = conexionbdd;
+    var tabla = tablafiltros;
+    var tipo = "consultatodosanuncios";
+
+    var id;
+
+    if (document.getElementById('idfiltro')) {
+        id = document.getElementById('idfiltro').value;
+    } else
+        id = "";
+
+
+    if (id == "")
+        id = 0;
+    else
+        id = id;
+
+    var datosfiltros = new Object();
+    datosfiltros.bdd = bdd;
+    datosfiltros.tabla = tabla;
+    datosfiltros.tipo = tipo;
+    datosfiltros.id = id;
+    datosfiltros.nombrefiltro = "";
+
+    var filtro = JSON.stringify(datosfiltros);
+
+    $.ajax({
+
+        url: "consultafiltros.php",
+        data: { filtro: filtro },
+        type: "post",
+
+        success: function (data) {
+            $("#opcioneslistafiltros").empty();
+            if (data != "consultavacia") {
+
+                dd = JSON.parse(data); //data decodificado
+
+                var a = [];
+                a.push('<option value = "" selected >Seleccione un filtro</option >');
+
+                $.each(dd, function (key, value) {
+                    a = a.concat('<option value = ' + dd[key].idfiltro + ' > ' + dd[key].nombrefiltro + '</option>');
+                });
+
+                $("#opcioneslistafiltros").append(a);
+
+                //selecciona el primer item
+                $("#opcioneslistafiltros option:selected").prop("selected", false);
+
+                $(this).prop("selected", true);
+            } else {
+                M.toast({ html: 'No hay filtros dados de alta.' });
+            }
+
+
+        },
+        error: function (e) {
+            alert("Error en la consulta." + e.value);
+        }
+    });
+
+}
+
+function consultafiltros_encolumnas(e)
+{
+
+
+    var bdd = conexionbddpaginaweb;
+    var tabla = tablafiltrosweb;
+    var tipo = "consultatodosanuncios";
+    var id=0;
+
+    var datosfiltros = new Object();
+    datosfiltros.bdd = bdd;
+    datosfiltros.tabla = tabla;
+    datosfiltros.tipo = tipo;
+
+    var filtro = JSON.stringify(datosfiltros);
+    $.ajax({
+
+        url: "consultafiltros.php",
+        data: { filtro: filtro },
+        type: "post",
+
+        success: function (data) {
+            $("#columnasfiltro").empty();
+            if (data != "consultavacia" && data != "[]") {
+                dd = JSON.parse(data); //data decodificado
+                var a = [];
+                $.each(dd, function (key, value) {
+                    a.push('<div class="col"><a href=\"javaScript:buscarxfiltro(\' ' + dd[key].nombrefiltro + ' \' )\">' + ' ' + dd[key].nombrefiltro + '<\a></div>');
+                });
+                $("#columnasfiltro").append(a);
+            }else
+            {
+                ocultamarcas();
+            }
+        },
+        error: function (e) {
+            alert("Error en la consulta." + e.value);
+        }
+    });
+}
+
+function ocultamarcas(){
+
+    document.getElementById("divlistamarcas").style.display = "none";
+}
+function buscarxfiltro(nombrefiltro)
+{
+    document.getElementById("cajabusqueda").value =  nombrefiltro.trim();
+    consultabusqueda("consultafiltros", "", "si");
+    var altura = $('.menu').offset().top;
+    var alturamenu = $('.menu').outerHeight(true);//mide la altura del objeto con margen borde y padding externo
+    var velocidadscroll = 600;
+    var poscontacto = $("#seccionbuscadosbuscador").offset().top - alturamenu;
+    $("HTML, BODY").animate({ scrollTop: poscontacto }, velocidadscroll);
 
 }
 // ------------------------------------------------------------------------------------------------------------
@@ -4893,7 +5288,7 @@ function consultarclientes(e) {
                     }
                 });
                 limpiarformulariocliente();
-                
+
             }
         },
         error: function (e) {
@@ -4982,9 +5377,9 @@ function intentaEliminarcliente(idpasado)
 
         type: "post",
 
-        success: function (data) 
+        success: function (data)
         {
-            if (data == "[]" || data == "consultavacia") 
+            if (data == "[]" || data == "consultavacia")
             {
                 eliminarcliente(id);
             }else if (data != "[]" && data != "consultavacia") {
@@ -5260,7 +5655,7 @@ function guardarbonus(){
         data: { bdd: bdd, tabla: tabla, tipo: tipo },
         type: "post",
         success: function (data) {
-            if (data == "[]" || data == "") 
+            if (data == "[]" || data == "")
             {
                 grabarbonus("alta");
             }else
@@ -5272,7 +5667,7 @@ function guardarbonus(){
             M.toast({ html: 'Error al intentar guardar.' })
         }
     });
-   
+
 }
 
 function grabarbonus(tipopasado){
@@ -5457,7 +5852,7 @@ function volverAconsultar()
         consultaranunciosparamovimientos("consultalector");
     }else
     {
-        if( cb != "") 
+        if( cb != "")
         {
             consultaranunciosparamovimientos("consultafiltros");
         }else
@@ -5468,10 +5863,10 @@ function volverAconsultar()
     }
 }
 function CalculaPrecioSegunMargen(costo,porcentaje){
-    
+
     if(costo == "") costo = 0;
     if(porcentaje == "") porcentaje = 0;
-    
+
     var precioventa = 0;
     precioventa = parseFloat(costo) + (parseFloat(porcentaje) * parseFloat(costo)) / 100;
     precioventa = Math.round(precioventa * 100) / 100;
@@ -5504,7 +5899,7 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
                 $('#cantidad_' + id).focus();
         }
     }
-    
+
     if (key == 120)
     {
         if (uping == 0)
@@ -5515,13 +5910,13 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
 
     if (e.keyCode == 107  && sicompra == 1) //tecla + o enter
     {
-        
+
         if (uping == 0)
             moverstock(id, costo, precio, prefijocompra, prefijoventa, relacioncompraventa, codigobarra);
 
        return false;
     }
-    
+
     //punto del teclado numerico o coma del teclado alfa
     if (e.keyCode == 110 || e.keyCode == 188) {
         return true;
@@ -5529,9 +5924,9 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
 
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
-         
-      
-        
+
+
+
         if(unfr != undefined)
         {
             if(unfr == 'fr')
@@ -5539,10 +5934,10 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
             else if(unfr == 'un')
                 var cosxpre = document.getElementById("costo_" + id);
 
-            if (uping == 1) 
+            if (uping == 1)
             {
                 var cantidad = document.getElementById("cantidad_" + id);
-                
+
                 var st = cantidad.value * cosxpre.value;
                 st = Math.round(st * 100) / 100;
 
@@ -5552,7 +5947,7 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
                 // var renta = (parseFloat(contenido) - cosxpre.value) / cosxpre.value  * 100;
                 // var rentavista = Math.round(renta *100)/100;
                 // rentavista = Math.round(rentavista * 100) / 100;
-                
+
                 var rentavista=0;
                 rentavista = CalculaMargenSegunPrecio(contenido,cosxpre.value);
                 document.getElementById("porcentajem_" + id).value = parseFloat(rentavista);
@@ -5561,11 +5956,11 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
         return true;
     }
 
-    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres)) 
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres))
     {
-        
 
-        if (unfr != undefined) 
+
+        if (unfr != undefined)
         {
             if (unfr == 'fr')
                 var cosxpre = document.getElementById("costoxprefijo_" + id);
@@ -5581,7 +5976,7 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
             } else {
                 // var renta = (parseFloat(contenido) - cosxpre.value) / cosxpre.value * 100;
                 // var rentavista = Math.round(renta * 100) / 100;
-               
+
                 // rentavista = Math.round(rentavista * 100) / 100;
 
                 var rentavista=0;
@@ -5597,7 +5992,7 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
 function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, costo, precio,prefijocompra,prefijoventa,relacioncompraventa,codigobarra,downup,sicompra)
 {
     var key = window.event ? e.which : e.keyCode;
-    
+
     if (e.keyCode == 13) //tecla + o enter
     {
         if (uping == 0){
@@ -5613,10 +6008,10 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
         if (uping == 0)
             moverstock(id, costo, precio, prefijocompra, prefijoventa, relacioncompraventa, codigobarra);
 
-        return false;    
+        return false;
     }
 
-    if (e.keyCode == 107 ) //tecla + 
+    if (e.keyCode == 107 ) //tecla +
     {
         if(downup==1) //si la tecla esta subiendo compra pero si esta bajando osea 0 no compra
             moverstock(id, costo, precio, prefijocompra, prefijoventa, relacioncompraventa, codigobarra);
@@ -5626,7 +6021,7 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
 
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 46  || unicode == 8 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
-        
+
         if (uping == 1) {
             var cantidad = document.getElementById("cantidad_" + id);
             if(unfr == 'fr')
@@ -5645,7 +6040,7 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
         return true;
     }
 
-    if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || unicode == 46 ) && (contenido.length < caracteres)) 
+    if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || unicode == 46 ) && (contenido.length < caracteres))
     {
         if (uping == 1) {
             var cantidad = document.getElementById("cantidad_" + id);
@@ -5687,7 +6082,7 @@ function validarinputporcentaje(e,contenido, caracteres,uping,unfr, id,prefijoco
         }
     }
 
-        
+
      //punto del teclado numerico o coma del teclado alfa
     if (e.keyCode == 110 || e.keyCode == 188) {
         return true;
@@ -5695,7 +6090,7 @@ function validarinputporcentaje(e,contenido, caracteres,uping,unfr, id,prefijoco
 
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 46 || unicode == 8 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
-        
+
         if (uping == 1) {
             var cantidad = document.getElementById("cantidad_" + id);
             if(unfr == 'fr')
@@ -5740,7 +6135,7 @@ function validarinputporcentaje(e,contenido, caracteres,uping,unfr, id,prefijoco
         return true;
     }
 
-    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) || unicode == 46 ) && (contenido.length < caracteres)) 
+    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) || unicode == 46 ) && (contenido.length < caracteres))
     {
         if (uping == 1) {
             var cantidad = document.getElementById("cantidad_" + id);
@@ -5792,11 +6187,11 @@ function validarinputporcentaje(e,contenido, caracteres,uping,unfr, id,prefijoco
 
 function consultaranunciosparamovimientos(tipo,e) {
 
-      
+
     if ($.fn.dataTable.isDataTable('#tablaanunciosmovimientos')) {
         t = $('#tablaanunciosmovimientos').DataTable();
     }
-    
+
     var seleccionidrubro = document.getElementById("opcioneslista").value;
 
     var bdd = conexionbdd;
@@ -5809,7 +6204,7 @@ function consultaranunciosparamovimientos(tipo,e) {
     var tabladeajustes = tablaajustes;
     var tabladeproveedores = tablaproveedores;
     var tabladeproveedoresanuncios = tablaproveedoresanuncios;
-    
+
     var id;
 
     if (document.getElementById('id')) {
@@ -5895,7 +6290,7 @@ function consultaranunciosparamovimientos(tipo,e) {
                     var unfr="";
                     stok = dd[key].stock / dd[key].relacioncompraventa;
 
-                    
+
                     colorfondo = 'white';
                     colorsegun = 'black';
 
@@ -5909,15 +6304,15 @@ function consultaranunciosparamovimientos(tipo,e) {
                         colorsegun = 'white';
                     }
 
-                    
+
                     if(dd[key].prefijocompra == 0) //es un producto de venta unitaria
                     {
                         unfr = 'un';
-                        
+
                         filaCosto = "<input style='text-align: center;' onKeyDown= ='return validarinputcantidadpreciocompras(event,\"costo_\", this.value, 12,1,\"" + unfr + "\",\"" + dd[key].id + "\",0,\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\") ' onKeyUp ='return validarinputcantidadpreciocompras(event,\"costo_\", this.value, 12,0,\"" + unfr + "\",\"" + dd[key].id + "\",0,\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\") ' id ='costo_" + dd[key].id + "' name ='costo_" + dd[key].id + "' type ='text' class='validate escampocosto saltacosto blockcosto' value=" + "'" + dd[key].costo + "'></input>";
                         filaVenta = "<input style='text-align: center;' onKeyDown='return validarinputcantidadpreciocompras(event,\"precio_\", this.value, 12,1,\"" + unfr + "\",\"" + dd[key].id + "\",1,\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\") '  onKeyUp ='return validarinputcantidadpreciocompras(event,\"precio_\", this.value, 12,0,\"" + unfr + "\",\"" + dd[key].id + "\",1,\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\") ' id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio blockmodiprecio' value=" + "'" + dd[key].precio + "'></input>";
                         formaVta = "<label>x Unidad</label>";
-                       
+
                     }else //es un producto de venta fraccionada
                     {
                         unfr = 'fr';
@@ -5930,11 +6325,11 @@ function consultaranunciosparamovimientos(tipo,e) {
                     {
                         tituloanterior = dd[key].titulo;
                         t.row.add([
-                            
+
                             // "<label><input onclick = 'agregaquitastockinicio(\"" + dd[key].id + "\",\"" + opcioninicio + "\")' id='" + opcioninicio + "' type='checkbox' class='filled-in columnadedos' " + estado + " /><span class='colorletras'>Si</span></label>",
                             dd[key].id,
                             dd[key].codigobarra,
-                                
+
                             dd[key].titulo,
                             "<input style='text-align: center;' onKeyDown='return validarinputcantidadcompras(event, this.value, 8,1,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",0,0) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,0,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",1) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
                             "<label style='text-align: center;' >"+ dd[key].nombreprefijocompra +"</label>",
@@ -5947,7 +6342,7 @@ function consultaranunciosparamovimientos(tipo,e) {
                             "<label style='text-align: center;' >"+ dd[key].nombreprefijocompra +"</label>",
 
                             // formaVta,
-                            // "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",                                                
+                            // "<img class='materialboxed center-align' width='30%' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
                             // "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect  brown darken-3 " + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
                             // "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
 
@@ -5974,7 +6369,7 @@ function consultaranunciosparamovimientos(tipo,e) {
                 identificasaltainput('saltacosto');
                 identificasaltainput('saltamargen');
                 identificasaltainput('saltaprecio');
-                
+
                 // colapsarCompras();
                 mostrarResultaodosBusquedaCompras();
                 hacefoco();
@@ -6064,7 +6459,7 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
     if(can)
     {
 
-    
+
         canAjuste = can.value;
 
         if(prefijocompra == 0)
@@ -6077,7 +6472,7 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
             cos = cos.value;
         }else
         {
-        
+
             can = can.value * relacioncompraventa;
             pre = document.getElementById('ventaxprefijo_' + id);
             ventaxprefijoenviado = pre.value;
@@ -6097,11 +6492,11 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
 
         if( fechamovimiento != "")
         {
-            if(nombreproveedor != "Selecciona un Proveedor" && nombreproveedor != "" )        
+            if(nombreproveedor != "Selecciona un Proveedor" && nombreproveedor != "" )
             {
                 if(tipomovimientonombrecorto != "")
                 {
-                    
+
                         if(parseInt(can, 10) > 0)
                         {
                             fechamovimiento = conviertefechaastringdmy(fechamovimiento);
@@ -6115,7 +6510,7 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
                             can = "";
                             setTimeout(() => {
                                 document.getElementById('cantidad_' + id).value = "";
-                                
+
                             }, 100);
                         }
                         else
@@ -6145,7 +6540,7 @@ function moverstock(id,costoactual,precioactual,prefijocompra,prefijoventa,relac
                 showConfirmButton: false,timer: 2500})
         }
     }
-    
+
     // colapsarCompras();
 }
 
@@ -6160,8 +6555,8 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     var tabla = tablacompras;
     var tabladeanuncios = tablaanuncios;
     var tabladeproveedores = tablaproveedores;
-    
-    
+
+
     var tipo = "consulta";
 
     var itemcompra = new Object();
@@ -6170,7 +6565,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     itemcompra.tablaanuncios    = tabladeanuncios;
     itemcompra.tablaproveedores = tabladeproveedores;
     itemcompra.tablaunidadesgranel = tablaunidadesgranel;
-    
+
     itemcompra.tipo = tipo;
 
     itemcompra.fechacompra = "";
@@ -6180,7 +6575,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
     itemcompra.costo = "";
     itemcompra.cantidad = "";
     itemcompra.idproveedor = "";
-    
+
     var comprado = JSON.stringify(itemcompra);
 
     tcompra.clear().draw(true);
@@ -6202,7 +6597,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                 dd = JSON.parse(data); //data decodificado
                 fsi = "";
                 arreglocomprobantes = [];
-                
+
 
                 $.each(dd, function (key, value) {
 
@@ -6240,7 +6635,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
                         "<label class='blockcosto'>" + "$ " + costoEnPrefijo.toString().replace(".",",") + "</label>",
 
                         "$ " + precioEnPrefijo.toString().replace(".", ","),
-                        
+
                         dd[key].nombreproveedor,
                         "Compra",
                         "<a onclick='quitarcompra(\"" + dd[key].idcompra + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar " + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
@@ -6266,7 +6661,7 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
 function consultarcomprobantecompra()
 {
      var fechamovimiento = $("#fechacompraajuste").val();
-     
+
     $("#fechamovimientodesde").val(fechamovimiento);
     $("#fechamovimientohasta").val(fechamovimiento);
 
@@ -6275,7 +6670,7 @@ function consultarcomprobantecompra()
 
     tipomovimientonombrecorto = eligetipomovimiento();
     consultarajustesdeldia(fechamovimientoenviada,fechamovimientoenviada);
-    
+
     setInterval(() => {
         var suma = 0;
         comprobantebuscado = document.getElementById("comprobanteconsulta");
@@ -6288,13 +6683,13 @@ function consultarcomprobantecompra()
         }
         document.getElementById("subtotalcomprobante").value = "$ " + suma;
     }, 1000);
-    
+
 }
 function guardanumerocomprobantemodificado(nuevonumerocompra,idcompra)
 {
     var bdd = conexionbdd;
     var tabla = tablacompras;
-    
+
     var tipo = "actualizacomprobante";
 
     var itemmovimiento = new Object();
@@ -6316,7 +6711,7 @@ function guardanumerocomprobantemodificado(nuevonumerocompra,idcompra)
             if (data != "[]") {
 
                 M.toast({ html: 'Número de comprobante actualizado', displayLength: '1000', classes: 'rounded' });
-                
+
             } else {
                 M.toast({ html: 'Error al crear el registro' })
             }
@@ -6383,7 +6778,7 @@ function guardarcompra(id, precionuevo, precioactual, costonuevo, costoactual, f
 
 function actualizapreciocostoyventa(idproducto,precionuevo, precioactual,costonuevo,costoactual,costoxprefijoenviado,ventaxprefijoenviado)
 {
-    
+
     if (precionuevo != precioactual || costonuevo != costoactual)
     {
         var bdd = conexionbdd;
@@ -6464,15 +6859,15 @@ function actualizastockiniciocompras(id, fechamovimiento) {
 
     var comprado = JSON.stringify(itemmovimiento);
 
-  
+
     $.ajax({
         url: "consultacompras.php",
         data: { comprado: comprado },
         type: "post",
         success: function (data) {
 
- 
-            
+
+
             if (data != "consulta vacia") {
                 M.toast({ html: 'Ok actualizado stock inicio', displayLength: '1000', classes: 'rounded' });
 
@@ -6540,8 +6935,8 @@ function eliminarcompra(idcompra){
     itemmovimiento.fechacompra = "";
 
     var comprado = JSON.stringify(itemmovimiento);
-   
-    
+
+
 
     $.ajax({
         url: "consultacompras.php",
@@ -6622,10 +7017,10 @@ function consultarajustesdeldia(fechamovimientodesde, fechamovimientohasta, e) {
                     tajuste.row.add([
                         faj,
                         dd[key].titulo,
-                        dd[key].descripcion,    
+                        dd[key].descripcion,
                         dd[key].cantidad,
                         dd[key].nombreprefijoventa,
-                        
+
                         dd[key].tipomovimientonombrecorto,
                         "<a onclick='quitarajuste(\"" + dd[key].idajuste + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
                         // fsi
@@ -6699,7 +7094,7 @@ function eliminarajuste(idajuste) {
 
     var ajustado = JSON.stringify(itemmovimiento);
 
-    
+
 
     $.ajax({
         url: "consultaajustes.php",
@@ -6743,8 +7138,8 @@ function guardarajuste(id, fechamovimiento, cantidad, tipomovimientonombrecorto,
     itemmovimiento.prefijoventa = prefijoventa;
 
     var ajustado = JSON.stringify(itemmovimiento);
-  
-  
+
+
     $.ajax({
         url: "consultaajustes.php",
         data: { ajustado: ajustado },
@@ -6820,8 +7215,8 @@ function guardarajusteimportacion(codigobarra, fechamovimiento, cantidad, tipomo
             if (data != '[]' && data != 'consultavacia')
             {
                 dd = JSON.parse(data); //data decodificado
-               
-                $.each(dd, function (key, value) 
+
+                $.each(dd, function (key, value)
                 {
                     guardarajuste(dd[key].id, fechamovimiento, cantidad, tipomovimientonombrecorto, prefijocompra,prefijoventa);
                 });
@@ -6887,7 +7282,7 @@ function veronostinicio() {
 }
 
 
-function consultaranunciosstock(tipo) 
+function consultaranunciosstock(tipo)
 {
     var seleccionidrubro = document.getElementById("opcioneslista").value;
     var filtro = [];
@@ -6897,10 +7292,10 @@ function consultaranunciosstock(tipo)
         var textobuscado = $("#cajabusqueda").val();
         textobuscado = document.getElementById("cajabusqueda").value;
         textobuscado = textobuscado.trim();
-       
+
         filtro.push( textobuscado );
     }
-    
+
     var bdd = conexionbdd;
     var rutadeimagenes = rutaimagenes;
     var tabla = tablaanuncios;
@@ -6955,7 +7350,7 @@ function consultaranunciosstock(tipo)
 
         data: { objetoanuncio: objetoanuncio },
         type: "post",
-        
+
         success: function (data) {
 
             if (data != "consultavacia") {
@@ -6973,7 +7368,7 @@ function consultaranunciosstock(tipo)
                     // else
                     //     fsi = vista_ymdAdmy(dd[key].fechastockinicio)
                     if(tituloanterior != dd[key].titulo)
-                    {   
+                    {
                         tituloanterior = dd[key].titulo;
                         var preciocompra=0;
                         var precioventa=0;
@@ -7020,7 +7415,7 @@ function consultaranunciosstock(tipo)
                                 preciocompra = "$ " + dd[key].costo;
                                 stokvalorizadoc = dd[key].costo * stok;
                                 stokvalorizadoc = Math.round(stokvalorizadoc * 100) / 100;
-                        
+
                             }
                             else
                                 preciocompra = "Consultar Precio";
@@ -7042,7 +7437,7 @@ function consultaranunciosstock(tipo)
                             precio = "$ " + dd[key].precio;
                         else
                         precio = "Consultar Precio";
-                        
+
 
                         var pea;
                         if(dd[key].precioanterior > 0)
@@ -7073,7 +7468,7 @@ function consultaranunciosstock(tipo)
                         }
                         else
                             costoant = "$ ";
-                            
+
                         if(dd[key].nombreproveedor != null)
                             prov = dd[key].nombreproveedor;
 
@@ -7085,7 +7480,7 @@ function consultaranunciosstock(tipo)
                             "<label style='text-align: center;' >"+ dd[key].codigobarra +"</label>",
                             dd[key].titulo,
                             "<label style='text-align: center;' class='blockcosto'>" + preciocompra + "</label>",
-                            precioventa,                            
+                            precioventa,
                             "<p style='border:none; text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly>" + stok + "</p>",
 
                             "<label style='text-align: center;' class='blockcosto'>" + stokvalorizadoc + "</label>",
@@ -7135,7 +7530,7 @@ function consultaranunciosstock(tipo)
                 });
             console.log("Error de comunicación");
         }
-    });    
+    });
 }
 
 function muestraValorStock(acumvalorcompra,acumvalorventa){
@@ -7181,7 +7576,7 @@ function configuraciontablamasivos() {
     });
 }
 
-function consultaranunciosmasivos(tipo) 
+function consultaranunciosmasivos(tipo)
 {
     var seleccionidrubro = document.getElementById("opcioneslista").value;
     var filtro = [];
@@ -7190,10 +7585,10 @@ function consultaranunciosmasivos(tipo)
         var textobuscado = $("#cajabusqueda").val();
         textobuscado = document.getElementById("cajabusqueda").value;
         textobuscado = textobuscado.trim();
-       
+
         filtro.push( textobuscado );
     }
-    
+
     var bdd = conexionbdd;
     var rutadeimagenes = rutaimagenes;
     var tabla = tablaanuncios;
@@ -7248,16 +7643,16 @@ function consultaranunciosmasivos(tipo)
 
         data: { objetoanuncio: objetoanuncio },
         type: "post",
-        
+
         success: function (data) {
-            
+
 
             if (data != "consultavacia") {
 
                 dd = JSON.parse(data); //data decodificado
 
                 arreglochecktilde = [];
-                
+
 
                 $.each(dd, function (key, value) {
 
@@ -7318,7 +7713,7 @@ function consultaranunciosmasivos(tipo)
                         precio = "$ " + dd[key].precio;
                     else
                         precio = "Consultar Precio";
-                    
+
                     if(dd[key].precioanterior > 0)
                         precioant = "$ " + dd[key].precioanterior;
                     else
@@ -7328,9 +7723,9 @@ function consultaranunciosmasivos(tipo)
                         costoant = "$ " + dd[key].costoanterior;
                     else
                         costoant = "$ ";
-                        
+
                     stok = dd[key].stock / dd[key].relacioncompraventa;
-                    
+
                     //cracion del arreglo de checks
                     var objetoarreglo = new Object();
                     objetoarreglo.idanuncio = dd[key].id;
@@ -7365,12 +7760,12 @@ function consultaranunciosmasivos(tipo)
                         // opant,
 
                     ]).draw(false);
-                    
+
                 });
                 verificabloqueo();
                 tas.columns.adjust().draw();
                 verListaReg(1);
-               
+
                 escrolear("table");
             } else {
                 verListaReg(0);
@@ -7390,7 +7785,7 @@ function consultaranunciosmasivos(tipo)
                 });
             console.log("Error de comunicación");
         }
-    });    
+    });
 }
 
 function checktilde(id)
@@ -7400,7 +7795,7 @@ function checktilde(id)
     spn = document.getElementById("spn"+id);
     quehace = false;
 
-    if (tilde.checked == false) 
+    if (tilde.checked == false)
     {
         spn.innerHTML = "NO";
         quehace = false;
@@ -7429,28 +7824,28 @@ function checktodostilde()
             document.getElementById("chk"+element.idanuncio).checked = true;
             document.getElementById("spn"+element.idanuncio).innerHTML = "SI";
             element.tildado = true;
-        });     
+        });
     }else{
         arreglochecktilde.forEach(element => {
             document.getElementById("chk"+element.idanuncio).checked = false;
             document.getElementById("spn"+element.idanuncio).innerHTML = "NO";
             element.tildado = false;
-         });  
+         });
     }
 }
 
 function publicanovedadmasivamente(accion){
-    verificarsiquiere("publicanovedad",accion); 
+    verificarsiquiere("publicanovedad",accion);
 }
 function publicapromomasivamente(accion){
-    verificarsiquiere("publicapromo",accion); 
+    verificarsiquiere("publicapromo",accion);
 }
 function publicamasivamente(accion){
-    verificarsiquiere("publica",accion); 
+    verificarsiquiere("publica",accion);
 }
 
 function ocultamasivamente(accion){
-    verificarsiquiere("ocultaprecios",accion); 
+    verificarsiquiere("ocultaprecios",accion);
 }
 
 function asignarcategoriamasivamente()
@@ -7464,7 +7859,7 @@ function asignarcategoriamasivamente()
 
 function asignarproveedormasivamente(accion)
 {
-    
+
     var proveedor = document.getElementById("opcioneslistaproveedores");
     if (proveedor.value !="")
     {
@@ -7495,9 +7890,9 @@ function verificarsiquiere(llamado, accion){
 
 function publicacion(accion,tipo){
     paquete = [];
-    for (var a = 0; a < arreglochecktilde.length; a++) 
+    for (var a = 0; a < arreglochecktilde.length; a++)
     {
-        if (arreglochecktilde[a].tildado == true) 
+        if (arreglochecktilde[a].tildado == true)
         {
             var datos = new Object();
             datos.id = arreglochecktilde[a].idanuncio;
@@ -7519,7 +7914,7 @@ function publicacion(accion,tipo){
 
             success: function (data) {
                 limpiaanunciosmasivos();
-                
+
                 Swal.fire(
                     'Actualizados',
                     data + ' productos',
@@ -7535,9 +7930,9 @@ function publicacion(accion,tipo){
 
 function ocultarprecios(accion, tipo){
     paquete = [];
-    for (var a = 0; a < arreglochecktilde.length; a++) 
+    for (var a = 0; a < arreglochecktilde.length; a++)
     {
-        if (arreglochecktilde[a].tildado == true) 
+        if (arreglochecktilde[a].tildado == true)
         {
             var datos = new Object();
             datos.id = arreglochecktilde[a].idanuncio;
@@ -7559,7 +7954,7 @@ function ocultarprecios(accion, tipo){
 
             success: function (data) {
                 limpiaanunciosmasivos();
-                
+
                 Swal.fire(
                     'Actualizados',
                     data + ' productos',
@@ -7579,9 +7974,9 @@ function asignarcategoriasmasivamente()
     paquete = [];
     var categoria = document.getElementById("opciones");
 
-    for (var a = 0; a < arreglochecktilde.length; a++) 
+    for (var a = 0; a < arreglochecktilde.length; a++)
     {
-        if (arreglochecktilde[a].tildado == true) 
+        if (arreglochecktilde[a].tildado == true)
         {
 
             var datos = new Object();
@@ -7608,7 +8003,7 @@ function asignarcategoriasmasivamente()
 
             success: function (data) {
                 limpiaanunciosmasivos();
-                
+
                 Swal.fire(
                     'Actualizados',
                     data + ' productos',
@@ -7640,9 +8035,9 @@ function asignarproveedoresmasivamente(accion)
     paquete = [];
     var proveedor = document.getElementById("opcioneslistaproveedores");
 
-    for (var a = 0; a < arreglochecktilde.length; a++) 
+    for (var a = 0; a < arreglochecktilde.length; a++)
     {
-        if (arreglochecktilde[a].tildado == true) 
+        if (arreglochecktilde[a].tildado == true)
         {
 
             var datos = new Object();
@@ -7658,7 +8053,7 @@ function asignarproveedoresmasivamente(accion)
     if(paquete.length > 0)
     {
         var bdd = conexionbdd;
-        var tabla = tablaanuncios;        
+        var tabla = tablaanuncios;
         var tipo = "proveedor";
 
         $.ajax({
@@ -7856,12 +8251,12 @@ function consultatiposdemovimiento_seleccion_lista(e) {
 
 }
 
-function eligetipomovimiento() 
+function eligetipomovimiento()
 {
 
     var tipomovimientonombrecorto = document.getElementById("opcioneslistatiposmovimientostock").value;
 
-    
+
     return tipomovimientonombrecorto;
 
 }
@@ -7944,7 +8339,7 @@ function consultarubros_seleccionpaginaweb(e) {
 
     var bdd = conexionbddpaginaweb;
     var tabla = tablarubrospaginaweb;
-    
+
     var tipo = "consultatodosanuncios";
 
     var id;
@@ -8077,13 +8472,13 @@ function consultarubros_seleccionconpreciopaginaweb(e) {
 
 function conviertefecha(fecharecibidatexto)
 {
-		
+
 		fec = fecharecibidatexto;
-        
+
 		anio = fec.substring(0, 4);
 		mes = fec.substring(5,7);
 		dia = fec.substring(8,10);
-		
+
 		ensamble = mes + "-" + dia + "-" + anio;
 		fecha = new Date(ensamble).toLocaleDateString('es-AR');
 		return fecha;
@@ -8092,12 +8487,12 @@ function conviertefecha(fecharecibidatexto)
 function conviertefechaparabdd(fecharecibidatexto)
 {
 		fec = fecharecibidatexto;
-        
+
 		dia = fec.substring(0, 2);
 		mes = fec.substring(3,5);
 		mes-=1;//resto porque luego Date funciona como mes 0 a enero
 		anio = fec.substring(6,10);
-		
+
 		fecha = new Date(anio,mes,dia);
 		return fecha;
 }
@@ -8147,18 +8542,18 @@ function exportTableToExcel(tableID, filename)
     {
         var downloadLink;
         var dataType = 'application/vnd.ms-excel';
-        
+
         var tableSelect = document.getElementById(tableID);
         var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-        
+
         // Specify file name
         filename = filename?filename+'.xls':'excel_data.xls';
-        
+
         // Create download link element
         downloadLink = document.createElement("a");
-        
+
         document.body.appendChild(downloadLink);
-        
+
         if(navigator.msSaveOrOpenBlob){
             var blob = new Blob(['\ufeff', tableHTML], {
                 type: dataType
@@ -8167,10 +8562,10 @@ function exportTableToExcel(tableID, filename)
         }else{
             // Create a link to the file
             downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-        
+
             // Setting the file name
             downloadLink.download = filename;
-            
+
             //triggering the function
             downloadLink.click();
         }
@@ -8180,7 +8575,7 @@ function exportTableToExcel(tableID, filename)
                 'Ya tienes la descarga!!!',
         )
     }else{
-            
+
         Swal.fire(
             'Atención!',
             'Seleccione primero una consulta.',
@@ -8216,7 +8611,7 @@ function verificamayoriaedad()
                 icon: 'warning'
             })
             return false;
-        } 
+        }
 }
 
 
@@ -8242,15 +8637,15 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         verificamayoriaedad();
         seleccion = document.getElementById(opcion);
         seleccionidrubro = document.getElementById(opcion).value;
-        if (seleccionidrubro == "") 
+        if (seleccionidrubro == "")
         {
             return false;
         }
     }else if (tipo == "consultatodosanunciosoferta")
-    { 
+    {
 
     }else if (tipo == "consultanovedades")
-    { 
+    {
 
     }else if (tipo == "consultafiltros")
     {
@@ -8267,7 +8662,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     {
         return false;
     }
-    
+
 
     // var t = null;
     var id = "";
@@ -8283,7 +8678,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
-   
+
     itemanuncio.rutaimagenes = rutadeimagenes;
     itemanuncio.idrubro = seleccionidrubro;
     itemanuncio.imagen = "";
@@ -8299,7 +8694,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
     {
         nombrehijo = "hijos";
         arregloconsultabuscados = [];
-        
+
     } else if (tipo == "consultatodosanunciosoferta")
     {
         nombrehijo = "hijosofer";
@@ -8320,12 +8715,12 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         data: { objetoanuncio: objetoanuncio },
         type: "post",
 
-        success: function (data) 
+        success: function (data)
         {
             if (data != '[]' && data != 'consultavacia') {
 
                 dd = JSON.parse(data); //data decodificado
-                
+
                 var cuenta = 0;
                 var parteobservacion = "";
                 var partecomentario = "";
@@ -8336,7 +8731,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                 var ocultarprecio="";
                 $.each(dd, function (key, value) {
 
-                    if (dd[key].nopublicar == 0) 
+                    if (dd[key].nopublicar == 0)
                     {
                         cuenta = cuenta + 1;
 
@@ -8353,12 +8748,12 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                             valorbonus = "";
                         }
 
-                        if (dd[key].tieneventaja) {
+                        if (dd[key].tieneventaja > 0) {
 
                             tituloventaja = dd[key].tituloventaja;
                             precioventaja = "$ " + dd[key].precioventaja;
 
-                            if (tituloventaja.trim() == "" || precioventaja == 0 || ocultarprecio == 0) {
+                            if (tituloventaja.trim() == "" || precioventaja == 0 || ocultarprecio == 1) {
                                 tituloventaja = "";
                                 precioventaja = "";
                             }
@@ -8385,7 +8780,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
 
                         descripcionacotada = dd[key].descripcion;
                         partemastexto = "";
-                        
+
                         if(descripcionacotada)
                         {
                             if(descripcionacotada.length > 85)
@@ -8394,7 +8789,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                                 descripcionacotada = descripcionacotada.slice(0,85) + " . . .";
                             }
                         }
-                       
+
 
                         var agregado = "";
                         var iconomasinfo = "";
@@ -8403,7 +8798,7 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                         if ( "" != partemastexto || parteobservacion != "" || partecomentario != "") {
 
                             listaobservacioncomentario = partemastexto + "<ul class='collapsible'>" + parteobservacion + partecomentario + "</ul> ";
-                            agregado = "<div class='card-reveal'> <span class='card-title grey-text text-darken-4'>Información<i class='material-icons right'>close</i></span>" + listaobservacioncomentario + "</div>"
+                            agregado = "<div class='card-reveal'> <span class='card-title activator grey-text text-darken-4'>Información<i class='material-icons right'>close</i></span>" + listaobservacioncomentario + "</div>"
                             iconomasinfo = "<i class='material-icons right'>pageview</i>";
                         }
                         // -----------------------------
@@ -8425,8 +8820,8 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                                 }
 
                                 var objeto = new Object();
-                                objeto.insercion = "<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>";
-                                
+                                objeto.insercion = "<div class='col s12 m6 l4 " + nombrehijo + "'><div class='card " + tamaniotarjeta + "'><div id='tarjetaimagen' class='card-image waves-block waves-light'><img src='" + rutadeimagenes + dd[key].imagen + "' class=' materialboxed center-align tamaimagen'  alt='...'></img></div><div class='card-content'><span class='card-title activator grey-text text-darken-4'><h5 id='titulotarjeta' class='center'>" + dd[key].titulo + "</h5>" + iconomasinfo + "</span><p id='descripciontarjeta' class='card-text center m-1'>" + descripcionacotada + "</p><hr><div class='row '><div class='col s6 '><p id='preciotarjeta' class='filapreciotarjeta " + verpreciotarjeta + "'>" + precio + "</p></div><div class='col s6'><p><a class='enlaceespecial' target='_blank' href='" + linkexterno + "'>" + textolinkexterno + "</a></p></div></div><div class='row '><div class='col s6 '><p id='titventaja' class='tituloventaja '>" + tituloventaja + "</p><p id='preventaja' class='precioventaja'><del>" + precioventaja + "</del></p></div><div class='col s6'><p class='valorbonus'>" + valorbonus + "</p></div></div></div>" + agregado + "</div></div>";
+
                                 if (tipo == "consultarubros" || tipo == "consultafiltros"){
                                     paginaactualbuscados = 1;
                                     arregloconsultabuscados.push(objeto);
@@ -8436,22 +8831,22 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
                                 } else if (tipo == "consultanovedades") {
                                     paginaactualnovedad = 1;
                                     arregloconsultanovedades.push(objeto);
-                                }  
+                                }
                             }
                     }
                 });
 
                 if(cuenta>0) //osea si hay registros para mostrar
                 {
-                    //coloco la cantidad de 
-                    var resto = cuenta % cantidadporpagina; 
-                    
+                    //coloco la cantidad de
+                    var resto = cuenta % cantidadporpagina;
+
                     var cantidadpaginas=0;
                     if( resto > 0)
                         cantidadpaginas = Math.floor(cuenta / cantidadporpagina) + 1;
                     else
                         cantidadpaginas = cuenta / cantidadporpagina;
-                    
+
                     crearpaginador(cantidadpaginas,tipoconsulta);
                     muestraanuncionarreglo(1, tipoconsulta);   //inserto los anuncios del resultado
                 }else
@@ -8484,8 +8879,8 @@ function consultabusqueda(tipo, opcion, tarjetaconprecio ) {
         }
     });
 
-    
-        
+
+
 }
 
 function Verificaresultadosbusqueda(tipo)
@@ -8544,8 +8939,8 @@ function crearpaginador(cantidadpaginas, tipoconsulta)
     //segun quien es el objeto que busca, elimina los botones del paginador, de la busqueda anterior
     if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros") {
 
-        $("#listaencontradosbuscador").empty();  
-        
+        $("#listaencontradosbuscador").empty();
+
         if (cantidadpaginas > 1) {
             paginastotalesbuscados = cantidadpaginas;
             insertabotonespaginas("listaencontradosbuscador", paginastotalesbuscados, tipoconsulta);
@@ -8553,7 +8948,7 @@ function crearpaginador(cantidadpaginas, tipoconsulta)
 
     } else if (tipoconsulta == "consultatodosanunciosoferta") {
 
-        $("#listaencontradospromociones").empty();  
+        $("#listaencontradospromociones").empty();
 
         if (cantidadpaginas > 1) {
             paginastotalesofertas = cantidadpaginas;
@@ -8561,7 +8956,7 @@ function crearpaginador(cantidadpaginas, tipoconsulta)
         }
     } else if (tipoconsulta == "consultanovedades") {
 
-        $("#listaencontradosnovedades").empty();  
+        $("#listaencontradosnovedades").empty();
 
         if (cantidadpaginas > 1) {
             paginastotalesnovedad = cantidadpaginas;
@@ -8602,14 +8997,14 @@ function insertabotonespaginas(nombrelista, cantidadpaginastotales, tipoconsulta
 
     // Creo un elemento en la lista para cada pagina
 
-    for (var a = 1; a <= cantidadpaginastotales; a++) 
+    for (var a = 1; a <= cantidadpaginastotales; a++)
     {
         var li=document.createElement('li');
-        li.id = "pagina" + a + nombrelista; 
+        li.id = "pagina" + a + nombrelista;
 
         if(1==a){
             li.innerHTML = "<li onclick='irapagina(" + a + ",\"" + tipoconsulta + "\",\"" + nombrelista + "\",\"" + referencia + "\")' class=' " + nombrelista + " waves-effect'><a href='" + referencia + "'>" + a  + "</a></li>";
-            li.classList.add("active"); 
+            li.classList.add("active");
             if (cantidadpaginastotales > 1)
                 liizquierda.classList.add("disabled");
         }
@@ -8619,12 +9014,12 @@ function insertabotonespaginas(nombrelista, cantidadpaginastotales, tipoconsulta
         document.getElementById(nombrelista).appendChild(li);
     }
 
-   
+
     var liderecha=document.createElement('li');
     liderecha.id = "adelante" + tipoconsulta + nombrelista;
     liderecha.innerHTML = "<li  onclick='iradelante(\"" + tipoconsulta + "\",\"" + nombrelista + "\",\"" + referenciabotones + "\")' class=' waves-effect'  href='#!'><a href='#!'><i class='material-icons'>chevron_right</i></a></li>";
     document.getElementById(nombrelista).appendChild(liderecha);
-    
+
 }
 // ----------------------------------------------------------------------------------------------------------
 
@@ -8635,34 +9030,34 @@ function verificaestadoaa(tipoconsulta,nombrelista){
     var atr ="";
     ade = document.getElementById('adelante' + tipoconsulta + nombrelista);
     atr = document.getElementById('atras'+ tipoconsulta + nombrelista);
-    
+
     if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros" )
     {
         //verifico como deben quedar los botones de adelante y atras
         if(paginaactualbuscados == paginastotalesbuscados) //es la ultima pagina
         {
-            ade.classList.remove("enabled"); 
+            ade.classList.remove("enabled");
             ade.classList.add("disabled");
 
-            atr.classList.remove("disabled"); 
+            atr.classList.remove("disabled");
             atr.classList.add("enabled");
 
 
         }else if(paginaactualbuscados == 1) //es la primer pagina
         {
-            
+
             ade.classList.remove("disabled");
             ade.classList.add("enabled");
 
             atr.classList.remove("enabled");
             atr.classList.add("disabled");
-            
+
         }else //esta en una pagina intermedia
         {
             ade.classList.remove("disabled");
             ade.classList.add("enabled");
 
-            atr.classList.remove("disabled"); 
+            atr.classList.remove("disabled");
             atr.classList.add("enabled");
         }
 
@@ -8671,27 +9066,27 @@ function verificaestadoaa(tipoconsulta,nombrelista){
          //verifico como deben quedar los botones de adelante y atras
         if(paginaactualofertas == paginastotalesofertas) //es la ultima pagina
         {
-            ade.classList.remove("enabled"); 
+            ade.classList.remove("enabled");
             ade.classList.add("disabled");
 
-            atr.classList.remove("disabled"); 
+            atr.classList.remove("disabled");
             atr.classList.add("enabled");
 
 
         }else if(paginaactualofertas == 1) //es la primer pagina
         {
-            ade.classList.remove("disabled"); 
+            ade.classList.remove("disabled");
             ade.classList.add("enabled");
 
-            atr.classList.remove("enabled"); 
+            atr.classList.remove("enabled");
             atr.classList.add("disabled");
-            
+
         }else //esta en una pagina intermedia
         {
             ade.classList.remove("disabled");
             ade.classList.add("enabled");
 
-            atr.classList.remove("disabled"); 
+            atr.classList.remove("disabled");
             atr.classList.add("enabled");
         }
     }else if (tipoconsulta == "consultanovedades")
@@ -8699,34 +9094,34 @@ function verificaestadoaa(tipoconsulta,nombrelista){
          //verifico como deben quedar los botones de adelante y atras
         if(paginaactualnovedad == paginastotalesnovedad) //es la ultima pagina
         {
-            ade.classList.remove("enabled"); 
+            ade.classList.remove("enabled");
             ade.classList.add("disabled");
 
-            atr.classList.remove("disabled"); 
+            atr.classList.remove("disabled");
             atr.classList.add("enabled");
 
 
         }else if(paginaactualnovedad == 1) //es la primer pagina
         {
-            ade.classList.remove("disabled"); 
+            ade.classList.remove("disabled");
             ade.classList.add("enabled");
 
-            atr.classList.remove("enabled"); 
+            atr.classList.remove("enabled");
             atr.classList.add("disabled");
-            
+
         }else //esta en una pagina intermedia
         {
             ade.classList.remove("disabled");
             ade.classList.add("enabled");
 
-            atr.classList.remove("disabled"); 
+            atr.classList.remove("disabled");
             atr.classList.add("enabled");
         }
     }
 }
 
 function irareferencia(referencia)
-{   
+{
     var codigo = referencia;
 
     // var alturacat = $('#contenedorcategoria').offset().top;
@@ -8744,41 +9139,41 @@ function irareferencia(referencia)
 
 function irapagina(pagina, tipoconsulta,nombrelista,referencia)
 {
-    
-  
+
+
     if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros" )
     {
         var pag = document.getElementById("pagina" + paginaactualbuscados + nombrelista);
-        pag.classList.remove("active"); 
+        pag.classList.remove("active");
 
         paginaactualbuscados = pagina;
 
         pag = document.getElementById("pagina" + paginaactualbuscados + nombrelista);
-        pag.classList.add("active"); 
+        pag.classList.add("active");
 
         muestraanuncionarreglo(paginaactualbuscados, tipoconsulta);
 
     } else if (tipoconsulta == "consultatodosanunciosoferta")
     {
         var pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
-        pag.classList.remove("active"); 
+        pag.classList.remove("active");
 
         paginaactualofertas = pagina;
 
         pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
-        pag.classList.add("active"); 
+        pag.classList.add("active");
 
 
         muestraanuncionarreglo(paginaactualofertas, tipoconsulta);
     } else if (tipoconsulta == "consultanovedades")
     {
         var pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
-        pag.classList.remove("active"); 
+        pag.classList.remove("active");
 
         paginaactualnovedad = pagina;
 
         pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
-        pag.classList.add("active"); 
+        pag.classList.add("active");
 
 
         muestraanuncionarreglo(paginaactualnovedad, tipoconsulta);
@@ -8799,13 +9194,13 @@ function iradelante(tipoconsulta, nombrelista, referencia){
         if( paginaactualbuscados < paginastotalesbuscados)
         {
             var pag = document.getElementById("pagina" + paginaactualbuscados + nombrelista);
-            pag.classList.remove("active"); 
+            pag.classList.remove("active");
 
             paginaactualbuscados = paginaactualbuscados + 1;
             muestraanuncionarreglo(paginaactualbuscados,tipoconsulta);
 
             pag = document.getElementById("pagina" + paginaactualbuscados + nombrelista);
-            pag.classList.add("active"); 
+            pag.classList.add("active");
 
         }
     } else if (tipoconsulta == "consultatodosanunciosoferta")
@@ -8813,13 +9208,13 @@ function iradelante(tipoconsulta, nombrelista, referencia){
         if(paginaactualofertas < paginastotalesofertas)
         {
             var pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
-            pag.classList.remove("active"); 
+            pag.classList.remove("active");
 
             paginaactualofertas = paginaactualofertas + 1;
             muestraanuncionarreglo(paginaactualofertas, tipoconsulta);
 
             pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
-            pag.classList.add("active"); 
+            pag.classList.add("active");
 
         }
     } else if (tipoconsulta == "consultanovedades")
@@ -8827,13 +9222,13 @@ function iradelante(tipoconsulta, nombrelista, referencia){
         if(paginaactualnovedad < paginastotalesnovedad)
         {
             var pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
-            pag.classList.remove("active"); 
+            pag.classList.remove("active");
 
             paginaactualnovedad = paginaactualnovedad + 1;
             muestraanuncionarreglo(paginaactualnovedad, tipoconsulta);
 
             pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
-            pag.classList.add("active"); 
+            pag.classList.add("active");
 
         }
     }
@@ -8851,8 +9246,8 @@ function iratras(tipoconsulta, nombrelista,referencia)
         if( paginaactualbuscados > 1)
         {
             var pag = document.getElementById("pagina" + paginaactualbuscados + nombrelista);
-            pag.classList.remove("active"); 
-            
+            pag.classList.remove("active");
+
             paginaactualbuscados = paginaactualbuscados - 1;
             muestraanuncionarreglo(paginaactualbuscados,tipoconsulta);
 
@@ -8865,26 +9260,26 @@ function iratras(tipoconsulta, nombrelista,referencia)
         if(paginaactualofertas > 1)
         {
             var pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
-            pag.classList.remove("active"); 
+            pag.classList.remove("active");
 
             paginaactualofertas = paginaactualofertas - 1;
             muestraanuncionarreglo(paginaactualofertas, tipoconsulta);
-            
+
             pag = document.getElementById("pagina" + paginaactualofertas + nombrelista);
-            pag.classList.add("active"); 
+            pag.classList.add("active");
         }
     } else if (tipoconsulta == "consultanovedades")
     {
         if(paginaactualnovedad > 1)
         {
             var pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
-            pag.classList.remove("active"); 
+            pag.classList.remove("active");
 
             paginaactualnovedad = paginaactualnovedad - 1;
             muestraanuncionarreglo(paginaactualnovedad, tipoconsulta);
-            
+
             pag = document.getElementById("pagina" + paginaactualnovedad + nombrelista);
-            pag.classList.add("active"); 
+            pag.classList.add("active");
         }
     }
 
@@ -8900,7 +9295,7 @@ function muestraanuncionarreglo(numerodepagina, tipoconsulta)
     var t = null;
 
     //segun quien es el objeto que busca, elimina los anuncios anteriores de la vista
-    if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros") 
+    if (tipoconsulta == "consultarubros" || tipoconsulta == "consultafiltros")
     {
         sn = $('#seccionbuscadosbuscador div');
         sn.each(function () {
@@ -8913,22 +9308,22 @@ function muestraanuncionarreglo(numerodepagina, tipoconsulta)
 
         arregloconsulta = arregloconsultabuscados;
 
-    } else if (tipoconsulta == "consultatodosanunciosoferta") 
+    } else if (tipoconsulta == "consultatodosanunciosoferta")
     {
         t = $('#ofertasanuncios');
         $(".hijosofer").remove();
         arregloconsulta = arregloconsultaofertas;
 
-    } else if (tipoconsulta == "consultanovedades") 
+    } else if (tipoconsulta == "consultanovedades")
     {
         t = $('#novedadesanuncios');
         $(".hijosnove").remove();
         arregloconsulta = arregloconsultanovedades;
 
-    } 
+    }
 
     //+1 porque el primer elemento a mostrar debe ser uno mas al registro del bloque anterior
-    var limite_inferior_amostrar = (cantidadporpagina * (numerodepagina - 1)) + 1; 
+    var limite_inferior_amostrar = (cantidadporpagina * (numerodepagina - 1)) + 1;
     var limite_superior_amostrar = cantidadporpagina * numerodepagina;
 
     for(var a = 0;a < arregloconsulta.length;a++)
@@ -8944,10 +9339,10 @@ function muestraanuncionarreglo(numerodepagina, tipoconsulta)
 }
 
 // ---------------------------- funcionalidad para la busqueda en el panel ------------------
-function focoencajabusqueda(teclafoco) 
+function focoencajabusqueda(teclafoco)
 {
     if (llama == "vender" || llama == "comprar" || llama == "anuncios" || llama == "stock") {
-        if ($('#usalector').prop('checked') || teclafoco == 115) 
+        if ($('#usalector').prop('checked') || teclafoco == 115)
         {
             document.getElementById('cajabusqueda').value = "";
             $('#cajabusqueda').focus();
@@ -8960,7 +9355,7 @@ function focoencajabusqueda(teclafoco)
 
 function ActivarCheckLector()
 {
-    if (llama == "vender" || llama == "comprar" || llama == "anuncios" || llama == "stock") 
+    if (llama == "vender" || llama == "comprar" || llama == "anuncios" || llama == "stock")
     {
         if($('#usalector').prop('checked'))
             $('#usalector').prop('checked',false);
@@ -8970,26 +9365,26 @@ function ActivarCheckLector()
 }
 
 //Funcion para capturar teclas
-$(function(){ 
+$(function(){
      $("body").keydown(function(e)
-     { 
-         var teclapresionada = e.keyCode || e.which; 
-         
+     {
+         var teclapresionada = e.keyCode || e.which;
+
         if(teclapresionada == 115) //F4 para hacer foco en la caja de busqueda
         {
-            e.preventDefault(); 
+            e.preventDefault();
             focoencajabusqueda(teclapresionada);
             posicioninicial();
         }
-        
+
         if(teclapresionada == 113) //F2 para activar el check del lector
         {
-            e.preventDefault(); 
+            e.preventDefault();
             ActivarCheckLector();
             focoencajabusqueda(teclapresionada);
             posicioninicial();
-        } 
-    }); 
+        }
+    });
 });
 
 //Funcion para la cantidad ver registros en las tablas Datatable
@@ -8998,7 +9393,7 @@ function verRegistros(tabla,cantidad)
     var table = $('#' + tabla).DataTable();
     if(cantidad == -1)
         table.page.len( -1 ).draw();
-    else    
+    else
         table.page.len( cantidad ).draw();
 }
 
@@ -9014,7 +9409,7 @@ function buscarYcambiar(valor,buscado,reemplazo)
 {
     var posicion = valor.toString().indexOf(buscado);
     if(posicion >=0)
-        valor = valor.toString().slice(0, posicion) + reemplazo + valor.toString().slice(posicion + 1); 
+        valor = valor.toString().slice(0, posicion) + reemplazo + valor.toString().slice(posicion + 1);
 
     return valor;
 }
@@ -9038,7 +9433,7 @@ function consultarbloqueos()
     item.id = idencontrado;
 
     var objeto = JSON.stringify(item);
-    
+
     arreglobloqueos = [];
     $.ajax({
 
@@ -9047,11 +9442,11 @@ function consultarbloqueos()
         type:"post",
         success:function(data){
 
-            if (data != '[]' && data != 'consultavacia') 
+            if (data != '[]' && data != 'consultavacia')
             {
                 dd = JSON.parse(data); //data decodificado
 
-                $.each(dd, function (key, value) 
+                $.each(dd, function (key, value)
                 {
                     arreglobloqueos.push(dd[key].bloqueo);
                 });
@@ -9072,12 +9467,12 @@ function consultarbloqueos()
 
 function verificabloqueo()
 {
-    
+
     if(llama == "vender")
     {
         if(arreglobloqueos.length > 0)
         {
-            arreglobloqueos.forEach(element => {                
+            arreglobloqueos.forEach(element => {
                 if(element == 1)
                     bloquearcosto();
                 if (element == 3)
@@ -9094,7 +9489,7 @@ function verificabloqueo()
     {
         if(arreglobloqueos.length > 0)
         {
-            arreglobloqueos.forEach(element => {                
+            arreglobloqueos.forEach(element => {
                 if(element == 1)
                     bloquearcosto();
                 if(element == 3)
@@ -9111,7 +9506,7 @@ function verificabloqueo()
     {
         if(arreglobloqueos.length > 0)
         {
-            arreglobloqueos.forEach(element => {                
+            arreglobloqueos.forEach(element => {
                 if(element == 1)
                     bloquearcosto();
                 if(element == 2)
@@ -9160,7 +9555,7 @@ function verificabloqueo()
 
         if(arreglobloqueos.length > 0)
         {
-            arreglobloqueos.forEach(element => {                
+            arreglobloqueos.forEach(element => {
                 if(element == 100){
                     ocultarmenu('botpublicar');
                     cien = true;
@@ -9174,7 +9569,7 @@ function verificabloqueo()
 
                     if(cien)
                         ocultarmenu('ciencientouno');
-                }    
+                }
 
                 if(element == 102)
                 {
@@ -9240,7 +9635,7 @@ function verificabloqueo()
 
                     if(cientodiez && cientoonce)
                         ocultarmenu('cientodiezcientoonce');
-                }    
+                }
                 if(element == 110)
                 {
                     ocultarmenu('botimportar');
@@ -9263,7 +9658,7 @@ function verificabloqueo()
 
 function ocultarmenu(objmenu){
     document.getElementById(objmenu).style.display = 'none';
-    
+
 
 }
 
@@ -9303,7 +9698,7 @@ function bloqueareliminar()
 function bloquearmodificaprecio()
 {
     var obj = document.getElementsByClassName("blockmodiprecio");
-    for (var a = 0; a < obj.length; a++) 
+    for (var a = 0; a < obj.length; a++)
     {
         obj[a].readOnly = true;
     }

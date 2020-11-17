@@ -79,6 +79,7 @@
     conexionbdd             = "";
     tablatiposdepago        = "";
     tablatiposdemovimientos = "";
+    tablafiltros = "";
     rutaimagenes            = "";
     idencontrado            = -1;
     emailingreso            = "";
@@ -191,7 +192,7 @@
 
             $.ajax({
 
-                url:"controladores/usuariostemplay.php",
+                url:"controladores/usuariostemplay.php?1",
                 data: {objetojson: objetojson},
                 type: "post",
 
@@ -336,7 +337,7 @@
 
             $.ajax({
 
-                url: "controladores/usuariostemplay.php",
+                url: "controladores/usuariostemplay.php?1",
                 data: { objetojson: objetojson },
                 type: "post",
 
@@ -363,6 +364,7 @@
                             tablaventas = dd[key].tablaventas;
                             tablatiposdepago = dd[key].tablatiposdepago;
                             tablatiposdemovimientos = dd[key].tablatiposdemovimientos;
+                            tablafiltros = dd[key].tablafiltros;
                             rutaimagenes = dd[key].rutaimagenes;
                             dominio = dd[key].dominio;
                            
@@ -371,7 +373,7 @@
                         
                         console.log(empresa);
     
-                        $("#plataforma").load("panel.html");
+                        $("#plataforma").load("panel.html?9");
                     }    
                 },error: function(e){
                     swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");

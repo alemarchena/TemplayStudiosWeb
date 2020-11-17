@@ -14,6 +14,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a id="botpublicar" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-address-card"></i>Productos</a>
                         <a id="botrubro" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-layer-group"></i>Categorías</a>
+                        <a id="botfiltros" class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-layer-group"></i>Filtros</a>
                     </div>
                 </li>
 
@@ -111,11 +112,11 @@
     </footer>
     
 
-<script>r = Math.random(); version = 22;</script>
+<script>r = Math.random(); version = 23;</script>
 
 <script src="scrollmenu.js?" + r></script> <!-- codigo que permite el scroll de menu-->
 
-<script src="funciones.js?" + version + r></script>
+<script src="funciones.js?9" + version + r></script>
 <script src="js/convertidorfecha.js?" + r></script>
 <script src="configuracion.js?" + r></script>
     
@@ -131,7 +132,7 @@ $(document).ready(function ()
         $("#botpublicar").click(function(e){
             e.preventDefault();
             contraerMenu();
-            $("#contenido").load("publicaranuncios.html");
+            $("#contenido").load("publicaranuncios.html?4");
         });
 
        
@@ -170,6 +171,14 @@ $(document).ready(function ()
             contraerMenu();
 
             $("#contenido").load("rubros.html");
+        });
+
+
+        $("#botfiltros").click(function (e) {
+            e.preventDefault();
+            contraerMenu();
+
+            $("#contenido").load("filtros.html");
         });
 
         $("#botproveedores").click(function (e) {
