@@ -31,8 +31,8 @@ Vector.scale = function (v, s) {
 
 Vector.random = function () {
   return new Vector(
-    Math.random() * 2 - 1,
-    Math.random() * 2 - 1
+    Math.random() * 3 - 1,
+    Math.random() * 3 - 1
   );
 };
 

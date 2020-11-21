@@ -11,17 +11,18 @@
 
         gtag('config', 'G-1BDP3JPMLC');
     </script>
-    
     <script>r = Math.random(); version=6;</script>
+    <link rel="icon" type="image/png" href="images/logomartillo.png">
+    <title>Templay Studios</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap&family=Bebas+Neue&family=Open+Sans+Condensed:wght@300&family=Palanquin+Dark:wght@700&display=swap"
         rel="stylesheet">
-    <link rel="icon" type="image/png" href="images/logomartillo.png">
+        
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <title>Templay Studios</title>
-    <script src="cargaasincrona.js?46" type="text/javascript" async="async"></script>
-    <link rel="stylesheet" href="css/estilos.css?60">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css?65">
+    <script src="cargaasincronaindex.js?7" type="text/javascript" async="async"></script>
 </head>
 <body>
 
@@ -29,7 +30,8 @@
     <div class="nav-wrapper">
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="proyectos.html?3" target="_blank">Productos y servicios</a></li>
+            <li><a href="proyectos.html?12" >Productos y servicios</a></li>
+            <li><a href="videojuegos.html?5" >Videojuegos</a></li>
             <li><a id="capacitar" href="#">Capacitación</a></li>
             <li><a id="contactar" href="#">Contacto</a></li>
             <li><a id="acercade" href="#">Quienes somos</a></li>
@@ -38,50 +40,25 @@
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-    <li><a href="proyectos.html?1" target="_blank">Productos y servicios</a></li>
+    <li><a href="proyectos.html?12" >Productos y servicios</a></li>
+    <li><a href="videojuegos.html?5" >Videojuegos</a></li>
     <li><a id="capacitaro" href="#">Capacitación</a></li>
     <li><a id="contactaro" href="#">Contacto</a></li>
     <li><a id="acercadeo" href="#">Quienes somos</a></li>
     <li><a class="sidenav-close" href="#!">Cerrar</a></li>
 </ul>
-    <!-- ---------------------------------------- -->
-   
-   
     
-    
-
    <!-- ---------------------------------- -->
-    <div id="contenedorlogos" class="contenedor ">
+    <div id="contenedorlogos" class="contenedorindex ">
         <img src="images/logopluma.png" id="logopluma" class="logopluma" alt="">
         <img src="images/logomartillo.png" id="logomartillo" class="logomartillo" alt="">
     </div>
-    <div class="contenedor ">
+    <div class="contenedorindextemplay ">
         <img data-depth="0.00"src="images/logonombre.png" id="logonombre" class="logonombre" alt="">
     </div>
-    <div class="bordelinea contenedor"></div>
-
-    <div class="contenedorsinfondo">
-        <p class="bebas titulo">Nuestro mundo es el arte digital y la programación...</p>
-    </div>
-    <br>
     
-    <canvas id="c"></canvas>
-
-    <div class="row claseesfumada" style="opacity: 0.1;">
-        <div class="col  s12 m4 offset-m4 videojuegos">
-            <div class="card-image centrado">
-                    <img id="imagenvideojuego" src="images/memofriend.png" style="width: 15em;">
-            </div>
-            <div class="card-content videojuegos">
-                <h4 class="bebas textogris centrado">VIDEOJUEGOS CASUALES</h4>
-                <p class="bebas tam1y5 centrado">Creación y capacitación.</p>                    
-            </div>
-        </div>
-    </div>
-    <br>
-    
-    <div class="row claseesfumada soluciones espacioarriba espacioabajo" >
-        <div class="col s12 m8 offset-m2">
+    <div class="row espacioarriba espacioabajo fondoblanco" >
+        <div class="col s12">
                 <h4 class="bebas textogris centrado">Soluciones de Software</h4>
             
                 <div class="card-image centrado">
@@ -89,15 +66,16 @@
     
                 </div>
                 <div class="card-content">
-                    <p class="centrado" >Nos enfocamos en brindar soluciones que agilizan el trabajo de nuestros clientes y facilitan el acceso a la información.</p>
-                    <p class="centrado" >Agilizamos procesos de trabajo, creamos sitios web, software para empresas, aplicaciones móviles.</p>
+                    <p class="centrado" >Nos enfocamos en brindar soluciones que agilizen tu trabajo y facilitan el acceso a la información.</p>
+                    <p class="centrado" >Agilizamos procesos, creamos tu sitio web,elaboramos software y aplicaciones móviles.</p>
                 </div>
-            
         </div>
     </div>
-    
-    <div id="divcapacitacion" class="row claseesfumada soluciones espacioarriba">
+    <div id="divcapacitacion" class="row fondoblanco espacioarriba">
+        <hr>
+
         <div class="col s12 m8 offset-m2">
+
             <h4 class="bebas textogris centrado">Capacitación</h4>
             <div class="card-image centrado">
                 <img src="images/capacitacion.png" class="responsive-img">
@@ -106,8 +84,9 @@
 
             <div class="card-content">                
                 <p class="centrado">Nuestros cursos en informática son agrupados por áreas temáticas como administración,
-                    contaduría, salud, etc.
-                    Adecuamos el material de estudio según el ámbito en los que se desempeñan los alumnos.</p>
+                    contaduría, salud, etc.</p>
+                <p  class="centrado">Adecuamos el material de estudio según el ámbito en los que se desempeñan los alumnos.</p>
+
                 <div id="divcursos" style="background-color: white;"></div>
 
             </div>
@@ -118,28 +97,16 @@
         </div>
     </div>
     <!-- ------------------------------------------ SECCION CONTACTO --------------------------------- -->
+    <hr>
+    <div id="contenedoracercade" class="contenedorcontacto"></div>
     <div id="contenedorcontactoacercade" class="contenedorcontacto"></div>
 
-    <div class="final">
-        <div id="direccion" class="row final ">
-            <div class="col s12 m10 offset-m1 espacio final">
-                <div class="card-action final" style="padding-top: 3em;">
-                    <p>Razquin 2923 - Planta Alta - Guaymallén - Mendoza - Argentina</p>
-                    <p>Teléfono : +54 9 261 3408918</p>
-                </div>
-            </div>
-        </div>
-
-        
-
-        <div  class="contenedorsinfondo " style="padding-bottom: 1em;">
-            <img id="flecha" class="iconoarriba" src="images/icoarriba_0.png" alt="">
-        </div>
-        
+    <div class="contenedorsinfondo " style="padding-bottom: 1em;">
+        <img id="flecha" class="iconoarriba" src="images/icoarriba_0.png" alt="">
     </div>
+    <div class="footer"></div>
+
+
 </body>
 </html>
-
-
- 
 

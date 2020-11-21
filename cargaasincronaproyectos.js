@@ -33,13 +33,12 @@ function loadScript(src, callback) {
 
 function CargarMaterilizeYcontacto(){
 
-    var link0 = "https://www.templaystudios.com/";
-    var link1 = "https://www.templaystudios.com/plataformawebdemo/";
-    var link2 = "https://www.templaystudios.com/plataformawebdemo/panelpublicacion.php";
+    
 
     $(document).ready(function () {
 
         $('.sidenav').sidenav();
+        $(".footer").load("footer.html");
 
         function ira() {
             var posproyectosweb = $("#seccionproyectos").offset().top;
@@ -50,44 +49,18 @@ function CargarMaterilizeYcontacto(){
             }, 550);
         }
         
-        $("#plataforma").on('click', function (e) {
-            $("#seccionproyectos").load("explicaplataforma.html?1");
-            ira();
-        });
-       
+        $("#seccionproyectos").load("explicaplataforma.html?7");
+
 
         function irarriba() {
             var posproyectosweb = $(".listamenu").offset().top;
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);
-            setTimeout(function () {
-                $("#contenedorcontactoacercade").empty();
-            }, 550);
+            
         }
         $(".iconoarriba").on('click', function (e) {
             irarriba();
         });
 
-        function asignarrutas() {
-
-            document.getElementById("home").href = link0;
-            document.getElementById("link5").href = link0;
-            document.getElementById("link1").href = link1;
-            document.getElementById("link2").href = link2;
-            document.getElementById("link3").href = link1;
-            document.getElementById("link4").href = link2;
-        }
-        
-        asignarrutas();
-        window.addEventListener("scroll", Esfumar);
-
-        function Esfumar() {
-
-            var scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
-            if (scrollpercent < 98)
-                $("#seccionproyectos").css("opacity", scrollpercent);
-            else
-                $("#seccionproyectos").css("opacity", "1");
-        }
     });
 
 }

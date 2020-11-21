@@ -1,4 +1,4 @@
-body{
+.videojuegos{
     background-color: black;
     height: 500px;
 }
@@ -13,7 +13,7 @@ ul {
   padding: 0;
   overflow: hidden;
 }
-
+/* 
 li {
   float: left;
 }
@@ -26,7 +26,7 @@ li a {
   text-decoration: none;
   border-radius: 25%;
 
-}
+} */
 
 /* -------------------- Contenedores -------------------------------*/
 
@@ -39,6 +39,25 @@ p, h1,h2,h3,h4{
     background-color: rgba(0, 0, 0, 0.5);
     
     margin: 2em;
+}
+.contenedordetalle{
+    display: flex;
+    justify-content: center;
+    
+    
+    margin: 2em;
+}
+.contenedorindex{
+    display: flex;
+    justify-content: center;
+    background-color:white;
+    margin: 2em 2em 0em 2em;
+}
+.contenedorindextemplay{
+    display: flex;
+    justify-content: center;
+    background-color:white;
+    margin: 0em 2em 2em 2em;
 }
 .contenedorsimple{
     margin: 0.5em;
@@ -80,17 +99,35 @@ p, h1,h2,h3,h4{
     width: 240px;
     position : relative;
 }
+/* --------------------------- logos estaticos ------------------------------------ */
 
+.logoplumaestatico{
+    width: 30px;
+    height: 65px;
+    position: relative;
+}
+.logomartilloestatico{
+
+    width: 70px;
+    height: 75px;
+    position: relative;
+}
+
+.logonombreestatico{
+     width: 200px;
+    height: 100px;
+    position: relative;
+}
 
 /*----------------------- Logos dinamicos ---------------------------------*/
 .logopluma{
     left: -1000px;
     width: 30px;
     height: 65px;
-    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
-    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
-    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
-    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
+    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
+    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
+    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
     
     position: relative;
     transform:translate(1000px,0);
@@ -102,10 +139,10 @@ p, h1,h2,h3,h4{
     left: 1000px;
     width: 70px;
     height: 75px;
-    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
-    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
-    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
-    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 1s;
+    -webkit-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
+    -moz-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
+    -o-transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
+    transition: transform 0.5s cubic-bezier(1,.01,0,1.05) 0.8s;
 
     position: relative;
     transform:translate(-1000px,0);
@@ -117,10 +154,10 @@ p, h1,h2,h3,h4{
     top: 2000px;
     width: 200px;
     height: 100px;
-    -webkit-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
-    -moz-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
-    -o-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
-    transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 1s;
+    -webkit-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.8s;
+    -moz-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.8s;
+    -o-transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.8s;
+    transition: transform 0.5s  cubic-bezier(1,.01,0,1.05) 0.8s;
 
     position : relative;
     transform: translate(0,-2000px);
@@ -132,11 +169,7 @@ p, h1,h2,h3,h4{
     opacity: 1;
 }
 
-.final{
-    background-color: rgb(238, 238, 238);
-    color: rgb(36, 36, 36);
-    
-}
+
 .espacioarriba{
     padding-top: 2em;
     margin-bottom: 0em;
@@ -150,6 +183,10 @@ p, h1,h2,h3,h4{
 }
 #direccion{
     height: 200px;
+}
+
+.fondoblanco{
+background-color: white;
 }
 /* ---------------------------- Linea con efecto -------------*/
 .bordelinea{
@@ -390,7 +427,7 @@ canvas {
         
     }
 
-    
+/*     
     li {
         float: left;
     }
@@ -402,7 +439,7 @@ canvas {
     padding: 5px 16px;
     text-decoration: none;
     
-    }
+    } */
 
     
 

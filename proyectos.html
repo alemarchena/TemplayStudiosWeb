@@ -16,133 +16,109 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="css/estilosproyectos.css?8">
+    <link rel="stylesheet" href="estilos.css?11">
     
     <title>Templay Studios</title>
     <link rel="icon" type="image/png" href="images/logomartillo.png">
 
-    <script src="js/cargaasinc.js?7" type="text/javascript" async="async"></script>
+    <script src="cargaasincronaproyectos.js?9" type="text/javascript" async="async"></script>
 
  
 </head>
 <body>
+
     <nav class="listamenu">
         <div class="nav-wrapper">
-            <img class="brand-logo center" src="images/icotemplay.png">
-            <ul id="nav-mobile" class="rigth hide-on-med-and-down">
-                <li><a id="link5" href="#" >Home</a></li>
-                <li><a id="link3" href="#" target="_blank">Sitio web de muestra</a></li>
-                <li><a id="link4" href="#" target="_blank">Panel de control</a></li>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a id="link5" href="https://www.templaystudios.com" >Home</a></li>
+                <li><a href="https://www.templaystudios.com/videojuegos.html?3" >Videojuegos</a></li>
+                <li><a id="link3" href="https://www.templaystudios.com/plataformawebdemo/" target="_blank">Sitio web de muestra</a></li>
+                <li><a id="link4" href="https://www.templaystudios.com/plataformawebdemo/panelpublicacion.php" target="_blank">Panel de control</a></li>
             </ul>
         </div>
     </nav>
     
-    <ul id="slide-out" class="sidenav">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="images/icotemplay.jpg">
-                </div>
-                <img class="circle" src="images/aleweb1.png">
-                <p><span class="white-text name">Alejandro Marchena</span></p>
-                <p><span class="white-text email">+54 9 261 3408918</span></p>
-            </div>
-        </li>
-        <li><a id="home" href="#" >Home</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a id="link1" href="#" target="_blank">Sitio web de muestra</a></li>
-        <li><a id="link2" href="#" target="_blank">Panel de control</a>
-        
-        </li>
-        <li><a class="sidenav-close" href="#!">Cerrar</a></li>        
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="https://www.templaystudios.com" >Home</a></li>
+        <li><a href="https://www.templaystudios.com/videojuegos.html?3" >Videojuegos</a></li>
+        <li><a id="link3" href="https://www.templaystudios.com/plataformawebdemo/" target="_blank">Sitio web de muestra</a></li>
+        <li><a id="link4" href="https://www.templaystudios.com/plataformawebdemo/panelpublicacion.php" target="_blank">Panel de control</a></li>
+        <li><a class="sidenav-close" href="#!">Cerrar</a></li>
     </ul>
-    
-    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="Medium material-icons">account_circle</i></a>
 
-   
+    <div id="contenedorlogos" class="contenedorindex ">
+        <img src="images/logopluma.png" id="logoplumaestatico" class="logoplumaestatico" alt="">
+        <img src="images/logomartillo.png" id="logomartilloestatico" class="logomartilloestatico" alt="">
+    </div>
+    <div class="contenedorindextemplay ">
+        <img data-depth="0.00" src="images/logonombre.png" id="logonombreestatico" class="logonombreestatico" alt="">
+    </div>
 
     <div class="container" style="margin-top: 1em;">
         <div class="row">
-            <div class="col s12" >
-                <h5 class="center" style="margin: 2em;" >Gestiona tu negocio y Promociona en tu sitio web</h5>
-
-                <p class="center">Ahora puedes tener un sistema de gestión y sitio web para tu negocio.</p>
-                <ul class="collection">
-                    <li class="collection-item ">
-                        <span class="title">Fácil de usar</span>
-                        <p>El sistema funciona bajo tecnología web el se ve correctamente en pc y teléfonos.<br>
-                            Permite lector de códigos de barra.
-                            Sistema inteligente de búsqueda en todas las pantallas
-                        </p>
-                    </li>
-                    <li class="collection-item ">
-                        <span class="title">Registra compras, ventas y controla stock</span>
-                        <p>Exporta movimientos de caja, compras, ventas y stock a excel.<br>
-                            Permite vender por productos por unidad o fraccionado
-                        </p>
-                    </li>
-                    <li class="collection-item ">
-                        <span class="title">Actualiza Listas de precios masivamente</span>
-                        <p>Importa productos con precios y stock desde un excel.<br>
-                            Opcionalmente Permite redondear precios de compra y/o venta.<br>
-                            Exporta lista de precios a excel.
-                        </p>
-                    </li>
-                    <li class="collection-item ">
-                        <span class="title">Ingresa seguro con usuario y clave</span>
-                        <br>
-                        <p>Visualiza la información según permisos de acceso</p>
-                    </li>
-                    <li class="collection-item ">
-                        <span class="title">Promociona tus productos en la web</span>
-                        <p>Decide que quieras que vean tus clientes en tu sitio.<br>
-                            Permite que vean o no tus precios y accedan al carrito de pedidos.<br>                            
-                        </p>
-                    </li>
-                </ul>
-            </div>
+            <h3 class="center bebas textoagua" >Gestiona tu negocio y promociona en la web</h3>
+            <hr>
+            <p class="center">Te ofrecemos un sistema totalmente online, para gestionar compras, ventas, stock</p>
+            <p class="center">Tu propio sitio web para que tengas la libertada de publicar cuando quieras tus productos y servicios</p>
         </div>
     </div>
-<hr>  
     <!-- ---------------------------------- PANEL DE CONTROL --------------------------------------- -->
 
 
-    <div class="row container">
+    <div id="autogestion" class="row container espacioarriba">
+    <hr>
+
         <div class="col s12 ">
+            <h4 class="textoagua bebas">Controlas el contenido de tu web</h4>
+            <h5 class="textogris bebas"><small>Sitio y sistema intercontectados</small></h5>
+            <p>El panel de control es el módulo en donde llevas tus movimientos y publicas lo que se ve en tu sitio</p>
             <div class="card center">
                 <div class="card-image">
                     <img src="images/panelcontrol.jpg">
                 </div>
                 <div class="card-content">
-                    <h4 class="textoagua">Autogestiona tu web.</h4>
-                    <h5 class="textogris"><small> Tu sitio y tu sistema intercontectados</small></h5>
+                    
 
                     <ul class="collection">
                         <li class="collection-item ">
-                            <span class="title">Crea categoría para los productos</span>
+                            <span class="title">Fácil de usar</span>
                         </li>
                         <li class="collection-item ">
-                            <span class="title">Crea clientes y proveedores</span>
+                            <span class="title">Es un sitio web que se ve bien en pc, teléfonos y admite lector de códigos de barra</span>
                         </li>
                         <li class="collection-item ">
-                            <span class="title">Registra Compras y Ventas</span>
+                            <span class="title">Creas categoría para los productos</span>
                         </li>
                         <li class="collection-item ">
-                            <span class="title">Consulta ventas entre días</span>
+                            <span class="title">Creas clientes y proveedores</span>
                         </li>
                         <li class="collection-item ">
-                            <span class="title">Consulta stocks</span>
+                            <span class="title">Registras Compras, Ventas, Stock y permite exportar a excel</span>
                         </li>
                         <li class="collection-item ">
-                            <span class="title">Valoriza stock</span>
+                            <span class="title">Consultas ventas entre días</span>
                         </li>
                         <li class="collection-item ">
-                            <span class="title">Exporta e Imprime lista de precios y clientes</span>
+                            <span class="title">Consultas y valorizas stock</span>
                         </li>
                         <li class="collection-item ">
-                            <span class="title">Crea un catálogo para Imprimir o exportar</span>
+                            <span class="title">Puedes actualizar Listas de precios masivamente</span>
+                        </li>
+                        <li class="collection-item ">
+                            <span class="title">Importas productos con precios y stock desde un excel.</span>
+                        </li>
+                        <li class="collection-item ">
+                            <span class="title">Exportas e Imprimes lista de precios y clientes</span>
+                        </li>
+                        <li class="collection-item ">
+                            <span class="title">Creas un catálogo para Imprimir o exportar</span>
+                        </li>
+                        <li class="collection-item ">
+                            <span class="title">Ingreso seguro con usuario y clave</span>
+                        </li>
+                        <li class="collection-item ">
+                            <span class="title">Registras productos de venta x unidad o fraccionado</span>
                         </li>
                     </ul>
                 </div>
@@ -150,31 +126,35 @@
             </div>
         </div>
     </div>
-<hr>
 <!-- ----------------------------------- SITIO WEB ------------------------------------------------->
 
-<div class="row container">
-
+<div class="row container espacioarriba">
+<hr>
     <div class="col s12 ">
+        <h4 class="bebas textoagua">Una web que se adapta a cualquier dipositivo móvil</h4>
+        <h5 class="bebas textogris"><small>Aumentará la probabilidad de llegar a clientes potenciales</small></h5>
+        
         <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="images/sitioweb.jpg">
             </div>
             <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Tu Sitio web comercial<i
+                <span class="bebas card-title activator grey-text text-darken-4">Tu Sitio web comercial<i
                         class="material-icons right">more_vert</i></span>
-                <p><a id="plataforma" href="#">Ver Detalle</a></p>
+                
             </div>
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Lo administras<i
                         class="material-icons right">close</i></span>
-                <p>Todos los productos de tu sitio los administras con un Panel de control</p>
+                <p>Puedes personalizar lo que se ve en el sitio, tal como precios, links de pagos, vínculos a otros sitios. Cada publicación tiene formato de tarjeta con una imagen, título y descripción. El precio de los productos puede ocultarse o mostrar "consultar precio". Dispone de un carrito de pedidos</p>
             </div>
         </div>
     </div>
 
 </div>
-<div id="seccionproyectos" class="contenedor"></div>
+<div id="seccionpanel" class="container"></div>
+<div id="seccionproyectos" class="container"></div>
+<div class="footer"></div>
 
 <div class="contenedorsinfondo " style="padding-bottom: 1em;">
     <img id="flecha" class="iconoarriba" src="images/icoarriba_0.png" alt="">
