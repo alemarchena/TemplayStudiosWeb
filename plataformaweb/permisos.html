@@ -1,0 +1,450 @@
+
+    <div class="row justify-content-center">
+
+        <div class="col-sm-12">
+            
+            <div class="table-responsive">
+                <table id="tablausuarios" class="display table table-striped" style="font-size: 1.3em;">
+                    <thead>
+                        <tr>
+                            <th>Id usuario</th>
+                            <th>email</th>
+                            <th>Id plataforma</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<div class="row justify-content-center">
+    <div class="col-sm-12">
+        <h5>Bloqueos de usuario</h5>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-sm-4">
+        <select class="form-control" id="listausuarios" name="listausuarios">
+
+            <!-- aca se inserta la consulta de usuarios -->
+
+        </select>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col">
+            <label><input id='chkCosto' onclick='checkPermiso(1,"chkCosto")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Costo</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkRenta' onclick='checkPermiso(2,"chkRenta")' type='checkbox' class='filled-in' unchecked /><span class='colorletras'>Rentabilidad</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkStock' onclick='checkPermiso(3,"chkStock")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Stock</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkElimina' onclick='checkPermiso(4,"chkElimina")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Elimina</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkCambiaPrecio' onclick='checkPermiso(5,"chkCambiaPrecio")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Cambio Precios</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkProducto' onclick='checkPermiso(100,"chkProducto")' type='checkbox' class='filled-in'       unchecked /><span class='colorletras'>Producto</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkCategoria' onclick='checkPermiso(101,"chkCategoria")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Categoria</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkCliente' onclick='checkPermiso(102,"chkCliente")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Cliente</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkProveedor' onclick='checkPermiso(103,"chkProveedor")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Proveedor</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkVender' onclick='checkPermiso(104,"chkVender")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Vender</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkComprar' onclick='checkPermiso(105,"chkComprar")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Comprar</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkCaja' onclick='checkPermiso(106,"chkCaja")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Caja</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkStock' onclick='checkPermiso(107,"chkStock")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Stock</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkActualizar' onclick='checkPermiso(108,"chkActualizar")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Actualizar</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkExport' onclick='checkPermiso(109,"chkExport")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Export</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkImport' onclick='checkPermiso(110,"chkImport")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Import</span></label>
+    </div>
+    <div class="col">
+        <label><input id='chkBonus' onclick='checkPermiso(111,"chkBonus")' type='checkbox' class='filled-in'
+            unchecked /><span class='colorletras'>Bonus</span></label>
+    </div>
+
+   
+</div>
+<div class="row justify-content-center">
+    <div class="col-sm-12">
+        <h5>Bloqueos actuales de usuario</h5>
+    </div>
+</div>
+<div class="row justify-content-center">
+
+    <div class="col-sm-12">
+
+        <div class="table-responsive">
+            <table id="tablapermisos" class="display table table-striped" style="font-size: 1.3em;">
+                <thead>
+                    <tr>
+                        <th>Id usuario</th>
+                        <th>Costo</th>
+                        <th>Rentab</th>
+                        <th>Stock</th>
+                        <th>Elimina</th>
+                        <th>Cambia $</th>
+                        <th>M-Producto</th>
+                        <th>M-Categoría</th>
+                        <th>M-Cliente</th>
+                        <th>M-Proveedor</th>
+                        <th>M-Vender</th>
+                        <th>M-Comprar</th>
+                        <th>M-Caja</th>
+                        <th>M-Stock</th>
+                        <th>M-Actualizar</th>
+                        <th>M-Export</th>
+                        <th>M-Import</th>
+                        <th>M-Bonus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+function checkPermiso(bloqueopasado,che) {
+
+    var ti;
+    if(document.getElementById(che).checked == true)
+        ti = "alta";
+    else
+        ti = "baja";
+
+    if(idusuarioelegido > 0){
+
+    
+        var item = new Object();
+
+        item.bdd = conexionbdd;
+        item.tabla = tablabloqueos;
+        item.tipo =ti;
+        item.id = idusuarioelegido;
+        item.bloqueo = bloqueopasado;
+        var objeto = JSON.stringify(item);
+
+        $.ajax({
+
+            url: "consultabloqueos.php?" + versionts,
+            data: { objeto: objeto },
+
+            type: "post",
+
+            success: function (data) {
+
+                if (data != "consultavacia" && data != "[]") {
+                    dd = JSON.parse(data); //data decodificado
+
+                    if(ti == "alta")
+                        M.toast({ html: 'Bloqueo insertado', displayLength: '500', classes: 'rounded' });
+                    else
+                        M.toast({ html: 'Bloqueo eliminado', displayLength: '500', classes: 'rounded' });
+
+                    consultausuarioplataforma();
+                }
+            },
+            error: function (e) {
+                alert("Error en la consulta." + e.value);
+            }
+        });
+    }else
+        M.toast({ html: 'Seleccione un usuario de la lista', displayLength: '500', classes: 'rounded' });
+
+}
+
+function consultausuarioplataforma() {
+    if ($.fn.dataTable.isDataTable('#tablausuarios')) {
+        var tr = $('#tablausuarios').DataTable();
+    }
+
+    objeto = new Object();
+    objeto.tipo = "consultausuarioplataforma";
+    objeto.idplataformaactual = idplataformaactual;
+    objeto.id = 0;
+
+    var objetojson = JSON.stringify(objeto);
+    M.toast({ html: 'Buscando usuarios', displayLength: '1000', classes: 'rounded' });
+
+    tr.clear().draw(true);
+    $("#listausuarios").empty();
+
+    $.ajax({
+
+        url: "usuarios.php?" + versionts,
+        data: { objetojson: objetojson },
+
+        type: "post",
+
+        success: function (data) {
+
+            if (data != "consultavacia" && data != "[]") {
+                dd = JSON.parse(data); //data decodificado
+
+                tr.clear().draw(true);
+                var idanterior = -1;
+                arreglousuario = [];
+                var a = [];
+
+                a.push('<option value = "" selected >Usuarios</option >');
+
+                $.each(dd, function (key, value) {
+
+                    if (idanterior != dd[key].idusuario) {
+                        if (idanterior != dd[key].idusuario) {
+                            idanterior = dd[key].idusuario;
+                            tr.row.add([
+                                dd[key].idusuario,
+                                dd[key].email,
+                                dd[key].idplataforma
+                            ]).draw(false);
+
+
+                            var item = new Object();
+                            item.idusuario = dd[key].idusuario;
+                            item.email = dd[key].email;
+                            item.idplataforma = dd[key].idplataforma;
+                            var objetoJsonItem = JSON.stringify(item);
+                            arreglousuario.push(objetoJsonItem);
+
+                            a = a.concat('<option value = ' + dd[key].idusuario + ' > ' + dd[key].email + '</option>');
+
+                        }
+                    }
+                });
+
+                $("#listausuarios").append(a);
+
+                //selecciona el primer item
+                $("#listausuarios option:selected").prop("selected", false);
+                $(this).prop("selected", true);
+
+                BuscarPermisosPaqueteUsuarios();
+
+            }
+        },
+        error: function (e) {
+            alert("Error en la consulta." + e.value);
+        }
+    });
+
+
+    $("#listausuarios").change(function () {
+
+        idusuarioelegido = $("#listausuarios").val();
+
+    });
+}
+
+
+
+function BuscarPermisosPaqueteUsuarios() {
+    if ($.fn.dataTable.isDataTable('#tablapermisos')) {
+        var tr = $('#tablapermisos').DataTable();
+    }
+
+    var item = new Object();
+
+    item.bdd = conexionbdd;
+    item.tabla = tablabloqueos;
+    item.tipo = "consultapaquete";
+    item.id = idencontrado;
+
+    var objeto = JSON.stringify(item);
+
+    M.toast({ html: 'Buscando permisos', displayLength: '1000', classes: 'rounded' });
+    tr.clear().draw(true);
+
+    $.ajax({
+
+        url: "consultabloqueos.php?" + versionts,
+        data: { objeto: objeto, arreglousuario: arreglousuario },
+        type: "post",
+
+        success: function (data) {
+
+            console.log(data);
+
+            if (data != "consultavacia" && data != "[]") {
+
+                //data llega como arreglo de jsons
+                tr.clear().draw(true);
+                var idanterior = -1;
+
+                dd = JSON.parse(data); //es el json
+
+                var candado = "<i style='text-align: center;' class=" + "\"material-icons\"" + ">lock</i>"
+                $.each(dd, function (key, value) {
+
+                    Costo = "";
+                    Rentab = "";
+                    Stock = "";
+                    Elimina = "";
+                    Cambia = "";
+
+                    MProducto = "";
+                    MCategoria = "";
+                    MCliente = "";
+                    MProveedor = "";
+                    MVender = "";
+                    MComprar = "";
+                    MCaja = "";
+                    MStock = "";
+                    MActualizar = "";
+                    MExport = "";
+                    MImport = "";
+                    MBonus = "";
+
+
+                    if (dd[key].bloqueo == 1) Costo = candado;
+                    if (dd[key].bloqueo == 2) Rentab = candado;
+                    if (dd[key].bloqueo == 3) Stock = candado;
+                    if (dd[key].bloqueo == 4) Elimina = candado;
+                    if (dd[key].bloqueo == 5) Cambia = candado;
+
+                    if (dd[key].bloqueo == 100) MProducto = candado;
+                    if (dd[key].bloqueo == 101) MCategoria = candado;
+                    if (dd[key].bloqueo == 102) MCliente = candado;
+                    if (dd[key].bloqueo == 103) MProveedor = candado;
+                    if (dd[key].bloqueo == 104) MVender = candado;
+                    if (dd[key].bloqueo == 105) MComprar = candado;
+                    if (dd[key].bloqueo == 106) MCaja = candado;
+                    if (dd[key].bloqueo == 107) MStock = candado;
+                    if (dd[key].bloqueo == 108) MActualizar = candado;
+                    if (dd[key].bloqueo == 109) MExport = candado;
+                    if (dd[key].bloqueo == 110) MImport = candado;
+                    if (dd[key].bloqueo == 111) MBonus = candado;
+
+                    tr.row.add([
+                        dd[key].idusuario,
+                        Costo,
+                        Rentab,
+                        Stock,
+                        Elimina,
+                        Cambia,
+                        MProducto,
+                        MCategoria,
+                        MCliente,
+                        MProveedor,
+                        MVender,
+                        MComprar,
+                        MCaja,
+                        MStock,
+                        MActualizar,
+                        MExport,
+                        MImport,
+                        MBonus
+
+                    ]).draw(false);
+
+                });
+
+            }
+
+        }
+        ,
+        error: function (e) {
+            console.log("Error en la consulta." + e.value);
+        }
+    });
+
+
+
+
+
+}
+
+$(document).ready(function ()
+{
+    llama = "permisos";
+    arreglousuario = [];
+    idusuarioelegido= 0;
+
+    window.addEventListener("load", iniciolista());
+
+    function iniciolista() {
+        configuraciontablausuarios();
+        configuraciontablapermisos();
+        consultausuarioplataforma();
+    }
+
+    
+    // $("#chkaplicaporcentaje").click(function(){
+    //     if(this.checked)
+    //     {
+    //         document.getElementById("chkaplicamonto").checked = false;
+    //     }else
+    //     {
+    //         document.getElementById("chkaplicamonto").checked = true;
+    //     }
+    // });
+
+    
+    
+});
+
+</script>

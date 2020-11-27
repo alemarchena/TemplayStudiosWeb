@@ -60,6 +60,7 @@
                         <a id="botexportar" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-file-download"></i>Exportar</a>
                         <a id="botimportar" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-cloud-upload-alt"></i>Importar</a>
                         <a id="bottijera" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-crop-alt"></i>Cortar Imagen</a>
+                        <a id="botpermisos" target="_blank" class="nav-link" href="" tabindex="-1" aria-disabled="true"><i class="fas fa-lock"></i>Permisos</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -112,13 +113,12 @@
     </footer>
     
 
-<script>r = Math.random(); version = 23;</script>
 
-<script src="scrollmenu.js?" + r></script> <!-- codigo que permite el scroll de menu-->
+<script src="scrollmenu.js?" + versionts></script> <!-- codigo que permite el scroll de menu-->
 
-<script src="funciones.js?9" + version + r></script>
-<script src="js/convertidorfecha.js?" + r></script>
-<script src="configuracion.js?" + r></script>
+<script src="funciones.js?" + versionts></script>
+<script src="js/convertidorfecha.js?" + versionts></script>
+<script src="configuracion.js?" + versionts></script>
     
 </div>
 
@@ -127,12 +127,19 @@
 llama = "panel";
 $(document).ready(function ()
 {
-    console.log("version " + version);
+    console.log("version " + versionts);
     
+     $("#botpermisos").click(function (e) {
+        e.preventDefault();
+        contraerMenu();
+        
+        $("#contenido").load("permisos.html?" + versionts);
+    });
+
         $("#botpublicar").click(function(e){
             e.preventDefault();
             contraerMenu();
-            $("#contenido").load("publicaranuncios.html?4");
+            $("#contenido").load("publicaranuncios.html?5");
         });
 
        
@@ -242,6 +249,8 @@ $(document).ready(function ()
             $("#contenido").load("cambiosmasivos.html");
         });
         
+        if (jerarquia < 1) ocultarmenu('botpermisos');
+        
         consultarbloqueos();
 
     });
@@ -256,6 +265,7 @@ $(document).ready(function ()
         document.getElementById("direccioncatalogoweb").href =  dominioruta + "catalogopapel.html";
         document.getElementById("botcarrito").href = dominioruta + "carrito.html";
         document.getElementById("bottijera").href =  dominioruta + "tijera";
+
         
     }
     

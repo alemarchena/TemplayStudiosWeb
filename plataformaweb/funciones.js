@@ -24,6 +24,10 @@ encontro = false;
 llama = "";
 
 arreglobloqueos = [];
+imagencopiada = "";
+idorigen = 0;
+rutaimagenes = "imagenes/";
+
 
 function escrolear(claseelemento) {
     setInterval(() => {
@@ -781,7 +785,7 @@ function consultaranuncios(tipo)
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
     var tabladerubros = tablarubros;
-    var rutaimagenes = "imagenes/";
+    // var rutaimagenes = "imagenes/";
     var id;
 
     if (document.getElementById('id')){
@@ -909,8 +913,10 @@ function consultaranuncios(tipo)
                     {
                         tanuncios.row.add( [
                             dd[key].id,
-                            "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\",\"" + dd[key].ocultarprecio+ "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
-                            "<img class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
+                            "<a href='#formulario' onclick='seleccionarproducto(\"" + dd[key].id + "\",\"" + dd[key].rubro + "\",\"" + dd[key].imagen + "\",\"" + dd[key].esnovedad + "\",\"" + dd[key].esoferta + "\",\"" + dd[key].nopublicar + "\",\"" + dd[key].productobonus + "\",\"" + dd[key].bonus + "\",\"" + dd[key].tieneventaja + "\",\"" + dd[key].tituloventaja + "\",\"" + dd[key].textolinkexterno + "\",\"" + dd[key].linkexterno+ "\",\"" + dd[key].ocultarprecio+ "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">border_color</i>",
+                            "<img id=\"ima_" + dd[key].id  + "\" class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
+                            "<button onclick='copiarimagen(\"" + dd[key].id + "\",\"" + dd[key].imagen + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">content_copy</i></button>",
+                            "<button onclick='pegarimagen(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">content_paste</i></button>",
                             dd[key].rubro,
                             dd[key].id,
                             dd[key].codigobarra,
@@ -918,14 +924,8 @@ function consultaranuncios(tipo)
                             dd[key].descripcion,
                             "<label class='blockcosto'>" + dd[key].costo + "</label>",
                             dd[key].precio,
-                            esofe,
-                            esnov,
-                            nopub,
                             ocpre,
                             dd[key].comodin,
-                            // opant,
-                            // dd[key].tituloventaja,
-                            // dd[key].precioventaja,
                             "<a onclick='eliminar(\"" + dd[key].id + "\",\"" + dd[key].imagen + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
                         ] ).draw( false );
                     }
@@ -937,6 +937,47 @@ function consultaranuncios(tipo)
             console.log("Error en la consulta." + e.value);
         }
     });
+}
+
+function copiarimagen(idori,ima){
+    imagencopiada = ima;
+    idorigen = idori;
+}
+
+function pegarimagen(idpasado){
+
+    if(imagencopiada != "")
+    {
+        
+        var itemanuncio = new Object();
+        itemanuncio.bdd = conexionbdd;
+        itemanuncio.tabla = tablaanuncios;
+        itemanuncio.tipo = "actualizaimagen";
+        itemanuncio.id = idpasado;
+        itemanuncio.imagen = imagencopiada;
+        var objetoanuncio = JSON.stringify(itemanuncio);
+
+        $.ajax({
+            url: "consultaanuncios.php",
+            data: {objetoanuncio,objetoanuncio},
+            type: "post",
+            success:function(data){
+                if(data != "consultavacia" && data != "[]")
+                {
+                    M.toast({html:'Ok'})
+                    document.getElementById("ima_"+ idpasado).src = rutaimagenes + imagencopiada;
+                }else
+                {
+                    M.toast({html:'No se pego la imagen'})
+                }
+            },         
+            error: function (e) {
+                M.toast({ html: 'Error al pegar la imagen.' });
+        }
+
+
+        });
+    }
 }
 
 function eliminar(id, i)
@@ -978,7 +1019,7 @@ function eliminaranuncio(idpasado,i)
     var tabla = tablaanuncios;
     var tipo = "baja";
 
-    var rutaimagenes = "imagenes/";
+    // var rutaimagenes = "imagenes/";
     var id;
 
     if (idpasado == "")
@@ -2038,7 +2079,7 @@ function consultaranunciosvender(tipo) {
     var bdd = conexionbdd;
     var tabla = tablaanuncios;
     var tabladerubros = tablarubros;
-    var rutaimagenes = "imagenes/";
+    // var rutaimagenes = "imagenes/";
 
     //traido de consulta stock
     var tabladecompras = tablacompras;
@@ -9468,6 +9509,8 @@ function consultarbloqueos()
 function verificabloqueo()
 {
 
+    
+    
     if(llama == "vender")
     {
         if(arreglobloqueos.length > 0)
@@ -9540,6 +9583,7 @@ function verificabloqueo()
 
     if(llama == "panel")
     {
+
         var cien        = false;
         var cientouno   = false;
         var cientodos   = false;
@@ -9702,4 +9746,58 @@ function bloquearmodificaprecio()
     {
         obj[a].readOnly = true;
     }
+}
+
+
+function configuraciontablapermisos() {
+    $('#tablapermisos').DataTable({
+        "pageLength": -1,
+        "language": {
+
+            "processing": "Procesando...",
+            "search": "Sub búsquedas:",
+            "lengthMenu": "Registros x página",
+            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+            "emptyTable": "No hay registros para ver",
+            "zeroRecords": "No hay registros para ver",
+            "infoEmpty": "No hay registros  para ver",
+            "paginate": {
+                "first": "Primera",
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "last": "Ultima"
+            },
+            "aria": {
+                "sortAscending": "Ordenar columna ascendente",
+                "sortDescending": "Ordenar columna descendente"
+            },
+        }
+        
+    });
+}
+function configuraciontablausuarios() {
+    $('#tablausuarios').DataTable({
+        "pageLength": -1,
+        "language": {
+
+            "processing": "Procesando...",
+            "search": "Sub búsquedas:",
+            "lengthMenu": "Registros x página",
+            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+            "emptyTable": "No hay registros para ver",
+            "zeroRecords": "No hay registros para ver",
+            "infoEmpty": "No hay registros  para ver",
+            "paginate": {
+                "first": "Primera",
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "last": "Ultima"
+            },
+            "aria": {
+                "sortAscending": "Ordenar columna ascendente",
+                "sortDescending": "Ordenar columna descendente"
+            },
+        }
+        
+    });
 }

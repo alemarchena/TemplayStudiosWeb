@@ -64,7 +64,7 @@
     <script src="configuracion.js?" + r></script>
     <script type="text/javascript">
    
-
+    versionts = 138;
     tablaanuncios           = "";
     tablarubros             = "";
     tablaventas             = "";
@@ -84,6 +84,7 @@
     idencontrado            = -1;
     emailingreso            = "";
     jerarquia               = ""
+    idplataformaactual      = "";
         /**
          * INGRESO AL SISTEMA.
          */
@@ -373,7 +374,7 @@
                         
                         console.log(empresa);
     
-                        $("#plataforma").load("panel.html?9");
+                        $("#plataforma").load("panel.html?"+ versionts);
                     }    
                 },error: function(e){
                     swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");
@@ -701,7 +702,10 @@ function verificaenter(e){
     
    
     function seleccionarplataforma(idusuario,idplataforma){
+        idplataformaactual = idplataforma;
+
         traerplataforma(idusuario,idplataforma);
+
     }
 
     function verificarusuario() 

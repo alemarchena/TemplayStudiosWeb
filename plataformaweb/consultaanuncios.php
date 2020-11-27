@@ -204,7 +204,11 @@
         }
     }
     else 
-    
+    if($tipo == "actualizaimagen"){
+            $sql = "update " .$tabla. " set imagen = '$imagen' where id= $id";
+            $resultado  = $mysqli->query($sql);
+            echo $resultado;
+    }else
     if($tipo == "alta")
     {
         if($id==0)
