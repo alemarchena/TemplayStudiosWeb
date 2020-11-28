@@ -9775,29 +9775,3 @@ function configuraciontablapermisos() {
         
     });
 }
-function configuraciontablausuarios() {
-    $('#tablausuarios').DataTable({
-        "pageLength": -1,
-        "language": {
-
-            "processing": "Procesando...",
-            "search": "Sub búsquedas:",
-            "lengthMenu": "Registros x página",
-            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros para ver",
-            "zeroRecords": "No hay registros para ver",
-            "infoEmpty": "No hay registros  para ver",
-            "paginate": {
-                "first": "Primera",
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "last": "Ultima"
-            },
-            "aria": {
-                "sortAscending": "Ordenar columna ascendente",
-                "sortDescending": "Ordenar columna descendente"
-            },
-        }
-        
-    });
-}

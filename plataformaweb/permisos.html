@@ -1,36 +1,9 @@
-
-    <div class="row justify-content-center">
-
-        <div class="col-sm-12">
-            
-            <div class="table-responsive">
-                <table id="tablausuarios" class="display table table-striped" style="font-size: 1.3em;">
-                    <thead>
-                        <tr>
-                            <th>Id usuario</th>
-                            <th>email</th>
-                            <th>Id plataforma</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-<div class="row justify-content-center">
-    <div class="col-sm-12">
-        <h5>Bloqueos de usuario</h5>
-    </div>
-</div>
+<style>
+    th{
+        font-size: 0.9em;
+    }
+</style>
+<br>
 <div class="row justify-content-center">
     <div class="col-sm-4">
         <select class="form-control" id="listausuarios" name="listausuarios">
@@ -41,6 +14,10 @@
     </div>
 </div>
 <div class="row justify-content-center">
+    <h5><small>Bloqueos de Visibilidad</small></h5>
+</div>
+<div class="row justify-content-center">
+
     <div class="col">
             <label><input id='chkCosto' onclick='checkPermiso(1,"chkCosto")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Costo</span></label>
     </div>
@@ -48,7 +25,7 @@
         <label><input id='chkRenta' onclick='checkPermiso(2,"chkRenta")' type='checkbox' class='filled-in' unchecked /><span class='colorletras'>Rentabilidad</span></label>
     </div>
     <div class="col">
-        <label><input id='chkStock' onclick='checkPermiso(3,"chkStock")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Stock</span></label>
+        <label><input id='chkStock' onclick='checkPermiso(3,"chkStock")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Ver Stock</span></label>
     </div>
     <div class="col">
         <label><input id='chkElimina' onclick='checkPermiso(4,"chkElimina")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Elimina</span></label>
@@ -56,6 +33,11 @@
     <div class="col">
         <label><input id='chkCambiaPrecio' onclick='checkPermiso(5,"chkCambiaPrecio")' type='checkbox' class='filled-in' unchecked/><span class='colorletras'>Cambio Precios</span></label>
     </div>
+</div>
+<div class="row justify-content-center">
+    <h5><small>Bloqueos de Menú</small></h5>
+</div>
+<div class="row justify-content-center">
     <div class="col">
         <label><input id='chkProducto' onclick='checkPermiso(100,"chkProducto")' type='checkbox' class='filled-in'       unchecked /><span class='colorletras'>Producto</span></label>
     </div>
@@ -79,12 +61,14 @@
         <label><input id='chkComprar' onclick='checkPermiso(105,"chkComprar")' type='checkbox' class='filled-in'
             unchecked /><span class='colorletras'>Comprar</span></label>
     </div>
+</div>
+<div class="row justify-content-center">
     <div class="col">
         <label><input id='chkCaja' onclick='checkPermiso(106,"chkCaja")' type='checkbox' class='filled-in'
             unchecked /><span class='colorletras'>Caja</span></label>
     </div>
     <div class="col">
-        <label><input id='chkStock' onclick='checkPermiso(107,"chkStock")' type='checkbox' class='filled-in'
+        <label><input id='chkMStock' onclick='checkPermiso(107,"chkMStock")' type='checkbox' class='filled-in'
             unchecked /><span class='colorletras'>Stock</span></label>
     </div>
     <div class="col">
@@ -104,11 +88,11 @@
             unchecked /><span class='colorletras'>Bonus</span></label>
     </div>
 
-   
+
 </div>
 <div class="row justify-content-center">
     <div class="col-sm-12">
-        <h5>Bloqueos actuales de usuario</h5>
+        <h5><small>Bloqueos actuales de usuario</small></h5>
     </div>
 </div>
 <div class="row justify-content-center">
@@ -116,7 +100,7 @@
     <div class="col-sm-12">
 
         <div class="table-responsive">
-            <table id="tablapermisos" class="display table table-striped" style="font-size: 1.3em;">
+            <table id="tablapermisos" class="display table table-striped" style="font-size: 0.9em;">
                 <thead>
                     <tr>
                         <th>Id usuario</th>
@@ -139,26 +123,11 @@
                         <th>M-Bonus</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                 </tbody>
             </table>
@@ -167,7 +136,10 @@
 </div>
 
 <script>
-    
+
+    var Costo; var Rentab; var Stock; var Elimina; var Cambia; var MProducto; var MCategoria; var MCliente; var MProveedor;
+    var MVender; var MComprar; var MCaja; var MStock; var MActualizar; var MExport; var MImport; var MBonus;
+
 function checkPermiso(bloqueopasado,che) {
 
     var ti;
@@ -178,7 +150,7 @@ function checkPermiso(bloqueopasado,che) {
 
     if(idusuarioelegido > 0){
 
-    
+
         var item = new Object();
 
         item.bdd = conexionbdd;
@@ -199,28 +171,22 @@ function checkPermiso(bloqueopasado,che) {
 
                 if (data != "consultavacia" && data != "[]") {
                     dd = JSON.parse(data); //data decodificado
-
-                    if(ti == "alta")
-                        M.toast({ html: 'Bloqueo insertado', displayLength: '500', classes: 'rounded' });
-                    else
-                        M.toast({ html: 'Bloqueo eliminado', displayLength: '500', classes: 'rounded' });
-
-                    consultausuarioplataforma();
+                    BuscarPermisosPaqueteUsuarios();
+                    buscarpermisousuarios();
                 }
             },
             error: function (e) {
                 alert("Error en la consulta." + e.value);
             }
         });
-    }else
+    }else{
         M.toast({ html: 'Seleccione un usuario de la lista', displayLength: '500', classes: 'rounded' });
+        // destilda();
+    }
 
 }
 
 function consultausuarioplataforma() {
-    if ($.fn.dataTable.isDataTable('#tablausuarios')) {
-        var tr = $('#tablausuarios').DataTable();
-    }
 
     objeto = new Object();
     objeto.tipo = "consultausuarioplataforma";
@@ -228,9 +194,7 @@ function consultausuarioplataforma() {
     objeto.id = 0;
 
     var objetojson = JSON.stringify(objeto);
-    M.toast({ html: 'Buscando usuarios', displayLength: '1000', classes: 'rounded' });
 
-    tr.clear().draw(true);
     $("#listausuarios").empty();
 
     $.ajax({
@@ -245,11 +209,10 @@ function consultausuarioplataforma() {
             if (data != "consultavacia" && data != "[]") {
                 dd = JSON.parse(data); //data decodificado
 
-                tr.clear().draw(true);
+                // tr.clear().draw(true);
                 var idanterior = -1;
                 arreglousuario = [];
                 var a = [];
-
                 a.push('<option value = "" selected >Usuarios</option >');
 
                 $.each(dd, function (key, value) {
@@ -257,12 +220,6 @@ function consultausuarioplataforma() {
                     if (idanterior != dd[key].idusuario) {
                         if (idanterior != dd[key].idusuario) {
                             idanterior = dd[key].idusuario;
-                            tr.row.add([
-                                dd[key].idusuario,
-                                dd[key].email,
-                                dd[key].idplataforma
-                            ]).draw(false);
-
 
                             var item = new Object();
                             item.idusuario = dd[key].idusuario;
@@ -271,7 +228,7 @@ function consultausuarioplataforma() {
                             var objetoJsonItem = JSON.stringify(item);
                             arreglousuario.push(objetoJsonItem);
 
-                            a = a.concat('<option value = ' + dd[key].idusuario + ' > ' + dd[key].email + '</option>');
+                            a = a.concat('<option value = ' + dd[key].idusuario + ' > ' +  dd[key].idusuario + " " + dd[key].email + '</option>');
 
                         }
                     }
@@ -284,7 +241,7 @@ function consultausuarioplataforma() {
                 $(this).prop("selected", true);
 
                 BuscarPermisosPaqueteUsuarios();
-
+                setTimeout(function(){destilda();},2000);
             }
         },
         error: function (e) {
@@ -292,15 +249,97 @@ function consultausuarioplataforma() {
         }
     });
 
-
-    $("#listausuarios").change(function () {
-
-        idusuarioelegido = $("#listausuarios").val();
-
-    });
+    
 }
 
+$("#listausuarios").change(function () {
+    idusuarioelegido = $("#listausuarios").val();
+    buscarpermisousuarios();
+});
 
+function tilda(tilde){
+    document.getElementById(tilde).checked = true;
+}
+function destilda() {
+   
+    document.getElementById("chkCosto").checked = false;
+    document.getElementById("chkRenta").checked = false;
+    document.getElementById("chkStock").checked = false;
+    document.getElementById("chkElimina").checked = false;
+    document.getElementById("chkCambiaPrecio").checked = false;
+    document.getElementById("chkProducto").checked = false;
+    document.getElementById("chkCategoria").checked = false;
+    document.getElementById("chkCliente").checked = false;
+    document.getElementById("chkProveedor").checked = false;
+    document.getElementById("chkVender").checked = false;
+    document.getElementById("chkComprar").checked = false;
+    document.getElementById("chkCaja").checked = false;
+    document.getElementById("chkMStock").checked = false;
+    document.getElementById("chkActualizar").checked = false;
+    document.getElementById("chkExport").checked = false;
+    document.getElementById("chkImport").checked = false;
+    document.getElementById("chkBonus").checked = false;
+}
+
+function blanquea(){
+    Costo = ""; Rentab = ""; Stock = ""; Elimina = ""; Cambia = "";
+    MProducto = ""; MCategoria = ""; MCliente = ""; MProveedor = "";
+    MVender = ""; MComprar = ""; MCaja = ""; MStock = ""; MActualizar = "";
+    MExport = ""; MImport = ""; MBonus = "";
+}
+function buscarpermisousuarios(){
+
+    var item = new Object();
+    item.bdd = conexionbdd;
+    item.tabla = tablabloqueos;
+    item.tipo = "consultar";
+    item.id = idusuarioelegido;
+    var objeto = JSON.stringify(item);
+
+    destilda();
+
+    $.ajax({
+
+        url: "consultabloqueos.php?" + versionts,
+        data: { objeto: objeto},
+        type: "post",
+
+        success: function (data) {
+
+            if (data != "consultavacia" && data != "[]") {
+
+                dd = JSON.parse(data);
+                var usuarioanterior = -1;
+                var candado = "<i style='text-align: center;' class=" + "\"material-icons\"" + ">lock</i>"
+
+                $.each(dd, function (key, value) {
+                    if (dd[key].bloqueo == 1) { tilda("chkCosto"); }
+                    if (dd[key].bloqueo == 2) { tilda("chkRenta"); }
+                    if (dd[key].bloqueo == 3) { tilda("chkStock"); }
+                    if (dd[key].bloqueo == 4) { tilda("chkElimina"); }
+                    if (dd[key].bloqueo == 5) { tilda("chkCambiaPrecio"); }
+
+                    if (dd[key].bloqueo == 100) { tilda("chkProducto"); }
+                    if (dd[key].bloqueo == 101) { tilda("chkCategoria"); }
+                    if (dd[key].bloqueo == 102) { tilda("chkCliente"); }
+                    if (dd[key].bloqueo == 103) { tilda("chkProveedor"); }
+                    if (dd[key].bloqueo == 104) { tilda("chkVender"); }
+                    if (dd[key].bloqueo == 105) { tilda("chkComprar"); }
+                    if (dd[key].bloqueo == 106) { tilda("chkCaja"); }
+                    if (dd[key].bloqueo == 107) { tilda("chkMStock"); }
+                    if (dd[key].bloqueo == 108) { tilda("chkActualizar"); }
+                    if (dd[key].bloqueo == 109) { tilda("chkExport"); }
+                    if (dd[key].bloqueo == 110) { tilda("chkImport"); }
+                    if (dd[key].bloqueo == 111) { tilda("chkBonus"); }
+                });
+            }
+        }
+        ,
+        error: function (e) {
+            console.log("Error en la consulta." + e.value);
+        }
+    });
+}
 
 function BuscarPermisosPaqueteUsuarios() {
     if ($.fn.dataTable.isDataTable('#tablapermisos')) {
@@ -308,16 +347,15 @@ function BuscarPermisosPaqueteUsuarios() {
     }
 
     var item = new Object();
-
     item.bdd = conexionbdd;
     item.tabla = tablabloqueos;
     item.tipo = "consultapaquete";
-    item.id = idencontrado;
-
+    item.id = idusuarioelegido;
     var objeto = JSON.stringify(item);
 
-    M.toast({ html: 'Buscando permisos', displayLength: '1000', classes: 'rounded' });
+    // M.toast({ html: 'Buscando permisos', displayLength: '1000', classes: 'rounded' });
     tr.clear().draw(true);
+    destilda();
 
     $.ajax({
 
@@ -327,8 +365,6 @@ function BuscarPermisosPaqueteUsuarios() {
 
         success: function (data) {
 
-            console.log(data);
-
             if (data != "consultavacia" && data != "[]") {
 
                 //data llega como arreglo de jsons
@@ -336,86 +372,120 @@ function BuscarPermisosPaqueteUsuarios() {
                 var idanterior = -1;
 
                 dd = JSON.parse(data); //es el json
-
+                ddd = JSON.parse(data); //es el json
+                var usuarioanterior=-1;
                 var candado = "<i style='text-align: center;' class=" + "\"material-icons\"" + ">lock</i>"
-                $.each(dd, function (key, value) {
+                
+                blanquea();
 
-                    Costo = "";
-                    Rentab = "";
-                    Stock = "";
-                    Elimina = "";
-                    Cambia = "";
+                var contador = 0;
+                $.each(ddd, function (key, value) {
+                    if (usuarioanterior == -1) {
+                        usuarioanterior = dd[key].idusuario;
+                    }
+                    contador = contador + 1;
+                });
 
-                    MProducto = "";
-                    MCategoria = "";
-                    MCliente = "";
-                    MProveedor = "";
-                    MVender = "";
-                    MComprar = "";
-                    MCaja = "";
-                    MStock = "";
-                    MActualizar = "";
-                    MExport = "";
-                    MImport = "";
-                    MBonus = "";
+                var cuenta = 0;
 
+                $.each(dd, function (key, value)
+                {
+                    cuenta = cuenta + 1;
 
-                    if (dd[key].bloqueo == 1) Costo = candado;
-                    if (dd[key].bloqueo == 2) Rentab = candado;
-                    if (dd[key].bloqueo == 3) Stock = candado;
-                    if (dd[key].bloqueo == 4) Elimina = candado;
-                    if (dd[key].bloqueo == 5) Cambia = candado;
+                    if(usuarioanterior == dd[key].idusuario)
+                    {
+                        if (dd[key].bloqueo == 1) {Costo = candado; }
+                        if (dd[key].bloqueo == 2) {Rentab = candado;}
+                        if (dd[key].bloqueo == 3) {Stock = candado; }
+                        if (dd[key].bloqueo == 4) {Elimina = candado;}
+                        if (dd[key].bloqueo == 5) {Cambia = candado; }
 
-                    if (dd[key].bloqueo == 100) MProducto = candado;
-                    if (dd[key].bloqueo == 101) MCategoria = candado;
-                    if (dd[key].bloqueo == 102) MCliente = candado;
-                    if (dd[key].bloqueo == 103) MProveedor = candado;
-                    if (dd[key].bloqueo == 104) MVender = candado;
-                    if (dd[key].bloqueo == 105) MComprar = candado;
-                    if (dd[key].bloqueo == 106) MCaja = candado;
-                    if (dd[key].bloqueo == 107) MStock = candado;
-                    if (dd[key].bloqueo == 108) MActualizar = candado;
-                    if (dd[key].bloqueo == 109) MExport = candado;
-                    if (dd[key].bloqueo == 110) MImport = candado;
-                    if (dd[key].bloqueo == 111) MBonus = candado;
+                        if (dd[key].bloqueo == 100){ MProducto = candado;}
+                        if (dd[key].bloqueo == 101){ MCategoria = candado;}
+                        if (dd[key].bloqueo == 102){ MCliente = candado; }
+                        if (dd[key].bloqueo == 103){ MProveedor = candado;}
+                        if (dd[key].bloqueo == 104){ MVender = candado;}
+                        if (dd[key].bloqueo == 105){ MComprar = candado;}
+                        if (dd[key].bloqueo == 106){ MCaja = candado;}
+                        if (dd[key].bloqueo == 107){ MStock = candado; }
+                        if (dd[key].bloqueo == 108){ MActualizar = candado;}
+                        if (dd[key].bloqueo == 109){ MExport = candado; }
+                        if (dd[key].bloqueo == 110){ MImport = candado;}
+                        if (dd[key].bloqueo == 111){ MBonus = candado; }
+                    }
 
-                    tr.row.add([
-                        dd[key].idusuario,
-                        Costo,
-                        Rentab,
-                        Stock,
-                        Elimina,
-                        Cambia,
-                        MProducto,
-                        MCategoria,
-                        MCliente,
-                        MProveedor,
-                        MVender,
-                        MComprar,
-                        MCaja,
-                        MStock,
-                        MActualizar,
-                        MExport,
-                        MImport,
-                        MBonus
+                    if(cuenta == contador || usuarioanterior != dd[key].idusuario)
+                    {
+                        //guarda el registro anterior
+                        if(usuarioanterior != dd[key].idusuario)
+                        {
+                            tr.row.add([
+                                usuarioanterior, Costo, Rentab, Stock, Elimina, Cambia,
+                                MProducto, MCategoria, MCliente, MProveedor, MVender,
+                                MComprar, MCaja, MStock, MActualizar, MExport, MImport, MBonus
+                            ]).draw(false);
+                            usuarioanterior = dd[key].idusuario;
+                            
+                            blanquea();
+                            if (dd[key].bloqueo == 1) { Costo = candado; }
+                            if (dd[key].bloqueo == 2) { Rentab = candado; }
+                            if (dd[key].bloqueo == 3) { Stock = candado; }
+                            if (dd[key].bloqueo == 4) { Elimina = candado; }
+                            if (dd[key].bloqueo == 5) { Cambia = candado; }
 
-                    ]).draw(false);
+                            if (dd[key].bloqueo == 100) { MProducto = candado; }
+                            if (dd[key].bloqueo == 101) { MCategoria = candado; }
+                            if (dd[key].bloqueo == 102) { MCliente = candado; }
+                            if (dd[key].bloqueo == 103) { MProveedor = candado; }
+                            if (dd[key].bloqueo == 104) { MVender = candado; }
+                            if (dd[key].bloqueo == 105) { MComprar = candado; }
+                            if (dd[key].bloqueo == 106) { MCaja = candado; }
+                            if (dd[key].bloqueo == 107) { MStock = candado; }
+                            if (dd[key].bloqueo == 108) { MActualizar = candado; }
+                            if (dd[key].bloqueo == 109) { MExport = candado; }
+                            if (dd[key].bloqueo == 110) { MImport = candado; }
+                            if (dd[key].bloqueo == 111) { MBonus = candado; }
+                        }
 
+                        usuarioanterior == dd[key].idusuario;
+
+                        //es el ultimo registro
+                        if(cuenta == contador)
+                        {
+                            if (dd[key].bloqueo == 1) { Costo = candado; }
+                            if (dd[key].bloqueo == 2) { Rentab = candado; }
+                            if (dd[key].bloqueo == 3) { Stock = candado; }
+                            if (dd[key].bloqueo == 4) { Elimina = candado; }
+                            if (dd[key].bloqueo == 5) { Cambia = candado; }
+
+                            if (dd[key].bloqueo == 100) { MProducto = candado; }
+                            if (dd[key].bloqueo == 101) { MCategoria = candado; }
+                            if (dd[key].bloqueo == 102) { MCliente = candado; }
+                            if (dd[key].bloqueo == 103) { MProveedor = candado; }
+                            if (dd[key].bloqueo == 104) { MVender = candado; }
+                            if (dd[key].bloqueo == 105) { MComprar = candado; }
+                            if (dd[key].bloqueo == 106) { MCaja = candado; }
+                            if (dd[key].bloqueo == 107) { MStock = candado; }
+                            if (dd[key].bloqueo == 108) { MActualizar = candado; }
+                            if (dd[key].bloqueo == 109) { MExport = candado; }
+                            if (dd[key].bloqueo == 110) { MImport = candado; }
+                            if (dd[key].bloqueo == 111) { MBonus = candado; }
+                             tr.row.add([
+                                usuarioanterior, Costo, Rentab, Stock, Elimina, Cambia,
+                                MProducto, MCategoria, MCliente, MProveedor, MVender,
+                                MComprar, MCaja, MStock, MActualizar, MExport, MImport, MBonus
+                            ]).draw(false);
+                        }
+                    }
                 });
 
             }
-
         }
         ,
         error: function (e) {
             console.log("Error en la consulta." + e.value);
         }
     });
-
-
-
-
-
 }
 
 $(document).ready(function ()
@@ -427,24 +497,10 @@ $(document).ready(function ()
     window.addEventListener("load", iniciolista());
 
     function iniciolista() {
-        configuraciontablausuarios();
+        // configuraciontablausuarios();
         configuraciontablapermisos();
         consultausuarioplataforma();
     }
-
-    
-    // $("#chkaplicaporcentaje").click(function(){
-    //     if(this.checked)
-    //     {
-    //         document.getElementById("chkaplicamonto").checked = false;
-    //     }else
-    //     {
-    //         document.getElementById("chkaplicamonto").checked = true;
-    //     }
-    // });
-
-    
-    
 });
 
 </script>

@@ -45,22 +45,12 @@
         {
             echo "consultavacia";
         }
-     
-           
-                
-            // }else if($tipo == "alta")
-            // {
-            //     $sql = "insert into " .$tabla. "(bonusestablecido) values('$bonusestablecido ')";
-            //     $resultado  = $mysqli->query($sql);
-            //     echo $resultado; 
     }else if($tipo == "consultapaquete"){
 
         $data = array();
         
         foreach ($arreglousuario as $i => $value) 
         {
-            
-            // echo $paqueteFilas[$i];
             $objeto = json_decode($arreglousuario[$i],true);
             $idusuario = $objeto['idusuario'];
            
