@@ -4,7 +4,7 @@
         <div class="col-sm-2">
             <div class="row">
                 <div class="col-sm-12">
-                    <h5 style="color: white;">Ventas<i class="fas fa-shopping-cart" style="color: white;"></i></h5>
+                    <a id="exportararchivo" style="color: white;" class="waves-effect waves-light btn-small">Exportar <i class="fas fa-shopping-cart" style="color: white;"></i></a>
                 </div>
             </div>
         </div>
@@ -164,6 +164,9 @@
                     Lista de ventas del día
                 </button>
             </h5>
+           
+            <h5 id="totalventas">0</h5>
+            
         </div>
         
         <div id="collapseListaVenta" class="collapse" aria-labelledby="headingListaVenta" data-parent="#accordionVentas">
@@ -172,17 +175,6 @@
                 <div class="row m-0 p-0">
                     <!-- Columna de tarjeta de ventas -->
                     <div class="col-sm-12 notapedido">
-
-                        <div class="row justify-content-center bd-highlight">
-                            <div class="col-sm-12">
-                                <h5>Ventas del día</h5>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-sm-12">
-                                <a id="exportararchivo" style="color: white;" class="waves-effect waves-light btn-small">Exportar</a>
-                            </div>
-                        </div>
                         <div class="table-responsive">
                             <table id="tablavender" class="display table table-striped" style="width: 100%!important;">
                                 <thead>
@@ -233,14 +225,80 @@
             </div>
         </div>
     </div>
-        
+    <!-- ------------------------------------------- CAJA ---------------------------------------- -->
+    <div class="card">
+        <div class="" id="headingListaCaja">
+            <h5 class="m-0">
+                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaCaja" aria-expanded="false"
+                    aria-controls="collapseListaCaja">
+                    Lista de Caja del día
+                </button>
+            </h5>
+            <h5 id="totalcaja">0</h5>
+
+        </div>
+    
+        <div id="collapseListaCaja" class="collapse" aria-labelledby="headingListaCaja" data-parent="#accordionVentas">
+            <div class="">
+                <!-- lista caja -->
+                <div class="row m-0 p-0">
+                    <!-- Columna de tarjeta de caja -->
+                    <div class="col-sm-12">
+    
+                        <div class="row justify-content-center bd-highlight">
+                            
+                            <div class="col-sm-7">
+                                <input id="descripcioncaja" min=0 max=150 type="text" placeholder="Descripción">
+                            </div>
+                            <div class="col-sm-1">
+                                <input id="montocaja" type="number" min="0" max="10" placeholder="Monto">
+                            </div>
+                            <div class="col-sm-2">
+                                <button id="ingresocaja" class="btn " style="background-color: cornflowerblue;color:white">Ingresar</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button id="egresocaja" class="btn btn-red">Retirar</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="tablacajas" class="display table table-striped" style="width: 100%!important;">
+                                <thead>
+                                    <tr>
+                                        <th>Nº Item</th>
+                                        <th>Id usuario</th>
+                                        <th>Usuario</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Tipo de movimiento</th>
+                                        <th>Monto</th>
+                                        <th>Descripción</th>
+                                        <th>Eliminar</th>
+    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td>
+                                        <td></td><td class="blockeliminar"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+    
+                </div>
+                <!-- fin lista caja -->
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 
 function consultaventadiaactual() {
-    var fechaventa = $("#fechaventa").val();
-    fechaventaenviada = conviertefechaastringdmy(fechaventa);
-    consultarventasdeldia(fechaventaenviada);
+    
+    consultarventasdeldia();
+    consultarcajadeldia();
 }
 
 function verificaJerarquia()
@@ -264,6 +322,7 @@ function verificaJerarquia()
 
         configuraciontablaPedido();
         configuraciontablavender();
+        configuraciontablacajas();
         configuraciontablaanunciosvender();
 
         $('#tablaanunciosvender').on('page.dt', function () {
@@ -327,6 +386,20 @@ function verificaJerarquia()
         procesarventa();
     });
 
+    $("#ingresocaja").click(function()
+    {
+        var monto = document.getElementById("montocaja").value;
+        var descripcion = document.getElementById("descripcioncaja").value;
+
+        guardarcaja("alta", "EN",monto, descripcion);
+    });
+
+    $("#egresocaja").click(function () {
+            var monto = document.getElementById("montocaja").value;
+            var descripcion = document.getElementById("descripcioncaja").value;
+
+            guardarcaja("alta", "SA",monto, descripcion);
+        });
     $('.tooltipped').tooltip();
 
     $("#divverdata").load("componentelistaverdata.html");

@@ -64,7 +64,7 @@
     <script src="configuracion.js?" + r></script>
     <script type="text/javascript">
    
-    versionts = 142;
+    versionts = 146;
     tablaanuncios           = "";
     tablarubros             = "";
     tablaventas             = "";
@@ -79,7 +79,8 @@
     conexionbdd             = "";
     tablatiposdepago        = "";
     tablatiposdemovimientos = "";
-    tablafiltros = "";
+    tablafiltros            = "";
+    tablacajas              = "";
     rutaimagenes            = "";
     idencontrado            = -1;
     emailingreso            = "";
@@ -366,6 +367,7 @@
                             tablatiposdepago = dd[key].tablatiposdepago;
                             tablatiposdemovimientos = dd[key].tablatiposdemovimientos;
                             tablafiltros = dd[key].tablafiltros;
+                            tablacajas = dd[key].tablacajas;
                             rutaimagenes = dd[key].rutaimagenes;
                             dominio = dd[key].dominio;
                            

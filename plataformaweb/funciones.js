@@ -27,7 +27,7 @@ arreglobloqueos = [];
 imagencopiada = "";
 idorigen = 0;
 rutaimagenes = "imagenes/";
-
+totalventasdia =0;
 
 function escrolear(claseelemento) {
     setInterval(() => {
@@ -2550,7 +2550,7 @@ function procesarventa(){
     var fechaventa = $("#fechaventa").val();
     fechaventa = conviertefechaastringdmy(fechaventa);
 
-    setTimeout(function(){ consultarventasdeldia(fechaventa); }, 2000);
+    setTimeout(function(){ consultarventasdeldia(); }, 2000);
 
     // arregloitemsventa = [];
     ar = [];
@@ -2560,6 +2560,219 @@ function procesarventa(){
 
     t.clear().draw(true);
     limpiacamposventa();
+
+}
+
+function guardarcaja(tipo,entsal, monto, descripcion)
+{
+    var fechaventa = $("#fechaventa").val();
+    fechaventa = conviertefechaastringdmy(fechaventa);
+
+    var bdd = conexionbdd;
+    var itemcaja = new Object();
+    itemcaja.bdd = bdd;
+    itemcaja.tabla = tablacajas;
+    itemcaja.tipo = tipo;
+    itemcaja.tipomovimiento = entsal;
+    itemcaja.id = idencontrado;//es el id del usuario logueado
+    itemcaja.monto = monto;
+    itemcaja.descripcion = descripcion;
+    itemcaja.fechacaja = fechaventa;
+    itemcaja.jerarquia = jerarquia;
+    itemcaja.email = emailingreso;
+    itemcaja.hora = damelahora();
+    var caja = JSON.stringify(itemcaja);
+
+    $.ajax({
+        url: "consultacajas.php?" + versionts,
+        data: { caja: caja },
+        type: "post",
+        success: function (data) {
+          
+            if (data != "[]") {
+                M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
+
+            } else {
+                M.toast({ html: 'Error al crear el registro' })
+            }
+            consultarventasdeldia();
+        },
+        error: function (e) {
+            M.toast({ html: 'Error al intentar guardar.' });
+        }
+    });
+}
+function consultarcajadeldia(e) {
+
+    if ($.fn.dataTable.isDataTable('#tablacajas')) {
+        tabcajas = $('#tablacajas').DataTable();
+    }else
+        tabcajas = $('#tablacajas').DataTable();
+
+    var fechaventa = $("#fechaventa").val();
+    fechaventa = conviertefechaastringdmy(fechaventa);
+
+    var bdd = conexionbdd;
+    var tipo = "consulta";
+    var itemventa = new Object();
+    itemventa.bdd = bdd;
+    itemventa.tabla = tablacajas;
+    itemventa.tipo = tipo;
+    itemventa.jerarquia = jerarquia;
+    itemventa.fechacaja = fechaventa;
+    itemventa.email = emailingreso;
+
+    var caja = JSON.stringify(itemventa);
+    console.log(caja);
+    tabcajas.clear().draw(true);
+    var cajita = 0;
+
+    $.ajax({
+
+        url: "consultacajas.php",
+        data: { caja: caja},
+
+        type: "post",
+
+        success: function (data) {
+            
+            if (data != "consultavacia") {
+
+                dd = JSON.parse(data); //data decodificado
+
+                $.each(dd, function (key, value) {
+
+                    total = dd[key].monto;
+                    total = Math.round(total * 100) / 100;
+
+                    if(dd[key].tipomovimiento == "EN")
+                    {
+                        cajita = cajita + total;
+                    }else
+                    if(dd[key].tipomovimiento == "SA")
+                    {
+                        cajita = cajita - total;
+                    }
+                    
+                    cajita = Math.round(cajita * 100) / 100;
+
+                    feccaja = vista_ymdAdmy(dd[key].fecha)
+                   
+
+                    if(dd[key].tipomovimiento == "EN")
+                    {
+                        timo = "ENTRADA";
+                        colorfondo = 'cornflowerblue';
+                        colorsegun = 'white';
+                    }
+                    else if(dd[key].tipomovimiento == "SA")
+                    {
+                        timo = "SALIDA";
+                        colorfondo = 'red';
+                        colorsegun = 'white';
+                    }
+
+                    tabcajas.row.add([
+                        "<label style='text-align: center;'>" + dd[key].id + "</label>" ,
+                        "<label style='text-align: center;'>" + dd[key].idusuario + "</label>" ,
+                        "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
+                        feccaja,
+                        dd[key].hora,
+                        "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ timo + "</p>",
+                        "$ " + dd[key].monto.toString().replace(".",","),
+                        dd[key].descripcion,
+                        "<a onclick='quitarmovimientocaja(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+
+                    ]).draw(false);
+                });
+
+
+                colocatotalcaja(cajita);
+                verificabloqueo();
+                tabcajas.columns.adjust().draw(false);
+            }
+        },
+        error: function (e) {
+            console.log("Error en la consulta." + e.value);
+        }
+    });
+}
+
+function colocatotalcaja(tvd){
+    
+    totalventasdia  = Math.round(totalventasdia  * 100) / 100;
+
+    tvd = Math.round(tvd * 100) / 100;
+
+    totalcajaconventa = totalventasdia  + tvd
+    document.getElementById("totalcaja").innerHTML = "$ "  + totalcajaconventa.toString();
+
+}
+
+function quitarmovimientocaja(idcaja){
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Desea eliminar ?',
+        text: "Esta acción no se podrá revertir!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+            eliminacaja(idcaja);
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Perfecto',
+                'Su venta permanece guardada :)'
+            )
+        }
+    })
+}
+
+function eliminacaja(idcaja)
+{
+
+    //elimino de la base de datos
+    var bdd = conexionbdd;
+    var tipo = "baja";
+
+    var itemcaja = new Object();
+    itemcaja.bdd = bdd;
+    itemcaja.tabla = tablacajas;
+    itemcaja.tipo = tipo;
+    itemcaja.id = idcaja;
+
+    var caja = JSON.stringify(itemcaja);
+    
+    $.ajax({
+        url: "consultacajas.php",
+        data: { caja: caja},
+        type: "post",
+        success: function (data) {
+            if (data != "consultavacia") {
+                
+                consultarventasdeldia();
+                
+            } else {
+                M.toast({ html: 'Error al intentar eliminar.' })
+            }
+        },
+        error: function (e) {
+            alert("Error en el alta.");
+        }
+    });
 
 }
 
@@ -2587,7 +2800,7 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
     itemventa.hora = damelahora();
 
     var vendido = JSON.stringify(itemventa);
-    console.log(vendido);
+
     $.ajax({
         url: "consultaventas.php",
         data: { vendido: vendido },
@@ -2600,7 +2813,9 @@ function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclient
                 var tipobonus = "bonussumado";
                 guardarbonusencliente(idclienteelegido, bonus, tipobonus);
                 limpiacamposventa();
+                consultarventasdeldia();
                 M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
+                
 
             } else {
                 M.toast({ html: 'Error al crear el registro' })
@@ -2661,12 +2876,15 @@ function guardarbonusencliente(id, bonus, tipo)
 
 }
 
-function consultarventasdeldia(fechaventa,e) {
+function consultarventasdeldia(e) {
 
     if ($.fn.dataTable.isDataTable('#tablavender')) {
         tventas = $('#tablavender').DataTable();
     }else
         tventas = $('#tablavender').DataTable();
+
+    var fechaventa = $("#fechaventa").val();
+    fechaventa = conviertefechaastringdmy(fechaventa);
 
     var bdd = conexionbdd;
     var tabla = tablaventas;
@@ -2692,7 +2910,7 @@ function consultarventasdeldia(fechaventa,e) {
     var vendido = JSON.stringify(itemventa);
 
     tventas.clear().draw(true);
-
+    totalventasdia =0;
     $.ajax({
 
         url: "consultaventas.php",
@@ -2710,6 +2928,8 @@ function consultarventasdeldia(fechaventa,e) {
 
                     total = dd[key].cantidad * dd[key].precio;
                     total = Math.round(total * 100) / 100;
+                    totalventasdia = totalventasdia + total;
+                    totalventasdia = Math.round(totalventasdia * 100) / 100;
 
                     tventas.row.add([
 
@@ -2731,8 +2951,11 @@ function consultarventasdeldia(fechaventa,e) {
 
                     ]).draw(false);
                 });
+                colocatotalventas(totalventasdia);
                 verificabloqueo();
                 tventas.columns.adjust().draw(false);
+                consultarcajadeldia();
+
             }
         },
         error: function (e) {
@@ -2740,7 +2963,11 @@ function consultarventasdeldia(fechaventa,e) {
         }
     });
 }
+function colocatotalventas(tvd){
+    
+    document.getElementById("totalventas").innerHTML = "$ "  + tvd.toString();
 
+}
 function quitar(idventa,idcliente,bonusventa){
 
     const swalWithBootstrapButtons = Swal.mixin({
@@ -2798,16 +3025,8 @@ function eliminaventa(idventa, idcliente, bonusventa)
             if (data != "consultavacia") {
                 var tipobonus = "bonusrestado";
                 guardarbonusencliente(idcliente, bonusventa, tipobonus);
-
-                var fechaventa = $("#fechaventa").val();
-                fechaventaenviada = conviertefechaastringdmy(fechaventa);
-                consultarventasdeldia(fechaventaenviada);
-
-                // Swal.fire(
-                //     'Eliminado!',
-                //     'La venta fué borrada.',
-                //     'success'
-                // )
+                consultarventasdeldia();
+                
             } else {
                 M.toast({ html: 'Error al intentar eliminar.' })
             }
@@ -2870,7 +3089,7 @@ function configuraciontablaanunciosvender() {
             },
         },
         "order": [[0, "desc"]],
-        "dom": '<"top"p>rt<"bottom"p><"bottom"fl><"clear">'
+        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
     });
 }
 
@@ -2918,7 +3137,38 @@ function configuraciontablavender() {
 
     });
 }
+function configuraciontablacajas() {
+    $('#tablacajas').DataTable({
+        "language": {
 
+            "processing": "Procesando...",
+            "search": "BUSQUEDA EN EL PEDIDO:",
+            "lengthMenu": "",
+            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+            "emptyTable": "No hay registros guardados",
+            "zeroRecords": "No hay registros guardados",
+            "infoEmpty": "No hay anuncios para mostrar",
+            "paginate": {
+                "first": "Primera",
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "last": "Ultima"
+            },
+            "aria": {
+                "sortAscending": "Ordenar columna ascendente",
+                "sortDescending": "Ordenar columna descendente"
+            },
+            "pageLength": -1
+        },
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+        ],
+        "order": [[0, "desc"]],
+        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+
+    });
+}
 function configuraciontablacaja() {
     $('#tablacaja').DataTable({
         "language": {
