@@ -139,7 +139,7 @@ $(document).ready(function ()
         $("#botpublicar").click(function(e){
             e.preventDefault();
             contraerMenu();
-            $("#contenido").load("publicaranuncios.html?5");
+            $("#contenido").load("publicaranuncios.html?" + versionts);
         });
 
        
@@ -161,14 +161,14 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("anuncios_tarjeta_conprecio.html");
+            $("#contenido").load("anuncios_tarjeta_conprecio.html?" + versionts);
         });
 
         $("#botlistastock").click(function (e) {
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("anuncios_lista_stock.html");
+            $("#contenido").load("anuncios_lista_stock.html?"+ versionts);
         });
 
        
@@ -246,7 +246,7 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("cambiosmasivos.html");
+            $("#contenido").load("cambiosmasivos.html?"+ versionts);
         });
         
         if (jerarquia < 1) ocultarmenu('botpermisos');

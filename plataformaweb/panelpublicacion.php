@@ -54,17 +54,12 @@
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.7/cpexcel.js" 
-            integrity="sha512-fuC1ZevbOQvIjtxAMz1ub4kpB+AXk0HloymFN8AVJFwIzEfYKCDdNqiU7SHoS0iCQcktegYfp9vqjwKsmV+m2Q==" 
-            crossorigin="anonymous">
-    </script> -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script>
     
     <script src="configuracion.js?" + r></script>
     <script type="text/javascript">
    
-    versionts = 146;
+    versionts = 159;
     tablaanuncios           = "";
     tablarubros             = "";
     tablaventas             = "";

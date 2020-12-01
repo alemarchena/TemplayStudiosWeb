@@ -817,6 +817,9 @@ function consultaranuncios(tipo)
         filtro.push( textobuscado );
     }
 
+    verpublicidad = "si";
+
+
     var itemanuncio = new Object();
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
@@ -829,6 +832,7 @@ function consultaranuncios(tipo)
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
     itemanuncio.codigobarra = textobuscado;
+    itemanuncio.verpublicidad = verpublicidad;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
 
@@ -2109,7 +2113,8 @@ function consultaranunciosvender(tipo) {
         filtro.push( textobuscado );
     }
 
-
+    verpublicidad = "no";
+    
     var objetoanuncio = JSON.stringify(itemanuncio);
 
     var itemanuncio = new Object();
@@ -2118,6 +2123,7 @@ function consultaranunciosvender(tipo) {
     itemanuncio.tablarubros = tabladerubros;
     itemanuncio.tipo = tipo;
     itemanuncio.id = id;
+    itemanuncio.verpublicidad = verpublicidad;
     itemanuncio.rutaimagenes = rutaimagenes;
     itemanuncio.idrubro = seleccionidrubro ;
     itemanuncio.filtro = filtro;
@@ -2198,6 +2204,10 @@ function consultaranunciosvender(tipo) {
                                 colorsegun = 'white';
                             }
 
+                            var muestraimagen="";
+                            if(dd[key].imagen != "")
+                                muestraimagen = "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>";
+
                             t.row.add([
 
                             dd[key].precio,
@@ -2211,7 +2221,7 @@ function consultaranunciosvender(tipo) {
                             "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
                             "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                             "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
-                            "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>",
+                            muestraimagen,
                             "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ stok + "</p>",
                             ]).draw(true);
 
@@ -2623,7 +2633,6 @@ function consultarcajadeldia(e) {
     itemventa.email = emailingreso;
 
     var caja = JSON.stringify(itemventa);
-    console.log(caja);
     tabcajas.clear().draw(true);
     var cajita = 0;
 
@@ -2639,7 +2648,7 @@ function consultarcajadeldia(e) {
             if (data != "consultavacia") {
 
                 dd = JSON.parse(data); //data decodificado
-
+                
                 $.each(dd, function (key, value) {
 
                     total = dd[key].monto;
@@ -2875,6 +2884,12 @@ function guardarbonusencliente(id, bonus, tipo)
     });
 
 }
+var totalefectivo=0;
+var totalmp=0;
+var totaltcredito=0;
+var totaltdebito=0;
+var totalcc=0;
+var totalbonus=0;
 
 function consultarventasdeldia(e) {
 
@@ -2931,6 +2946,12 @@ function consultarventasdeldia(e) {
                     totalventasdia = totalventasdia + total;
                     totalventasdia = Math.round(totalventasdia * 100) / 100;
 
+                    if(dd[key].tipopago == "EF")
+                    if(dd[key].tipopago == "CC")
+                    if(dd[key].tipopago == "MP")
+                    if(dd[key].tipopago == "TD")
+                    if(dd[key].tipopago == "TC")
+                    if(dd[key].tipopago == "BO")
                     tventas.row.add([
 
                         "<label style='text-align: center;'>" + dd[key].id + "</label>" ,
@@ -3107,10 +3128,11 @@ function configuraciontablaPedido() {
 
 function configuraciontablavender() {
     $('#tablavender').DataTable({
+        "pageLength": -1,
         "language": {
 
             "processing": "Procesando...",
-            "search": "BUSQUEDA EN EL PEDIDO:",
+            "search": "Sub búsqueda",
             "lengthMenu": "",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -3137,6 +3159,39 @@ function configuraciontablavender() {
 
     });
 }
+
+function configuraciontablavender() {
+    $('#tablaresumen').DataTable({
+        "pageLength": -1,
+        "language": {
+
+            "processing": "Procesando...",
+            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+            "emptyTable": "No hay registros guardados",
+            "zeroRecords": "No hay registros guardados",
+            "infoEmpty": "No hay anuncios para mostrar",
+            "paginate": {
+                "first": "Primera",
+                "previous": "Anterior",
+                "next": "Siguiente",
+                "last": "Ultima"
+            },
+            "aria": {
+                "sortAscending": "Ordenar columna ascendente",
+                "sortDescending": "Ordenar columna descendente"
+            },
+            "pageLength": -1
+        },
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+        ],
+        "order": [[0, "desc"]],
+        
+
+    });
+}
+
 function configuraciontablacajas() {
     $('#tablacajas').DataTable({
         "language": {
@@ -4336,106 +4391,115 @@ function cambiapreciosmasivamente(tip)
         aplicaalaventa = 1;
     }
 
-    aplica = document.getElementById("chkaplicaporcentaje");
-    if(aplica.checked){
-        aplicamontoporcentaje = "porce";
+    if(tip=="reemplazar" && aplicaalcosto == 1 && aplicaalaventa == 1)
+    {   
+        M.toast({ html: 'No se permite colocar el mismo monto a venta y costo.', displayLength: '2000', classes: 'rounded' });
+
     }else
     {
-        aplicamontoporcentaje = "monto";
-    }
 
-    if (aplicaalcosto == 1 || aplicaalaventa == 1)
-    {
-        var alcancemodificacion = "";
-
-        if (aplicaalcosto == 1 && aplicaalaventa == 1) {
-            alcancemodificacion = "costoyventa";
-        } else if (aplicaalcosto == 1 && aplicaalaventa == 0) {
-            alcancemodificacion = "costo";
-        } else
-            alcancemodificacion = "venta";
-
-
-        var valorcambio = document.getElementById("valorcambio");
-        if(aplicamontoporcentaje == "porce")
-        {
-
-            if (tip == "restar" && valorcambio.value > 100) {
-                Swal.fire({
-                    position: 'top-end',icon: 'warning',title: 'No puede restar mas del 100%',showConfirmButton: false,timer: 2500})
-                    return;
-            }
-
-            if (valorcambio.value != "" && valorcambio.value > 0) {
-
-                const swalWithBootstrapButtons = Swal.mixin({customClass: {confirmButton: 'btn btn-success',cancelButton: 'btn btn-danger'},buttonsStyling: false})
-                if (tip == "sumar") var mt = "¿Desea SUMAR el " + valorcambio.value + "% al precio de venta ?";
-                if (tip == "restar") var mt = "¿Desea RESTAR el " + valorcambio.value + "% al precio de venta ?";
-
-                swalWithBootstrapButtons.fire({title: 'Modificar precios',text: mt,icon: 'warning',showCancelButton: true,
-                    confirmButtonText: 'Si!',cancelButtonText: 'No!',reverseButtons: true}).then((result) => {
-                    if (result.value) {
-                        cambiarporcentajePreciosVentaMasivamente(valorcambio.value, tip, alcancemodificacion);
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {swalWithBootstrapButtons.fire('Perfecto','Los precios siguen iguales!!!')}
-                })
-
-            } else {
-
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'warning',
-                    title: 'Ingrese el porcentaje para el cambio de precios !',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-            }
+        aplica = document.getElementById("chkaplicaporcentaje");
+        if(aplica.checked){
+            aplicamontoporcentaje = "porce";
         }else
         {
-
-            //cambiar montos
-
-            if (valorcambio.value != "" && valorcambio.value > 0)
-            {
-
-                const swalWithBootstrapButtons = Swal.mixin({ customClass: { confirmButton: 'btn btn-success', cancelButton: 'btn btn-danger' }, buttonsStyling: false })
-                if (tip == "sumar") var mt = "¿Desea SUMAR $ " + valorcambio.value + " al precio de venta ?";
-                if (tip == "restar") var mt = "¿Desea RESTAR $ " + valorcambio.value + " al precio de venta ?";
-
-                swalWithBootstrapButtons.fire({
-                    title: 'Modificar precios', text: mt, icon: 'warning', showCancelButton: true,
-                    confirmButtonText: 'Si!', cancelButtonText: 'No!', reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        cambiarmontoPreciosVentaMasivamente(valorcambio.value, tip, alcancemodificacion);
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) { swalWithBootstrapButtons.fire('Perfecto', 'Los precios siguen iguales!!!') }
-                })
-
-            } else {
-
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'warning',
-                    title: 'Ingrese el monto para el cambio de precios !',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-            }
+            aplicamontoporcentaje = "monto";
         }
 
+        if (aplicaalcosto == 1 || aplicaalaventa == 1)
+        {
+            var alcancemodificacion = "";
+
+            if (aplicaalcosto == 1 && aplicaalaventa == 1) {
+                alcancemodificacion = "costoyventa";
+            } else if (aplicaalcosto == 1 && aplicaalaventa == 0) {
+                alcancemodificacion = "costo";
+            } else
+                alcancemodificacion = "venta";
 
 
-    } else {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Debe aplicarse el cambio al costo,venta o ambos !',
-            showConfirmButton: false,
-            timer: 3000
-        })
+            var valorcambio = document.getElementById("valorcambio");
+            if(aplicamontoporcentaje == "porce")
+            {
+
+                if (tip == "restar" && valorcambio.value > 100) {
+                    Swal.fire({
+                        position: 'top-end',icon: 'warning',title: 'No puede restar mas del 100%',showConfirmButton: false,timer: 2500})
+                        return;
+                }
+
+                if (valorcambio.value != "" && valorcambio.value > 0) {
+
+                    const swalWithBootstrapButtons = Swal.mixin({customClass: {confirmButton: 'btn btn-success',cancelButton: 'btn btn-danger'},buttonsStyling: false})
+                    if (tip == "sumar") var mt = "¿Desea SUMAR el " + valorcambio.value + "% al precio de venta ?";
+                    if (tip == "restar") var mt = "¿Desea RESTAR el " + valorcambio.value + "% al precio de venta ?";
+
+                    swalWithBootstrapButtons.fire({title: 'Modificar precios',text: mt,icon: 'warning',showCancelButton: true,
+                        confirmButtonText: 'Si!',cancelButtonText: 'No!',reverseButtons: true}).then((result) => {
+                        if (result.value) {
+                            cambiarporcentajePreciosVentaMasivamente(valorcambio.value, tip, alcancemodificacion);
+                        } else if (
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {swalWithBootstrapButtons.fire('Perfecto','Los precios siguen iguales!!!')}
+                    })
+
+                } else {
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Ingrese el porcentaje para el cambio de precios !',
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                }
+            }else
+            {
+
+                //cambiar montos
+
+                if (valorcambio.value != "" && valorcambio.value > 0)
+                {
+
+                    const swalWithBootstrapButtons = Swal.mixin({ customClass: { confirmButton: 'btn btn-success', cancelButton: 'btn btn-danger' }, buttonsStyling: false })
+                    if (tip == "sumar") var mt = "¿Desea SUMAR $ " + valorcambio.value + " al precio de venta ?";
+                    if (tip == "restar") var mt = "¿Desea RESTAR $ " + valorcambio.value + " al precio de venta ?";
+                    if (tip == "reemplazar") var mt = "¿Desea REEMPLAZAR el precio de los productos por $ " + valorcambio.value + "?";
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Modificar precios', text: mt, icon: 'warning', showCancelButton: true,
+                        confirmButtonText: 'Si!', cancelButtonText: 'No!', reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            cambiarmontoPreciosVentaMasivamente(valorcambio.value, tip, alcancemodificacion);
+                        } else if (
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) { swalWithBootstrapButtons.fire('Perfecto', 'Los precios siguen iguales!!!') }
+                    })
+
+                } else {
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Ingrese el monto para el cambio de precios !',
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                }
+            }
+
+
+
+        } else {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Debe aplicarse el cambio al costo,venta o ambos !',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        }
     }
 }
 
@@ -4443,7 +4507,8 @@ function cambiapreciosmasivamente(tip)
 
 function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
 {
-
+    var cuentatildes=0;
+    
 
     for (var a = 0; a < arreglochecktilde.length; a++)
     {
@@ -4503,7 +4568,7 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
                 precionuevo = precionuevo / relacioncove;
                 precionuevo = Math.round(precionuevo * 100) / 100;
             }
-        }else
+        }else if (tip == "restar")
         {
             if (alcancemodificacion == "costo" || alcancemodificacion == "costoyventa")
             {
@@ -4528,16 +4593,45 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
                 precionuevo = precionuevo / relacioncove;
                 precionuevo = Math.round(precionuevo * 100) / 100;
             }
-        }
+        }else if(tip == "reemplazar")
+        {
+            if (alcancemodificacion == "costo" )
+            {
+                costonuevo = monto;
+                if(redondeo)
+                    costonuevo = Math.ceil(costonuevo/10)*10;
 
+                if(comocompra > 0)
+                    costoactualxprefijo = costonuevo;
+                costonuevo = costonuevo / relacioncove;
+                costonuevo = Math.round(costonuevo * 100) / 100;
+            }
+
+            if (alcancemodificacion == "venta" )
+            {
+                precionuevo = monto;
+                if(redondeo)
+                    precionuevo = Math.ceil(precionuevo/10)*10;
+
+                if(comocompra > 0)
+                    ventaactualxprefijo = precionuevo;
+                precionuevo = precionuevo / relacioncove;
+                precionuevo = Math.round(precionuevo * 100) / 100;
+            }
+        }
 
         if (arreglochecktilde[a].tildado == true) {
             actualizaporcentajepreciocostoyventa(idproducto, precionuevo, precioanterior, costonuevo, costoanterior, costoactualxprefijo, ventaactualxprefijo)
             M.toast({ html: 'Hecho,' + arreglochecktilde[a].idproducto, displayLength: '300', classes: 'rounded' });
+            cuentatildes =cuentatildes + 1;
 
         }
 
+        
     }
+
+    if(cuentatildes == 0)
+            M.toast({ html: 'Faltan tildar los items', displayLength: '1300', classes: 'rounded' });
 
     var tas = null;
     if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
@@ -4551,7 +4645,8 @@ function cambiarmontoPreciosVentaMasivamente(monto, tip, alcancemodificacion)
 
 function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodificacion)
 {
-
+   
+    var cuentatildes=0;
 
     for (var a = 0; a < arreglochecktilde.length; a++)
     {
@@ -4636,13 +4731,17 @@ function cambiarporcentajePreciosVentaMasivamente(porcentaje, tip, alcancemodifi
             }
         }
 
-
         if (arreglochecktilde[a].tildado == true) {
             actualizaporcentajepreciocostoyventa(idproducto, precionuevo, precioanterior, costonuevo, costoanterior, costoactualxprefijo, ventaactualxprefijo)
             M.toast({ html: 'Hecho,' + arreglochecktilde[a].idproducto, displayLength: '300', classes: 'rounded' });
+            cuentatildes =cuentatildes + 1;
         }
 
+       
     }
+
+    if(cuentatildes == 0)
+            M.toast({ html: 'Faltan tildar los items', displayLength: '1300', classes: 'rounded' });
 
     var tas = null;
     if ($.fn.dataTable.isDataTable('#tablaanunciosmasivos'))
@@ -4697,15 +4796,8 @@ function actualizaporcentajepreciocostoyventa(idproducto,precionuevo, precioactu
             data: { objetoanuncio: objetoanuncio },
             type: "post",
             success: function (data) {
-
-
                 if (data == 1) {
-                    // if (precionuevo != precioactual) {
-                    //     M.toast({ html: 'Ok, precio de venta actualizado!', displayLength: '2000', classes: 'rounded' });
-                    // }
-                    // if (costonuevo != costoactual) {
-                    //     M.toast({ html: 'Ok, costo actualizado', displayLength: '2000', classes: 'rounded' });
-                    // }
+                   
                 } else {
                     M.toast({ html: 'Error al actualizar el registro : ' + data })
                     console.log("retorno:" + data);
@@ -6522,6 +6614,8 @@ function consultaranunciosparamovimientos(tipo,e) {
         filtro.push( textobuscado );
     }
 
+    verpublicidad = "no";
+
     var itemanuncio = new Object();
     itemanuncio.bdd = bdd;
     itemanuncio.tabla = tabla;
@@ -6542,6 +6636,7 @@ function consultaranunciosparamovimientos(tipo,e) {
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
     itemanuncio.codigobarra = textobuscado;
+    itemanuncio.verpublicidad = verpublicidad;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     var opcioninicio;
@@ -7575,6 +7670,8 @@ function veronostinicio() {
 
 function consultaranunciosstock(tipo)
 {
+    document.getElementById("consulta").disabled  = true;
+
     var seleccionidrubro = document.getElementById("opcioneslista").value;
     var filtro = [];
     if(tipo == "consultafiltros" ||tipo == "consultalector" ){
@@ -7586,6 +7683,8 @@ function consultaranunciosstock(tipo)
 
         filtro.push( textobuscado );
     }
+    
+    verpublicidad = "no";
 
     var bdd = conexionbdd;
     var rutadeimagenes = rutaimagenes;
@@ -7596,6 +7695,7 @@ function consultaranunciosstock(tipo)
     var tabladeajustes = tablaajustes;
     var tabladeproveedores = tablaproveedores;
     var tabladeproveedoresanuncios = tablaproveedoresanuncios;
+    var verpublicidad = verpublicidad;
 
     var tipo = tipo;
 
@@ -7635,193 +7735,212 @@ function consultaranunciosstock(tipo)
     // veronostinicio();
     tas.clear().draw(true);
 
-    $.ajax({
+    console.log(tipo + filtro);
+    if( (tipo == "consultafiltros" ||tipo == "consultalector") && filtro == "")
+    {
+        document.getElementById("consulta").disabled  = false;
 
-        url: "consultastock.php",
+        M.toast(
+            {
+                html: 'La consulta es demasiado grande',
+                displayLength: '1500'
+            });
+        return false;
+    }else{
 
-        data: { objetoanuncio: objetoanuncio },
-        type: "post",
+        $.ajax({
 
-        success: function (data) {
+            url: "consultastock.php",
 
-            if (data != "consultavacia") {
+            data: { objetoanuncio: objetoanuncio },
+            type: "post",
 
-                dd = JSON.parse(data); //data decodificado
-                var tituloanterior ="";
-                var prov = "";
-                var cate = "";
-                var acumvalorcompra=0;
-                var acumvalorventa=0;
-                $.each(dd, function (key, value) {
+            success: function (data) {
 
-                    // if (dd[key].fechastockinicio == "0000-00-00")
-                    //     fsi = "";
-                    // else
-                    //     fsi = vista_ymdAdmy(dd[key].fechastockinicio)
-                    if(tituloanterior != dd[key].titulo)
-                    {
-                        tituloanterior = dd[key].titulo;
-                        var preciocompra=0;
-                        var precioventa=0;
-                        var stokvalorizadoc=0;
-                        var stokvalorizadov=0;
-                        stok = dd[key].stock / dd[key].relacioncompraventa;
+                if (data != "consultavacia") {
 
-                        colorfondo = 'white';
-                        colorsegun = 'black';
+                    dd = JSON.parse(data); //data decodificado
+                    var tituloanterior ="";
+                    var prov = "";
+                    var cate = "";
+                    var acumvalorcompra=0;
+                    var acumvalorventa=0;
+                    $.each(dd, function (key, value) {
 
-                        if(stok > 0){
-                            colorfondo = 'cornflowerblue';
-                            colorsegun = 'black';
-                        }
-                        else if(stok < 0)
+                        // if (dd[key].fechastockinicio == "0000-00-00")
+                        //     fsi = "";
+                        // else
+                        //     fsi = vista_ymdAdmy(dd[key].fechastockinicio)
+                        
+
+                        if(tituloanterior != dd[key].titulo)
                         {
-                            colorfondo = 'red';
-                            colorsegun = 'black';
-                        }
+                            tituloanterior = dd[key].titulo;
+                            var preciocompra=0;
+                            var precioventa=0;
+                            var stokvalorizadoc=0;
+                            var stokvalorizadov=0;
+                            stok = dd[key].stock / dd[key].relacioncompraventa;
 
-                        if(dd[key].prefijocompra > 0)
-                        {
-                            if (dd[key].costoxprefijo > 0)
+                            colorfondo = 'white';
+                            colorsegun = 'black';
+
+                            if(stok > 0){
+                                colorfondo = 'cornflowerblue';
+                                colorsegun = 'black';
+                            }
+                            else if(stok < 0)
                             {
-                                preciocompra = "$ " + dd[key].costoxprefijo;
-                                stokvalorizadoc = dd[key].costoxprefijo * stok;
-                                stokvalorizadoc = Math.round(stokvalorizadoc * 100) / 100;
+                                colorfondo = 'red';
+                                colorsegun = 'black';
+                            }
+
+                            if(dd[key].prefijocompra > 0)
+                            {
+                                if (dd[key].costoxprefijo > 0)
+                                {
+                                    preciocompra = "$ " + dd[key].costoxprefijo;
+                                    stokvalorizadoc = dd[key].costoxprefijo * stok;
+                                    stokvalorizadoc = Math.round(stokvalorizadoc * 100) / 100;
+                                }
+                                else
+                                    preciocompra = "Consultar Precio";
+
+                                if (dd[key].ventaxprefijo > 0)
+                                {
+                                    precioventa = "$ " + dd[key].ventaxprefijo;
+                                    stokvalorizadov = dd[key].ventaxprefijo * stok;
+                                    stokvalorizadov = Math.round(stokvalorizadov * 100) / 100;
+                                }
+                                else
+                                    precioventa = "Consultar Precio";
+                            }else
+                            {
+                                if (dd[key].costo > 0)
+                                {
+                                    preciocompra = "$ " + dd[key].costo;
+                                    stokvalorizadoc = dd[key].costo * stok;
+                                    stokvalorizadoc = Math.round(stokvalorizadoc * 100) / 100;
+
+                                }
+                                else
+                                    preciocompra = "Consultar Precio";
+
+                                if (dd[key].precio > 0)
+                                {
+                                    precioventa = "$ " + dd[key].precio;
+                                    stokvalorizadov = dd[key].precio * stok;
+                                    stokvalorizadov = Math.round(stokvalorizadov * 100) / 100;
+                                }
+                                else
+                                    precioventa = "Consultar Precio";
+                            }
+
+                            acumvalorcompra = acumvalorcompra + stokvalorizadoc;
+                            acumvalorventa  = acumvalorventa + stokvalorizadov;
+                            var precio;
+                            if (dd[key].precio > 0)
+                                precio = "$ " + dd[key].precio;
+                            else
+                            precio = "Consultar Precio";
+
+
+                            var pea;
+                            if(dd[key].precioanterior > 0)
+                            {
+                                if(dd[key].prefijocompra > 0)
+                                {
+                                    pea = dd[key].precioanterior *  dd[key].relacioncompraventa;
+                                    pea= Math.round(pea * 100) / 100;
+                                    precioant = "$ " + pea;
+                                }
+                                else
+                                    precioant = "$ " + dd[key].precioanterior;
                             }
                             else
-                                preciocompra = "Consultar Precio";
+                                precioant = "$ ";
 
-                            if (dd[key].ventaxprefijo > 0)
+                            var coa;
+                            if(dd[key].costoanterior > 0)
                             {
-                                precioventa = "$ " + dd[key].ventaxprefijo;
-                                stokvalorizadov = dd[key].ventaxprefijo * stok;
-                                stokvalorizadov = Math.round(stokvalorizadov * 100) / 100;
+                                if(dd[key].prefijocompra > 0)
+                                {
+                                    coa = dd[key].costoanterior * dd[key].relacioncompraventa;
+                                    coa= Math.round(coa * 100) / 100;
+                                    costoant = "$ " + coa ;
+                                }
+                                else
+                                    costoant = "$ " + dd[key].costoanterior;
                             }
                             else
-                                precioventa = "Consultar Precio";
+                                costoant = "$ ";
+
+                            if(dd[key].nombreproveedor != null)
+                                prov = dd[key].nombreproveedor;
+
+                            if(dd[key].rubro != null)
+                                cate = dd[key].rubro;
+
+                            
+                            tas.row.add([
+                                "<label style='text-align: center;' >"+ dd[key].id +"</label>",
+                                "<label style='text-align: center;' >"+ dd[key].codigobarra +"</label>",
+                                dd[key].titulo,
+                                "<label style='text-align: center;' class='blockcosto'>" + preciocompra + "</label>",
+                                precioventa,
+                                "<p style='border:none; text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly>" + stok + "</p>",
+
+                                "<label style='text-align: center;' class='blockcosto'>" + stokvalorizadoc + "</label>",
+                                "<label style='text-align: center;' class='blockcosto'>" + stokvalorizadov + "</label>",
+                                "<label style='text-align: center;' >"+ dd[key].nombreprefijocompra +"</label>",
+                                "<label style='text-align: center;' >"+ cate +"</label>",
+                                "<label style='text-align: center;' >"+ prov +"</label>",
+                                "<label class='blockcosto'>" + costoant + "</label>",
+                                precioant
+                                // fsi
+
+
+                            ]).draw(false);
+                            
                         }else
                         {
-                            if (dd[key].costo > 0)
+                            if(tituloanterior!="" && dd[key].nombreproveedor != null)
                             {
-                                preciocompra = "$ " + dd[key].costo;
-                                stokvalorizadoc = dd[key].costo * stok;
-                                stokvalorizadoc = Math.round(stokvalorizadoc * 100) / 100;
-
+                                tas.row.add([
+                                "<label style='text-align: center;' >"+ dd[key].id +"</label>",
+                                "<label style='text-align: center;' >"+ dd[key].codigobarra +"</label>",
+                                dd[key].titulo,"","","","","","","","<label style='text-align: center;' >"+ dd[key].nombreproveedor +"</label>","",""
+                                ]).draw(false);
                             }
-                            else
-                                preciocompra = "Consultar Precio";
-
-                            if (dd[key].precio > 0)
-                            {
-                                precioventa = "$ " + dd[key].precio;
-                                stokvalorizadov = dd[key].precio * stok;
-                                stokvalorizadov = Math.round(stokvalorizadov * 100) / 100;
-                            }
-                            else
-                                precioventa = "Consultar Precio";
                         }
+                    });
+                    document.getElementById("consulta").disabled  = false;
 
-                        acumvalorcompra = acumvalorcompra + stokvalorizadoc;
-                        acumvalorventa  = acumvalorventa + stokvalorizadov;
-                        var precio;
-                        if (dd[key].precio > 0)
-                            precio = "$ " + dd[key].precio;
-                        else
-                        precio = "Consultar Precio";
+                    muestraValorStock(acumvalorcompra,acumvalorventa);
 
+                    verificabloqueo();
+                    tas.columns.adjust().draw();
+                    verListaReg(1);
+                } else {
+                    verListaReg(0);
 
-                        var pea;
-                        if(dd[key].precioanterior > 0)
+                    M.toast(
                         {
-                            if(dd[key].prefijocompra > 0)
-                            {
-                                pea = dd[key].precioanterior *  dd[key].relacioncompraventa;
-                                pea= Math.round(pea * 100) / 100;
-                                precioant = "$ " + pea;
-                            }
-                            else
-                                precioant = "$ " + dd[key].precioanterior;
-                        }
-                        else
-                            precioant = "$ ";
-
-                        var coa;
-                        if(dd[key].costoanterior > 0)
-                        {
-                            if(dd[key].prefijocompra > 0)
-                            {
-                                coa = dd[key].costoanterior * dd[key].relacioncompraventa;
-                                coa= Math.round(coa * 100) / 100;
-                                costoant = "$ " + coa ;
-                            }
-                            else
-                                costoant = "$ " + dd[key].costoanterior;
-                        }
-                        else
-                            costoant = "$ ";
-
-                        if(dd[key].nombreproveedor != null)
-                            prov = dd[key].nombreproveedor;
-
-                        if(dd[key].rubro != null)
-                            cate = dd[key].rubro;
-
-                        tas.row.add([
-                            "<label style='text-align: center;' >"+ dd[key].id +"</label>",
-                            "<label style='text-align: center;' >"+ dd[key].codigobarra +"</label>",
-                            dd[key].titulo,
-                            "<label style='text-align: center;' class='blockcosto'>" + preciocompra + "</label>",
-                            precioventa,
-                            "<p style='border:none; text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly>" + stok + "</p>",
-
-                            "<label style='text-align: center;' class='blockcosto'>" + stokvalorizadoc + "</label>",
-                            "<label style='text-align: center;' class='blockcosto'>" + stokvalorizadov + "</label>",
-                            "<label style='text-align: center;' >"+ dd[key].nombreprefijocompra +"</label>",
-                            "<label style='text-align: center;' >"+ cate +"</label>",
-                            "<label style='text-align: center;' >"+ prov +"</label>",
-                            "<label class='blockcosto'>" + costoant + "</label>",
-                            precioant
-                            // fsi
-
-
-                        ]).draw(false);
-                    }else
-                    {
-                        if(tituloanterior!="" && dd[key].nombreproveedor != null)
-                        {
-                            tas.row.add([
-                            "<label style='text-align: center;' >"+ dd[key].id +"</label>",
-                            "<label style='text-align: center;' >"+ dd[key].codigobarra +"</label>",
-                            dd[key].titulo,"","","","","","","","<label style='text-align: center;' >"+ dd[key].nombreproveedor +"</label>","",""
-                            ]).draw(false);
-                        }
-                    }
-                });
-
-                muestraValorStock(acumvalorcompra,acumvalorventa);
-
-                verificabloqueo();
-                tas.columns.adjust().draw();
-                verListaReg(1);
-            } else {
-                verListaReg(0);
-
+                            html: 'Los datos no se pueden mostrar!',
+                            displayLength: '1500'
+                        });
+                }
+            },
+            error: function () {
                 M.toast(
                     {
-                        html: 'No hay datos para mostrar!',
-                        displayLength: '1500'
+                        html: 'No hay buena conexión!',
+                        displayLength: '4000'
                     });
+                console.log("Error de comunicación");
             }
-        },
-        error: function () {
-            M.toast(
-                {
-                    html: 'No hay buena conexión!',
-                    displayLength: '4000'
-                });
-            console.log("Error de comunicación");
-        }
-    });
+        });
+    }
 }
 
 function muestraValorStock(acumvalorcompra,acumvalorventa){
@@ -7903,6 +8022,8 @@ function consultaranunciosmasivos(tipo)
     if (id == "") id = 0;
     else id = id;
 
+    verpublicidad = "si";
+
     var itemanuncio = new Object();
 
     itemanuncio.bdd = bdd;
@@ -7923,6 +8044,7 @@ function consultaranunciosmasivos(tipo)
     itemanuncio.imagen = "";
     itemanuncio.filtro = filtro;
     itemanuncio.codigobarra = textobuscado;
+    itemanuncio.verpublicidad = verpublicidad;
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     // veronostinicio();
@@ -7930,13 +8052,12 @@ function consultaranunciosmasivos(tipo)
 
     $.ajax({
 
-        url: "consultastock.php",
+        url: "consultastock.php?" + versionts,
 
         data: { objetoanuncio: objetoanuncio },
         type: "post",
 
         success: function (data) {
-
 
             if (data != "consultavacia") {
 
@@ -7961,6 +8082,11 @@ function consultaranunciosmasivos(tipo)
                         nopub = "No";
                     else
                         nopub = "Si";
+
+                    if (dd[key].espublicidad == 1)
+                        espulbi = "Si";
+                    else
+                        espulbi = "";
 
                     if (dd[key].productobonus == 1)
                         probo = "Bonus";
@@ -8046,7 +8172,8 @@ function consultaranunciosmasivos(tipo)
                         dd[key].nombreproveedor,
                         esnov,
                         esofe,
-                        nopub,
+                        espulbi,
+                        nopub
                         // probo,
                         // opant,
 
@@ -8125,6 +8252,12 @@ function checktodostilde()
     }
 }
 
+
+
+function publicidadmasivamente(accion){
+    verificarsiquiere("publicidad",accion);
+}
+
 function publicanovedadmasivamente(accion){
     verificarsiquiere("publicanovedad",accion);
 }
@@ -8170,7 +8303,7 @@ function verificarsiquiere(llamado, accion){
                 asignarcategoriasmasivamente();
             else if (llamado == "proveedor")
                 asignarproveedoresmasivamente(accion);
-            else if (llamado == "publica" || llamado == "publicapromo" || llamado == "publicanovedad")
+            else if (llamado == "publicidad" || llamado == "publica" || llamado == "publicapromo" || llamado == "publicanovedad")
                 publicacion(accion,llamado);
             else if (llamado == "ocultaprecios")
                 ocultarprecios(accion,llamado);

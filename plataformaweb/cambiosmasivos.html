@@ -79,6 +79,13 @@
                         <button id="aumentaprecio" onclick='cambiapreciosmasivamente("sumar")'
                             class="btn btn btn-primary">Aumentar</button>
                     </div>
+                    
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-2">
+                        <button id="reemplazaprecio" onclick='cambiapreciosmasivamente("reemplazar")' class="btn"
+                            style="display: none;">Reemplazar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +96,7 @@
 
         <div class="col-sm-6">
             <p class="m-0">
-                <a href="#" id="btnAsignarcategoria" class="collapsed" data-toggle="collapse"
+                <a style="font-size: 1.2em;" href="#" id="btnAsignarcategoria" class="collapsed" data-toggle="collapse"
                     data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
                     Asigna categoria</a>
             </p>
@@ -111,7 +118,7 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-sm-3">
+        <div class="col-sm-2">
         
         
             <p class="m-0">
@@ -123,7 +130,7 @@
             <div id="collapseOculta" class="collapse" aria-labelledby="headingOculta" data-parent="#accordion">
         
                 <div class="row justify-content-center">
-                    <label for="divoperacionocultar" class="colorletras">Ocultar precios de productos en la web</label>
+                    <label for="divoperacionocultar" class="colorletras">Muestra u Ocultar el precios en la web</label>
                 </div>
                 <div id="divoperacionocultar" class="row justify-content-center">
                     <div class="col">
@@ -137,7 +144,7 @@
         
         </div>
         <!-- ------------------------------------------- -->
-        <div class="col-sm-3">
+        <div class="col-sm-2">
         
         
             <p class="m-0">
@@ -149,7 +156,7 @@
             <div id="collapsePublica" class="collapse" aria-labelledby="headingPublica" data-parent="#accordion">
         
                 <div class="row justify-content-center">
-                    <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de productos</label>
+                    <label for="divoperacionpublicar" class="colorletras">Se ve u oculta en web</label>
                 </div>
                 <div id="divoperacionpublicar" class="row justify-content-center">
                     <div class="col">
@@ -163,7 +170,7 @@
         
         </div>
         <!-- ------------------------------------------- -->
-        <div class="col-sm-3">
+        <div class="col-sm-2">
         
             <p class="m-0">
                 <a href="#" id="btnPromo" class="collapsed" data-toggle="collapse" data-target="#collapsePromo"
@@ -174,7 +181,7 @@
             <div id="collapsePromo" class="collapse" aria-labelledby="headingPromo" data-parent="#accordion">
         
                 <div class="row justify-content-center">
-                    <label for="divoperacionpublicar" class="colorletras">Operaciones de publicación de promociones</label>
+                    <label for="divoperacionpublicar" class="colorletras">Se ve como Promoción en la web</label>
                 </div>
                 <div id="divoperacionpublicar" class="row justify-content-center">
                     <div class="col">
@@ -187,7 +194,7 @@
             </div>
         </div>
         <!-- ------------------------------------------- -->
-        <div class="col-sm-3">
+        <div class="col-sm-2">
         
             <p class="m-0">
                 <a href="#" id="btnNove" class="collapsed" data-toggle="collapse" data-target="#collapseNovedad"
@@ -198,7 +205,7 @@
             <div id="collapseNovedad" class="collapse" aria-labelledby="headingNovedad" data-parent="#accordion">
         
                 <div class="row justify-content-center">
-                    <label for="divoperacionnovedad" class="colorletras">Operaciones de publicación de novedades</label>
+                    <label for="divoperacionnovedad" class="colorletras">Se ve como novedad en la web</label>
                 </div>
                 <div id="divoperacionnovedad" class="row justify-content-center">
                     <div class="col">
@@ -206,6 +213,30 @@
                     </div>
                     <div class="col">
                         <button id="sipublicarnovedad" class="btn btn btn-primary">Si novedad</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ------------------------------------------- -->
+        <div class="col-sm-2">
+        
+            <p class="m-0">
+                <a href="#" id="btnPubli" class="collapsed" data-toggle="collapse" data-target="#collapsePublicidad"
+                    aria-expanded="false" aria-controls="collapsePublicidad">
+                    Publicidades
+                </a>
+            </p>
+            <div id="collapsePublicidad" class="collapse" aria-labelledby="headingPublicidad" data-parent="#accordion">
+        
+                <div class="row justify-content-center">
+                    <label for="divoperacionpublicidad" class="colorletras">Las publicidades se ven en web y no en panel de control</label>
+                </div>
+                <div id="divoperacionnovedad" class="row justify-content-center">
+                    <div class="col">
+                        <button id="nopublicidad" class="btn btn btn-warning">No es Publicidad</button>
+                    </div>
+                    <div class="col">
+                        <button id="sipublicidad" class="btn btn btn-primary">Es publicidad</button>
                     </div>
                 </div>
             </div>
@@ -242,6 +273,7 @@
                             <th>Proveedor</th>
                             <th>Es Novedad</th>
                             <th>Es Promoción</th>
+                            <th>Es Publicidad</th>
                             <th>Publicado</th>
                             <!-- <th>Tiene Bonus</th>
                             <th>Ventaja comercial</th> -->
@@ -261,7 +293,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            
+                            <td style="text-align: center;"></td>
                             <td style="text-align: center;"></td>
                             <td style="text-align: center;"></td>
                             <td style="text-align: center;"></td>
@@ -301,17 +333,24 @@ $(document).ready(function ()
         if(this.checked)
         {
             document.getElementById("chkaplicamonto").checked = false;
+            document.getElementById("reemplazaprecio").style.display = "none";
+
         }else
         {
             document.getElementById("chkaplicamonto").checked = true;
+            document.getElementById("reemplazaprecio").style.display = "block";
         }
     });
 
     $("#chkaplicamonto").click(function () {
         if (this.checked) {
             document.getElementById("chkaplicaporcentaje").checked = false;
+            document.getElementById("reemplazaprecio").style.display = "block";
+
         } else {
             document.getElementById("chkaplicaporcentaje").checked = true;
+            document.getElementById("reemplazaprecio").style.display = "none";
+
         }
     });
 
@@ -362,6 +401,13 @@ $(document).ready(function ()
         publicanovedadmasivamente("no");
     });
 
+     $("#sipublicidad").click(function () {
+        publicidadmasivamente("si");
+    });
+
+    $("#nopublicidad").click(function () {
+        publicidadmasivamente("no");
+    });
 });
 
 </script>

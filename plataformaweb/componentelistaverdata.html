@@ -34,8 +34,11 @@
         if (llama == "comprar")
             verRegistros("tablaanunciosmovimientos", valor);
 
-        if(llama == "vender")
+        if(llama == "vender"){
             verRegistros("tablaanunciosvender", valor);
+            verRegistros("tablavender", valor);
+
+        }
 
     });
     
