@@ -6269,19 +6269,19 @@ function CalculaMargenSegunPrecio(precioventa,costo)
 
 function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping,unfr,id,sicompra,costo,precio,prefijocompra, prefijoventa, relacioncompraventa, codigobarra)
 {
-    var key = window.event ? e.which : e.keyCode;
-
-    if (e.keyCode == 13) //tecla + o enter
+    if (unfr != undefined)
     {
-        if(donde == "costo_" || donde == "costoxprefijo_")
-            $('#porcentajem_' + id).focus();
-
-        if(donde == "precio_" || donde == "ventaxprefijo_")
+        if(unfr == 'fr'){
+            var cosxpre = document.getElementById("costoxprefijo_" + id);
+            var venxpre = document.getElementById("ventaxprefijo_" + id);
+        }
+        else if(unfr == 'un')
         {
-            if (uping == 0)
-                $('#cantidad_' + id).focus();
+            var cosxpre = document.getElementById("costo_" + id);
+            var venxpre = document.getElementById("precio_" + id);
         }
     }
+    var key = window.event ? e.which : e.keyCode;
 
     if (key == 120)
     {
@@ -6304,66 +6304,60 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
     if (e.keyCode == 110 || e.keyCode == 188) {
         return true;
     }
+    
+    
+
 
     var unicode = e.keyCode ? e.keyCode : e.charCode;
-    if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
-
-
+    if (unicode == 13 || unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
 
         if(unfr != undefined)
         {
-            if(unfr == 'fr')
-                var cosxpre = document.getElementById("costoxprefijo_" + id);
-            else if(unfr == 'un')
-                var cosxpre = document.getElementById("costo_" + id);
-
-            if (uping == 1)
+            if (uping == 0)
             {
                 var cantidad = document.getElementById("cantidad_" + id);
 
                 var st = cantidad.value * cosxpre.value;
                 st = Math.round(st * 100) / 100;
-
-                document.getElementById("subtotalcompra_" + id).innerHTML = st;
-            }else
-            {
-                // var renta = (parseFloat(contenido) - cosxpre.value) / cosxpre.value  * 100;
-                // var rentavista = Math.round(renta *100)/100;
-                // rentavista = Math.round(rentavista * 100) / 100;
-
+                st = "$ " + st;
+                document.getElementById("subtotalcompra_" + id).innerHTML =  st;
+            
                 var rentavista=0;
-                rentavista = CalculaMargenSegunPrecio(contenido,cosxpre.value);
+                rentavista = CalculaMargenSegunPrecio(venxpre.value,cosxpre.value);
                 document.getElementById("porcentajem_" + id).value = parseFloat(rentavista);
             }
+
+            if (e.keyCode == 13) //tecla + o enter
+            {
+                if(donde == "costo_" || donde == "costoxprefijo_")
+                    $('#porcentajem_' + id).focus();
+
+                if(donde == "precio_" || donde == "ventaxprefijo_")
+                    {
+                    if (uping == 0)
+                        $('#cantidad_' + id).focus();
+                }
+            }
+            
         }
         return true;
     }
 
     if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres))
     {
-
-
         if (unfr != undefined)
         {
-            if (unfr == 'fr')
-                var cosxpre = document.getElementById("costoxprefijo_" + id);
-            else if (unfr == 'un')
-                var cosxpre = document.getElementById("costo_" + id);
-
-            if (uping == 1) {
+            if (uping == 0) {
                 var cantidad = document.getElementById("cantidad_" + id);
 
                 var st = cantidad.value * cosxpre.value;
                 st = Math.round(st * 100) / 100;
+                st = "$ " + st;
+
                 document.getElementById("subtotalcompra_" + id).innerHTML = st;
-            } else {
-                // var renta = (parseFloat(contenido) - cosxpre.value) / cosxpre.value * 100;
-                // var rentavista = Math.round(renta * 100) / 100;
-
-                // rentavista = Math.round(rentavista * 100) / 100;
-
+            
                 var rentavista=0;
-                rentavista = CalculaMargenSegunPrecio(contenido,cosxpre.value);
+                rentavista = CalculaMargenSegunPrecio(venxpre.value,cosxpre.value);
                 document.getElementById("porcentajem_" + id).value = parseFloat(rentavista);
             }
         }
@@ -6374,18 +6368,20 @@ function validarinputcantidadpreciocompras(e, donde, contenido, caracteres,uping
 
 function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, costo, precio,prefijocompra,prefijoventa,relacioncompraventa,codigobarra,downup,sicompra)
 {
-    var key = window.event ? e.which : e.keyCode;
 
-    if (e.keyCode == 13) //tecla + o enter
+    if (unfr != undefined)
     {
-        if (uping == 0){
-            if(prefijocompra == 0)
-                $('#costo_' + id).focus();
-            else
-                $('#costoxprefijo_' + id).focus();
+        if(unfr == 'fr'){
+            var cosxpre = document.getElementById("costoxprefijo_" + id);
+            var venxpre = document.getElementById("ventaxprefijo_" + id);
+        }
+        else if(unfr == 'un')
+        {
+            var cosxpre = document.getElementById("costo_" + id);
+            var venxpre = document.getElementById("precio_" + id);
         }
     }
-
+    var key = window.event ? e.which : e.keyCode;
     if(key == 120)
     {
         if (uping == 0)
@@ -6403,14 +6399,10 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
     }
 
     var unicode = e.keyCode ? e.keyCode : e.charCode;
-    if (unicode == 46  || unicode == 8 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+    if (unicode == 13  || unicode == 46  || unicode == 8 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
 
-        if (uping == 1) {
+        if (uping == 0) {
             var cantidad = document.getElementById("cantidad_" + id);
-            if(unfr == 'fr')
-                var cosxpre = document.getElementById("costoxprefijo_" + id);
-            else if(unfr == 'un')
-                var cosxpre = document.getElementById("costo_" + id);
 
             if(unfr != undefined)
             {
@@ -6418,6 +6410,21 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
                 st = Math.round(st * 100) / 100;
                 st = "$ " + st;
                 document.getElementById("subtotalcompra_" + id).innerHTML = st;
+            }
+        
+            var rentavista=0;
+            rentavista = CalculaMargenSegunPrecio(venxpre.value,cosxpre.value);
+            document.getElementById("porcentajem_" + id).value = parseFloat(rentavista);
+
+            
+            if (unicode == 13) //tecla + o enter
+            {
+                if (uping == 0){
+                    if(prefijocompra == 0)
+                        $('#costo_' + id).focus();
+                    else
+                        $('#costoxprefijo_' + id).focus();
+                }
             }
         }
         return true;
@@ -6425,12 +6432,8 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
 
     if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105) || unicode == 46 ) && (contenido.length < caracteres))
     {
-        if (uping == 1) {
+        if (uping == 0) {
             var cantidad = document.getElementById("cantidad_" + id);
-            if (unfr == 'fr')
-                var cosxpre = document.getElementById("costoxprefijo_" + id);
-            else if(unfr == 'un')
-                var cosxpre = document.getElementById("costo_" + id);
 
             if(unfr != undefined)
             {
@@ -6439,13 +6442,21 @@ function validarinputcantidadcompras(e,contenido, caracteres,uping,unfr, id, cos
                 st = "$ " + st;
                 document.getElementById("subtotalcompra_" + id).innerHTML = st;
             }
+
+             var rentavista=0;
+            rentavista = CalculaMargenSegunPrecio(venxpre.value,cosxpre.value);
+            document.getElementById("porcentajem_" + id).value = parseFloat(rentavista);
+
         }
         return true;
     }
+
     return false;
 }
 function validarinputporcentaje(e,contenido, caracteres,uping,unfr, id,prefijocompra,donde)
 {
+
+    
     var key = window.event ? e.which : e.keyCode;
 
     if(e.keyCode == 13)
@@ -6474,7 +6485,7 @@ function validarinputporcentaje(e,contenido, caracteres,uping,unfr, id,prefijoco
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 46 || unicode == 8 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
 
-        if (uping == 1) {
+        if (uping == 0) {
             var cantidad = document.getElementById("cantidad_" + id);
             if(unfr == 'fr')
             {
@@ -6520,7 +6531,7 @@ function validarinputporcentaje(e,contenido, caracteres,uping,unfr, id,prefijoco
 
     if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) || unicode == 46 ) && (contenido.length < caracteres))
     {
-        if (uping == 1) {
+        if (uping == 0) {
             var cantidad = document.getElementById("cantidad_" + id);
             if (unfr == 'fr')
                 var cosxpre = document.getElementById("costoxprefijo_" + id);
