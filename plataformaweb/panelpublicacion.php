@@ -59,7 +59,7 @@
     <script src="configuracion.js?" + r></script>
     <script type="text/javascript">
    
-    versionts = 162;
+    versionts = 179;
     tablaanuncios           = "";
     tablarubros             = "";
     tablaventas             = "";

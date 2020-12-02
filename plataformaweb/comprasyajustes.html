@@ -125,10 +125,10 @@
                         
                         <h2 class="m-0">
                             <button id="consultacomprasajustes" class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseConsultaCompras" aria-expanded="false" aria-controls="collapseConsultaCompras">
-                            Consultar Compras y Ajustes
+                            Consultar Compras
                             </button>
                         </h2>
-
+                        
                         
                         
                     </div>
@@ -195,13 +195,13 @@
                                                     <th >Comprobante</th>
                                                     <th>Id</th>
                                                     <th>Codigo Barra</th>
-                                                    <th>Titulo</th>
+                                                    <th class="titulocolumna">Titulo</th>
                                                     <th class="masmenoscolumna">cantidad</th>
                                                     <th class="masmenoscolumna">Unidad de Compra</th>
                                                     <th >Costo compra</th>
                                                     <th class="masmenoscolumna ">Precio Vta</th>
                                                     
-                                                    <th>Proveedor</th>
+                                                   
                                                     <th class="masmenoscolumna">Tipo movimiento</th>
                                                     <th >Eliminar</th>
 
@@ -216,13 +216,13 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td></td>
+                                                    <td class="titulocolumna"></td>
                                                     <td class="masmenoscolumna"></td>
                                                     <td></td>
                                                     
                                                     <td class="blockcosto"></td>
                                                     <td class="masmenoscolumna blockmodiprecio"></td>
-                                                    <td></td>
+                                                    
                                                     <td></td>
                                                     <td class="blockeliminar"></td>
                                                     <td></td>
@@ -238,10 +238,9 @@
                             <div class="row">
                                 <div class="col-sm-12 notapedido">
                                     <div class="d-flex flex-row justify-content-center bd-highlight">
-                                        <div class="col-sm-12">
-                                            <h5>Ajustes</h5>
-                                        </div>
-                            
+                                        <h2 class="m-0">
+                                            <button id="consultacomprasajustes1" class="btn " type="button">Consultar Ajustes</button>
+                                        </h2>
                                     </div>
                                     <div class="table-responsive">
                                         <table id="tablamovimientostockajuste" class="display table table-striped" style="width: 100%!important;">
@@ -377,7 +376,7 @@ $(document).ready(function ()
     $("#fechamovimientodesde").change(function () {
         if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
             desdehasta();
-            desdehastaajuste();
+            // desdehastaajuste();
             verificabloqueo();
 
         }
@@ -386,7 +385,7 @@ $(document).ready(function ()
      $("#fechamovimientohasta").change(function () {
         if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
             desdehasta();
-            desdehastaajuste();
+            // desdehastaajuste();
         }
     });
 
@@ -396,9 +395,19 @@ $(document).ready(function ()
         {
             if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
                 desdehasta();
-                desdehastaajuste();
+                
             }
         }
+    });
+
+    $("#consultacomprasajustes1").click(function () {
+
+       
+        if ($("#fechamovimientodesde").val() != "" && $("#fechamovimientohasta").val() != "") {
+            
+            desdehastaajuste();
+        }
+        
     });
 
     $("#consultarcomprobante").click(function(){
@@ -427,8 +436,8 @@ $(document).ready(function ()
         document.getElementById("fechacompraajuste").value = fechaactual;
         
 
-        desdehasta();
-        desdehastaajuste();
+        // desdehasta();
+        // desdehastaajuste();
     }
     colocafechaactual();
 

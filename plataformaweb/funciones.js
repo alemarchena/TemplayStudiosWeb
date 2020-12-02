@@ -27,7 +27,16 @@ arreglobloqueos = [];
 imagencopiada = "";
 idorigen = 0;
 rutaimagenes = "imagenes/";
+
+totalcajaconventa = 0;
 totalventasdia =0;
+totalefectivo=0;
+totalmp=0;
+totaltcredito=0;
+totaltdebito=0;
+totalcc=0;
+totalbonus=0;
+
 
 function escrolear(claseelemento) {
     setInterval(() => {
@@ -2218,8 +2227,8 @@ function consultaranunciosvender(tipo) {
                             "<input style='text-align: center;' onKeyDown ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",0) ' onKeyUp ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",1) '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type = 'text' class='validate masmenoscolumna saltacantidad' ></input>",
                             "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>",
                             "<input onKeyDown ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",0) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",1) '  id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio blockmodiprecio' value=" + "'" + dd[key].precio + "'></input>",
-                            "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                            "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
+                            // "<a onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
+                            // "<a onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
                             "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\")' class=" + "\"btn-floating btn-large waves-effect waves-light  blue darken-2 masmenos tooltipped" + "\"><i class=" + "\"material-icons\"" + "\">add</i>",
                             muestraimagen,
                             "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ stok + "</p>",
@@ -2560,7 +2569,7 @@ function procesarventa(){
     var fechaventa = $("#fechaventa").val();
     fechaventa = conviertefechaastringdmy(fechaventa);
 
-    setTimeout(function(){ consultarventasdeldia(); }, 2000);
+    // setTimeout(function(){ consultarventasdeldia(); }, 2000);
 
     // arregloitemsventa = [];
     ar = [];
@@ -2613,6 +2622,11 @@ function guardarcaja(tipo,entsal, monto, descripcion)
     });
 }
 function consultarcajadeldia(e) {
+
+     if ($.fn.dataTable.isDataTable('#tablaresumen')) {
+        tresumen = $('#tablaresumen').DataTable();
+    }else
+        tresumen = $('#tablaresumen').DataTable();
 
     if ($.fn.dataTable.isDataTable('#tablacajas')) {
         tabcajas = $('#tablacajas').DataTable();
@@ -2693,10 +2707,19 @@ function consultarcajadeldia(e) {
                         "<a onclick='quitarmovimientocaja(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
 
                     ]).draw(false);
+
+                    tabcajas.columns.adjust().draw(false);
+
+                    tresumen.row.add( [timo,"<p style='text-align: right;'>" + dd[key].monto + "</p>" ,dd[key].descripcion ] ).draw(false);
                 });
 
 
-                colocatotalcaja(cajita);
+                totalventasdia  = Math.round(totalventasdia  * 100) / 100;
+                cajita = Math.round(cajita * 100) / 100;
+                totalcajaconventa = totalventasdia  + cajita;
+                colocatotalcaja();
+                tresumen.row.add(["<h5 style='color: blue;'><small>TOTAL DE CAJA</small></h5>","<h5 style='color: blue;text-align: right;'><small>" + totalcajaconventa + "</small></h5>",""]).draw(false);
+
                 verificabloqueo();
                 tabcajas.columns.adjust().draw(false);
             }
@@ -2707,15 +2730,8 @@ function consultarcajadeldia(e) {
     });
 }
 
-function colocatotalcaja(tvd){
-    
-    totalventasdia  = Math.round(totalventasdia  * 100) / 100;
-
-    tvd = Math.round(tvd * 100) / 100;
-
-    totalcajaconventa = totalventasdia  + tvd
+function colocatotalcaja(){
     document.getElementById("totalcaja").innerHTML = "$ "  + totalcajaconventa.toString();
-
 }
 
 function quitarmovimientocaja(idcaja){
@@ -2884,14 +2900,14 @@ function guardarbonusencliente(id, bonus, tipo)
     });
 
 }
-var totalefectivo=0;
-var totalmp=0;
-var totaltcredito=0;
-var totaltdebito=0;
-var totalcc=0;
-var totalbonus=0;
 
 function consultarventasdeldia(e) {
+
+    
+    if ($.fn.dataTable.isDataTable('#tablaresumen')) {
+        tresumen = $('#tablaresumen').DataTable();
+    }else
+        tresumen = $('#tablaresumen').DataTable();
 
     if ($.fn.dataTable.isDataTable('#tablavender')) {
         tventas = $('#tablavender').DataTable();
@@ -2899,6 +2915,7 @@ function consultarventasdeldia(e) {
         tventas = $('#tablavender').DataTable();
 
     var fechaventa = $("#fechaventa").val();
+    var fechaventaresumen = $("#fechaventa").val();
     fechaventa = conviertefechaastringdmy(fechaventa);
 
     var bdd = conexionbdd;
@@ -2925,7 +2942,21 @@ function consultarventasdeldia(e) {
     var vendido = JSON.stringify(itemventa);
 
     tventas.clear().draw(true);
-    totalventasdia =0;
+    tresumen.clear().draw(true);
+
+    totalventasdia  = 0;
+
+    totalefectivo   = 0;
+    totalmp         = 0;
+    totaltdebito    = 0;
+    totaltcredito   = 0;
+    totalcc         = 0;
+    totalbonus      = 0;
+
+    emailventadia = "";
+
+    var tptemp = "";
+
     $.ajax({
 
         url: "consultaventas.php",
@@ -2946,12 +2977,17 @@ function consultarventasdeldia(e) {
                     totalventasdia = totalventasdia + total;
                     totalventasdia = Math.round(totalventasdia * 100) / 100;
 
-                    if(dd[key].tipopago == "EF")
-                    if(dd[key].tipopago == "CC")
-                    if(dd[key].tipopago == "MP")
-                    if(dd[key].tipopago == "TD")
-                    if(dd[key].tipopago == "TC")
-                    if(dd[key].tipopago == "BO")
+                    tptemp = dd[key].tipopago;
+                    tptemp = tptemp.trim();
+                    if(tptemp == "EF") {totalefectivo = totalefectivo + total;}
+                    if(tptemp == "CC") {totalcc = totalcc + total;}
+                    if(tptemp == "MP") {totalmp = totalmp + total;}
+                    if(tptemp == "TD") {totaltdebito = totaltdebito + total;}
+                    if(tptemp == "TC") {totaltcredito = totaltcredito + total;}
+                    if (tptemp == "BO") {totalbonus = totalbonus + total;}
+
+                    emailventadia = dd[key].email;
+
                     tventas.row.add([
 
                         "<label style='text-align: center;'>" + dd[key].id + "</label>" ,
@@ -2975,8 +3011,18 @@ function consultarventasdeldia(e) {
                 colocatotalventas(totalventasdia);
                 verificabloqueo();
                 tventas.columns.adjust().draw(false);
-                consultarcajadeldia();
 
+                tresumen.row.add(["<h5 style='color: blue;'><small>CAJA DE</small></h5>", "", emailventadia]).draw(false);
+
+                tresumen.row.add(["Efectivo","<p style='text-align: right;'>" + totalefectivo           + "</p>","Venta"]).draw(false);
+                tresumen.row.add(["Mercado Pago","<p style='text-align: right;'>" + totalmp             + "</p>","Venta"]).draw(false);
+                tresumen.row.add(["Cuenta corriente","<p style='text-align: right;'>" + totalcc         + "</p>","Venta"]).draw(false);
+                tresumen.row.add(["Tarjeta DEBITO","<p style='text-align: right;'>" + totaltdebito      + "</p>","Venta"]).draw(false);
+                tresumen.row.add(["Tarjeta CREDITO","<p style='text-align: right;'>" + totaltcredito    + "</p>","Venta"]).draw(false);
+                tresumen.row.add(["Pago con bonus","<p style='text-align: right;'>" + totalbonus        + "</p>","puntos de bonificación"]).draw(false);
+                tresumen.row.add(["<h5 style='color: blue;'><small>TOTAL VENTAS</small></h5>", "<h5 style='color: blue;text-align: right;'><small>" + totalventasdia + "</small></h5>", "<h5 style='color: blue;'><small>" + "DIA " + fechaventaresumen + "</small></h5>"]).draw(false);
+                
+                consultarcajadeldia();
             }
         },
         error: function (e) {
@@ -3087,9 +3133,14 @@ function menosuno(id){
 }
 
 function configuraciontablaanunciosvender() {
-    $('#tablaanunciosvender').DataTable({
-        "pageLength": -1,
-        "language": {
+
+    $('#tablaanunciosvender').DataTable( {
+        responsive: true,
+        columnDefs: [
+        { responsivePriority: 1, targets: 0 },
+        { responsivePriority: 2, targets: -1 }
+        ],
+        languaje:{
 
             "processing": "Procesando...",
             "search": "Sub búsquedas:",
@@ -3109,9 +3160,42 @@ function configuraciontablaanunciosvender() {
                 "sortDescending": "Ordenar columna descendente"
             },
         },
-        "order": [[0, "desc"]],
-        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
-    });
+        order: [[0, "desc"]],
+        dom: '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+
+    } );
+
+    // $('#tablaanunciosvender').DataTable({
+    //     "responsive": true,
+    //     "columnDefs": [
+    //         { responsivePriority: 1, targets: 4 },
+    //         { responsivePriority: 2, targets: -1 }
+    //     ],
+    //     "pageLength": -1,
+    //     "language": {
+
+    //         "processing": "Procesando...",
+    //         "search": "Sub búsquedas:",
+    //         "lengthMenu": "Registros x página",
+    //         "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+    //         "emptyTable": "No hay registros para ver",
+    //         "zeroRecords": "No hay registros para ver",
+    //         "infoEmpty": "No hay registros  para ver",
+    //         "paginate": {
+    //             "first": "Primera",
+    //             "previous": "Anterior",
+    //             "next": "Siguiente",
+    //             "last": "Ultima"
+    //         },
+    //         "aria": {
+    //             "sortAscending": "Ordenar columna ascendente",
+    //             "sortDescending": "Ordenar columna descendente"
+    //         },
+    //     },
+        
+    //     "order": [[0, "desc"]],
+    //     "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+    // });
 }
 
 
@@ -3162,34 +3246,13 @@ function configuraciontablavender() {
 
 function configuraciontablavender() {
     $('#tablaresumen').DataTable({
+        dom: '<"top"CRTl><"clear">rt<"bottom"ip><"clear">',
         "pageLength": -1,
-        "language": {
-
-            "processing": "Procesando...",
-            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros guardados",
-            "zeroRecords": "No hay registros guardados",
-            "infoEmpty": "No hay anuncios para mostrar",
-            "paginate": {
-                "first": "Primera",
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "last": "Ultima"
-            },
-            "aria": {
-                "sortAscending": "Ordenar columna ascendente",
-                "sortDescending": "Ordenar columna descendente"
-            },
-            "pageLength": -1
-        },
-        "lengthMenu": [
-            [10, 25, 50, -1],
-            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
-        ],
-        "order": [[0, "desc"]],
-        
-
+        "paging":   false,
+        "ordering": false,
+        "info":     false
     });
+    
 }
 
 function configuraciontablacajas() {
@@ -6146,6 +6209,7 @@ function configuraciontablamovimiento() {
 }
 function configuraciontablamovimientosstock() {
     $('#tablamovimientostock').DataTable({
+        "pageLength": -1,
         "language": {
 
             "processing": "Procesando...",
@@ -6217,6 +6281,7 @@ function desdehasta() {
 }
 
 function desdehastaajuste() {
+    document.getElementById("consultacomprasajustes1").style.disabled = true;
     fechamovimientoenviadadesde = conviertefechaastringdmy($("#fechamovimientodesde").val());
     fechamovimientoenviadahasta = conviertefechaastringdmy($("#fechamovimientohasta").val());
     tipomovimientonombrecorto = eligetipomovimiento();
@@ -6979,6 +7044,8 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
 
     var totalcompras = 0;
     $("#totalcompras").val("");
+    
+    M.toast({ html: 'Buscando compras...', displayLength: '1000', classes: 'rounded' });
 
 
     $.ajax({
@@ -7023,19 +7090,16 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
 
                     tcompra.row.add([
                         fco,
-                        "<input class='saltacomprobante' onfocusout='guardanumerocomprobantemodificado(this.value," + dd[key].idcompra + ")' type ='text' value = '" + dd[key].comprobantecompra +  "'></input>",
+                        "<input class='saltacomprobante' onfocusout='guardanumerocomprobantemodificado(this.value," + dd[key].idcompra + ")' style='font-size: 0.85em;' type ='text' value = '" + dd[key].comprobantecompra +  "'></input>",
                         dd[key].id,
                         dd[key].codigobarra,
-                        dd[key].titulo,
+                        "<label>" + dd[key].titulo + "</label>",
                         cantidadEnPrefijo,
                         dd[key].nombreprefijocompra,
                         "<label class='blockcosto'>" + "$ " + costoEnPrefijo.toString().replace(".",",") + "</label>",
-
                         "$ " + precioEnPrefijo.toString().replace(".", ","),
-
-                        dd[key].nombreproveedor,
-                        "Compra",
-                        "<a onclick='quitarcompra(\"" + dd[key].idcompra + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar " + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
+                        "<label>" + dd[key].nombreproveedor + "</label>",
+                        "<a onclick='quitarcompra(\"" + dd[key].idcompra + "\")' class=" + "\"btn-floating btn-small waves-effect   pink darken-4 masmenos blockeliminar " + "\"><i class=" + "\"material-icons\"" + ">delete</i>",
                         dd[key].cantidad,
                         dd[key].nombreprefijoventa,
                         "<label class='blockcosto'>" + "$ " + subtotal.toString().replace(".",",") + "</label>",
@@ -7386,6 +7450,7 @@ function consultarajustesdeldia(fechamovimientodesde, fechamovimientohasta, e) {
     var ajustado = JSON.stringify(itemajuste);
 
     tajuste.clear().draw(true);
+    M.toast({ html: 'Buscando ajustes...', displayLength: '1000', classes: 'rounded' });
 
     $.ajax({
 
@@ -7424,6 +7489,8 @@ function consultarajustesdeldia(fechamovimientodesde, fechamovimientohasta, e) {
 
                     ]).draw(false);
                 });
+                document.getElementById("consultacomprasajustes1").style.disabled = false;
+
             }
 
         },
@@ -8945,15 +9012,15 @@ function conviertefechaastringdmy(fecharecibidatexto) {
 
 function vista_ymdAdmy(fecharecibidatexto) {
 	fec = fecharecibidatexto;
+    if(fec!=null){
+        ensamble = fec.replace("-", "");
 
-	ensamble = fec.replace("-", "");
+        anio = fec.substring(0, 4);
+        mes = fec.substring(5, 7);
+        dia  = fec.substring(8, 10);
 
-	anio = fec.substring(0, 4);
-	mes = fec.substring(5, 7);
-	dia  = fec.substring(8, 10);
-
-	ensamble = dia + "-" + mes + "-" + anio;
-
+        ensamble = dia + "-" + mes + "-" + anio;
+    }
 	return ensamble;
 }
 

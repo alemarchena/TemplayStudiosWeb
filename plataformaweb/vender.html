@@ -4,7 +4,7 @@
         <div class="col-sm-2">
             <div class="row">
                 <div class="col-sm-12">
-                    <a id="exportararchivo" style="color: white;" class="waves-effect waves-light btn-small">Exportar <i class="fas fa-shopping-cart" style="color: white;"></i></a>
+                    <h5 style="color: white;" >CAJA</h5>
                 </div>
             </div>
         </div>
@@ -122,8 +122,8 @@
                             <th class="masmenoscolumna center">cantidad</th>
                             <th class="masmenoscolumna center">Unidad Vta</th>
                             <th class="masmenoscolumna center">$ vta</th>
-                            <th class="columnadedos">Menos</th>
-                            <th class="columnadedos center">Mas</th>
+                            <!-- <th class="columnadedos center botcelu" style="display: none;">Menos</th>
+                            <th class="columnadedos center botcelu" style="display: none;">Mas</th> -->
                             <th class="masmenoscolumna center">Guardar</th>
                             <th class="imagencolumna">Imagen</th>
                             <th class="imagencolumna">Stock</th>
@@ -136,13 +136,13 @@
                             <td class="masmenoscolumna center"></td>
                             <td class="masmenoscolumna center"></td>
                             <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
                             <td class="titulocolumna"></td>
                             <td class="masmenoscolumna center"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <td class="masmenoscolumna center"></td>
+                            <!-- <td class="masmenoscolumna center botcelu" style="display: none;"></td>
+                            <td class="masmenoscolumna center botcelu" style="display: none;"></td> -->
                             <td class="masmenoscolumna center"></td>
                             <td class="imagencolumna"></td>
                             <td class="imagencolumna"></td>
@@ -233,6 +233,7 @@
             </div>
         </div>
     </div>
+    
     <!-- ------------------------------------------- CAJA ---------------------------------------- -->
     <div class="card">
         <div class="" id="headingListaCaja">
@@ -300,53 +301,43 @@
             </div>
         </div>
     </div>
-
-    <!-- ------------------------------------------- CAJA ---------------------------------------- -->
-    <div class="card">
-        <div class="" id="headingListaResumen">
-            <h5 class="m-0">
-                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseListaResumen" aria-expanded="false"
-                    aria-controls="collapseListaResumen">
-                    Resúmen
-                </button>
-            </h5>
-            <h5 id="totalcaja">0</h5>
-    
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <h5>Resúmen de Caja</h5>
         </div>
+    </div>
     
-        <div id="collapseListaResumen" class="collapse" aria-labelledby="headingListaResumen" data-parent="#accordionResumen">
-            <div class="">
-                <!-- lista caja -->
-                <div class="row m-0 p-0">
-                    <!-- Columna de tarjeta de caja -->
-                    <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table id="tablaresumen" class="display table table-striped" style="width: 100%!important;">
-                                <thead>
-                                    <tr>
-                                        <th>Tipo de movimiento</th>
-                                        <th>Monto</th>
-                                        <th>Usuario</th>
-                                        <th>Fecha</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- fin lista caja -->
+    <!-- ------------------------------------------- RESUMEN ---------------------------------------- -->
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <a id="exportararchivo" style="color: white;" class="waves-effect waves-light btn-small">Exportar <i
+                            class="fas fa-shopping-cart" style="color: white;"></i></a>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <div class="table-responsive">
+                <table id="tablaresumen" class="display table table-striped" style="width: 100%!important;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+
 <script>
 
 function consultaventadiaactual() {
@@ -482,6 +473,6 @@ function verificaJerarquia()
     $("#divverdata").load("componentelistaverdata.html?" + versionts);
 
     $("#exportararchivo").click(function () {
-            exportTableToExcel('tablavender', 'ventasdeldia');
+            exportTableToExcel('tablaresumen', 'resumencajadeldia');
     });
 </script>
