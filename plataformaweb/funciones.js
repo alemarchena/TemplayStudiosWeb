@@ -3324,6 +3324,17 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
     if ($.fn.dataTable.isDataTable('#tablacaja')) {
         t = $('#tablacaja').DataTable();
     }
+    var tipo = "consultacaja";
+
+    var detalle = document.getElementById("chkdetalle").checked;
+    if(detalle == false)
+    {
+        tipo ="consultacajasindetalle";
+    }else
+    {
+        M.toast({ html: 'Buscando detalle' });
+    }
+    
 
     var bdd = conexionbdd;
     var tabla = tablaventas;
@@ -3331,7 +3342,6 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
     var tabladeclientes = tablaclientes;
     var tabladerubro = tablarubros;
 
-    var tipo = "consultacaja";
 
     var itemventa = new Object();
     itemventa.bdd = bdd;
@@ -3377,41 +3387,59 @@ function consultacaja(fechaventadesde, fechaventahasta, e) {
                 $("#totalcosto").attr("value", "");
                 var totalventa = 0;
                 var totalcosto = 0;
+                var totalventavista = 0;
+                var totalcostovista = 0;
 
                 $.each(dd, function (key, value) {
+                    if(detalle == true)
+                    {
+                    
+                        cantidadxprecio = dd[key].cantidad * dd[key].precio;
+                        cantidadxcosto = dd[key].cantidad * dd[key].costo;
+                        totalventa += cantidadxprecio;
+                        totalcosto += cantidadxcosto;
+                        cantidadxprecio = Math.round(cantidadxprecio *100)/100;
+                        cantidadxcosto = Math.round(cantidadxcosto *100)/100;
 
-                    cantidadxprecio = dd[key].cantidad * dd[key].precio;
-                    cantidadxcosto = dd[key].cantidad * dd[key].costo;
-                    totalventa += cantidadxprecio;
-                    totalcosto += cantidadxcosto;
-                    cantidadxprecio = Math.round(cantidadxprecio *100)/100;
-                    cantidadxcosto = Math.round(cantidadxcosto *100)/100;
+                        t.row.add([
+                            conviertefecha(dd[key].fecha.toString()),
+                            dd[key].id,
+                            dd[key].idproducto,
+                            dd[key].codigobarra,
+                            dd[key].titulo,
+                            "<label style='text-align: center;'>" + dd[key].descripcion + "</label>" ,
+                            dd[key].cantidad,
+                            "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>" ,
+                            dd[key].precio.toString().replace(".",","),
+                            cantidadxprecio.toString().replace(".",","),
+                            dd[key].tipopago,
+                            dd[key].hora,
+                            "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
+                            "<label style='text-align: center;'>" + dd[key].rubro + "</label>" ,
+                            "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
 
-                    t.row.add([
-                        conviertefecha(dd[key].fecha.toString()),
-                        dd[key].id,
-                        dd[key].idproducto,
-                        dd[key].codigobarra,
-                        dd[key].titulo,
-                        "<label style='text-align: center;'>" + dd[key].descripcion + "</label>" ,
-                        dd[key].cantidad,
-                        "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>" ,
-                        dd[key].precio.toString().replace(".",","),
-                        cantidadxprecio.toString().replace(".",","),
-                        dd[key].tipopago,
-                        dd[key].hora,
-                        "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].rubro + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
+                            "<label class='blockcosto'>"+  dd[key].costo.toString().replace(".",",") + "</label>",
+                            "<label class='blockcosto'>" + cantidadxcosto.toString().replace(".", ",") + "</label>",
 
-                        "<label class='blockcosto'>"+  dd[key].costo.toString().replace(".",",") + "</label>",
-                        "<label class='blockcosto'>" + cantidadxcosto.toString().replace(".", ",") + "</label>",
-
-                    ]).draw(false);
+                        ]).draw(false);
+                    }else
+                    {
+                        totalventa =dd[key].ventasalpublico; 
+                        totalcosto =dd[key].ventasalcosto;
+                    }
                 });
 
-                var totalventavista = Math.round(totalventa * 100) / 100;
-                var totalcostovista = Math.round(totalcosto *100)/100;
+                
+
+                if(detalle == true)
+                {
+                    totalventavista = Math.round(totalventa * 100) / 100;
+                    totalcostovista = Math.round(totalcosto *100)/100;
+                }else
+                {
+                    totalventavista =Math.round(totalventa * 100)/100; 
+                    totalcostovista =Math.round(totalcosto * 100)/100; 
+                }
 
                 if(totalventa>0){
                     $("#totalventa").attr("value", totalventavista);

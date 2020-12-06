@@ -40,7 +40,7 @@
         $id = $vendido['id'];
     }
        
-    if($tipo == "consultacaja")
+    if($tipo == "consultacaja" || $tipo == "consultacajasindetalle")
     {
         $fechaventarecibidadesde = $vendido['fechaventadesde'];
         $fechaventacreadadesde= date_create_from_format('dmY', $fechaventarecibidadesde);
@@ -66,7 +66,7 @@
     }
     
 
-    if($tipo == "consulta" || $tipo == "consultacaja")
+    if($tipo == "consulta" || $tipo == "consultacaja" || $tipo == "consultacajasindetalle")
     {
         if($tipo == "consulta")
         {
@@ -84,7 +84,7 @@
             " ON " .$tabla. ".idrubro    = " .$tablarubros.    ".idrubro ) LEFT JOIN " .$tablaunidadesgranel.
             " ON " .$tablaanuncios. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tablaanuncios. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " . $segunjerarquia . " fecha = '" . $fechaventa . "'";
             
-        }else{
+        }else if($tipo == "consultacaja"){
             // $sql = "Select * from `" .$tabla. "` where fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "' order by fecha desc";
             $sql = "Select " 
             .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," .$tabla. ".hora," 
@@ -98,6 +98,9 @@
             " ON " .$tabla. ".idcliente  = " .$tablaclientes. ".idcliente ) LEFT JOIN " .$tablarubros. 
             " ON " .$tabla. ".idrubro    = " .$tablarubros.    ".idrubro  ) LEFT JOIN " .$tablaunidadesgranel.
             " ON " .$tablaanuncios. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tablaanuncios. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " . $segunjerarquia . " fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "' order by fecha desc";
+        }else if($tipo == "consultacajasindetalle"){
+            $sql = "Select SUM(cantidad * precio) as ventasalpublico,SUM(cantidad * costo) as ventasalcosto," .$tabla. ".fecha,".$tabla. ".email from "
+            .$tabla. " where " . $segunjerarquia . " fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "'";
         }
 
 

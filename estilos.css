@@ -188,6 +188,18 @@ p, h1,h2,h3,h4{
 .fondoblanco{
 background-color: white;
 }
+
+.colcel{
+    color: #0d5f74;
+}
+
+.colros{
+    color: #ff0052;
+}
+
+.tamt>p{
+    font-size: 0.9em;
+}
 /* ---------------------------- Linea con efecto -------------*/
 .bordelinea{
 

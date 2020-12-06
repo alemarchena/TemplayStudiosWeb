@@ -41,7 +41,6 @@ function CargarMaterilizeYcontacto(){
         $(".footer").load("footer.html");
 
         function ira() {
-            var posproyectosweb = $("#seccionproyectos").offset().top;
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);
             setTimeout(function () {
                 $(".iconoarriba").css("visibility", "visible");
@@ -49,9 +48,6 @@ function CargarMaterilizeYcontacto(){
             }, 550);
         }
         
-        $("#seccionproyectos").load("explicaplataforma.html?7");
-
-
         function irarriba() {
             var posproyectosweb = $(".listamenu").offset().top;
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);

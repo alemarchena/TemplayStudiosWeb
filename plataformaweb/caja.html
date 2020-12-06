@@ -18,7 +18,14 @@
                     <input id="totalventa" type="text" class="text center" readonly>
                 </div>
             </div>
-           
+           <div class="row">
+                <div class="col">
+                    <label>
+                        <input id="chkdetalle" type='checkbox' class='filled-in columnadedos' /><span
+                            class='colorletras'>Ver Detalle</span>
+                    </label>
+                </div>
+           </div>
         </div>
         <div class="col-sm-2">
             <label for="fechaventadesde" class=" bd-highlight colorletras"> Desde Fecha</label>
@@ -168,6 +175,20 @@ $(document).ready(function ()
 
     }
     colocafechaactual();
+
+    $("#chkdetalle").click(function(){
+
+        var detalle = document.getElementById("chkdetalle").checked;
+
+        if(detalle == false)
+            console.log("no tilde");
+            else
+            console.log("tilde");
+
+
+        consultacajaenterdias();
+    });
+
 });
 
 </script>
