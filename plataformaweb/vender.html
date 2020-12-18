@@ -1,10 +1,13 @@
 <div id="accordionVentas" class="mt-3 pt-2">
-                
+    
     <div class="filafondo row justify-content-center align-items-center">
         <div class="col-sm-2">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h5 style="color: white;" >CAJA</h5>
+                </div>
+                <div class="col-sm-6">
+                    <button id="nuevoclienteventas" style="color: white;" class="waves-effect waves-light btn-small">Clientes</button>
                 </div>
             </div>
         </div>
@@ -50,7 +53,11 @@
             </div>
         </div>
     </div>
+    <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
+    <div id="divNuevoCliente" style="display: none;"  class="row">
         
+    </div>
+
     <div id="pedido" style="display: none;">
         <!-- lista venta -->
         <div class="row">
@@ -114,38 +121,38 @@
                 <table id="tablaanunciosvender" class="display table table-striped" style="width: 100%!important;">
                     <thead>
                         <tr>
-                            <th class="masmenoscolumna center">$ lista</th>
-                            <th class="masmenoscolumna center">Id</th>
-                            <th class="masmenoscolumna center">Codigo Barra</th>
-                            <th class="titulocolumna">Titulo</th>
-                            <th class="titulocolumna">Descripcion</th>
-                            <th class="masmenoscolumna center">cantidad</th>
-                            <th class="masmenoscolumna center">Unidad Vta</th>
-                            <th class="masmenoscolumna center">$ vta</th>
-                            <!-- <th class="columnadedos center botcelu" style="display: none;">Menos</th>
-                            <th class="columnadedos center botcelu" style="display: none;">Mas</th> -->
-                            <th class="masmenoscolumna center">Guardar</th>
-                            <th class="imagencolumna">Imagen</th>
-                            <th class="imagencolumna">Stock</th>
+                            <th class=" columnadedos center botcelu" >Disminuye</th>
+                            <th class=" columnadedos center">Stock</th>
+                            <th class=" columnadetres center">Titulo</th>
+                            <th class=" columnadetres center">$ vta</th>
+                            <th class=" columnadedos center botcelu" >Aumenta</th>
+                            <th class=" columnadedos center">Guardar</th>
+                            <th class=" columnadetres center">cantidad</th>
+                            <th class=" columnadedos center">$ lista</th>
+                            <th class=" columnadedos">Imagen</th>
+                            <th class="columnadedos center">Id</th>
+                            <th class="columnadedos center">Codigo Barra</th>
+                            <th class="columnadetres">Descripcion</th>
+                            <th class="columnadedos center">Unidad Vta</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="titulocolumna"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <td class="masmenoscolumna center"></td>
-                            <!-- <td class="masmenoscolumna center botcelu" style="display: none;"></td>
-                            <td class="masmenoscolumna center botcelu" style="display: none;"></td> -->
-                            <td class="masmenoscolumna center"></td>
-                            <td class="imagencolumna"></td>
-                            <td class="imagencolumna"></td>
+                            <td class=" columnadedos center botcelu"></td>
+                            <td class=" columnadedos center"></td>
+                            <td class= "columnadetres"></td>
+                            <td class=" columnadetres center"></td>
+                            <td class=" columnadedos center botcelu"></td>
+                            <td class=" columnadetres center"></td>
+                            <td class=" columnadedos center"></td>
+                            <td class=" columnadedos center"></td>
+                            <td class=" columnadedos"></td>
+                            <td class=" columnadedos center"></td>
+                            <td class=" columnadetres center"></td>
+                            <td class=" columnadedos center"></td>
+                            <td class=""></td>
                         </tr>
                     </tbody>
                 </table>
@@ -392,6 +399,28 @@ function verificaJerarquia()
         configuraciontablavender();
         configuraciontablacajas();
         configuraciontablaanunciosvender();
+
+        $("#divNuevoCliente").load("componenteclientes.html");
+
+        $("#nuevoclienteventas").click(function(){
+
+            MostrarDivNuevoCliente();
+        });
+
+        function MostrarDivNuevoCliente()
+        {   
+            if($("#divNuevoCliente").hasClass("show"))
+            {
+                $("#divNuevoCliente").css('display','none');
+                $("#divNuevoCliente").removeClass('show');
+                consultaclientes_seleccion_lista();
+            }
+            else
+            {
+                $("#divNuevoCliente").css('display','block');
+                $("#divNuevoCliente").addClass('show');
+            }
+        }
 
         $('#tablaanunciosvender').on('page.dt', function () {
             imageneszoom();

@@ -94,7 +94,8 @@ function CargarMaterilize() {
 
         $("#contenedoracercade").load("acercade.html?1");
 
-        $(".footer").load("footer.html");
+        $(".footer").load("footer.html?n=3");
+        $("#nuestrosclientes").load("nuestrosclientes.html?n=1");
 
         var contactooacerca = false;
         $("#contactar").on('click', function (e) {

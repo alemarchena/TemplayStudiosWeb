@@ -116,7 +116,7 @@
 
 <script src="scrollmenu.js?" + versionts></script> <!-- codigo que permite el scroll de menu-->
 
-<script src="funciones.js?" + versionts></script>
+<script src="funciones.js?n=2" + versionts></script>
 <script src="js/convertidorfecha.js?" + versionts></script>
 <script src="configuracion.js?" + versionts></script>
     
@@ -168,7 +168,7 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("anuncios_lista_stock.html?"+ versionts);
+            $("#contenido").load("anuncios_lista_stock.html?n=1"+ versionts);
         });
 
        
@@ -199,27 +199,27 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("clientes.html");
+            $("#contenido").load("clientes.html?n=1" + versionts);
         });
         $("#botvender").click(function (e) {
             e.preventDefault();
             contraerMenu();
             
-            $("#contenido").load("vender.html?" + versionts);
+            $("#contenido").load("vender.html?n=2" + versionts);
         });
 
         $("#botcaja").click(function (e) {
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("caja.html");
+            $("#contenido").load("caja.html?n=2" + versionts);
         });
 
         $("#botmovimientos").click(function (e) {
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("comprasyajustes.html");
+            $("#contenido").load("comprasyajustes.html?n=2" + versionts);
         });
 
         $("#botbonus").click(function (e) {
@@ -246,7 +246,7 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("cambiosmasivos.html?"+ versionts);
+            $("#contenido").load("cambiosmasivos.html?n=1" + versionts);
         });
         
         if (jerarquia < 1) ocultarmenu('botpermisos');

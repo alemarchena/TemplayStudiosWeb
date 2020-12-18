@@ -39,6 +39,8 @@ function CargarMaterilizeYcontacto(){
 
         $('.sidenav').sidenav();
         $(".footer").load("footer.html");
+        $("#contenedorcontactoacercade").load("contacto.html?3");
+        $("#nuestrosclientes").load("nuestrosclientes.html?n=3");
 
         function ira() {
             $("HTML, BODY").animate({ scrollTop: posproyectosweb }, 600);

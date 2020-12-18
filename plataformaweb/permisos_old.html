@@ -192,7 +192,6 @@ function consultausuarioplataforma() {
     objeto.tipo = "consultausuarioplataforma";
     objeto.idplataformaactual = idplataformaactual;
     objeto.id = 0;
-    objeto.bloqueo = "";
 
     var objetojson = JSON.stringify(objeto);
 
@@ -295,9 +294,6 @@ function buscarpermisousuarios(){
     item.tabla = tablabloqueos;
     item.tipo = "consultar";
     item.id = idusuarioelegido;
-    item.bloqueo = "";
-    
-
     var objeto = JSON.stringify(item);
 
     destilda();
@@ -355,9 +351,6 @@ function BuscarPermisosPaqueteUsuarios() {
     item.tabla = tablabloqueos;
     item.tipo = "consultapaquete";
     item.id = idusuarioelegido;
-    item.bloqueo = "";
-    item.arreglousuario = "";
-
     var objeto = JSON.stringify(item);
 
     // M.toast({ html: 'Buscando permisos', displayLength: '1000', classes: 'rounded' });

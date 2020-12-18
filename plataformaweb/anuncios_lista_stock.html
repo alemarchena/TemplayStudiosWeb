@@ -10,7 +10,6 @@
 </div>
 
 <div class="col-sm-12">
-    <div id="divverdata" class="row justify-content-start"></div>
     
     <div id="totalesstockvalor" class="row justify-content-center">
         <div class="col-sm-2">
@@ -19,6 +18,7 @@
         </div>
         <div class="col-sm-2">
             <a id="exportararchivo" class="btn">Exportar</a>
+           
         </div>
         <div class="col-sm-2">
             <label for="totalstockventa">Stock valor venta</label>
@@ -26,6 +26,16 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="col">
+            <label>
+                <input id="chkdetallest" type='checkbox' class='filled-in columnadedos' /><span
+                    class='colorletras'>Ver Detalle</span>
+            </label>
+        </div>
+    </div>  
+    <div id="divverdata" class="row justify-content-start"></div>
+
     <div class="table-responsive">
         <table id="tablaanunciosstock" class="display table table-striped" style="font-size: 1.3em;">
             <thead>
@@ -89,4 +99,7 @@
         exportTableToExcel('tablaanunciosstock', 'listapreciostock');
     });
 
+    $("#chkdetalle").click(function(){
+        consultaranunciosstock("consultarubros");
+    }
 </script>

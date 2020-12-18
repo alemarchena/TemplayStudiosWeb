@@ -21,10 +21,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
 
-    <script>
-        r = Math.random();
-        versionts = 180;
-    </script>
+    <script>r = Math.random();version=23;</script>
 
 
     <!-- estilos -->
@@ -59,9 +56,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script>
     
-    <script src="configuracion.js?n=1" + versionts></script>
+    <script src="configuracion.js?" + r></script>
     <script type="text/javascript">
    
+    versionts = 180;
     tablaanuncios           = "";
     tablarubros             = "";
     tablaventas             = "";
@@ -373,7 +371,7 @@
                         
                         console.log(empresa);
     
-                        $("#plataforma").load("panel.html?n=3"+ versionts);
+                        $("#plataforma").load("panel.html?"+ versionts);
                     }    
                 },error: function(e){
                     swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");
@@ -428,6 +426,9 @@
 
         }
 
+        function initOffline(){
+            document.getElementById('quickstart-sign-in').disabled = false;
+        }
         function initApp() {
             // Listening for auth state changes.
             firebase.auth().onAuthStateChanged(function (user) {
@@ -478,8 +479,11 @@
         }
 
         window.onload = function () {
-            initApp();
+            // initApp();
+            initOffline();
         };
+
+
     </script>
 </head>
 
@@ -714,10 +718,10 @@ function verificaenter(e){
         objeto = new Object();
         objeto.email = email.trim();
         objeto.tipo = "verificar";
-        objeto.id = "";
         objeto.idplataformaagregada = "";
-
+        objeto.id = 0;
         var objetojson = JSON.stringify(objeto);
+
         M.toast({ html: 'Autenticando...', displayLength: '1000', classes: 'rounded' });
 
         if ($.fn.dataTable.isDataTable('#tablarelacion')) {
@@ -803,6 +807,7 @@ function verificaenter(e){
     $("#button-addon2").click(function () {mostrarPassword();});
 
  
-
+            
+    $("#quickstart-sign-in").click(function(){verificarusuario();});
     
 </script>

@@ -18,14 +18,14 @@
                     <input id="totalventa" type="text" class="text center" readonly>
                 </div>
             </div>
-           <div class="row">
+            <div class="row">
                 <div class="col">
                     <label>
                         <input id="chkdetalle" type='checkbox' class='filled-in columnadedos' /><span
                             class='colorletras'>Ver Detalle</span>
                     </label>
                 </div>
-           </div>
+            </div>
         </div>
         <div class="col-sm-2">
             <label for="fechaventadesde" class=" bd-highlight colorletras"> Desde Fecha</label>
@@ -38,15 +38,21 @@
         <div class="col-sm-4">
             <div class="row">
                 <div class="col">
-                    <label for="rentabilidadpesos" class=" bd-highlight colorletras">Rentabilidad $</label>
-                    <input id="rentabilidadpesos" type="text" class="text center blockrentabilidad" readonly>
+                    <label for="margenpesos" class=" bd-highlight colorletras">Margen $</label>
+                    <input id="margenpesos" type="text" class="text center blockrentabilidad" readonly>
                 </div>
 
+                <div class="col">
+                    <label for="margenporcentaje" class=" bd-highlight colorletras">Margen %</label>
+                    <input id="margenporcentaje" type="text" class="text center blockrentabilidad" readonly>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col">
                     <label for="rentabilidadporcentaje" class=" bd-highlight colorletras">Rentabilidad %</label>
                     <input id="rentabilidadporcentaje" type="text" class="text center blockrentabilidad" readonly>
                 </div>
-            </div>  
+            </div>
         </div>
         
     </div>
@@ -177,14 +183,6 @@ $(document).ready(function ()
     colocafechaactual();
 
     $("#chkdetalle").click(function(){
-
-        var detalle = document.getElementById("chkdetalle").checked;
-
-        if(detalle == false)
-            console.log("no tilde");
-            else
-            console.log("tilde");
-
 
         consultacajaenterdias();
     });

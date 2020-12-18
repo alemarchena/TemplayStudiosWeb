@@ -19,6 +19,7 @@
     $tipo = $objetoanuncio['tipo'];
     $id = $objetoanuncio['id'];
     $idrubro = $objetoanuncio['idrubro'];
+
     $filtro = $objetoanuncio['filtro'];
 
     $titulo = $objetoanuncio['titulo'];
@@ -70,13 +71,15 @@
  
         $sentencia = "";
 
-        foreach ($filtro as $filtros)
-   		{
-            if($sentencia == "")
-                $sentencia = $sentencia . " ( ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "' and $tabla.codigobarra != '') ) ";
-            else
-                $sentencia = $sentencia . " or ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "' and $tabla.codigobarra != '') ) ";
+        if($filtro != ""){
 
+            foreach ($filtro as $filtros)
+            {
+                if($sentencia == "")
+                $sentencia = $sentencia . " ( ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "' and $tabla.codigobarra != '') ) ";
+                else
+                $sentencia = $sentencia . " or ( descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "' and $tabla.codigobarra != '') ) ";
+            }
         }
      
     
