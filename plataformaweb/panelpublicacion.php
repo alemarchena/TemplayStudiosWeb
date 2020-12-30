@@ -28,7 +28,7 @@
 
 
     <!-- estilos -->
-    <link rel="stylesheet" type="text/css" href="css/estilo.css?" + r>
+    <link rel="stylesheet" type="text/css" href="css/estilo.css?n=2" + versionts>
     <link rel="stylesheet" type="text/css" href="cover.css?" + r>
 
     <link rel="icon" type="image/png" href="img/favicon.png">
@@ -373,7 +373,7 @@
                         
                         console.log(empresa);
     
-                        $("#plataforma").load("panel.html?n=3"+ versionts);
+                        $("#plataforma").load("panel.html?n=12"+ versionts);
                     }    
                 },error: function(e){
                     swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");

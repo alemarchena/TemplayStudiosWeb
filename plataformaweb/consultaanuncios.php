@@ -33,6 +33,7 @@
     $esnovedad = $objetoanuncio['esnovedad'];
     $esoferta = $objetoanuncio['esoferta'];
     $nopublicar = $objetoanuncio['nopublicar'];
+    $espublicidad = $objetoanuncio['espublicidad'];
     $productobonus = $objetoanuncio['productobonus'];
     $bonus = $objetoanuncio['bonus'];
     $observaciones = $objetoanuncio['observaciones'];
@@ -90,7 +91,7 @@
         if($tipo == "consultanovedades"){
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".precio," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".bonus," .$tabla. ".ocultarprecio,"
-                                 .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno,"
+                                 .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno," .$tabla. ".espublicidad,"
                                  .$tabla. ".observaciones," .$tabla. ".comentarios,".$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," 
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro from ((" .$tabla. " LEFT JOIN " 
@@ -101,7 +102,7 @@
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".precio," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".bonus," .$tabla. ".ocultarprecio,"
                                  .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno,"
-                                 .$tabla. ".observaciones," .$tabla. ".comentarios,".$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," 
+                                 .$tabla. ".observaciones," .$tabla. ".comentarios,".$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," .$tabla. ".espublicidad,"
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro from ((" .$tabla. " LEFT JOIN " 
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
@@ -111,7 +112,7 @@
             if($sentencia == ""){
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".precio," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".ocultarprecio,"
-                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," 
+                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," .$tabla. ".espublicidad,"
                                  .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno,"
                                  .$tabla. ".observaciones," .$tabla. ".comentarios," .$tabla. ".fechastockinicio," 
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
@@ -119,12 +120,13 @@
                                  .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
                                  .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " .$tabla. ".idrubro = " 
                                  .$idrubro . " order by " .$tabla. ".titulo";
+
                                 
             }else{
 
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".precio," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".ocultarprecio,"
-                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," 
+                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," .$tabla. ".espublicidad,"
                                  .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno,"
                                  .$tabla. ".observaciones," .$tabla. ".comentarios," .$tabla. ".fechastockinicio," 
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
@@ -133,12 +135,13 @@
                                  .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " .$tabla. ".idrubro = " 
                                  .$idrubro . " " . $sentencia . " ) order by " .$tabla. ".titulo";
             }
+
         }else if($tipo == "consultafiltros")
         {
             if($sentencia == ""){
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".precio," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".ocultarprecio,"
-                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," 
+                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," .$tabla. ".espublicidad,"
                                  .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno,"
                                  .$tabla. ".observaciones," .$tabla. ".comentarios," .$tabla. ".fechastockinicio," 
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
@@ -149,7 +152,7 @@
 
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".precio," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".ocultarprecio,"
-                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," 
+                                 .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," .$tabla. ".espublicidad,"
                                  .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno,"
                                  .$tabla. ".observaciones," .$tabla. ".comentarios," .$tabla. ".fechastockinicio," 
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
@@ -168,13 +171,13 @@
             $sql = "Select " .$tabla. ".id from " .$tabla. " where " .$tabla. ".codigobarra = '" . $codigobarra . "'";
             
         }else if($tipo == "consultatodosanuncios"){
-            $sql = "Select "    .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".precio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," .$tabla. ".comodin," .$tabla. ".ocultarprecio,"
+            $sql = "Select "    .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".precio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," .$tabla. ".comodin," .$tabla. ".ocultarprecio," .$tabla. ".espublicidad,"
                                 .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                 .$tabla. ".idrubro," .$tablarubros. ".idrubro," .$tablarubros. ".nombrerubro as rubro from ((" .$tabla. " LEFT JOIN " 
                                 .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
                                 .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where 1 order by " .$tablarubros. ".nombrerubro desc";
         }else if($tipo == "consultalector"){
-            $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," .$tabla. ".ocultarprecio,"
+            $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," .$tabla. ".ocultarprecio," .$tabla. ".espublicidad,"
                                  .$tabla. ".precio," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta,"
                                  .$tabla. ".bonus," .$tabla. ".costo," .$tabla. ".inactivo," .$tabla. ".nopublicar," .$tabla. ".productobonus," .$tabla. ".comodin," 
                                  .$tabla. ".tieneventaja," .$tabla. ".tituloventaja," .$tabla. ".precioventaja," .$tabla. ".textolinkexterno,".$tabla. ".linkexterno,"
@@ -218,7 +221,7 @@
         {
             if(titulo != "")
             {
-                $sql = "INSERT INTO " .$tabla. "(idrubro,   titulo ,  descripcion ,  precio  , costo ,  imagen ,  esnovedad ,  esoferta ,  nopublicar ,  observaciones ,  comentarios ,  productobonus ,  bonus , tieneventaja , tituloventaja, precioventaja,  textolinkexterno ,  linkexterno ,  codigobarra ,  prefijocompra ,  prefijoventa ,  costoxprefijo ,  ventaxprefijo, comodin,ocultarprecio) values('$idrubro','$titulo','$descripcion','$precio','$costo','$imagen','$esnovedad','$esoferta','$nopublicar','$observaciones','$comentarios','$productobonus','$bonus','$opcionantes','$tituloantes','$precioantes','$textolinkexterno','$linkexterno','$codigobarra','$prefijocompra','$prefijoventa','$costoxprefijo','$ventaxprefijo','$comodin','$ocultarprecio')";
+                $sql = "INSERT INTO " .$tabla. "(idrubro,   titulo ,  descripcion ,  precio  , costo ,  imagen ,  esnovedad ,  esoferta ,  nopublicar ,  observaciones ,  comentarios ,  productobonus ,  bonus , tieneventaja , tituloventaja, precioventaja,  textolinkexterno ,  linkexterno ,  codigobarra ,  prefijocompra ,  prefijoventa ,  costoxprefijo ,  ventaxprefijo, comodin,ocultarprecio,espublicidad) values('$idrubro','$titulo','$descripcion','$precio','$costo','$imagen','$esnovedad','$esoferta','$nopublicar','$observaciones','$comentarios','$productobonus','$bonus','$opcionantes','$tituloantes','$precioantes','$textolinkexterno','$linkexterno','$codigobarra','$prefijocompra','$prefijoventa','$costoxprefijo','$ventaxprefijo','$comodin','$ocultarprecio','$espublicidad')";
                 
                 $resultado = $mysqli->query($sql);
 
@@ -234,11 +237,11 @@
         }else{
             if($imagen == "")
             {//actualiza los datos pero se mantiene la imagen que tenia
-                $sql = "update " .$tabla. " set idrubro = '$idrubro',titulo = '$titulo',descripcion = '$descripcion',precio = '$precio',costo = '$costo', esnovedad = '$esnovedad', esoferta = '$esoferta', nopublicar = '$nopublicar', productobonus = '$productobonus', bonus = '$bonus', tieneventaja = '$opcionantes', tituloventaja = '$tituloantes', precioventaja = '$precioantes' ,observaciones = '$observaciones', comentarios = '$comentarios', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , codigobarra = '$codigobarra' , prefijocompra = '$prefijocompra',  prefijoventa = '$prefijoventa' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo', comodin = '$comodin', ocultarprecio = '$ocultarprecio'  where id= $id";
+                $sql = "update " .$tabla. " set idrubro = '$idrubro',titulo = '$titulo',descripcion = '$descripcion',precio = '$precio',costo = '$costo', esnovedad = '$esnovedad', esoferta = '$esoferta', nopublicar = '$nopublicar', productobonus = '$productobonus', bonus = '$bonus', tieneventaja = '$opcionantes', tituloventaja = '$tituloantes', precioventaja = '$precioantes' ,observaciones = '$observaciones', comentarios = '$comentarios', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , codigobarra = '$codigobarra' , prefijocompra = '$prefijocompra',  prefijoventa = '$prefijoventa' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo', comodin = '$comodin', ocultarprecio = '$ocultarprecio', espublicidad = '$espublicidad'  where id= $id";
             }
             else
             {//actualiza los datos y la imagen que tenia
-                $sql = "update " .$tabla. " set idrubro = '$idrubro',titulo = '$titulo',descripcion = '$descripcion',precio = '$precio',costo = '$costo',imagen = '$imagen', esnovedad = '$esnovedad', esoferta = '$esoferta', nopublicar = '$nopublicar', productobonus = '$productobonus', bonus = '$bonus', tieneventaja = '$opcionantes', tituloventaja = '$tituloantes', precioventaja = '$precioantes' ,observaciones = '$observaciones', comentarios = '$comentarios', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , codigobarra = '$codigobarra' , prefijocompra = '$prefijocompra',  prefijoventa = '$prefijoventa' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo', comodin = '$comodin' where id= $id";
+                $sql = "update " .$tabla. " set idrubro = '$idrubro',titulo = '$titulo',descripcion = '$descripcion',precio = '$precio',costo = '$costo',imagen = '$imagen', esnovedad = '$esnovedad', esoferta = '$esoferta', nopublicar = '$nopublicar', productobonus = '$productobonus', bonus = '$bonus', tieneventaja = '$opcionantes', tituloventaja = '$tituloantes', precioventaja = '$precioantes' ,observaciones = '$observaciones', comentarios = '$comentarios', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , codigobarra = '$codigobarra' , prefijocompra = '$prefijocompra',  prefijoventa = '$prefijoventa' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo', comodin = '$comodin' , ocultarprecio = '$ocultarprecio', espublicidad = '$espublicidad' where id= $id";
             }
             $resultado  = $mysqli->query($sql);
             echo $resultado;
