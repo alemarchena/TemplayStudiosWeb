@@ -75,7 +75,7 @@
             .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 
             .$plataforma. " LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma".
             ") LEFT JOIN " .$tabla. " ON " .$usuarioplataforma. ".idusuario = " .$tabla.  ".id) where " .$usuarioplataforma. ".idusuario = " .$id. " and ".$usuarioplataforma. ".idplataforma = " .$idplataformaagregada;
-
+            
         }elseif ($tipo == "consultausuarios"){
             $sql = "select * from " .$tabla;
         }elseif ($tipo == "consultaplataformas"){

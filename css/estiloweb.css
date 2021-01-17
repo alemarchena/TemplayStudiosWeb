@@ -1,0 +1,36 @@
+
+/* Barra de navegación */
+#nav{
+    background-color: transparent!important;
+    border: 0px;
+    box-shadow: none;
+}
+
+nav>div>ul>li>a{
+    color: #e8505b!important;
+    font-weight: 450!important;
+}
+.sidenav>ul>li>a{
+    color: #e8505b!important;
+    font-weight: 450!important;
+}
+
+#logoempresa{
+    margin: 1em 0em 0em 3em;
+}
+
+@media (min-width: 592px) and (max-width:991px) {
+   #logoempresa{
+    width: 45%;
+    margin: 1em 0em 0em 0.8em;
+
+   }
+}
+
+@media (min-width: 220px) and (max-width:591px) {
+    #logoempresa{
+        margin: 1em 0em 0em 0.8em;
+    }
+}
+
+/* color: #57c2b3!important; */

@@ -525,7 +525,13 @@ function EnviarFormulario()
     var np=0;
     var oa=0;
     var ocp=0;
+    var siespu = 0;
+    var comodin = '';
 
+    
+  
+    
+    
     if(llama == "anuncios")
     {
         var formulario = document.getElementById("formulario");
@@ -559,11 +565,7 @@ function EnviarFormulario()
             eo = 0;
         }
 
-        if ($('#opcionnopublicar').prop('checked')) {
-            np = 1;
-        } else {
-            np = 0;
-        }
+        
 
         if ($('#opcionsiespublicidad').prop('checked')) {
             siespu = 1;
@@ -584,18 +586,30 @@ function EnviarFormulario()
             oa = 0;
         }
 
-        if ($('#opcionocultarprecio').prop('checked')) {
-            ocp = 1;
-        } else {
-            ocp = 0;
-        }
+        
 
     }else if(llama == "comprar")
     {
         rnombre = document.getElementById('rubro').value;
         r = document.getElementById("opcioneslista").value;
+
+       
+        
     }
 
+    if ($('#opcionnopublicar').prop('checked')) {
+        np = 1;
+    } else {
+        np = 0;
+    }
+    
+
+    if ($('#opcionocultarprecio').prop('checked')) {
+        ocp = 1;
+    } else {
+        ocp = 0;
+    }
+    
     //------------ validaciones para campos fraccionados ----------
     var codbar = document.getElementById('codigobarra').value;
     codbar = codbar.trim();

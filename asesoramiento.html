@@ -1,0 +1,42 @@
+<style>
+
+    #divrelativoasesoramiento>.row>.col{
+        padding: 4em!important;
+        /* background-color: red; */
+    }
+  
+    
+
+    @media (min-width: 220px) and (max-width:800px) {
+       
+    }
+</style>
+
+<div id="divrelativoasesoramiento">
+   
+    <div class="row">
+        <div class="col s12 m5 offset-m3">
+            <img src="planes/gratis.jpg" alt="" class="responsive-img">
+        </div>
+        <div class="col s12 m4">
+            <h5>Contáctanos</h5>
+            <h5>+54 9 261 3408 918</h5>
+
+            <a id="contactar" class="waves-effect waves-light btn btn-small modal-trigger center" href="#">Enviar mensaje</a>
+
+        </div>
+    </div>
+    <hr>
+</div>
+<script>
+    function ira(velocidad, lugar) {
+        var posicion = $("#" + lugar).offset().top;
+        $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
+        setTimeout(function () {
+            $(".iconoarriba").css("visibility", "visible");
+        }, 550);
+    }
+    $("#contactar").on('click', function (e) {
+            ira(1200, "divcontacto");
+        });
+</script>

@@ -333,17 +333,15 @@
             objeto.idplataformaagregada = idplataforma;
             objeto.tipo =  adondeentra;
             var objetojson = JSON.stringify(objeto);
-
             $.ajax({
 
-                url: "controladores/usuariostemplay.php?1",
+                url: "controladores/usuariostemplay.php?2",
                 data: { objetojson: objetojson },
                 type: "post",
 
                 success: function (data) 
                 {
                      
-
                     if (data != "[]")
                     {
                         dd = JSON.parse(data);
@@ -373,7 +371,7 @@
                         
                         console.log(empresa);
     
-                        $("#plataforma").load("panel.html?n=12"+ versionts);
+                        $("#plataforma").load("panel.html?n=15"+ versionts);
                     }    
                 },error: function(e){
                     swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");

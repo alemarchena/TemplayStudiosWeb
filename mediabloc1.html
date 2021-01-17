@@ -1,0 +1,126 @@
+<style>
+
+    #divrelativobloc1{
+        position: relative;
+    }
+    #div1{
+        position: absolute;
+        left: 4em;
+        top: 30%;
+        width: 20%;
+        padding: 2em!important;
+        background-color: rgba(250, 250, 250, 0.7);
+        z-index: 10;
+        
+        border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+        border: 1px solid #ece9e9;
+
+        transition: 1s 0.01s box-shadow;
+    }
+    .divestaticos{display: none;}
+    
+
+    #div1:hover{
+        -webkit-box-shadow: 21px 22px 61px -27px rgba(105,105,105,1);
+        -moz-box-shadow: 21px 22px 61px -27px rgba(105,105,105,1);
+        box-shadow: 21px 22px 61px -27px rgba(105,105,105,1);
+    }
+    #div2:hover{
+        -webkit-box-shadow: 21px 22px 61px -27px rgba(105,105,105,1);
+        -moz-box-shadow: 21px 22px 61px -27px rgba(105,105,105,1);
+        box-shadow: 21px 22px 61px -27px rgba(105,105,105,1);
+    }
+
+    #div2{
+        position: absolute;
+        right: 2em;
+        top: 30%;
+        width: 22%;
+        padding: 2em!important;
+        background-color: rgba(250, 250, 250, 0.7);
+        z-index: 10;
+        
+        border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+        border: 1px solid #ece9e9;
+
+        transition: 1s 0.01s box-shadow;
+    }
+
+    @media (min-width: 220px) and (max-width:800px) {
+        #div1{display: none!important;}
+        #div2{display: none!important;}
+        .divestaticos{display: block!important;}
+    }
+</style>
+
+<div id="divrelativobloc1">
+   
+
+    <div id="bm1"></div>
+    <div class="row divestaticos">
+        <div class="col s12 center">
+            <h5>Gestión 7</h5>
+            <p>Es nuestro sistema online para pymes.</p>
+            <p>Puedes controlar precios, compras, ventas, stock.</p>
+            <p>Desde la pc, tablet o celular y en cualquier lugar</p>
+            
+            <a id="planesestaticos" class="waves-effect waves-light btn btn-small modal-trigger center" href="#">Planes</a>
+
+            
+        </div>
+    </div>
+    <div class="row divestaticos">
+        <div class="col s12 center">
+            <p>Revisarás tus movimientos de manera cómoda y fácil.</p>
+            <p>Con copia de seguridad de tus datos cada 24 hs</p>
+        </div>
+    </div>
+
+
+    <div id="div1">
+        <h5>Gestión 7</h5>
+        <p>Es nuestro sistema online para pymes.</p>
+        <p>Puedes controlar precios, compras, ventas, stock.</p>
+        <p>Desde la pc, tablet o celular y en cualquier lugar</p>
+        
+        <button id="planes" class="btn btn-small waves-effect waves-light center">Planes</button>
+    </div>
+    <div id="div2">
+        <p>Revisarás tus movimientos de manera cómoda y fácil.</p>
+        <p>Con copia de seguridad de tus datos cada 24 hs</p>
+    </div>
+    <div id="detallegestion7"></div>
+
+</div>
+
+
+<script>
+
+    animation1 = bodymovin.loadAnimation({
+        container: document.getElementById('bm1'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'animaciones/coupleshopping.lottie.json'
+    });
+
+    $(document).ready(function () {
+        function iraaplanes(velocidad, lugar) {
+            var posicion = $("#" + lugar).offset().top;
+            $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
+            setTimeout(function () {
+                $(".iconoarriba").css("visibility", "visible");
+            }, 1300);
+        }
+        
+        $("#planes").click(function(){
+        $("#detallegestion7").load("gestion7.html?n=5");
+        iraaplanes(800, "detallegestion7");
+        });
+
+    });
+</script>

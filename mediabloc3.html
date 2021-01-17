@@ -1,0 +1,94 @@
+<style>
+    #asesoramiento{
+        background-color: grey;
+    }
+    #divasesoramientoestatico{display: none;}
+    #divrelativoasesoramiento{
+        position: relative;   
+    }
+    #divasesoramiento{
+        position: absolute;
+        left: 3em;
+        top: 30%;
+        width: 15em;
+        padding: 2em!important;
+        background-color: rgba(250, 250, 250, 0.7);
+        z-index: 10;
+        
+        border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+        border: 1px solid #ece9e9;
+
+        transition: 1s 0.15s box-shadow;
+    }
+
+    #divasesoramiento:hover{
+        -webkit-box-shadow: 0px 0px 117px -2px rgba(229,255,156,1);
+        -moz-box-shadow: 0px 0px 117px -2px rgba(229,255,156,1);
+        box-shadow: 0px 0px 117px -2px rgba(229,255,156,1);
+        border: 2px solid #fcfdcf;
+    }
+   
+    @media (min-width: 220px) and (max-width:800px) {
+        #divasesoramiento{display: none;}
+        #divasesoramientoestatico{display: block;}
+    }
+</style>
+
+<div id="divrelativoasesoramiento">
+
+    <div id="asesoramiento"></div>
+    <div id="detalleasesoramiento"></div>
+
+    <div id="divasesoramientoestatico" class="row">
+        <div class="col s12 center">
+            <h5 >Asesoramiento</h5>
+            <p >Valoramos tu tiempo, puedes quedarte en tu negocio u oficina, nosotros te visitamos para asesorarte sin costo alguno.</p>
+            <a id="planfreeestatico" class="waves-effect waves-light btn btn-small modal-trigger center" href="#">Gratis</a>
+
+        </div>
+    </div>
+
+
+    <div id="divasesoramiento">
+        <h5>Asesoramiento</h5>
+        <p>Valoramos tu tiempo, puedes quedarte en tu negocio u oficina </p>
+        <p>Nosotros te visitamos para asesorarte sin costo alguno.</p>
+        <a id="planfree" class="waves-effect waves-light btn btn-small modal-trigger center" href="#">Gratis</a>
+
+
+    </div>
+
+
+</div>
+
+<script>
+    l_asesora = bodymovin.loadAnimation({
+        container: document.getElementById('asesoramiento'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        path: 'https://assets5.lottiefiles.com/packages/lf20_GsFUFN.json'
+    });
+
+    function ira(velocidad, lugar) {
+        var posicion = $("#" + lugar).offset().top;
+        $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
+        setTimeout(function () {
+            $(".iconoarriba").css("visibility", "visible");
+        }, 550);
+    }
+
+    $("#planfree").click(function () {
+        $("#detalleasesoramiento").load("asesoramiento.html?n=1");
+        ira(1200, "detalleasesoramiento");
+        
+    });
+    $("#planfreeestatico").click(function () {
+        $("#detalleasesoramiento").load("asesoramiento.html?n=1");
+        ira(1200, "detalleasesoramiento");
+       
+    });
+</script>
+

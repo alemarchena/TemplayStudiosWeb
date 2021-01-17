@@ -1,0 +1,96 @@
+<style>
+     
+    #divsitiosweb{
+       position: relative;
+       background-color: #e8505b!important;
+       
+    }
+    #divsitiosweb>p{
+        color: white;
+    }
+
+    #divsitiosweb>h5{
+        color: white;
+    }
+
+    #titulositio{
+        padding: 2em 0em 0em 0em;
+    }
+
+    .tarjetas{
+        background-color: #a84f55;
+        border-radius: 5px 5px 5px 5px;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border: 0px solid #000000;
+    }
+
+    .explicacionweb>div>p{
+        color: white;
+    }
+</style>
+
+
+<div id="divsitiosweb" >
+    <div class="row container">
+
+        <h5 id="titulositio" class="center">Creamos tu sitio web</h5>
+        
+       
+        <div class="row explicacionweb">
+            <div class="col s12">
+                
+                <p>¿ Sabías que un 80% de las personas investigan en internet antes de comprar ? nuestros posibles compradores ya tiene en
+                su mente el precio que está dispuestos a pagar y el potencial ahorro que van a obtener antes de que realizar un gasto. Dos terceras partes de ellos <b style="color: #000000;">esperan y se informan</b> de la temporada de descuentos para comprar.</p>
+                <p>El sitio web es importante para que tus potenciales clientes te encuentren en los buscadores.</p>
+                <p>Es la base del marketing digital, trabaja en conjunto a las redes sociales y las recomendaciones de boca en boca</p>
+                <p>En la web tus potenciales clientes pueden conocer al detalle lo que ofreces, también vas a generar confiabilidad y seriedad.</p>
+                <p>Brindas información las 24hs todo el año y ayudas a tu cliente a definir la compra.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="tarjetas card">
+                    <div class="card-content white-text">
+                        <span class="card-title">Web Estáticas</span>
+                        <p>Son sitios que tienen diseño y brindan información sin interacción con el usuario.</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col s12 m6">
+                <div class="tarjetas card">
+                    <div class="card-content white-text">
+                        <span class="card-title">Web Dinámicas</span>
+                        <p>Son las que tienen interacción con el visitante, ejemplos loguin de usuario, bloc, envío de
+                            información, etc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <a id="planesweb" class="waves-effect waves-light btn btn-small modal-trigger center" href="#">Planes</a>
+            </div>
+        </div>
+        <div id="detalleweb"></div>
+    </div>
+</div>
+
+
+<script>
+    function ira(velocidad, lugar) {
+            var posicion = $("#" + lugar).offset().top;
+            $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
+            setTimeout(function () {
+                $(".iconoarriba").css("visibility", "visible");
+            }, 550);
+        }
+
+        $("#planesweb").click(function () {
+            $("#detalleweb").load("web.html?n=1");
+            ira(1200, "detalleweb");
+            console.log("ir");
+        });
+</script>
+
