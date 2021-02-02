@@ -982,6 +982,7 @@ function consultaranuncios(tipo)
                             "<img id=\"ima_" + dd[key].id  + "\" class='materialboxed center-align' width='65%' src=" + "'" + rutaimagenes  + dd[key].imagen + "'></img>",
                             "<button onclick='copiarimagen(\"" + dd[key].id + "\",\"" + dd[key].imagen + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">content_copy</i></button>",
                             "<button onclick='pegarimagen(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">content_paste</i></button>",
+                            "<button onclick='eliminarsoloregistro(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"material-icons\"" + ">delete</i></button>",
                             dd[key].rubro,
                             dd[key].id,
                             dd[key].codigobarra,
@@ -1045,6 +1046,97 @@ function pegarimagen(idpasado){
 
         });
     }
+}
+function eliminarsoloregistro(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Elimina el registro y permanece la imagen, Desea continuar ?',
+        text: "Esta acción no se podrá revertir!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.value) {
+            eliminarsoloanuncio(id);
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Perfecto',
+                'Su anuncio permanece guardado :)'
+            )
+        }
+    })
+}
+function eliminarsoloanuncio(idpasado)
+{
+    var bdd = conexionbdd;
+    var tabla = tablaanuncios;
+    var tipo = "bajasoloanuncio";
+
+    // var rutaimagenes = "imagenes/";
+    var id;
+
+    if (idpasado == "")
+        id = 0;
+    else
+        id = idpasado;
+
+    var itemanuncio = new Object();
+    itemanuncio.bdd = bdd;
+    itemanuncio.tabla = tabla;
+    itemanuncio.tablaunidadesgranel = "";
+
+    itemanuncio.tipo = tipo;
+    itemanuncio.id = id;
+
+    itemanuncio.titulo = "";
+    itemanuncio.descripcion = "";
+    itemanuncio.precio = "";
+    itemanuncio.costo = "";
+    itemanuncio.esnovedad = "";
+    itemanuncio.esoferta = "";
+    itemanuncio.nopublicar = "";
+    itemanuncio.observaciones = "";
+    itemanuncio.comentarios = "";
+
+    itemanuncio.rutaimagenes = rutaimagenes;
+    itemanuncio.rubro = "";
+   
+    itemanuncio.imagen = "";
+    itemanuncio.filtro = "";
+
+    var objetoanuncio = JSON.stringify(itemanuncio);
+
+    $.ajax({
+        url:"consultaanuncios.php",
+        data: { objetoanuncio: objetoanuncio},
+        type: "post",
+            success:function(data){
+                if(data=="consultavacia")
+                {
+                    M.toast({ html: 'Error al intentar eliminar.' })
+                }else
+                {
+                    consultaranuncios("consultarubros");
+                }
+            },
+            error: function(e)
+            {
+                alert("Error en el alta.");
+            }
+    });
+
 }
 
 function eliminar(id, i)

@@ -17,6 +17,10 @@
         
     }
     
+    #detallecapacitacion{
+        display: none;
+    }
+
     @media (min-width: 220px) and (max-width:800px) {
         
     }
@@ -57,14 +61,14 @@
                     <p>Para la empresa es necesario que colaboradores y empleados puedan cumplir en tiempo y forma los objetivos trazados</p>                    
                     <p>Algunas ventajas para capacitar a los colaboradores:</p>
                     <ul>
-                        <li>Mayor aprovechamiento del potencial de la persona.</li>
-                        <li>Mejor desarrollo de habilidades.</li>
-                        <li>Disminución de errores.</li>
-                        <li>Mayor satisfacción en el trabajo.</li>
-                        <li>Reducción de ausentismo.</li>
-                        <li>Equipos más eficientes.</li>
-                        <li>Aumento de la productividad.</li>
-                        <li>Menos recursos de supervisión.</li>
+                        <li>* Mayor aprovechamiento del potencial de la persona.</li>
+                        <li>* Mejor desarrollo de habilidades.</li>
+                        <li>* Disminución de errores.</li>
+                        <li>* Mayor satisfacción en el trabajo.</li>
+                        <li>* Reducción de ausentismo.</li>
+                        <li>* Equipos más eficientes.</li>
+                        <li>* Aumento de la productividad.</li>
+                        <li>* Menos recursos de supervisión.</li>
                     </ul>
                 </div>
             </div>
@@ -76,19 +80,22 @@
 
 <script>
     function iracapacitacion(velocidad, lugar) {
-            var posicion = $("#" + lugar).offset().top;
-            $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
-            setTimeout(function () {
-                $(".iconoarriba").css("visibility", "visible");
-            }, 1300);
-        }
+        var posicion = $("#" + lugar).offset().top;
+        $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
+        setTimeout(function () {
+            $(".iconoarriba").css("visibility", "visible");
+        }, 1300);
+    }
 
-        $("#plancapacitacion").click(function () {
-            $("#detallecapacitacion").load("capacitaciones.html?n=4");
-            iracapacitacion(800, "detallecapacitacion");
+    function cargardetallecapacitacion(){
+        $("#detallecapacitacion").load("capacitaciones.html?n=10");
+    }
 
-        });
+    
+    $("#plancapacitacion").click(function () {
+        document.getElementById("detallecapacitacion").style.display = "block";
+        iracapacitacion(800, "detallecapacitacion");
+    });
 
-        
+    cargardetallecapacitacion();
 </script>
-

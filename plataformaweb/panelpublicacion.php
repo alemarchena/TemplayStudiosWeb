@@ -371,7 +371,7 @@
                         
                         console.log(empresa);
     
-                        $("#plataforma").load("panel.html?n=15"+ versionts);
+                        $("#plataforma").load("panel.html?n=16"+ versionts);
                     }    
                 },error: function(e){
                     swal("Atención", "Si aún no ha verificado la cuenta, presione el botón verificar!");

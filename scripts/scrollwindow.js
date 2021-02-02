@@ -21,7 +21,7 @@ function AnimaBarra(movimiento){
 }
 
 function AnimacionAsesoramiento(m) {
-    if (m > 35){
+    if (m > 15){
         l_asesora.play();
     }
     if(m > 5)

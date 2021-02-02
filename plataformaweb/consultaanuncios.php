@@ -248,12 +248,14 @@
         }
         
         
-    }else if($tipo == "baja")
+    }else if($tipo == "baja" || $tipo == "bajasoloanuncio")
     {
-
         $sql = "delete from " .$tabla. " where id = $id";
         $resultado  = $mysqli->query($sql);
-        unlink($rutaimagenes.$imagen);
+        if ($tipo == "baja")
+        {
+            unlink($rutaimagenes.$imagen);
+        }
         echo $rutaimagenes.$imagen;
     }else if($tipo == "actualizapreciocostoyventa"){
             $sql = "update " .$tabla. " set costoxprefijo = '$costoxprefijo',ventaxprefijo = '$ventaxprefijo',precio = '$precio',costo = '$costo',precioanterior = '$precioanterior',costoanterior = '$costoanterior', textolinkexterno = '$textolinkexterno',  linkexterno = '$linkexterno' , costoxprefijo = '$costoxprefijo' , ventaxprefijo = '$ventaxprefijo' where id= $id";

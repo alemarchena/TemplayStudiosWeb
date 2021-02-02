@@ -50,6 +50,10 @@
         transition: 1s 0.01s box-shadow;
     }
 
+    #detallegestionsiete{
+        display: none;
+    }
+
     @media (min-width: 220px) and (max-width:800px) {
         #div1{display: none!important;}
         #div2{display: none!important;}
@@ -57,49 +61,39 @@
     }
 </style>
 
-<div id="divrelativobloc1">
-   
-
+<div id="divrelativobloc1" style="display: none;">
     <div id="bm1"></div>
     <div class="row divestaticos">
-        <div class="col s12 center">
+        <div class="col s12 ">
             <h5>Gestión 7</h5>
             <p>Es nuestro sistema online para pymes.</p>
             <p>Puedes controlar precios, compras, ventas, stock.</p>
             <p>Desde la pc, tablet o celular y en cualquier lugar</p>
-            
-            <a id="planesestaticos" class="waves-effect waves-light btn btn-small modal-trigger center" href="#">Planes</a>
-
-            
+            <a id="planesestaticos" class="waves-effect waves-light btn btn-small modal-trigger center" href="#">Precios</a>
         </div>
     </div>
     <div class="row divestaticos">
-        <div class="col s12 center">
+        <div class="col s12 ">
             <p>Revisarás tus movimientos de manera cómoda y fácil.</p>
             <p>Con copia de seguridad de tus datos cada 24 hs</p>
         </div>
     </div>
-
-
     <div id="div1">
         <h5>Gestión 7</h5>
         <p>Es nuestro sistema online para pymes.</p>
         <p>Puedes controlar precios, compras, ventas, stock.</p>
         <p>Desde la pc, tablet o celular y en cualquier lugar</p>
         
-        <button id="planes" class="btn btn-small waves-effect waves-light center">Planes</button>
+        <button id="planes" class="btn btn-small waves-effect waves-light center">Precios</button>
     </div>
     <div id="div2">
         <p>Revisarás tus movimientos de manera cómoda y fácil.</p>
         <p>Con copia de seguridad de tus datos cada 24 hs</p>
     </div>
-    <div id="detallegestion7"></div>
-
+    <div id="detallegestionsiete"></div>
 </div>
 
-
 <script>
-
     animation1 = bodymovin.loadAnimation({
         container: document.getElementById('bm1'),
         renderer: 'svg',
@@ -108,19 +102,33 @@
         path: 'animaciones/coupleshopping.lottie.json'
     });
 
-    $(document).ready(function () {
-        function iraaplanes(velocidad, lugar) {
-            var posicion = $("#" + lugar).offset().top;
-            $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
-            setTimeout(function () {
-                $(".iconoarriba").css("visibility", "visible");
-            }, 1300);
-        }
-        
-        $("#planes").click(function(){
-        $("#detallegestion7").load("gestion7.html?n=5");
-        iraaplanes(800, "detallegestion7");
-        });
+    function iraaplanes(velocidad, lugar) {
+        var posicion = $("#" + lugar).offset().top;
+        $("HTML, BODY").animate({ scrollTop: posicion }, velocidad);
+        setTimeout(function () {
+            $(".iconoarriba").css("visibility", "visible");
+        }, 1000);
+    }
+    
+    function cargargestion7(){
+        $("#detallegestionsiete").load("gestionsiete7.html?n=10");
+    }
 
+    $("#planes").click(function(){
+        document.getElementById("detallegestionsiete").style.display = "block";
+        iraaplanes(1300, "detallegestionsiete");
     });
+
+    $("#planesestaticos").click(function () {
+            document.getElementById("detallegestionsiete").style.display = "block";
+            iraaplanes(1300, "detallegestionsiete");
+        });
+    muestradiv();
+
+    function muestradiv(){
+        setTimeout(() => {
+            document.getElementById("divrelativobloc1").style.display = "block";
+            cargargestion7();
+        }, 450);
+    }
 </script>

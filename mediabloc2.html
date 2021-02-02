@@ -28,6 +28,9 @@
     .explicacionweb>div>p{
         color: white;
     }
+    #detalleweb{
+        display: none;
+    }
 </style>
 
 
@@ -86,11 +89,15 @@
                 $(".iconoarriba").css("visibility", "visible");
             }, 550);
         }
+        
+        function cargardetalleweb(){
+            $("#detalleweb").load("web.html?n=10");
+        }
 
         $("#planesweb").click(function () {
-            $("#detalleweb").load("web.html?n=1");
+            document.getElementById("detalleweb").style.display="block";
             ira(1200, "detalleweb");
-            console.log("ir");
         });
-</script>
 
+        cargardetalleweb();
+</script>

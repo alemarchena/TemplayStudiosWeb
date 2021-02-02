@@ -30,6 +30,9 @@
         border: 2px solid #fcfdcf;
     }
    
+    #detalleasesoramiento{
+        display: none;
+    }
     @media (min-width: 220px) and (max-width:800px) {
         #divasesoramiento{display: none;}
         #divasesoramientoestatico{display: block;}
@@ -79,16 +82,21 @@
             $(".iconoarriba").css("visibility", "visible");
         }, 550);
     }
-
+    function cargardetalleasesoramiento(){
+        $("#detalleasesoramiento").load("asesoramiento.html?n=10");
+    }
+    function mostrardetalleasesoramiento(){
+        document.getElementById("detalleasesoramiento").style.display = "block";
+    }
     $("#planfree").click(function () {
-        $("#detalleasesoramiento").load("asesoramiento.html?n=1");
+        mostrardetalleasesoramiento();
         ira(1200, "detalleasesoramiento");
         
     });
     $("#planfreeestatico").click(function () {
-        $("#detalleasesoramiento").load("asesoramiento.html?n=1");
+        mostrardetalleasesoramiento();
         ira(1200, "detalleasesoramiento");
-       
     });
+    
+    cargardetalleasesoramiento();
 </script>
-

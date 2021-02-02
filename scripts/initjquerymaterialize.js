@@ -65,6 +65,7 @@ function CargarFuncionalidad(){
         }
     }
 
+    
     $(document).ready(function () {
 
         $('.sidenav').sidenav();
@@ -77,22 +78,21 @@ function CargarFuncionalidad(){
             });
         });
         
-        $("#bloque1").load("mediabloc1.html?n=18");
+        $("#bloque1").load("mediabloc1.html?n=21");
         
         setTimeout(() => {
-            $("#bloque2").load("mediabloc2.html?n=4");
-            $("#bloque3").load("mediabloc3.html?n=6");
-            $("#bloque4").load("mediabloc4.html?n=7");
-            $("#bloque5").load("mediabloc5.html?n=7");
+            $("#bloque2").load("mediabloc2.html?n=11");
+            $("#bloque3").load("mediabloc3.html?n=11");
+            $("#bloque4").load("mediabloc4.html?n=10");
+            $("#bloque5").load("mediabloc5.html?n=10");
 
-            $("#divcontacto").load("contacto.html?n=6");
-            $("#nuestrosclientes").load("nuestrosclientes.html?n=4");
-            $(".footer").load("footer.html?n=1");
+            $("#divcontacto").load("contacto.html?n=11");
+            $("#nuestrosclientes").load("nuestrosclientes.html?n=10");
+            // $(".footer").load("footer.html?n=10");
 
 
 
             $("#contacto").on('click', function (e) {
-                colapsar();
                 ira(1200, "divcontacto");
             });
             
@@ -124,9 +124,10 @@ function CargarFuncionalidad(){
             });
             
             //botones mobile
-            $("#cgratis").on('click', function (e) {
-                ira(1200, "");
-            });
+            // $("#cgratis").on('click', function (e) {
+            //     ira(1200, ""); 
+            //     colapsar();
+            // });
             $("#cgestion").on('click', function (e) {
                 ira(1200, "bloque1");
             });
@@ -156,4 +157,3 @@ function CargarFuncionalidad(){
         
     });
 }
-
