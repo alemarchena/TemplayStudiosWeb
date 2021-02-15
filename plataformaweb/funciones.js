@@ -9,12 +9,16 @@ var muestrastockinicio = false;
 arregloconsultaofertas = [];
 arregloconsultanovedades = [];
 arregloconsultabuscados = [];
+arrdvp = [];
+itemsdeventa = [];
+
 paginaactualofertas = 0;
 paginaactualnovedad = 0;
 paginaactualbuscados = 0;
 paginastotalesofertas = 0;
 paginastotalesnovedad = 0;
 paginastotalesbuscados = 0;
+bonussuma =0;
 
 arregloUnidades = []; //unidades de compra y venta de los productos fraccionados
 relacionCV = ""; //relacion compra venta para los productos fraccionados, se usa como multiplicador o divison en los precios
@@ -30,6 +34,7 @@ rutaimagenes = "imagenes/";
 
 totalcajaconventa = 0;
 totalventasdia =0;
+totalventasdiadvp =0;
 totalefectivo=0;
 totalmp=0;
 totaltcredito=0;
@@ -88,7 +93,7 @@ function configuraciontabla(tabla)
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA AQUI ABAJO:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "Mostrar _MENU_ registros",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -1555,7 +1560,7 @@ function configuraciontablarubro() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -2108,1585 +2113,1695 @@ $("#opciones").change(function () {
 //------------------------------------------------ VENTAS ----------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------
 
-itemsEnlaventa = 0;
 
-function configuraciontablacaja(tabla) {
-    // $('#tablaanuncios').DataTable({
-    $(tabla).DataTable({
-        "language": {
+    
+        itemsEnlaventa = 0;
 
-            "processing": "Procesando...",
-            "search": "ESCRIBA AQUI ABAJO:",
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros guardados",
-            "zeroRecords": "No hay registros guardados",
-            "infoEmpty": "No hay anuncios para mostrar",
-            "paginate": {
-                "first": "Primera",
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "last": "Ultima"
-            },
-            "aria": {
-                "sortAscending": "Ordenar columna ascendente",
-                "sortDescending": "Ordenar columna descendente"
-            },
-            "pageLength": 10,
+        
 
-        },
-        "order": [[0, "desc"]],
-        "columnDefs": [
-            {
-                "targets": [0],
-                "visible": true,
-                "searchable": false
+
+        function validarinputcantidadprecio(e, contenido, caracteres, id, idrubro, costo, titulo, unidadvta, downup, sivender) {
+            var key = window.event ? e.which : e.keyCode;
+
+            if (e.keyCode == 13 && downup == 1) {
+                $('#cantidad_' + id).focus();
+
             }
-        ],
-        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+            if (e.keyCode == 107 || e.keyCode == 120)  //tecla + o enter
+            {
+                if (downup == 1)
+                    vender(id, idrubro, costo, titulo, unidadvta);
+                return false;
+            }
 
-    });
-}
+            //punto del teclado numerico o coma del teclado alfa
+            if (e.keyCode == 110 || e.keyCode == 188) {
+                return true;
+            }
 
+            var unicode = e.keyCode ? e.keyCode : e.charCode;
+            if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+                return true;
+            }
 
-function validarinputcantidadprecio(e, contenido, caracteres,id,idrubro,costo,titulo,unidadvta,downup,sivender)
-{
-    var key = window.event ? e.which : e.keyCode;
-
-    if (e.keyCode == 13 && downup == 1)
-    {
-        $('#cantidad_' + id).focus();
-
-    }
-    if (e.keyCode == 107 || e.keyCode == 120 )  //tecla + o enter
-    {
-        if(downup==1)
-            vender(id, idrubro, costo, titulo, unidadvta);
-       return false;
-    }
-
-    //punto del teclado numerico o coma del teclado alfa
-    if (e.keyCode == 110 || e.keyCode == 188) {
-        return true;
-    }
-
-    var unicode = e.keyCode ? e.keyCode : e.charCode;
-    if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
-        return true;
-    }
-
-    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres))
-    {
-        return true;
-    }
-    return false;
-}
-
-function validarinputcantidad(e, contenido, caracteres,id,idrubro,costo,titulo,unidadvta,downup)
-{
-    var key = window.event ? e.which : e.keyCode;
-
-    if(e.keyCode == 13 && downup == 1)
-    {
-        $('#precio_' + id).focus();
-    }
-
-    if (e.keyCode == 107 || e.keyCode == 120) //tecla + o enter
-    {
-        if (downup == 1)
-            vender(id,idrubro,costo,titulo,unidadvta);
-
-       return false;
-    }
-
-    var unicode = e.keyCode ? e.keyCode : e.charCode;
-    if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
-        return true;
-    }
-
-
-    if ( ( (key >= 48 && key <= 57) || (key >= 96 && key <= 105) ) && (contenido.length < caracteres))
-    {
-        return true;
-    }
-    return false;
-
-}
-
-arregloitemsventa = [];
-totalpedido = 0;
-
-
-
-
-function insertarEnCarrito(id,idrubro,costo,titulo,precio)
-{
-    if(!id){
-        return false;
-    }
-
-    var fechaventa = $("#fechaventa").val();
-    var porcentajebonus = $("#bonusestablecido").val();
-    var bonus = Math.round(1 * (costo * porcentajebonus / 100));
-
-    if (fechaventa != "" )
-    {
-        fechaventa = conviertefechaastringdmy(fechaventa);
-        reservaritemventa(id, precio, costo, idrubro, fechaventa, 1, bonus,titulo);
-    }else if (fechaventa == "" )
-    {
-        Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
-            timer: 2500})
-    }
-}
-
-
-function consultaranunciosvender(tipo) {
-
-    if ($.fn.dataTable.isDataTable('#tablaanunciosvender')) {
-        t = $('#tablaanunciosvender').DataTable();
-    }
-    var seleccionidrubro = document.getElementById("opcioneslista").value;
-
-    var bdd = conexionbdd;
-    var tabla = tablaanuncios;
-    var tabladerubros = tablarubros;
-    // var rutaimagenes = "imagenes/";
-
-    //traido de consulta stock
-    var tabladecompras = tablacompras;
-    var tabladeventas = tablaventas;
-    var tabladeajustes = tablaajustes;
-    var tabladeproveedores = tablaproveedores;
-    var tabladeproveedoresanuncios = tablaproveedoresanuncios;
-
-    var id;
-
-    if (document.getElementById('id')) {
-        id = document.getElementById('id').value;
-    } else
-        id = 0;
-
-    var filtro = [];
-    if (tipo == "consultafiltros" || tipo == "consultalector"){
-
-        // si el tipo no es rubro va a buscar por filtro
-        var textobuscado = $("#cajabusqueda").val();
-        textobuscado = document.getElementById("cajabusqueda").value;
-        textobuscado = textobuscado.trim();
-
-        if (textobuscado == "") {
+            if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) && (contenido.length < caracteres)) {
+                return true;
+            }
             return false;
         }
-        filtro.push( textobuscado );
-    }
 
-    verpublicidad = "no";
-    
-    var objetoanuncio = JSON.stringify(itemanuncio);
+        function validarinputcantidad(e, contenido, caracteres, id, idrubro, costo, titulo, unidadvta, downup) {
+            var key = window.event ? e.which : e.keyCode;
 
-    var itemanuncio = new Object();
-    itemanuncio.bdd = bdd;
-    itemanuncio.tabla = tabla;
-    itemanuncio.tablarubros = tabladerubros;
-    itemanuncio.tipo = tipo;
-    itemanuncio.id = id;
-    itemanuncio.verpublicidad = verpublicidad;
-    itemanuncio.rutaimagenes = rutaimagenes;
-    itemanuncio.idrubro = seleccionidrubro ;
-    itemanuncio.filtro = filtro;
-    itemanuncio.codigobarra = textobuscado;
-    itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
+            if (e.keyCode == 13 && downup == 1) {
+                $('#precio_' + id).focus();
+            }
 
-    //traido de consulta stock
-    itemanuncio.tablacompras = tabladecompras;
-    itemanuncio.tablaventas = tabladeventas;
-    itemanuncio.tablaajustes = tabladeajustes;
-    itemanuncio.tablaproveedores = tabladeproveedores;
-    itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
-    itemanuncio.rutaimagenes = rutaimagenes;
-    itemanuncio.imagen = "";
-    itemanuncio.codigobarra = "";
-    itemanuncio.titulo = "";
-    itemanuncio.descripcion = "";
-    itemanuncio.precio = "";
-    itemanuncio.costo = "";
-    itemanuncio.esnovedad = "";
-    itemanuncio.esoferta = "";
-    itemanuncio.nopublicar = "";
-    itemanuncio.observaciones = "";
-    itemanuncio.comentarios = "";
+            if (e.keyCode == 107 || e.keyCode == 120) //tecla + o enter
+            {
+                if (downup == 1)
+                    vender(id, idrubro, costo, titulo, unidadvta);
 
-    var objetoanuncio = JSON.stringify(itemanuncio);
+                return false;
+            }
 
-    t.clear().draw(true);
-
-    if(tipo != "consultafiltros")
-        document.getElementById("cajabusqueda").value = "";
-
-    encontro = false;
-    var peco = "";
-
-    $.ajax({
-
-        // url: "consultaanuncios.php",
-        url: "consultastock.php",
-        data: { objetoanuncio: objetoanuncio },
-        type: "post",
-        success: function (data)
-        {
-            if (data != "consultavacia") {
-                dd = JSON.parse(data); //data decodificado
-
-                var porcentajebonus = $("#bonusestablecido").val();
-                var bonus = 0;
-                var fechaventa;
-                var stok = 0;
-                var tituloanterior = "";
-                $.each(dd, function (key, value)
-                {
-                    if(tituloanterior != dd[key].titulo)
-                    {
-                        tituloanterior = dd[key].titulo;
-                        encontro = true;
-
-                        bonus = Math.round(1 * (dd[key].costo * porcentajebonus / 100));
-                        fechaventa = $("#fechaventa").val();
-                        peco = dd[key].prefijocompra;
+            var unicode = e.keyCode ? e.keyCode : e.charCode;
+            if (unicode == 44 || unicode == 8 || unicode == 46 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40) {
+                return true;
+            }
 
 
-                        
+            if (((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) && (contenido.length < caracteres)) {
+                return true;
+            }
+            return false;
 
-                        if (tipo == "consultalector" && peco == 0) //inserta directamente solo a productos por unidades
+        }
+
+        arregloitemsventa = [];
+        totalpedido = 0;
+
+
+
+
+        function insertarEnCarrito(id, idrubro, costo, titulo, precio) {
+            if (!id) {
+                return false;
+            }
+
+            var fechaventa = $("#fechaventa").val();
+            var porcentajebonus = $("#bonusestablecido").val();
+            var bonus = Math.round(1 * (costo * porcentajebonus / 100));
+
+            if (fechaventa != "") {
+                fechaventa = conviertefechaastringdmy(fechaventa);
+                reservaritemventa(id, precio, costo, idrubro, fechaventa, 1, bonus, titulo);
+            } else if (fechaventa == "") {
+                Swal.fire({
+                    position: 'top-end', icon: 'warning', title: 'Complete fecha ', showConfirmButton: false,
+                    timer: 2500
+                })
+            }
+        }
+
+
+        function consultaranunciosvender(tipo) {
+
+            if ($.fn.dataTable.isDataTable('#tablaanunciosvender')) {
+                t = $('#tablaanunciosvender').DataTable();
+            }
+            var seleccionidrubro = document.getElementById("opcioneslista").value;
+
+            var bdd = conexionbdd;
+            var tabla = tablaanuncios;
+            var tabladerubros = tablarubros;
+            // var rutaimagenes = "imagenes/";
+
+            //traido de consulta stock
+            var tabladecompras = tablacompras;
+            var tabladeventas = tablaventas;
+            var tabladeajustes = tablaajustes;
+            var tabladeproveedores = tablaproveedores;
+            var tabladeproveedoresanuncios = tablaproveedoresanuncios;
+
+            var id;
+
+            if (document.getElementById('id')) {
+                id = document.getElementById('id').value;
+            } else
+                id = 0;
+
+            var filtro = [];
+            if (tipo == "consultafiltros" || tipo == "consultalector") {
+
+                // si el tipo no es rubro va a buscar por filtro
+                var textobuscado = $("#cajabusqueda").val();
+                textobuscado = document.getElementById("cajabusqueda").value;
+                textobuscado = textobuscado.trim();
+
+                if (textobuscado == "") {
+                    return false;
+                }
+                filtro.push(textobuscado);
+            }
+
+            var verconimagen = document.getElementById("verconimagen").checked;
+            traerimagen = "";
+            if (verconimagen)
+                traerimagen = 'SI';
+
+            verpublicidad = "no";
+
+            var objetoanuncio = JSON.stringify(itemanuncio);
+
+            var itemanuncio = new Object();
+            itemanuncio.bdd = bdd;
+            itemanuncio.tabla = tabla;
+            itemanuncio.tablarubros = tabladerubros;
+            itemanuncio.tipo = tipo;
+            itemanuncio.id = id;
+            itemanuncio.verpublicidad = verpublicidad;
+            itemanuncio.rutaimagenes = rutaimagenes;
+            itemanuncio.idrubro = seleccionidrubro;
+            itemanuncio.filtro = filtro;
+            itemanuncio.codigobarra = textobuscado;
+            itemanuncio.tablaunidadesgranel = tablaunidadesgranel;
+
+            //traido de consulta stock
+            itemanuncio.tablacompras = tabladecompras;
+            itemanuncio.tablaventas = tabladeventas;
+            itemanuncio.tablaajustes = tabladeajustes;
+            itemanuncio.tablaproveedores = tabladeproveedores;
+            itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
+            itemanuncio.rutaimagenes = rutaimagenes;
+            itemanuncio.imagen = "";
+            itemanuncio.codigobarra = "";
+            itemanuncio.titulo = "";
+            itemanuncio.descripcion = "";
+            itemanuncio.precio = "";
+            itemanuncio.costo = "";
+            itemanuncio.esnovedad = "";
+            itemanuncio.esoferta = "";
+            itemanuncio.nopublicar = "";
+            itemanuncio.observaciones = "";
+            itemanuncio.comentarios = "";
+            itemanuncio.traerimagen = traerimagen;
+
+            var objetoanuncio = JSON.stringify(itemanuncio);
+
+            // console.log(objetoanuncio);
+            t.clear().draw(true);
+
+            if (tipo != "consultafiltros")
+                document.getElementById("cajabusqueda").value = "";
+
+            encontro = false;
+            var peco = "";
+
+            $.ajax({
+
+                // url: "consultaanuncios.php",
+                url: "consultastock.php",
+                data: { objetoanuncio: objetoanuncio },
+                type: "post",
+                success: function (data) {
+                    // console.log(data);
+
+                    if (data != "consultavacia") {
+                        dd = JSON.parse(data); //data decodificado
+
+                        var porcentajebonus = $("#bonusestablecido").val();
+                        var bonus = 0;
+                        var fechaventa;
+                        var stok = 0;
+                        var tituloanterior = "";
+                        $.each(dd, function (key, value) {
+                            if (tituloanterior != dd[key].titulo) {
+                                tituloanterior = dd[key].titulo;
+                                encontro = true;
+
+                                bonus = Math.round(1 * (dd[key].costo * porcentajebonus / 100));
+                                fechaventa = $("#fechaventa").val();
+                                peco = dd[key].prefijocompra;
+
+                                if (tipo == "consultalector" && peco == 0) //inserta directamente solo a productos por unidades
+                                {
+                                    if (fechaventa != "") {
+                                        fechaventa = conviertefechaastringdmy(fechaventa);
+                                        reservaritemventa(dd[key].id, dd[key].precio, dd[key].costo, dd[key].idrubro, fechaventa, 1, bonus, dd[key].titulo, dd[key].nombreprefijoventa);
+                                    } else {
+                                        Swal.fire({
+                                            position: 'top-end', icon: 'warning', title: 'Complete fecha ', showConfirmButton: false,
+                                            timer: 2500
+                                        })
+                                    }
+                                } else {
+                                    stok = dd[key].stock / dd[key].relacioncompraventa;
+
+
+                                    colorfondo = 'white';
+                                    colorsegun = 'black';
+                                    colorfondotit = 'white';
+
+                                    if (stok > 0) {
+                                        colorfondo = 'cornflowerblue';
+                                        colorfondotit = '#bbdefb';
+                                        colorsegun = 'white';
+                                    }
+                                    else if (stok < 0) {
+                                        colorfondo = 'red';
+                                        colorfondotit = '#f8bbd0';
+                                        colorsegun = 'white';
+                                    }
+
+                                    var muestraimagen = "";
+                                    if (dd[key].imagen != "") {
+                                        if (verconimagen)
+                                            muestraimagen = "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>";
+                                    }
+
+                                    titu = "<p style='font-weight: bold;font-size: 0.85em;margin: 0em;padding: 0em;color:black;background-color:" + colorfondotit + "'>" + dd[key].titulo + "</p>";
+
+                                    t.row.add([
+                                        "<a style='text-align: center;' onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
+                                        "<p style='text-align: center;color:" + colorsegun + ";background-color:" + colorfondo + "' type='text' class='blockstock' readonly >" + stok + "</p>",
+                                        titu,
+                                        "<input style='text-align: center;font-size: 0.85em;color:black;background-color:" + colorfondotit + "' onKeyDown ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",0) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",1) '  id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio blockmodiprecio' value=" + "'" + dd[key].precio + "'></input>",
+                                        "<a style='text-align: center;' onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
+                                        "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 tooltipped" + "\"><i class=" + "\"small material-icons\"" + "\">shopping_cart</i>",
+                                        "<input style='text-align: center;font-size: 1em;' onKeyDown ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",0) ' onKeyUp ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",1) '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type = 'text' class='validate masmenoscolumna saltacantidad' ></input>",
+                                        dd[key].precio,
+                                        muestraimagen,
+
+                                        "<label style='text-align: center;' >" + dd[key].id + "</label>",
+                                        dd[key].codigobarra,
+                                        "<label style='text-align: left;font-size: 0.65em'>" + dd[key].descripcion + "</label>",
+                                        "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>"
+
+                                    ]).draw(true);
+
+
+                                }
+
+                            }
+                        });
+
+                        verificabloqueo();
+                        t.columns.adjust().draw();
+
+                        if (tipo != "consultalector" || peco == 0) //inserta directamente solo a productos por unidades
                         {
-                            if (fechaventa != "" )
-                            {
-                                fechaventa = conviertefechaastringdmy(fechaventa);
-                                reservaritemventa(dd[key].id, dd[key].precio, dd[key].costo, dd[key].idrubro, fechaventa, 1, bonus,  dd[key].titulo, dd[key].nombreprefijoventa );
-                            }else{
-                                Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
-                                    timer: 2500})
-                            }
-                        }else
-                        {
-                            stok = dd[key].stock / dd[key].relacioncompraventa;
+                            t.columns.adjust().draw();
 
+                            mostrarResultadoBusqueda();
+                            reconocerTooltipped();
+                            eligetipopago();
+                            identificasaltainput('saltacantidad');
+                            identificasaltainput('saltaprecio');
 
-                            colorfondo = 'white';
-                            colorsegun = 'black';
-                            colorfondotit = 'white';
-
-                            if(stok > 0){
-                                colorfondo = 'cornflowerblue';
-                                colorfondotit = '#bbdefb';
-                                colorsegun = 'white';
-                            }
-                            else if(stok < 0)
-                            {
-                                colorfondo = 'red';
-                                colorfondotit = '#f8bbd0';
-                                colorsegun = 'white';
-                            }
-
-                            var muestraimagen="";
-                            if(dd[key].imagen != "")
-                                muestraimagen = "<img class='materialboxed center-align' width='30px' src=" + "'" + rutaimagenes + dd[key].imagen + "'></img>";
-
-                            titu = "<p style='font-size: 0.75em;margin: 0em;padding: 0em;color:black;background-color:"+ colorfondotit + "'>"+ dd[key].titulo +"</p>";
-
-                            t.row.add([
-                            "<a style='text-align: center;' onclick='menosuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_neg_1</i>",
-                            "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ stok + "</p>",
-                            titu,
-                            "<input style='text-align: center;font-size: 0.85em;color:black;background-color:" + colorfondotit + "' onKeyDown ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",0) ' onKeyUp ='return validarinputcantidadprecio(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",1) '  id ='precio_" + dd[key].id + "' name ='precio_" + dd[key].id + "' type ='text' class='validate escampoprecio saltaprecio blockmodiprecio' value=" + "'" + dd[key].precio + "'></input>",
-                            "<a style='text-align: center;' onclick='masuno(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-small waves-effect   brown darken-3" + "\"><i class=" + "\"material-icons md-18\"" + ">exposure_plus_1</i>",
-                            "<a data-position='right'  data-tooltip='Agregar' onclick='vender(\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 tooltipped" + "\"><i class=" + "\"small material-icons\"" + "\">shopping_cart</i>",
-                            "<input style='text-align: center;font-size: 1em;' onKeyDown ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",0) ' onKeyUp ='return validarinputcantidad(event, this.value, 8,\"" + dd[key].id + "\",\"" + dd[key].idrubro + "\",\"" + dd[key].costo + "\",\"" + dd[key].titulo + "\",\"" + dd[key].nombreprefijoventa + "\",1) '  id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type = 'text' class='validate masmenoscolumna saltacantidad' ></input>",
-                            dd[key].precio,
-                            muestraimagen,
-
-                            "<label style='text-align: center;' >" + dd[key].id + "</label>" ,
-                            dd[key].codigobarra,
-                            "<label style='text-align: left;font-size: 0.7em'>" + dd[key].descripcion + "</label>",
-                            "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>"
-                            
-                            ]).draw(true);
-
+                            // hacefoco();
+                            verListaReg(1);
+                            imageneszoom();
 
                         }
 
+
+                    } else {
+                        verListaReg(0);
+
+                        mostrarResultadoBusqueda();
                     }
-                });
-
-                verificabloqueo();
-                t.columns.adjust().draw();
-
-                if (tipo != "consultalector" || peco == 0) //inserta directamente solo a productos por unidades
-                {
-                    t.columns.adjust().draw();
-
-                    mostrarResultadoBusqueda();
-                    reconocerTooltipped();
-                    eligetipopago();
-                    identificasaltainput('saltacantidad');
-                    identificasaltainput('saltaprecio');
-
-                    hacefoco();
-                    verListaReg(1);
-                    imageneszoom();
-
+                },
+                error: function (e) {
+                    console.log("Error en la consulta." + e.value);
                 }
+            });
+        }
 
 
-            }else
-            {
-                verListaReg(0);
 
-                mostrarResultadoBusqueda();
+        function mostrarResultadoBusqueda() {
+            if (encontro == true)
+                document.getElementById("listaproductos").style.display = "block";
+            else {
+                Swal.fire({ position: 'top-end', icon: 'warning', title: 'No hay coincidencias ', showConfirmButton: false, timer: 1500 })
+                document.getElementById("listaproductos").style.display = "none";
             }
-        },
-        error: function (e) {
-            console.log("Error en la consulta." + e.value);
-        }
-    });
-}
-
-
-
-function mostrarResultadoBusqueda()
-{
-    if(encontro == true)
-        document.getElementById("listaproductos").style.display = "block";
-    else
-    {
-        Swal.fire({position: 'top-end',icon: 'warning',title: 'No hay coincidencias ',showConfirmButton: false,timer: 1500})
-        document.getElementById("listaproductos").style.display = "none";
-    }
-}
-
-function hacefoco()
-{
-    var posicion=0;
-
-    var alturamenu = $('#my-nav').outerHeight(true);
-
-    if(llama == "vender")
-    {
-        $('.saltacantidad')[0].focus();
-
-        posicion = $("#tablaanunciosvender").offset().top - alturamenu;
-    }else
-    if(llama=="comprar")
-    {
-
-        $('.saltacantidad')[0].focus();
-
-        posicion = $("#tablaanunciosmovimientos").offset().top - alturamenu;
-    }else
-    if(llama=="anuncios")
-    {
-        posicion = $("#tablaanuncios_filter").offset().top - alturamenu;
-    }
-
-    $("HTML, BODY").animate({ scrollTop: posicion}, 600);
-
-}
-
-
-
-function identificasaltainput(clase)
-{
-    var todos = $('.' + clase).length;
-    var indice=0;
-
-    $('.' + clase).on('keydown',function(e)
-    {
-        if( e.keyCode === 40)
-        {
-            e.preventDefault();
-            indice = $('.' + clase).index(this)+1;
-            if(indice == todos )
-                indice = 0;
-            $('.' + clase)[indice].focus();
         }
 
-        if ( e.keyCode === 38 )
-        {
-            e.preventDefault();
-            indice = $('.' + clase).index(this) - 1;
-
-            if (indice == -1)
-                indice = todos-1;
-
-            $('.' + clase)[indice].focus();
-        }
-    });
-
-
-}
-
-//es el metodo que queda ligado al boton en la linea del producto
-function vender(id, idrubro, costo, titulo, unidadvta){
-    if(!id){
-        return false;
-    }
-
-    var can = document.getElementById('cantidad_' + id);
-    var cantisinmas = can.value.replace('+','');
-    can.value = cantisinmas;
-
-    var pre = document.getElementById('precio_' + id);
-    var fechaventa = $("#fechaventa").val();
-    var porcentajebonus = $("#bonusestablecido").val();
-    var bonus = Math.round(can.value * (costo * porcentajebonus / 100));
-
-    if (parseInt(can.value, 10) > 0 && fechaventa != "" )
-    {
-        fechaventa = conviertefechaastringdmy(fechaventa);
-        reservaritemventa(id, pre.value, costo, idrubro, fechaventa, can.value, bonus, titulo, unidadvta);
-        can.value = "";
-
-    }else if (fechaventa == "" )
-    {
-        Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete fecha ',showConfirmButton: false,
-            timer: 2500})
-    }else if (parseInt(can.value, 10) > 0 )
-    {
-        Swal.fire({position: 'top-end',icon: 'warning',title: 'Complete cantidad',showConfirmButton: false,
-            timer: 2500})
-    }
-
-}
-
-function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechaventa_riv, cantidad_riv, bonus_riv, titulo_riv, unidadvta) {
-
-    itemsEnlaventa +=1;
-
-
-    var subtotal = precio_riv * cantidad_riv;
-    subtotal = Math.round(subtotal * 100) / 100;
-    // subtotal=Math.round10(subtotal, -1);
-
-
-    var objeto = new Object();
-
-    objeto.id = id_riv;
-    objeto.precio = precio_riv;
-    objeto.costo = costo_riv;
-    objeto.idrubro = idrubro_riv;
-    objeto.fechaventa = fechaventa_riv;
-    objeto.cantidad = cantidad_riv;
-    objeto.unidadvta = unidadvta;
-    objeto.bonus = bonus_riv;
-    objeto.titulo = titulo_riv;
-    objeto.subtotal = subtotal;
-    objeto.itemsEnlaventa = itemsEnlaventa;
-    //agrega el item en el objeto
-    arregloitemsventa.push(objeto);
-
-    //agrega visualmente el item en la pagina
-    agregaritemventa(id_riv, precio_riv, cantidad_riv, titulo_riv, subtotal, unidadvta);
-}
-
-
-function agregaritemventa(id, precio, cantidad,titulo,subtotal,unidadvta) {
-
-    var t;
-
-    if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
-        t = $('#tablaitemsventa').DataTable();
-    }
-
-    var pre= precio;
-
-    posicion = pre.toString().indexOf(".");
-    if(posicion >=0)
-        pre = pre.slice(0, posicion) + "," + pre.slice(posicion + 1);
-
-    t.row.add([
-        id,
-        titulo,
-        cantidad,
-        unidadvta,
-        pre,
-        subtotal,
-        "<a class='borra' onclick='borrarfila(\"" + itemsEnlaventa + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
-    ]);
-    t.columns.adjust().draw();
-
-    document.getElementById("pedido").style.display  = "block";
-
-
-    calculatotal();
-    focoencajabusqueda("");
-
-    M.toast(
-    {
-        html: 'Ok Agregado!',
-        displayLength: '1000'
-    });
-}
-
-
-function calculatotal()
-{
-    totalpedido = 0;
-    subtotal = 0;
-    for (var a = 0; a < arregloitemsventa.length; a++)
-    {
-        subtotal = arregloitemsventa[a].subtotal;
-        totalpedido = totalpedido + subtotal;
-    }
-    totalpedido = Math.round(totalpedido * 100) / 100;
-    document.getElementById("totalpedido").value = totalpedido;
-
-}
-
-function borrarfila(iditemsEnlaventa)
-{
-    //borra la fila visualmente
-    $("#tablaitemsventa").on('click', '.borra', function () {
-        $(this).parent().parent().css('display', 'none');
-    });
-
-    calculatotal();
-
-    var arregloAux = [];
-    var subtotal = 0;
-
-
-    //borra la fila del arreglo
-    for(var a = 0 ; a < arregloitemsventa.length ; a++)
-    {
-        if (iditemsEnlaventa == arregloitemsventa[a].itemsEnlaventa)
-        {
-            subtotal = arregloitemsventa[a].subtotal;
-            totalpedido = parseFloat(totalpedido) - subtotal;
-            // arregloitemsventa.splice(a, 1);
-        }else{
-            var o = new Object();
-
-            o.id = arregloitemsventa[a].id;
-            o.precio = arregloitemsventa[a].precio;
-            o.costo =  arregloitemsventa[a].costo;
-            o.idrubro =  arregloitemsventa[a].idrubro;
-            o.fechaventa =  arregloitemsventa[a].fechaventa;
-            o.cantidad =  arregloitemsventa[a].cantidad;
-            o.bonus =  arregloitemsventa[a].bonus;
-            o.titulo =  arregloitemsventa[a].titulo;
-            o.subtotal =  arregloitemsventa[a].subtotal;
-            o.itemsEnlaventa = arregloitemsventa[a].itemsEnlaventa;
-            //agrega el item en el objeto
-            arregloAux.push(o);
-        }
-    }
-
-    //---------------------- Re armo el arreglo de items de la venta --------------------------
-
-    arregloitemsventa = arregloAux;
-
-    //-----------------------------------------------------------------------------------------
-    totalpedido = Math.round(totalpedido * 100) / 100;
-
-    document.getElementById("totalpedido").value = totalpedido;
-
-
-    if (totalpedido == 0)
-    {
-        if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
-            t = $('#tablaitemsventa').DataTable();
-        }else
-        {
-            t = $('#tablaitemsventa').DataTable();
-        }
-
-        t.clear().draw(false);
-
-        limpiacamposventa();
-    }
-}
-
-
-
-
-
-
-// -------------------------------- Se procesa desde un boton en la pagina ---------------------
-function procesarventa(){
-    var nombrecliente = $("#clienteelegido").val();
-    var idclienteelegido = document.getElementById("opcioneslistaclientes").value;
-    var tipopagonombrecorto = document.getElementById("opcioneslistatiposdepago").value;
-
-     if (nombrecliente == "" || nombrecliente == "Selecciona un cliente")
-    {
-        Swal.fire({position: 'top-end',icon: 'warning',title: 'Indique el cliente',showConfirmButton: false,
-            timer: 1500})
-        return false;
-
-    }else  if (tipopagonombrecorto == ""){
-
-        Swal.fire({position: 'top-end',icon: 'warning',title: 'Indique el tipo de pago',showConfirmButton: false,
-            timer: 1500})
-        return false;
-    }
-   if(arregloitemsventa.length <= 0)
-   {
-        Swal.fire({position: 'top-end',icon: 'warning',title: 'Busque artículos y agregue al pedido',showConfirmButton: false,
-            timer: 1500})
-        return false;
-
-   }
-    var ar = arregloitemsventa;
-    //recorre el arreglo de items y los guarda
-    for (var a = 0; a < ar.length; a++)
-    {
-        guardarventa(ar[a].id, ar[a].precio, ar[a].costo, ar[a].idrubro, ar[a].fechaventa, ar[a].cantidad,idclienteelegido, ar[a].bonus, tipopagonombrecorto);
-    }
-
-    var fechaventa = $("#fechaventa").val();
-    fechaventa = conviertefechaastringdmy(fechaventa);
-
-    // setTimeout(function(){ consultarventasdeldia(); }, 2000);
-
-    // arregloitemsventa = [];
-    ar = [];
-    // totalpedido = 0;
-
-    var t = $("#tablaitemsventa").DataTable();
-
-    t.clear().draw(true);
-    limpiacamposventa();
-
-}
-
-function guardarcaja(tipo,entsal, monto, descripcion)
-{
-    var fechaventa = $("#fechaventa").val();
-    fechaventa = conviertefechaastringdmy(fechaventa);
-
-    var bdd = conexionbdd;
-    var itemcaja = new Object();
-    itemcaja.bdd = bdd;
-    itemcaja.tabla = tablacajas;
-    itemcaja.tipo = tipo;
-    itemcaja.tipomovimiento = entsal;
-    itemcaja.id = idencontrado;//es el id del usuario logueado
-    itemcaja.monto = monto;
-    itemcaja.descripcion = descripcion;
-    itemcaja.fechacaja = fechaventa;
-    itemcaja.jerarquia = jerarquia;
-    itemcaja.email = emailingreso;
-    itemcaja.hora = damelahora();
-    var caja = JSON.stringify(itemcaja);
-
-    $.ajax({
-        url: "consultacajas.php?" + versionts,
-        data: { caja: caja },
-        type: "post",
-        success: function (data) {
-          
-            if (data != "[]") {
-                M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
-
-            } else {
-                M.toast({ html: 'Error al crear el registro' })
-            }
-            consultarventasdeldia();
-        },
-        error: function (e) {
-            M.toast({ html: 'Error al intentar guardar.' });
-        }
-    });
-}
-function consultarcajadeldia(e) {
-
-     if ($.fn.dataTable.isDataTable('#tablaresumen')) {
-        tresumen = $('#tablaresumen').DataTable();
-    }else
-        tresumen = $('#tablaresumen').DataTable();
-
-    if ($.fn.dataTable.isDataTable('#tablacajas')) {
-        tabcajas = $('#tablacajas').DataTable();
-    }else
-        tabcajas = $('#tablacajas').DataTable();
-
-    var fechaventa = $("#fechaventa").val();
-    fechaventa = conviertefechaastringdmy(fechaventa);
-
-    var bdd = conexionbdd;
-    var tipo = "consulta";
-    var itemventa = new Object();
-    itemventa.bdd = bdd;
-    itemventa.tabla = tablacajas;
-    itemventa.tipo = tipo;
-    itemventa.jerarquia = jerarquia;
-    itemventa.fechacaja = fechaventa;
-    itemventa.email = emailingreso;
-
-    itemventa.id = 0;
-    itemventa.tipomovimiento = "";
-    itemventa.monto = "";
-    itemventa.descripcion = "";
-    itemventa.hora = "";
-
-    var caja = JSON.stringify(itemventa);
-    tabcajas.clear().draw(true);
-    var cajita = 0;
-
-    $.ajax({
-
-        url: "consultacajas.php",
-        data: { caja: caja},
-
-        type: "post",
-
-        success: function (data) {
-            
-            if (data != "consultavacia") {
-
-                dd = JSON.parse(data); //data decodificado
-                
-                $.each(dd, function (key, value) {
-
-                    total = dd[key].monto;
-                    total = Math.round(total * 100) / 100;
-
-                    if(dd[key].tipomovimiento == "EN")
-                    {
-                        cajita = cajita + total;
-                    }else
-                    if(dd[key].tipomovimiento == "SA")
-                    {
-                        cajita = cajita - total;
-                    }
-                    
-                    cajita = Math.round(cajita * 100) / 100;
-
-                    feccaja = vista_ymdAdmy(dd[key].fecha)
-                   
-
-                    if(dd[key].tipomovimiento == "EN")
-                    {
-                        timo = "ENTRADA";
-                        colorfondo = 'cornflowerblue';
-                        colorsegun = 'white';
-                    }
-                    else if(dd[key].tipomovimiento == "SA")
-                    {
-                        timo = "SALIDA";
-                        colorfondo = 'red';
-                        colorsegun = 'white';
-                    }
-
-                    tabcajas.row.add([
-                        "<label style='text-align: center;'>" + dd[key].id + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].idusuario + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
-                        feccaja,
-                        dd[key].hora,
-                        "<p style='text-align: center;color:"+ colorsegun + ";background-color:"+ colorfondo + "' type='text' class='blockstock' readonly >"+ timo + "</p>",
-                        "$ " + dd[key].monto.toString().replace(".",","),
-                        dd[key].descripcion,
-                        "<a onclick='quitarmovimientocaja(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
-
-                    ]).draw(false);
-
-                    tabcajas.columns.adjust().draw(false);
-
-                    tresumen.row.add( [timo,"<p style='text-align: right;'>" + dd[key].monto + "</p>" ,dd[key].descripcion ] ).draw(false);
-                });
-
-
-                totalventasdia  = Math.round(totalventasdia  * 100) / 100;
-                cajita = Math.round(cajita * 100) / 100;
-                totalcajaconventa = totalventasdia  + cajita;
-                colocatotalcaja();
-                tresumen.row.add(["<h5 style='color: blue;'><small>TOTAL DE CAJA</small></h5>","<h5 style='color: blue;text-align: right;'><small>" + totalcajaconventa + "</small></h5>",""]).draw(false);
-
-                verificabloqueo();
-                tabcajas.columns.adjust().draw(false);
-            }
-        },
-        error: function (e) {
-            console.log("Error en la consulta." + e.value);
-        }
-    });
-}
-
-function colocatotalcaja(){
-    document.getElementById("totalcaja").innerHTML = "$ "  + totalcajaconventa.toString();
-}
-
-function quitarmovimientocaja(idcaja){
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-        title: 'Desea eliminar ?',
-        text: "Esta acción no se podrá revertir!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, eliminar!',
-        cancelButtonText: 'No, cancelar!',
-        reverseButtons: true
-    }).then((result) => {
-        if (result.value) {
-            eliminacaja(idcaja);
-        } else if (
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-                'Perfecto',
-                'Su venta permanece guardada :)'
-            )
-        }
-    })
-}
-
-function eliminacaja(idcaja)
-{
-
-    //elimino de la base de datos
-    var bdd = conexionbdd;
-    var tipo = "baja";
-
-    var itemcaja = new Object();
-    itemcaja.bdd = bdd;
-    itemcaja.tabla = tablacajas;
-    itemcaja.tipo = tipo;
-    itemcaja.id = idcaja;
-
-    var caja = JSON.stringify(itemcaja);
-    
-    $.ajax({
-        url: "consultacajas.php",
-        data: { caja: caja},
-        type: "post",
-        success: function (data) {
-            if (data != "consultavacia") {
-                
-                consultarventasdeldia();
-                
-            } else {
-                M.toast({ html: 'Error al intentar eliminar.' })
-            }
-        },
-        error: function (e) {
-            alert("Error en el alta.");
-        }
-    });
-
-}
-
-function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclienteelegido, bonus,tipopagonombrecorto) {
-
-    var bdd = conexionbdd;
-    var tabla = tablaventas;
-    var tipo = "alta";
-
-    var itemventa = new Object();
-    itemventa.bdd = bdd;
-    itemventa.tabla = tabla;
-    itemventa.tipo = tipo;
-
-    itemventa.id = id;
-    itemventa.precio = precio;
-    itemventa.costo = costo;
-    itemventa.idrubro = idrubro;
-    itemventa.cantidad = cantidad;
-    itemventa.idclienteelegido = idclienteelegido;
-    itemventa.bonus = bonus;
-    itemventa.tipopago = tipopagonombrecorto;
-    itemventa.fechaventa = fechaventa;
-    itemventa.email = emailingreso;
-    itemventa.hora = damelahora();
-
-    var vendido = JSON.stringify(itemventa);
-    $.ajax({
-        url: "consultaventas.php",
-        data: { vendido: vendido },
-        type: "post",
-        success: function (data) {
-
-
-            if (data != "[]") {
-
-                var tipobonus = "bonussumado";
-                guardarbonusencliente(idclienteelegido, bonus, tipobonus);
-                limpiacamposventa();
-                consultarventasdeldia();
-                M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
-                
-
-            } else {
-                M.toast({ html: 'Error al crear el registro' })
-            }
-
-        },
-        error: function (e) {
-            M.toast({ html: 'Error al intentar guardar.' });
-        }
-
-
-    });
-}
-
-function limpiacamposventa()
-{
-    itemsEnlaventa = 0;
-    totalpedido = 0;
-    document.getElementById("totalpedido").value = totalpedido;
-    document.getElementById("pedido").style.display = "none";
-    arregloitemsventa = [];
-
-}
-function guardarbonusencliente(id, bonus, tipo)
-{
-    var bdd = conexionbdd;
-    var tabla = tablaclientes;
-
-    var datosclientes = new Object();
-    datosclientes.bdd = bdd;
-    datosclientes.tabla = tabla;
-    datosclientes.tipo = tipo;
-    datosclientes.id = id;
-    datosclientes.nombrecliente = "";
-    datosclientes.direccioncliente = "";
-    datosclientes.telefonocliente = "";
-    datosclientes.emailcliente = "";
-    datosclientes.bonus = bonus;
-
-    var cliente = JSON.stringify(datosclientes);
-
-    $.ajax({
-        url: "consultaclientes.php",
-        data: { cliente: cliente },
-        type: "post",
-
-        success: function (data) {
-            if (data != "consultavacia") {
-                // M.toast({ html: 'Bonus de cliente actualizado!' })
-            } else {
-                M.toast({ html: 'Error al crear el registro bonus en el cliente' });
-            }
-        },
-        error: function (e) {
-            M.toast({ html: 'Error al intentar guardar el bonus de cliente.' });
-        }
-    });
-
-}
-
-function consultarventasdeldia(e) {
-
-    
-    if ($.fn.dataTable.isDataTable('#tablaresumen')) {
-        tresumen = $('#tablaresumen').DataTable();
-    }else
-        tresumen = $('#tablaresumen').DataTable();
-
-    if ($.fn.dataTable.isDataTable('#tablavender')) {
-        tventas = $('#tablavender').DataTable();
-    }else
-        tventas = $('#tablavender').DataTable();
-
-    var fechaventa = $("#fechaventa").val();
-    var fechaventaresumen = $("#fechaventa").val();
-    fechaventa = conviertefechaastringdmy(fechaventa);
-
-    var bdd = conexionbdd;
-    var tabla = tablaventas;
-    var tabladeanuncios = tablaanuncios;
-    var tabladeclientes = tablaclientes;
-    var tabladerubro = tablarubros;
-
-
-    var tipo = "consulta";
-
-    var itemventa = new Object();
-    itemventa.bdd = bdd;
-    itemventa.tabla = tabla;
-    itemventa.tablaanuncios = tabladeanuncios;
-    itemventa.tablaclientes = tabladeclientes;
-    itemventa.tablarubros = tabladerubro;
-    itemventa.tipo = tipo;
-    itemventa.tablaunidadesgranel = tablaunidadesgranel;
-    itemventa.email = emailingreso;
-    itemventa.jerarquia = jerarquia;
-    itemventa.fechaventa = fechaventa;
-
-    var vendido = JSON.stringify(itemventa);
-
-    tventas.clear().draw(true);
-    tresumen.clear().draw(true);
-
-    totalventasdia  = 0;
-
-    totalefectivo   = 0;
-    totalmp         = 0;
-    totaltdebito    = 0;
-    totaltcredito   = 0;
-    totalcc         = 0;
-    totalbonus      = 0;
-
-    emailventadia = "";
-
-    var tptemp = "";
-
-console.log("Va consulta de ventas del dia");
-    $.ajax({
-
-        url: "consultaventas.php",
-        data: { vendido: vendido},
-
-        type: "post",
-
-        success: function (data) {
-            // console.log(data);
-            if (data != "consultavacia") {
-
-                dd = JSON.parse(data); //data decodificado
-
-                $.each(dd, function (key, value) {
-
-                    total = dd[key].cantidad * dd[key].precio;
-                    total = Math.round(total * 100) / 100;
-                    totalventasdia = totalventasdia + total;
-                    totalventasdia = Math.round(totalventasdia * 100) / 100;
-
-                    tptemp = dd[key].tipopago;
-                    tptemp = tptemp.trim();
-                    if(tptemp == "EF") {totalefectivo = totalefectivo + total;}
-                    if(tptemp == "CC") {totalcc = totalcc + total;}
-                    if(tptemp == "MP") {totalmp = totalmp + total;}
-                    if(tptemp == "TD") {totaltdebito = totaltdebito + total;}
-                    if(tptemp == "TC") {totaltcredito = totaltcredito + total;}
-                    if (tptemp == "BO") {totalbonus = totalbonus + total;}
-
-                    emailventadia = dd[key].email;
-
-                    titu = "<p style='font-size: 0.80em;margin: 0em;padding: 0em;'>"+ dd[key].titulo +"</p>";
-
-                    tventas.row.add([
-
-                        "<label style='text-align: center;'>" + dd[key].id + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].idproducto + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].codigobarra + "</label>" ,
-                        titu,
-                        dd[key].cantidad,
-                        "<label style='text-align: center;font-size: 0.70em;margin: 0em;padding: 0em;'>" + dd[key].nombreprefijoventa + "</label>" ,
-                        "$ " + dd[key].precio.toString().replace(".",","),
-                        "$ " + total.toString().replace(".", ","),
-                        dd[key].tipopago,
-                        dd[key].hora,
-                        "<label style='text-align: center;'>" + dd[key].idcliente + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
-                        // "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
-                        "<label style='text-align: center;'>" + dd[key].bonus + "</label>" ,
-                        "<a onclick='quitar(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
-
-                    ]).draw(false);
-                });
-                colocatotalventas(totalventasdia);
-                verificabloqueo();
-                tventas.columns.adjust().draw(false);
-
-                tresumen.row.add(["<h5 style='color: blue;'><small>CAJA DE</small></h5>", "", emailventadia]).draw(false);
-
-                tresumen.row.add(["Efectivo","<p style='text-align: right;'>" + totalefectivo           + "</p>","Venta"]).draw(false);
-                tresumen.row.add(["Mercado Pago","<p style='text-align: right;'>" + totalmp             + "</p>","Venta"]).draw(false);
-                tresumen.row.add(["Cuenta corriente","<p style='text-align: right;'>" + totalcc         + "</p>","Venta"]).draw(false);
-                tresumen.row.add(["Tarjeta DEBITO","<p style='text-align: right;'>" + totaltdebito      + "</p>","Venta"]).draw(false);
-                tresumen.row.add(["Tarjeta CREDITO","<p style='text-align: right;'>" + totaltcredito    + "</p>","Venta"]).draw(false);
-                tresumen.row.add(["Pago con bonus","<p style='text-align: right;'>" + totalbonus        + "</p>","puntos de bonificación"]).draw(false);
-                tresumen.row.add(["<h5 style='color: blue;'><small>TOTAL VENTAS</small></h5>", "<h5 style='color: blue;text-align: right;'><small>" + totalventasdia + "</small></h5>", "<h5 style='color: blue;'><small>" + "DIA " + fechaventaresumen + "</small></h5>"]).draw(false);
-                
-                consultarcajadeldia();
-            }
-        },
-        error: function (e) {
-            console.log("Error en la consulta." + e.value);
-        }
-    });
-}
-function colocatotalventas(tvd){
-    
-    document.getElementById("totalventas").innerHTML = "$ "  + tvd.toString();
-
-}
-function quitar(idventa,idcliente,bonusventa){
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
-        title: 'Desea eliminar ?',
-        text: "Esta acción no se podrá revertir!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, eliminar!',
-        cancelButtonText: 'No, cancelar!',
-        reverseButtons: true
-    }).then((result) => {
-        if (result.value) {
-            eliminaventa(idventa, idcliente, bonusventa);
-        } else if (
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-                'Perfecto',
-                'Su venta permanece guardada :)'
-            )
-        }
-    })
-}
-
-function eliminaventa(idventa, idcliente, bonusventa)
-{
-
-    //elimino de la base de datos
-    var bdd = conexionbdd;
-    var tabla = tablaventas;
-    var tipo = "baja";
-    var id = idventa;
-
-    var itemventa = new Object();
-    itemventa.bdd = bdd;
-    itemventa.tabla = tabla;
-    itemventa.tipo = tipo;
-    itemventa.id = id;
-
-    var vendido = JSON.stringify(itemventa);
-
-    $.ajax({
-        url: "consultaventas.php",
-        data: { vendido: vendido},
-        type: "post",
-        success: function (data) {
-            if (data != "consultavacia") {
-                var tipobonus = "bonusrestado";
-                guardarbonusencliente(idcliente, bonusventa, tipobonus);
-                consultarventasdeldia();
-                
-            } else {
-                M.toast({ html: 'Error al intentar eliminar.' })
-            }
-        },
-        error: function (e) {
-            alert("Error en el alta.");
-        }
-    });
-
-}
-
-function masuno(id){
-    var etiqueta = document.getElementById('cantidad_' + id);
-    var can = parseInt(etiqueta.value);
-
-    if (isNaN(can))
-        can = 0;
-
-    can += 1;
-    etiqueta.value = can;
-}
-
-function menosuno(id){
-    var etiqueta = document.getElementById('cantidad_' + id);
-    var can = parseInt(etiqueta.value);
-
-    if (isNaN(can))
-        can = 0;
-
-    can -= 1;
-
-    if (can < 0)
-        can = 0;
-
-    etiqueta.value = can;
-
-}
-
-function configuraciontablaanunciosvender() {
-
-    $('#tablaanunciosvender').DataTable( {
-        responsive: true,
-        columnDefs: [
-        { responsivePriority: 1, targets: 0 },
-        { responsivePriority: 2, targets: 1 },
-        { responsivePriority: 3, targets: 2 },
-        { responsivePriority: 4, targets: 3 },
-        { responsivePriority: 5, targets: 4 },
-        { responsivePriority: 6, targets: 5 }
-        ],
-        languaje:{
-
-            "processing": "Procesando...",
-            "search": "Sub búsquedas:",
-            "lengthMenu": "Registros x página",
-            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros para ver",
-            "zeroRecords": "No hay registros para ver",
-            "infoEmpty": "No hay registros  para ver",
-            "paginate": {
-                "first": "Primera",
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "last": "Ultima"
-            },
-            "aria": {
-                "sortAscending": "Ordenar columna ascendente",
-                "sortDescending": "Ordenar columna descendente"
-            },
-        },
-        order: [[0, "desc"]],
-        dom: '<"top"fl><"top"p>rt<"bottom"p><"clear">'
-
-    } );
-
-    // $('#tablaanunciosvender').DataTable({
-    //     "responsive": true,
-    //     "columnDefs": [
-    //         { responsivePriority: 1, targets: 4 },
-    //         { responsivePriority: 2, targets: -1 }
-    //     ],
-    //     "pageLength": -1,
-    //     "language": {
-
-    //         "processing": "Procesando...",
-    //         "search": "Sub búsquedas:",
-    //         "lengthMenu": "Registros x página",
-    //         "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-    //         "emptyTable": "No hay registros para ver",
-    //         "zeroRecords": "No hay registros para ver",
-    //         "infoEmpty": "No hay registros  para ver",
-    //         "paginate": {
-    //             "first": "Primera",
-    //             "previous": "Anterior",
-    //             "next": "Siguiente",
-    //             "last": "Ultima"
-    //         },
-    //         "aria": {
-    //             "sortAscending": "Ordenar columna ascendente",
-    //             "sortDescending": "Ordenar columna descendente"
-    //         },
-    //     },
         
-    //     "order": [[0, "desc"]],
-    //     "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
-    // });
-}
 
 
 
+        
 
-function configuraciontablaPedido() {
-    $('#tablaitemsventa').DataTable({
-        dom: '<"top"CRTl><"clear">rt<"bottom"ip><"clear">',
-       "paging":   false,
-        "ordering": false,
-        "info":     false
-    });
-}
-
-function configuraciontablavender() {
-    $('#tablavender').DataTable({
-        responsive: true,
-        columnDefs: [
-            { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 2, targets: 1 },
-            { responsivePriority: 3, targets: 2 },
-            { responsivePriority: 4, targets: 3 },
-            { responsivePriority: 5, targets: 4 },
-            { responsivePriority: 6, targets: 5 }
-        ],
-        "pageLength": -1,
-        "language": {
-
-            "processing": "Procesando...",
-            "search": "Sub búsqueda",
-            "lengthMenu": "",
-            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros guardados",
-            "zeroRecords": "No hay registros guardados",
-            "infoEmpty": "No hay anuncios para mostrar",
-            "paginate": {
-                "first": "Primera",
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "last": "Ultima"
-            },
-            "aria": {
-                "sortAscending": "Ordenar columna ascendente",
-                "sortDescending": "Ordenar columna descendente"
-            },
-            "pageLength": -1
-        },
-        "lengthMenu": [
-            [10, 25, 50, -1],
-            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
-        ],
-        "order": [[0, "desc"]],
-        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
-
-    });
-}
-
-function configuraciontablavender() {
-    $('#tablaresumen').DataTable({
-        dom: '<"top"CRTl><"clear">rt<"bottom"ip><"clear">',
-        "pageLength": -1,
-        "paging":   false,
-        "ordering": false,
-        "info":     false
-    });
-    
-}
-
-function configuraciontablacajas() {
-    $('#tablacajas').DataTable({
-        "language": {
-
-            "processing": "Procesando...",
-            "search": "BUSQUEDA EN EL PEDIDO:",
-            "lengthMenu": "",
-            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros guardados",
-            "zeroRecords": "No hay registros guardados",
-            "infoEmpty": "No hay anuncios para mostrar",
-            "paginate": {
-                "first": "Primera",
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "last": "Ultima"
-            },
-            "aria": {
-                "sortAscending": "Ordenar columna ascendente",
-                "sortDescending": "Ordenar columna descendente"
-            },
-            "pageLength": -1
-        },
-        "lengthMenu": [
-            [10, 25, 50, -1],
-            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
-        ],
-        "order": [[0, "desc"]],
-        "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
-
-    });
-}
-function configuraciontablacaja() {
-    $('#tablacaja').DataTable({
-        "language": {
-
-            "processing": "Procesando...",
-            "search": "Puedes buscar datos en la caja:",
-            "lengthMenu": "",
-            "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
-            "emptyTable": "No hay registros guardados",
-            "zeroRecords": "No hay registros guardados",
-            "infoEmpty": "No hay anuncios para mostrar",
-            "paginate": {
-                "first": "Primera",
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "last": "Ultima"
-            },
-            "aria": {
-                "sortAscending": "Ordenar columna ascendente",
-                "sortDescending": "Ordenar columna descendente"
+        //es el metodo que queda ligado al boton en la linea del producto
+        function vender(id, idrubro, costo, titulo, unidadvta) {
+            if (!id) {
+                return false;
             }
-        },
-        "lengthMenu": [
-            [10, 25, 50, -1],
-            ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
-        ],
-        "pageLength": 10
 
-    });
-}
+            var can = document.getElementById('cantidad_' + id);
+            var cantisinmas = can.value.replace('+', '');
+            can.value = cantisinmas;
 
-function consultacaja(fechaventadesde, fechaventahasta, e) {
+            var pre = document.getElementById('precio_' + id);
+            var fechaventa = $("#fechaventa").val();
+            var porcentajebonus = $("#bonusestablecido").val();
+            var bonus = Math.round(can.value * (costo * porcentajebonus / 100));
+
+            if (parseInt(can.value, 10) > 0 && fechaventa != "") {
+                fechaventa = conviertefechaastringdmy(fechaventa);
+                reservaritemventa(id, pre.value, costo, idrubro, fechaventa, can.value, bonus, titulo, unidadvta);
+                can.value = "";
+
+            } else if (fechaventa == "") {
+                Swal.fire({
+                    position: 'top-end', icon: 'warning', title: 'Complete fecha ', showConfirmButton: false,
+                    timer: 2500
+                })
+            } else if (parseInt(can.value, 10) > 0) {
+                Swal.fire({
+                    position: 'top-end', icon: 'warning', title: 'Complete cantidad', showConfirmButton: false,
+                    timer: 2500
+                })
+            }
+
+        }
+
+        function reservaritemventa(id_riv, precio_riv, costo_riv, idrubro_riv, fechaventa_riv, cantidad_riv, bonus_riv, titulo_riv, unidadvta) {
+
+            itemsEnlaventa += 1;
 
 
-    if ($.fn.dataTable.isDataTable('#tablacaja')) {
-        t = $('#tablacaja').DataTable();
-    }
-    var tipo = "consultacaja";
-
-    var detalle = document.getElementById("chkdetalle").checked;
-    if(detalle == false)
-    {
-        tipo ="consultacajasindetalle";
-    }else
-    {
-        M.toast({ html: 'Buscando detalle' });
-    }
-    
-
-    var bdd = conexionbdd;
-    var tabla = tablaventas;
-    var tabladeanuncios = tablaanuncios;
-    var tabladeclientes = tablaclientes;
-    var tabladerubro = tablarubros;
+            var subtotal = precio_riv * cantidad_riv;
+            subtotal = Math.round(subtotal * 100) / 100;
+            // subtotal=Math.round10(subtotal, -1);
 
 
-    var itemventa = new Object();
-    itemventa.bdd = bdd;
-    itemventa.tabla = tabla;
-    itemventa.tablaanuncios = tabladeanuncios;
-    itemventa.tablaclientes = tabladeclientes;
-    itemventa.tablarubros = tabladerubro;
-    itemventa.tipo = tipo;
-    itemventa.fechaventadesde = fechaventadesde;
-    itemventa.fechaventahasta = fechaventahasta;
-    itemventa.tablaunidadesgranel = tablaunidadesgranel;
-    itemventa.email = emailingreso;
-    itemventa.jerarquia = jerarquia;
+            var objeto = new Object();
 
-    itemventa.id = "";
-    itemventa.titulo = "";
-    itemventa.precio = "";
-    itemventa.costo = "";
-    itemventa.descripcion = "";
-    itemventa.rubro = "";
-    itemventa.cantidad = "";
-    itemventa.nombrecliente = "";
-    itemventa.idclienteelegido = "";
-    itemventa.bonus = "";
-    itemventa.tipopago = "";
-    itemventa.fechaventa = fechaventadesde;
+            objeto.id = id_riv;
+            objeto.precio = precio_riv;
+            objeto.costo = costo_riv;
+            objeto.idrubro = idrubro_riv;
+            objeto.fechaventa = fechaventa_riv;
+            objeto.cantidad = cantidad_riv;
+            objeto.unidadvta = unidadvta;
+            objeto.bonus = bonus_riv;
+            objeto.titulo = titulo_riv;
+            objeto.subtotal = subtotal;
+            objeto.itemsEnlaventa = itemsEnlaventa;
+            //agrega el item en el objeto
+            arregloitemsventa.push(objeto);
 
-    var vendido = JSON.stringify(itemventa);
-    $.ajax({
+            //agrega visualmente el item en la pagina
+            agregaritemventa(id_riv, precio_riv, cantidad_riv, titulo_riv, subtotal, unidadvta);
+        }
 
-        url: "consultaventas.php",
-        data: { vendido: vendido },
 
-        type: "post",
+        function agregaritemventa(id, precio, cantidad, titulo, subtotal, unidadvta) {
 
-        success: function (data) {
+            var t;
 
-            if (data != "consultavacia") {
-                dd = JSON.parse(data); //data decodificado
+            if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
+                t = $('#tablaitemsventa').DataTable();
+            }
 
-                t.clear().draw(true);
-                $("#totalventa").attr("value", "");
-                $("#totalcosto").attr("value", "");
-                var totalventa = 0;
-                var totalcosto = 0;
-                var totalventavista = 0;
-                var totalcostovista = 0;
+            var pre = precio;
 
-                $.each(dd, function (key, value) {
-                    if(detalle == true)
-                    {
-                    
-                        cantidadxprecio = dd[key].cantidad * dd[key].precio;
-                        cantidadxcosto = dd[key].cantidad * dd[key].costo;
-                        totalventa += cantidadxprecio;
-                        totalcosto += cantidadxcosto;
-                        cantidadxprecio = Math.round(cantidadxprecio *100)/100;
-                        cantidadxcosto = Math.round(cantidadxcosto *100)/100;
+            posicion = pre.toString().indexOf(".");
+            if (posicion >= 0)
+                pre = pre.slice(0, posicion) + "," + pre.slice(posicion + 1);
 
-                        t.row.add([
-                            conviertefecha(dd[key].fecha.toString()),
-                            dd[key].id,
-                            dd[key].idproducto,
-                            dd[key].codigobarra,
-                            dd[key].titulo,
-                            "<label style='text-align: center;'>" + dd[key].descripcion + "</label>" ,
-                            dd[key].cantidad,
-                            "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>" ,
-                            dd[key].precio.toString().replace(".",","),
-                            cantidadxprecio.toString().replace(".",","),
-                            dd[key].tipopago,
-                            dd[key].hora,
-                            "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>" ,
-                            "<label style='text-align: center;'>" + dd[key].rubro + "</label>" ,
-                            "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
+            t.row.add([
+                id,
+                titulo,
+                cantidad,
+                unidadvta,
+                pre,
+                subtotal,
+                "<a class='borra' onclick='borrarfila(\"" + itemsEnlaventa + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 masmenos" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+            ]);
+            t.columns.adjust().draw();
 
-                            "<label class='blockcosto'>"+  dd[key].costo.toString().replace(".",",") + "</label>",
-                            "<label class='blockcosto'>" + cantidadxcosto.toString().replace(".", ",") + "</label>",
+            document.getElementById("pedido").style.display = "block";
 
-                        ]).draw(false);
-                    }else
-                    {
-                        totalventa =dd[key].ventasalpublico; 
-                        totalcosto =dd[key].ventasalcosto;
-                    }
+
+            calculatotal();
+            focoencajabusqueda("");
+
+            M.toast(
+                {
+                    html: 'Ok Agregado!',
+                    displayLength: '1000'
                 });
+        }
 
+
+        function calculatotal() {
+            totalpedido = 0;
+            subtotal = 0;
+            for (var a = 0; a < arregloitemsventa.length; a++) {
+                subtotal = arregloitemsventa[a].subtotal;
+                totalpedido = totalpedido + subtotal;
+            }
+            totalpedido = Math.round(totalpedido * 100) / 100;
+            document.getElementById("totalpedido").value = totalpedido;
+
+        }
+
+        function borrarfila(iditemsEnlaventa) {
+            //borra la fila visualmente
+            $("#tablaitemsventa").on('click', '.borra', function () {
+                $(this).parent().parent().css('display', 'none');
+            });
+
+            calculatotal();
+
+            var arregloAux = [];
+            var subtotal = 0;
+
+
+            //borra la fila del arreglo
+            for (var a = 0; a < arregloitemsventa.length; a++) {
+                if (iditemsEnlaventa == arregloitemsventa[a].itemsEnlaventa) {
+                    subtotal = arregloitemsventa[a].subtotal;
+                    totalpedido = parseFloat(totalpedido) - subtotal;
+                    // arregloitemsventa.splice(a, 1);
+                } else {
+                    var o = new Object();
+
+                    o.id = arregloitemsventa[a].id;
+                    o.precio = arregloitemsventa[a].precio;
+                    o.costo = arregloitemsventa[a].costo;
+                    o.idrubro = arregloitemsventa[a].idrubro;
+                    o.fechaventa = arregloitemsventa[a].fechaventa;
+                    o.cantidad = arregloitemsventa[a].cantidad;
+                    o.bonus = arregloitemsventa[a].bonus;
+                    o.titulo = arregloitemsventa[a].titulo;
+                    o.subtotal = arregloitemsventa[a].subtotal;
+                    o.itemsEnlaventa = arregloitemsventa[a].itemsEnlaventa;
+                    //agrega el item en el objeto
+                    arregloAux.push(o);
+                }
+            }
+
+            //---------------------- Re armo el arreglo de items de la venta --------------------------
+
+            arregloitemsventa = arregloAux;
+
+            //-----------------------------------------------------------------------------------------
+            totalpedido = Math.round(totalpedido * 100) / 100;
+
+            document.getElementById("totalpedido").value = totalpedido;
+
+
+            if (totalpedido == 0) {
+                if ($.fn.dataTable.isDataTable('#tablaitemsventa')) {
+                    t = $('#tablaitemsventa').DataTable();
+                } else {
+                    t = $('#tablaitemsventa').DataTable();
+                }
+
+                t.clear().draw(false);
+
+                limpiacamposventa();
+            }
+        }
+
+
+        function armanumdvp(){
+            var fechaventa = $("#fechaventa").val();
+            dia = fechaventa.substring(0, 2);
+            mes = fechaventa.substring(3, 5);
+            anio = fechaventa.substring(6, 10);
+            var fecha = new Date();
+            var hora = fecha.getHours().toString().padStart(2,'0') +fecha.getMinutes().toString().padStart(2,'0')+fecha.getSeconds().toString().padStart(2,'0');
+            return dia+mes+anio+hora;
+        }
+
+
+        // -------------------------------- Se procesa desde un boton en la pagina ---------------------
+        function procesarventa() {
+            var nombrecliente = $("#clienteelegido").val();
+            var idclienteelegido = document.getElementById("opcioneslistaclientes").value;
+            var tipopagonombrecorto = document.getElementById("opcioneslistatiposdepago").value;
+            var numdvp = armanumdvp();
+            if (nombrecliente == "" || nombrecliente == "Selecciona un cliente") {
+                Swal.fire({
+                    position: 'top-end', icon: 'warning', title: 'Indique el cliente', showConfirmButton: false,
+                    timer: 1500
+                })
+                return false;
+
+            } else if (tipopagonombrecorto == "") {
+
+                Swal.fire({
+                    position: 'top-end', icon: 'warning', title: 'Indique el tipo de pago', showConfirmButton: false,
+                    timer: 1500
+                })
+                return false;
+            }
+            if (arregloitemsventa.length <= 0) {
+                Swal.fire({
+                    position: 'top-end', icon: 'warning', title: 'Busque artículos y agregue al pedido', showConfirmButton: false,
+                    timer: 1500
+                })
+                return false;
+
+            }
+            var fechaventa = $("#fechaventa").val();
+            fechaventa = conviertefechaastringdmy(fechaventa);
+
+            var ar = arregloitemsventa;
+            //recorre el arreglo de items y los guarda
+            // for (var a = 0; a < ar.length; a++) {
+            //     guardarventa(ar[a].id, ar[a].precio, ar[a].costo, ar[a].idrubro, ar[a].fechaventa, ar[a].cantidad, idclienteelegido, ar[a].bonus, tipopagonombrecorto,numdvp);
+            // }
+
+            if(tipopagonombrecorto!="DV")
+                numdvp = '';
+
+            for (var a = 0; a < ar.length; a++) {
+                var itemventa = new Object();
+
+                itemventa.idproducto = ar[a].id;
+                itemventa.precio = ar[a].precio;
+                itemventa.costo = ar[a].costo;
+                itemventa.idrubro = ar[a].idrubro;
+                itemventa.fechaventa = ar[a].fechaventa;
+                itemventa.cantidad = ar[a].cantidad;
+                itemventa.idclienteelegido = idclienteelegido;
+                itemventa.bonus = ar[a].bonus;
+                bonussuma = bonussuma + Math.round(ar[a].bonus * 100) / 100;
+
+                itemventa.tipopagonombrecorto = tipopagonombrecorto;
+                itemventa.numdvp = numdvp;
+                itemventa.email = emailingreso;
+                itemventa.hora = damelahora();
+                var objetoJsonVentas = JSON.stringify(itemventa);
+
+                itemsdeventa.push(objetoJsonVentas);
+            }
+
+            guardaritemsventa(numdvp)
+            ar = [];
+
+            var t = $("#tablaitemsventa").DataTable();
+
+            t.clear().draw(true);
+            limpiacamposventa();
+
+        }
+
+        function guardarcaja(tipo, entsal, monto, descripcion) {
+            var fechaventa = $("#fechaventa").val();
+            fechaventa = conviertefechaastringdmy(fechaventa);
+
+            var bdd = conexionbdd;
+            var itemcaja = new Object();
+            itemcaja.bdd = bdd;
+            itemcaja.tabla = tablacajas;
+            itemcaja.tipo = tipo;
+            itemcaja.tipomovimiento = entsal;
+            itemcaja.id = idencontrado;//es el id del usuario logueado
+            itemcaja.monto = monto;
+            itemcaja.descripcion = descripcion;
+            itemcaja.fechacaja = fechaventa;
+            itemcaja.jerarquia = jerarquia;
+            itemcaja.email = emailingreso;
+            itemcaja.hora = damelahora();
+            var caja = JSON.stringify(itemcaja);
+
+            $.ajax({
+                url: "consultacajas.php?" + versionts,
+                data: { caja: caja },
+                type: "post",
+                success: function (data) {
+
+                    if (data != "[]") {
+                        M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
+
+                    } else {
+                        M.toast({ html: 'Error al crear el registro' })
+                    }
+                    consultarventasdeldiadvp();
+                },
+                error: function (e) {
+                    M.toast({ html: 'Error al intentar guardar.' });
+                }
+            });
+        }
+        function consultarcajadeldia(e) {
+
+            if ($.fn.dataTable.isDataTable('#tablaresumen')) {
+                tresumen = $('#tablaresumen').DataTable();
+            } else
+                tresumen = $('#tablaresumen').DataTable();
+
+            if ($.fn.dataTable.isDataTable('#tablacajas')) {
+                tabcajas = $('#tablacajas').DataTable();
+            } else
+                tabcajas = $('#tablacajas').DataTable();
+
+            var fechaventa = $("#fechaventa").val();
+            fechaventa = conviertefechaastringdmy(fechaventa);
+
+            var bdd = conexionbdd;
+            var tipo = "consulta";
+            var itemventa = new Object();
+            itemventa.bdd = bdd;
+            itemventa.tabla = tablacajas;
+            itemventa.tipo = tipo;
+            itemventa.jerarquia = jerarquia;
+            itemventa.fechacaja = fechaventa;
+            itemventa.email = emailingreso;
+
+            itemventa.id = 0;
+            itemventa.tipomovimiento = "";
+            itemventa.monto = "";
+            itemventa.descripcion = "";
+            itemventa.hora = "";
+
+            var caja = JSON.stringify(itemventa);
+            tabcajas.clear().draw(true);
+            var cajita = 0;
+
+            $.ajax({
+
+                url: "consultacajas.php",
+                data: { caja: caja },
+
+                type: "post",
+
+                success: function (data) {
+
+                    if (data != "consultavacia") {
+
+                        dd = JSON.parse(data); //data decodificado
+
+                        $.each(dd, function (key, value) {
+
+                            total = dd[key].monto;
+                            total = Math.round(total * 100) / 100;
+
+                            if (dd[key].tipomovimiento == "EN") {
+                                cajita = cajita + total;
+                            } else
+                                if (dd[key].tipomovimiento == "SA") {
+                                    cajita = cajita - total;
+                                }
+
+                            cajita = Math.round(cajita * 100) / 100;
+
+                            feccaja = vista_ymdAdmy(dd[key].fecha)
+
+
+                            if (dd[key].tipomovimiento == "EN") {
+                                timo = "ENTRADA";
+                                colorfondo = 'cornflowerblue';
+                                colorsegun = 'white';
+                            }
+                            else if (dd[key].tipomovimiento == "SA") {
+                                timo = "SALIDA";
+                                colorfondo = 'red';
+                                colorsegun = 'white';
+                            }
+
+                            tabcajas.row.add([
+                                "<label style='text-align: center;'>" + dd[key].id + "</label>",
+                                "<label style='text-align: center;'>" + dd[key].idusuario + "</label>",
+                                "<label style='text-align: center;'>" + dd[key].email + "</label>",
+                                feccaja,
+                                dd[key].hora,
+                                "<p style='text-align: center;color:" + colorsegun + ";background-color:" + colorfondo + "' type='text' class='blockstock' readonly >" + timo + "</p>",
+                                "$ " + dd[key].monto.toString().replace(".", ","),
+                                dd[key].descripcion,
+                                "<a onclick='quitarmovimientocaja(\"" + dd[key].id + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+
+                            ]).draw(false);
+
+                            tabcajas.columns.adjust().draw(false);
+
+                            tresumen.row.add([timo, "<p style='text-align: right;'>" + dd[key].monto + "</p>", dd[key].descripcion]).draw(false);
+                        });
+
+
+                        totalventasdia = Math.round(totalventasdia * 100) / 100;
+                        cajita = Math.round(cajita * 100) / 100;
+                        totalcajaconventa = totalventasdia + cajita;
+                        colocatotalcaja();
+                        tresumen.row.add(["<h5 style='color: blue;'><small><b>TOTAL DE CAJA</b></small></h5>", "<h5 style='color: blue;text-align: right;'><small>" + totalcajaconventa + "</small></h5>", ""]).draw(false);
+
+                        verificabloqueo();
+                        tabcajas.columns.adjust().draw(false);
+                    }
+                },
+                error: function (e) {
+                    console.log("Error en la consulta." + e.value);
+                }
+            });
+        }
+
+        function colocatotalcaja() {
+            totalcajaconventa = Math.round(totalcajaconventa * 100) / 100;
+            document.getElementById("totalcaja").innerHTML = "$ " + totalcajaconventa.toString();
+        }
+
+        function quitarmovimientocaja(idcaja) {
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Desea eliminar ?',
+                text: "Esta acción no se podrá revertir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: 'No, cancelar!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    eliminacaja(idcaja);
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Perfecto',
+                        'Su venta permanece guardada :)'
+                    )
+                }
+            })
+        }
+
+        function eliminacaja(idcaja) {
+
+            //elimino de la base de datos
+            var bdd = conexionbdd;
+            var tipo = "baja";
+
+            var itemcaja = new Object();
+            itemcaja.bdd = bdd;
+            itemcaja.tabla = tablacajas;
+            itemcaja.tipo = tipo;
+            itemcaja.id = idcaja;
+
+            var caja = JSON.stringify(itemcaja);
+
+            $.ajax({
+                url: "consultacajas.php",
+                data: { caja: caja },
+                type: "post",
+                success: function (data) {
+                    if (data != "consultavacia") {
+
+                        consultarventasdeldiadvp();
+
+                    } else {
+                        M.toast({ html: 'Error al intentar eliminar.' })
+                    }
+                },
+                error: function (e) {
+                    alert("Error en el alta.");
+                }
+            });
+
+        }
+
+function guardaritemsventa(numdvp){
+            
+            var bdd = conexionbdd;
+            var tabla = tablaventas;
+            var tipo = "altapaquete";
+
+            $.ajax({
+                url: "consultaventaspaquete.php",
+                data: { bdd:bdd,tabla:tabla,tipo:tipo, itemsdeventa: itemsdeventa },
+                type: "post",
+                success: function (data) {
+                    if (data > 0) {
+
+                        var tipobonus = "bonussumado";
+
+                        guardarbonusencliente(idclienteelegido, bonussuma, tipobonus);
+
+                        if(document.getElementById('opcioneslistatiposdepago').value == "DV")
+                            guardardvp(numdvp);
+                        else
+                        {
+                            consultarventasdeldiadvp();
+                            M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
+                        }
+
+
+                    } else {
+                        M.toast({ html: 'Error al crear el registro' })
+                    }
+
+                },
+                error: function (e) {
+                    M.toast({ html: 'Error al intentar guardar.' });
+                }
+
+
+            });
+        }
+        
+        // function guardarventa(id, precio, costo, idrubro, fechaventa, cantidad, idclienteelegido, bonus, tipopagonombrecorto,numdvp) {
+
+        //     if(tipopagonombrecorto!="DV")
+        //         numdvp = '';
+
+        //     var bdd = conexionbdd;
+        //     var tabla = tablaventas;
+        //     var tipo = "alta";
+
+        //     var itemventa = new Object();
+        //     itemventa.bdd = bdd;
+        //     itemventa.tabla = tabla;
+        //     itemventa.tipo = tipo;
+
+        //     itemventa.id = id;
+        //     itemventa.precio = precio;
+        //     itemventa.costo = costo;
+        //     itemventa.idrubro = idrubro;
+        //     itemventa.cantidad = cantidad;
+        //     itemventa.idclienteelegido = idclienteelegido;
+        //     itemventa.bonus = bonus;
+        //     itemventa.tipopago = tipopagonombrecorto;
+        //     itemventa.fechaventa = fechaventa;
+        //     itemventa.email = emailingreso;
+        //     itemventa.hora = damelahora();
+        //     itemventa.numdvp = numdvp;
+
+        //     var vendido = JSON.stringify(itemventa);
+        //     $.ajax({
+        //         url: "consultaventas.php",
+        //         data: { vendido: vendido },
+        //         type: "post",
+        //         success: function (data) {
+
+        //             if (data != "[]" && data != 'consultavacia') {
+
+        //                 var tipobonus = "bonussumado";
+        //                 guardarbonusencliente(idclienteelegido, bonus, tipobonus);
+
+        //                 if(document.getElementById('opcioneslistatiposdepago').value == "DV")
+        //                     guardardvp(numdvp);
+        //                 else
+        //                 {
+                            
+        //                     M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
+        //                 }
+
+
+        //             } else {
+        //                 M.toast({ html: 'Error al crear el registro' })
+        //             }
+
+        //         },
+        //         error: function (e) {
+        //             M.toast({ html: 'Error al intentar guardar.' });
+        //         }
+
+
+        //     });
+        // }
+
+        function guardardvp(numdvp)
+        {
+            var fechaventa = $("#fechaventa").val();
+            fechaventa = conviertefechaastringdmy(fechaventa);
+
+            var bdd = conexionbdd;
+            var tabla = tabladvp;
+            var tipo = "alta";
+           
+            paquetedvp = [];
+            for(var a = 0 ;a < arrdvp.length;a++)
+            {
+                if(arrdvp[a].monto > 0)
+                {
+                    var objeto = new Object();
+                    objeto.tipopago = arrdvp[a].nombrecorto;                    
+                    objeto.monto = arrdvp[a].monto;
+                    objeto.fechaventa = fechaventa;
+                    var objetoJson = JSON.stringify(objeto);
+                    paquetedvp.push(objetoJson);
+                }
+            }
+            
+            $.ajax({
+                url: "consultadvp.php?n=1",
+                data: { bdd: bdd, tabla: tabla, tipo: tipo, numdvp: numdvp, paquetedvp:paquetedvp },
+                type: "post",
+                success: function (data) {
+
+                    if (data > 0) {
+
+                        consultarventasdeldiadvp();
+                        M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
+
+
+                    } else {
+                        M.toast({ html: 'Error al crear el registro' })
+                    }
+
+                },
+                error: function (e) {
+                    M.toast({ html: 'Error al intentar guardar.' });
+                }
+
+
+            });
+        }
+
+        function limpiacamposventa() {
+            itemsEnlaventa = 0;
+            totalpedido = 0;
+            document.getElementById("totalpedido").value = totalpedido;
+            document.getElementById("pedido").style.display = "none";
+            arregloitemsventa = [];
+
+        }
+        function guardarbonusencliente(id, bonus, tipo) {
+            var bdd = conexionbdd;
+            var tabla = tablaclientes;
+
+            var datosclientes = new Object();
+            datosclientes.bdd = bdd;
+            datosclientes.tabla = tabla;
+            datosclientes.tipo = tipo;
+            datosclientes.id = id;
+            datosclientes.nombrecliente = "";
+            datosclientes.direccioncliente = "";
+            datosclientes.telefonocliente = "";
+            datosclientes.emailcliente = "";
+            datosclientes.bonus = bonus;
+
+            var cliente = JSON.stringify(datosclientes);
+
+            $.ajax({
+                url: "consultaclientes.php",
+                data: { cliente: cliente },
+                type: "post",
+
+                success: function (data) {
+                    if (data != "consultavacia") {
+                        // M.toast({ html: 'Bonus de cliente actualizado!' })
+                    } else {
+                        M.toast({ html: 'Error al crear el registro bonus en el cliente' });
+                    }
+                },
+                error: function (e) {
+                    M.toast({ html: 'Error al intentar guardar el bonus de cliente.' });
+                }
+            });
+
+        }
+
+        function consultarventasdeldiadvp(e) {
+
+            if ($.fn.dataTable.isDataTable('#tablaresumendvp')) {
+                tresumendvp = $('#tablaresumendvp').DataTable();
+            } else
+                tresumendvp = $('#tablaresumendvp').DataTable();
+
+
+            var fechaventa = $("#fechaventa").val();
+            var fechaventaresumen = $("#fechaventa").val();
+             fechaventa = conviertefechaastringdmy(fechaventa);
+
+            var bdd = conexionbdd;
+            var tabla = tabladvp;
+            var tipo = "consultadvp";
+
+            var itemventadvp = new Object();
+            itemventadvp.bdd = bdd;
+            itemventadvp.tabla = tabla;
+            itemventadvp.tipo = tipo;
+            itemventadvp.email = emailingreso;
+            itemventadvp.jerarquia = jerarquia;
+            itemventadvp.fechaventa = fechaventa;
+
+            var vendidodvp = JSON.stringify(itemventadvp);
+
+            tresumendvp.clear().draw(true);
+
+            totalventasdiadvp = 0;
+
+            totalefectivodvp = 0;
+            totalccdvp = 0;
+            totalmpdvp = 0;
+            totaltdebitodvp = 0;
+            totaltcreditodvp = 0;
+            totalbonusdvp = 0;
+
+            var tptempdvp = "";
+
+            // console.log("Va consulta de ventas del dia");
+            $.ajax({
+
+                url: "consultaventas.php?n=1",
+                data: { vendido: vendidodvp },
+
+                type: "post",
+
+                success: function (data) {
+                    if (data != "consultavacia") {
+
+                        dd = JSON.parse(data); //data decodificado
+
+                        $.each(dd, function (key, value) {
+
+                            total = dd[key].monto; 
+                            total = Math.round(total * 100) / 100;
+                            totalventasdiadvp = totalventasdiadvp + total;
+                            totalventasdiadvp = Math.round(totalventasdiadvp * 100) / 100;
+
+                            tptempdvp = dd[key].tipopago;
+                            tptempdvp = tptempdvp.trim();
+                            if (tptempdvp == "EF") { totalefectivodvp = totalefectivodvp + total; }
+                            if (tptempdvp == "CC") { totalccdvp = totalccdvptotalccdvp + total; }
+                            if (tptempdvp == "MP") { totalmpdvp = totalmpdvp + total; }
+                            if (tptempdvp == "TD") { totaltdebitodvp = totaltdebitodvp + total; }
+                            if (tptempdvp == "TC") { totaltcreditodvp = totaltcreditodvp + total; }
+                            if (tptempdvp == "BO") { totalbonusdvp = totalbonusdvp + total; }
+
+                            
+                        });
+                        verificabloqueo();
+                        consultarventasdeldia();
+
+                        tresumendvp.row.add(["<h5 style='color: green;'><small>DETALLE DE COBROS DIVIDIDOS</small></h5>", "", ""]).draw(false);
+
+                        tresumendvp.row.add(["Efectivo", "<p style='text-align: right;'>" + totalefectivodvp + "</p>", "Cobro dividido"]).draw(false);
+                        tresumendvp.row.add(["Mercado Pago", "<p style='text-align: right;'>" + totalmpdvp + "</p>", "Cobro dividido"]).draw(false);
+                        tresumendvp.row.add(["Cuenta corriente", "<p style='text-align: right;'>" + totalccdvp + "</p>", "Cobro dividido"]).draw(false);
+                        tresumendvp.row.add(["Tarjeta DEBITO", "<p style='text-align: right;'>" + totaltdebitodvp + "</p>", "Cobro dividido"]).draw(false);
+                        tresumendvp.row.add(["Tarjeta CREDITO", "<p style='text-align: right;'>" + totaltcreditodvp + "</p>", "Cobro dividido"]).draw(false);
+                        tresumendvp.row.add(["Pago con bonus", "<p style='text-align: right;'>" + totalbonusdvp + "</p>", "puntos de bonificación"]).draw(false);
+                        tresumendvp.row.add(["<h5 style='green: blue;'><small>TOTAL COBROS DIVIDIDOS</small></h5>", "<h5 style='color: green;text-align: right;'><small>" + totalventasdiadvp + "</small></h5>", "<h5 style='color: green;'><small>" + "DIA " + fechaventaresumen + "</small></h5>"]).draw(false);
+
+                        // consultarcajadeldia();
+                    }
+                },
+                error: function (e) {
+                    console.log("Error en la consulta." + e.value);
+                }
+            });
+        }
+
+        function consultarventasdeldia(e) {
+
+
+            if ($.fn.dataTable.isDataTable('#tablaresumen')) {
+                tresumen = $('#tablaresumen').DataTable();
+            } else
+                tresumen = $('#tablaresumen').DataTable();
+
+            if ($.fn.dataTable.isDataTable('#tablavender')) {
+                tventas = $('#tablavender').DataTable();
+            } else
+                tventas = $('#tablavender').DataTable();
+
+            var fechaventa = $("#fechaventa").val();
+            var fechaventaresumen = $("#fechaventa").val();
+            fechaventa = conviertefechaastringdmy(fechaventa);
+
+            var bdd = conexionbdd;
+            var tabla = tablaventas;
+            var tabladeanuncios = tablaanuncios;
+            var tabladeclientes = tablaclientes;
+            var tabladerubro = tablarubros;
+
+
+            var tipo = "consulta";
+
+            var itemventa = new Object();
+            itemventa.bdd = bdd;
+            itemventa.tabla = tabla;
+            itemventa.tablaanuncios = tabladeanuncios;
+            itemventa.tablaclientes = tabladeclientes;
+            itemventa.tablarubros = tabladerubro;
+            itemventa.tipo = tipo;
+            itemventa.tablaunidadesgranel = tablaunidadesgranel;
+            itemventa.email = emailingreso;
+            itemventa.jerarquia = jerarquia;
+            itemventa.fechaventa = fechaventa;
+
+            var vendido = JSON.stringify(itemventa);
+
+            tventas.clear().draw(true);
+            tresumen.clear().draw(true);
+
+            totalventasdia = 0;
+
+            totalefectivo = 0;
+            totalmp = 0;
+            totaltdebito = 0;
+            totaltcredito = 0;
+            totalcc = 0;
+            totalbonus = 0;
+
+            emailventadia = "";
+
+            var tptemp = "";
+
+            // console.log("Va consulta de ventas del dia");
+            $.ajax({
+
+                url: "consultaventas.php",
+                data: { vendido: vendido },
+
+                type: "post",
+
+                success: function (data) {
+                    // console.log(data);
+                    if (data != "consultavacia") {
+
+                        dd = JSON.parse(data); //data decodificado
+
+                        $.each(dd, function (key, value) {
+
+                            tptemp = dd[key].tipopago;
+                            tptemp = tptemp.trim();
+                            total = dd[key].cantidad * dd[key].precio;
+                            total = Math.round(total * 100) / 100;
+                            numdvppasado='';
+                            comoquita = '';
+                            
+                            if(tptemp != "DV")
+                            {
+                                totalventasdia = totalventasdia + total;
+                                totalventasdia = Math.round(totalventasdia * 100) / 100;
+
+                                if (tptemp == "EF") { totalefectivo = totalefectivo + total; }
+                                if (tptemp == "CC") { totalcc = totalcc + total; }
+                                if (tptemp == "MP") { totalmp = totalmp + total; }
+                                if (tptemp == "TD") { totaltdebito = totaltdebito + total; }
+                                if (tptemp == "TC") { totaltcredito = totaltcredito + total; }
+                                if (tptemp == "BO") { totalbonus = totalbonus + total; }
+                                comoquita = "<a onclick='quitar(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\",\"" + numdvppasado + "\")' class=" + "\"btn-floating btn-large waves-effect   pink darken-4 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+                            }else
+                            {
+                                numdvppasado=dd[key].numdvp;
+                                comoquita = "<a onclick='quitardvp(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\",\"" + numdvppasado + "\")' class=" + "\"btn-floating btn-large waves-effect   blue darken-3 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
+
+                            }
+                                
+                            emailventadia = dd[key].email;
+                            
+                            titu = "<p style='font-size: 0.80em;margin: 0em;padding: 0em;'>" + dd[key].titulo + "</p>";
+
+                            tventas.row.add([
+
+                                "<label style='text-align: center;'>" + dd[key].id + "</label>",
+                                "<label style='text-align: center;'>" + dd[key].idproducto + "</label>",
+                                "<label style='text-align: center;'>" + dd[key].codigobarra + "</label>",
+                                titu,
+                                dd[key].cantidad,
+                                "<label style='text-align: center;font-size: 0.70em;margin: 0em;padding: 0em;'>" + dd[key].nombreprefijoventa + "</label>",
+                                "$ " + dd[key].precio.toString().replace(".", ","),
+                                "$ " + total.toString().replace(".", ","),
+                                dd[key].tipopago,
+                                dd[key].hora,
+                                "<label style='text-align: center;'>" + dd[key].idcliente + "</label>",
+                                "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>",
+                                // "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
+                                "<label style='text-align: center;'>" + dd[key].bonus + "</label>",
+                                comoquita
+                                
+                            ]).draw(false);
+                        });
+
+                        totalventasdia = totalventasdia + totalventasdiadvp;
+                        colocatotalventas(totalventasdia);
+                        verificabloqueo();
+
+                        // suma las ventas divididas con las no divididas por tipo de pago
+                        totalefectivo = totalefectivo + totalefectivodvp;
+                        totalmp = totalmp + totalmpdvp;
+                        totalcc = totalcc + totalccdvp;
+                        totaltdebito = totaltdebito + totaltdebitodvp;
+                        totaltcredito = totaltcredito + totaltcreditodvp;
+                        totalbonus = totalbonus + totalbonusdvp;
+
+                        tventas.columns.adjust().draw(false);
+
+                        tresumen.row.add(["<h5 style='color: blue;'><small>CAJA DE</small></h5>", "", emailventadia]).draw(false);
+
+                        tresumen.row.add(["Efectivo", "<p style='text-align: right;'>" + totalefectivo + "</p>", "Cobrado"]).draw(false);
+                        tresumen.row.add(["Mercado Pago", "<p style='text-align: right;'>" + totalmp + "</p>", "Cobrado"]).draw(false);
+                        tresumen.row.add(["Cuenta corriente", "<p style='text-align: right;'>" + totalcc + "</p>", "Cobrado"]).draw(false);
+                        tresumen.row.add(["Tarjeta DEBITO", "<p style='text-align: right;'>" + totaltdebito + "</p>", "Cobrado"]).draw(false);
+                        tresumen.row.add(["Tarjeta CREDITO", "<p style='text-align: right;'>" + totaltcredito + "</p>", "Cobrado"]).draw(false);
+                        tresumen.row.add(["Pago con bonus", "<p style='text-align: right;'>" + totalbonus + "</p>", "puntos de bonificación"]).draw(false);
+                        tresumen.row.add(["<h5 style='color: blue;'><small><b>TOTAL COBRADO</b></small></h5>", "<h5 style='color: blue;text-align: right;'><small>" + totalventasdia + "</small></h5>", "<h5 style='color: blue;'><small>" + "DIA " + fechaventaresumen + "</small></h5>"]).draw(false);
+
+                        consultarcajadeldia();
+                    }
+                },
+                error: function (e) {
+                    console.log("Error en la consulta." + e.value);
+                }
+            });
+        }
+
+       
+        function colocatotalventas(tvd) {
+
+            document.getElementById("totalventas").innerHTML = "TOTAL COBRADO $ " + tvd.toString();
+
+        }
+        function quitar(idventa, idcliente, bonusventa,numdvppasado) {
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Desea eliminar ?',
+                text: "Esta acción no se podrá revertir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: 'No, cancelar!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    eliminaventa(idventa, idcliente, bonusventa,numdvppasado);
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Perfecto',
+                        'Su venta permanece guardada :)'
+                    )
+                }
+            })
+        }
+
+        function eliminaventa(idventa, idcliente, bonusventa,numdvppasado) {
+
+            //elimino de la base de datos
+            var bdd = conexionbdd;
+            var tabla = tablaventas;
+            var tipo = "baja";
+            var id = idventa;
+
+            var itemventa = new Object();
+            itemventa.bdd = bdd;
+            itemventa.tabla = tabla;
+            itemventa.tipo = tipo;
+            itemventa.id = id;
+
+            var vendido = JSON.stringify(itemventa);
+
+            $.ajax({
+                url: "consultaventas.php",
+                data: { vendido: vendido },
+                type: "post",
+                success: function (data) {
+                    if (data != "consultavacia") {
+                        var tipobonus = "bonusrestado";
+                        guardarbonusencliente(idcliente, bonusventa, tipobonus);
+                        consultarventasdeldiadvp();
+
+                    } else {
+                        M.toast({ html: 'Error al intentar eliminar.' })
+                    }
+                },
+                error: function (e) {
+                    alert("Error en el alta.");
+                }
+            });
+
+        }
+
+        function quitardvp(numdvppasado)
+        {
+            console.log("Preguntara como quitar");
+
+            consultarventasdeldiadvp();
+        }
+
+        function masuno(id) {
+            var etiqueta = document.getElementById('cantidad_' + id);
+            var can = parseInt(etiqueta.value);
+
+            if (isNaN(can))
+                can = 0;
+
+            can += 1;
+            etiqueta.value = can;
+        }
+
+        function menosuno(id) {
+            var etiqueta = document.getElementById('cantidad_' + id);
+            var can = parseInt(etiqueta.value);
+
+            if (isNaN(can))
+                can = 0;
+
+            can -= 1;
+
+            if (can < 0)
+                can = 0;
+
+            etiqueta.value = can;
+
+        }
+
+        function configuraciontablaanunciosvender() {
+
+            $('#tablaanunciosvender').DataTable({
+                responsive: true,
+                "pageLength": -1,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 2, targets: 1 },
+                    { responsivePriority: 3, targets: 2 },
+                    { responsivePriority: 4, targets: 3 },
+                    { responsivePriority: 5, targets: 4 },
+                    { responsivePriority: 6, targets: 5 },
+                    { responsivePriority: 6, targets: 8 }
+                ],
+                languaje: {
+
+                    "processing": "Procesando...",
+                    "search": "Sub búsqueda:",
+                    "lengthMenu": "Registros x página",
+                    "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                    "emptyTable": "No hay registros para ver",
+                    "zeroRecords": "No hay registros para ver",
+                    "infoEmpty": "No hay registros  para ver",
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "last": "Ultima"
+                    },
+                    "aria": {
+                        "sortAscending": "Ordenar columna ascendente",
+                        "sortDescending": "Ordenar columna descendente"
+                    },
+                },
+                order: [[0, "desc"]],
+                dom: '<"top"ftipl>rt<"bottom"p><"clear">'
                 
 
-                if(detalle == true)
-                {
-                    totalventavista = Math.round(totalventa * 100) / 100;
-                    totalcostovista = Math.round(totalcosto *100)/100;
-                }else
-                {
-                    totalventavista =Math.round(totalventa * 100)/100; 
-                    totalcostovista =Math.round(totalcosto * 100)/100; 
-                }
-
-                if(totalventa>0){
-                    $("#totalventa").attr("value", totalventavista);
-                }else
-                {
-                    $("#totalventa").attr("value", "");
-                }
-
-
-                if (totalcosto>0){
-                    $("#totalcosto").attr("value", totalcostovista);
-                }else
-                {
-                    $("#totalcosto").attr("value", "");
-                }
-
-                if (totalventavista >0 && totalcosto >0 )
-                {
-                    var margenpesosvista;
-                    margenpesosvista = totalventavista - totalcostovista;
-                    margenpesosvista = Math.round(margenpesosvista * 100)/100;
-
-
-                    $("#margenpesos").attr("value", margenpesosvista);
-
-                    var margen = Math.floor( (totalventa - totalcosto) / totalcosto  *100);
-                    var margenvista = Math.round(margen *100)/100;
-
-                    $("#margenporcentaje").attr("value", margenvista);
-
-                    var rentaporcentaje = (margenpesosvista / totalventa) * 100;
-                    rentaporcentaje = Math.round(rentaporcentaje*100)/100;
-
-                    $("#rentabilidadporcentaje").attr("value", rentaporcentaje);
-
-                }else
-                {
-                    $("#margenpesos").attr("value", "");
-                    $("#margenporcentaje").attr("value", "");
-
-                }
-                verificabloqueo();
-            }
-        },
-        error: function (e) {
-            console.log("Error en la consulta." + e.value);
+            });
         }
-    });
-}
+
+
+
+
+        function configuraciontablaPedido() {
+            $('#tablaitemsventa').DataTable({
+                dom: '<"top"CRTl><"clear">rt<"bottom"ip><"clear">',
+                "paging": false,
+                "ordering": false,
+                "info": false
+            });
+        }
+
+        function configuraciontablavender() {
+            $('#tablavender').DataTable({
+                responsive: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 2, targets: 1 },
+                    { responsivePriority: 3, targets: 2 },
+                    { responsivePriority: 4, targets: 3 },
+                    { responsivePriority: 5, targets: 4 },
+                    { responsivePriority: 6, targets: 5 }
+                ],
+                "pageLength": -1,
+                "language": {
+
+                    "processing": "Procesando...",
+                    "search": "Sub búsqueda",
+                    "lengthMenu": "",
+                    "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                    "emptyTable": "No hay registros guardados",
+                    "zeroRecords": "No hay registros guardados",
+                    "infoEmpty": "No hay anuncios para mostrar",
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "last": "Ultima"
+                    },
+                    "aria": {
+                        "sortAscending": "Ordenar columna ascendente",
+                        "sortDescending": "Ordenar columna descendente"
+                    },
+                    "pageLength": -1
+                },
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+                ],
+                "order": [[0, "desc"]],
+                "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+
+            });
+        }
+
+        function configuraciontablavender() {
+            $('#tablaresumen').DataTable({
+                dom: '<"top"CRTl><"clear">rt<"bottom"ip><"clear">',
+                "pageLength": -1,
+                "paging": false,
+                "ordering": false,
+                "info": false
+            });
+            $('#tablaresumendvp').DataTable({
+                dom: '<"top"CRTl><"clear">rt<"bottom"ip><"clear">',
+                "pageLength": -1,
+                "paging": false,
+                "ordering": false,
+                "info": false
+            });
+        }
+
+        function configuraciontablacajas() {
+            $('#tablacajas').DataTable({
+                "language": {
+
+                    "processing": "Procesando...",
+                   "search": "Sub búsqueda:",
+                    "lengthMenu": "",
+                    "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                    "emptyTable": "No hay registros guardados",
+                    "zeroRecords": "No hay registros guardados",
+                    "infoEmpty": "No hay anuncios para mostrar",
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "last": "Ultima"
+                    },
+                    "aria": {
+                        "sortAscending": "Ordenar columna ascendente",
+                        "sortDescending": "Ordenar columna descendente"
+                    },
+                    "pageLength": -1
+                },
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+                ],
+                "order": [[0, "desc"]],
+                "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+
+            });
+        }
+        function configuraciontablacaja() {
+            $('#tablacaja').DataTable({
+                "language": {
+
+                    "processing": "Procesando...",
+                    "search": "Sub búsqueda:",
+                    "lengthMenu": "",
+                    "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                    "emptyTable": "No hay registros guardados",
+                    "zeroRecords": "No hay registros guardados",
+                    "infoEmpty": "No hay anuncios para mostrar",
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "last": "Ultima"
+                    },
+                    "aria": {
+                        "sortAscending": "Ordenar columna ascendente",
+                        "sortDescending": "Ordenar columna descendente"
+                    }
+                },
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    ['10 Resultados', '25 Resultados', '50 Resultados', 'Motrar Todos']
+                ],
+                "pageLength": 10
+
+            });
+        }
+
+        function consultacaja(fechaventadesde, fechaventahasta, e) {
+
+
+            if ($.fn.dataTable.isDataTable('#tablacaja')) {
+                t = $('#tablacaja').DataTable();
+            }
+            var tipo = "consultacaja";
+
+            var detalle = document.getElementById("chkdetalle").checked;
+            if (detalle == false) {
+                tipo = "consultacajasindetalle";
+            } else {
+                M.toast({ html: 'Buscando detalle' });
+            }
+
+
+            var bdd = conexionbdd;
+            var tabla = tablaventas;
+            var tabladeanuncios = tablaanuncios;
+            var tabladeclientes = tablaclientes;
+            var tabladerubro = tablarubros;
+
+
+            var itemventa = new Object();
+            itemventa.bdd = bdd;
+            itemventa.tabla = tabla;
+            itemventa.tablaanuncios = tabladeanuncios;
+            itemventa.tablaclientes = tabladeclientes;
+            itemventa.tablarubros = tabladerubro;
+            itemventa.tipo = tipo;
+            itemventa.fechaventadesde = fechaventadesde;
+            itemventa.fechaventahasta = fechaventahasta;
+            itemventa.tablaunidadesgranel = tablaunidadesgranel;
+            itemventa.email = emailingreso;
+            itemventa.jerarquia = jerarquia;
+
+            itemventa.id = "";
+            itemventa.titulo = "";
+            itemventa.precio = "";
+            itemventa.costo = "";
+            itemventa.descripcion = "";
+            itemventa.rubro = "";
+            itemventa.cantidad = "";
+            itemventa.nombrecliente = "";
+            itemventa.idclienteelegido = "";
+            itemventa.bonus = "";
+            itemventa.tipopago = "";
+            itemventa.fechaventa = fechaventadesde;
+
+            var vendido = JSON.stringify(itemventa);
+            $.ajax({
+
+                url: "consultaventas.php",
+                data: { vendido: vendido },
+
+                type: "post",
+
+                success: function (data) {
+
+                    if (data != "consultavacia") {
+                        dd = JSON.parse(data); //data decodificado
+
+                        t.clear().draw(true);
+                        $("#totalventa").attr("value", "");
+                        $("#totalcosto").attr("value", "");
+                        var totalventa = 0;
+                        var totalcosto = 0;
+                        var totalventavista = 0;
+                        var totalcostovista = 0;
+
+                        $.each(dd, function (key, value) {
+                            if (detalle == true) {
+
+                                cantidadxprecio = dd[key].cantidad * dd[key].precio;
+                                cantidadxcosto = dd[key].cantidad * dd[key].costo;
+                                totalventa += cantidadxprecio;
+                                totalcosto += cantidadxcosto;
+                                cantidadxprecio = Math.round(cantidadxprecio * 100) / 100;
+                                cantidadxcosto = Math.round(cantidadxcosto * 100) / 100;
+
+                                t.row.add([
+                                    conviertefecha(dd[key].fecha.toString()),
+                                    dd[key].id,
+                                    dd[key].idproducto,
+                                    dd[key].codigobarra,
+                                    dd[key].titulo,
+                                    "<label style='text-align: center;'>" + dd[key].descripcion + "</label>",
+                                    dd[key].cantidad,
+                                    "<label style='text-align: center;'>" + dd[key].nombreprefijoventa + "</label>",
+                                    dd[key].precio.toString().replace(".", ","),
+                                    cantidadxprecio.toString().replace(".", ","),
+                                    dd[key].tipopago,
+                                    dd[key].hora,
+                                    "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>",
+                                    "<label style='text-align: center;'>" + dd[key].rubro + "</label>",
+                                    "<label style='text-align: center;'>" + dd[key].email + "</label>",
+
+                                    "<label class='blockcosto'>" + dd[key].costo.toString().replace(".", ",") + "</label>",
+                                    "<label class='blockcosto'>" + cantidadxcosto.toString().replace(".", ",") + "</label>",
+
+                                ]).draw(false);
+                            } else {
+                                totalventa = dd[key].ventasalpublico;
+                                totalcosto = dd[key].ventasalcosto;
+                            }
+                        });
+
+
+
+                        if (detalle == true) {
+                            totalventavista = Math.round(totalventa * 100) / 100;
+                            totalcostovista = Math.round(totalcosto * 100) / 100;
+                        } else {
+                            totalventavista = Math.round(totalventa * 100) / 100;
+                            totalcostovista = Math.round(totalcosto * 100) / 100;
+                        }
+
+                        if (totalventa > 0) {
+                            $("#totalventa").attr("value", totalventavista);
+                        } else {
+                            $("#totalventa").attr("value", "");
+                        }
+
+
+                        if (totalcosto > 0) {
+                            $("#totalcosto").attr("value", totalcostovista);
+                        } else {
+                            $("#totalcosto").attr("value", "");
+                        }
+
+                        if (totalventavista > 0 && totalcosto > 0) {
+                            var margenpesosvista;
+                            margenpesosvista = totalventavista - totalcostovista;
+                            margenpesosvista = Math.round(margenpesosvista * 100) / 100;
+
+
+                            $("#margenpesos").attr("value", margenpesosvista);
+
+                            var margen = Math.floor((totalventa - totalcosto) / totalcosto * 100);
+                            var margenvista = Math.round(margen * 100) / 100;
+
+                            $("#margenporcentaje").attr("value", margenvista);
+
+                            var rentaporcentaje = (margenpesosvista / totalventa) * 100;
+                            rentaporcentaje = Math.round(rentaporcentaje * 100) / 100;
+
+                            $("#rentabilidadporcentaje").attr("value", rentaporcentaje);
+
+                        } else {
+                            $("#margenpesos").attr("value", "");
+                            $("#margenporcentaje").attr("value", "");
+
+                        }
+                        verificabloqueo();
+                    }
+                },
+                error: function (e) {
+                    console.log("Error en la consulta." + e.value);
+                }
+            });
+        }
+
 
 // ------------------------------------------------------------------------------------------------------------
 //------------------------------------------------ PROVEEDORES ----------------------------------------------------
@@ -3699,7 +3814,7 @@ function configuraciontablaproveedores() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -3732,7 +3847,7 @@ function configuraciontablaproveedorproductos() {
             "language": {
 
                 "processing": "Procesando...",
-                "search": "PRODUCTOS",
+                "search": "Sub búsqueda:",
                 "lengthMenu": " ",
                 "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
                 "emptyTable": "No hay registros guardados",
@@ -5343,7 +5458,7 @@ function configuraciontablafiltros () {
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -5737,7 +5852,7 @@ function configuraciontablaclientes () {
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA LO QUE DESEA BUSCAR:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -6385,12 +6500,13 @@ function consultarbonus() {
     var bdd = conexionbdd;
     var tipo = "consultar";
     var tabla = tablabonus;
+    var bonusestablecido = 0;
 
     M.toast({ html: 'Consultando bonus', displayLength: '1000', classes: 'rounded' });
 
     $.ajax({
         url: "consultabonus.php",
-        data: { bdd: bdd, tabla: tabla, tipo: tipo },
+        data: { bdd: bdd, tabla: tabla, tipo: tipo,bonusestablecido:bonusestablecido },
         type: "post",
         success: function (data) {
 
@@ -6423,7 +6539,7 @@ function configuraciontablamovimiento() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "Sub búsquedas:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "Registros x página",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros para ver",
@@ -6451,7 +6567,7 @@ function configuraciontablamovimientosstock() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA AQUI ABAJO:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "Mostrar _MENU_ Documentos",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -6484,7 +6600,7 @@ function configuraciontablamovimientostockajuste() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "ESCRIBA AQUI ABAJO:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "Mostrar _MENU_ Documentos",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros guardados",
@@ -6961,6 +7077,7 @@ function consultaranunciosparamovimientos(tipo,e) {
     itemanuncio.nopublicar = "";
     itemanuncio.observaciones = "";
     itemanuncio.comentarios = "";
+    itemanuncio.traerimagen = "";
 
     var objetoanuncio = JSON.stringify(itemanuncio);
     var opcioninicio;
@@ -7044,7 +7161,7 @@ function consultaranunciosparamovimientos(tipo,e) {
                             "<input style='text-align: center;' onKeyDown='return validarinputcantidadcompras(event, this.value, 8,1,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",0,0) ' onKeyUp ='return validarinputcantidadcompras(event, this.value, 8,0,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\",1) ' id ='cantidad_" + dd[key].id + "' name ='cantidad_" + dd[key].id + "' type ='text' class='validate columnadetres saltacantidad'></input>",
                             "<label style='text-align: center;' >"+ dd[key].nombreprefijocompra +"</label>",
                             filaCosto,
-                            "<label style='text-align: center;' id ='subtotalcompra_" + dd[key].id + "' name ='subtotalcompra_" + dd[key].id + "'></label>",
+                            "<p style='text-align: center;color:blue' id ='subtotalcompra_" + dd[key].id + "' name ='subtotalcompra_" + dd[key].id + "'></p>",
                             "<input style='text-align: center;' onKeyDown='return validarinputporcentaje(event, this.value, 8,1,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].prefijocompra + "\",\"porcentajem_\") ' onKeyUp ='return validarinputporcentaje(event, this.value, 8,0,\"" + unfr + "\",\"" + dd[key].id + "\",\"" + dd[key].prefijocompra + "\",\"porcentajem_\") ' id ='porcentajem_" + dd[key].id + "' name ='porcentajem_" + dd[key].id + "' type ='text' class='validate columnadetres saltamargen'></input>",
                             filaVenta,
                             "<a onclick='moverstock(\"" + dd[key].id + "\",\"" + dd[key].costo + "\",\"" + dd[key].precio + "\",\"" + dd[key].prefijocompra + "\",\"" + dd[key].prefijoventa + "\",\"" + dd[key].relacioncompraventa + "\",\"" + dd[key].codigobarra + "\")' class=" + "\"btn-floating btn-small waves-effect waves-light  blue darken-2 " + "\"><i class=" + "\"small material-icons\"" + ">save</i>",
@@ -7098,6 +7215,7 @@ function consultaranunciosparamovimientos(tipo,e) {
         }
     });
 }
+
 
 
 function mostrarResultaodosBusquedaCompras()
@@ -7966,7 +8084,7 @@ function configuraciontablastock() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "Sub búsquedas:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "Registros x página",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros para ver",
@@ -8093,7 +8211,7 @@ function consultaranunciosstock(tipo)
     itemanuncio.observaciones   = "";
     itemanuncio.comentarios     = "";
     itemanuncio.verpublicidad   = "";
-    
+    itemanuncio.traerimagen     = "";
     var objetoanuncio = JSON.stringify(itemanuncio);
 
     // veronostinicio();
@@ -8341,7 +8459,7 @@ function configuraciontablamasivos() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "Sub búsquedas:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "Registros x página",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros para ver",
@@ -8422,7 +8540,17 @@ function consultaranunciosmasivos(tipo)
     itemanuncio.filtro = filtro;
     itemanuncio.codigobarra = textobuscado;
     itemanuncio.verpublicidad = verpublicidad;
-
+    itemanuncio.traerimagen = "";
+    itemanuncio.titulo = "";
+    itemanuncio.descripcion = "";
+    itemanuncio.precio = "";
+    itemanuncio.costo = "";
+    itemanuncio.esnovedad = "";
+    itemanuncio.esoferta = "";
+    itemanuncio.nopublicar = "";
+    itemanuncio.observaciones = "";
+    itemanuncio.comentarios = "";
+    
     var objetoanuncio = JSON.stringify(itemanuncio);
     // veronostinicio();
     tas.clear().draw(true);
@@ -8974,6 +9102,16 @@ function eligetipopago(){
         //     var preciolista = $(this).find('td:eq(8)').text();
         //     $(this).find('td:eq(3) input').val(preciolista);
         // });
+    }
+    if (tipopagonombrecorto == "DV") 
+    {
+        document.getElementById("divdvp").style.display = "block";
+        consultatiposdepagodvp();
+         document.getElementById("procesarpedido").disabled = true;
+    }
+    else{
+        document.getElementById("divdvp").style.display = "none";
+        document.getElementById("procesarpedido").disabled = false;
     }
 
 }
@@ -10528,7 +10666,7 @@ function configuraciontablapermisos() {
         "language": {
 
             "processing": "Procesando...",
-            "search": "Sub búsquedas:",
+            "search": "Sub búsqueda:",
             "lengthMenu": "Registros x página",
             "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
             "emptyTable": "No hay registros para ver",
@@ -10548,3 +10686,97 @@ function configuraciontablapermisos() {
         
     });
 }
+
+function identificasaltainput(clase) {
+            var todos = $('.' + clase).length;
+            var indice = 0;
+
+            $('.' + clase).on('keydown', function (e) {
+                if (e.keyCode === 40) {
+                    e.preventDefault();
+                    indice = $('.' + clase).index(this) + 1;
+                    if (indice == todos)
+                        indice = 0;
+                    $('.' + clase)[indice].focus();
+                }
+
+                if (e.keyCode === 38) {
+                    e.preventDefault();
+                    indice = $('.' + clase).index(this) - 1;
+
+                    if (indice == -1)
+                        indice = todos - 1;
+
+                    $('.' + clase)[indice].focus();
+                }
+            });
+
+
+        }
+
+        
+
+
+        function hacefoco() {
+            var posicion = 0;
+
+            var alturamenu = $('#my-nav').outerHeight(true);
+
+            if (llama == "vender") {
+                objetocantidad = $('.saltacantidad')[0];
+                if (objetocantidad)
+                    objetocantidad.focus();
+
+                posicion = $("#tablaanunciosvender").offset().top - alturamenu;
+            } else
+                if (llama == "comprar") {
+
+                    $('.saltacantidad')[0].focus();
+
+                    posicion = $("#tablaanunciosmovimientos").offset().top - alturamenu;
+                } else
+                    if (llama == "anuncios") {
+                        posicion = $("#tablaanuncios_filter").offset().top - alturamenu;
+                    }
+
+            $("HTML, BODY").animate({ scrollTop: posicion }, 600);
+
+        }
+
+        function configuraciontablacaja(tabla) {
+            // $('#tablaanuncios').DataTable({
+            $(tabla).DataTable({
+                "language": {
+
+                    "processing": "Procesando...",
+                    "search": "Sub búsqueda:",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                    "emptyTable": "No hay registros guardados",
+                    "zeroRecords": "No hay registros guardados",
+                    "infoEmpty": "No hay anuncios para mostrar",
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "last": "Ultima"
+                    },
+                    "aria": {
+                        "sortAscending": "Ordenar columna ascendente",
+                        "sortDescending": "Ordenar columna descendente"
+                    },
+                    "pageLength": 10,
+
+                },
+                "order": [[0, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": true,
+                        "searchable": false
+                    }
+                ],
+                "dom": '<"top"fl><"top"p>rt<"bottom"p><"clear">'
+
+            });
+        }

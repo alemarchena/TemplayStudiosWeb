@@ -38,7 +38,11 @@
     $observaciones = $objetoanuncio['observaciones'];
     $comentarios = $objetoanuncio['comentarios'];
     $verpublicidad = $objetoanuncio['verpublicidad'];
+    $traerimagen = $objetoanuncio['traerimagen'];
 
+    $seveimagen ="";
+    if($traerimagen == 'SI')
+        $seveimagen = $tabla . ".imagen,";
     //-----------------conectando con la base de datos---------------------
     $mysqli = new mysqli($host, $user, $password, $dbname, $port, $socket);
 
@@ -64,9 +68,9 @@
     foreach ($filtro as $filtros)
     {
         if($sentencia == "")
-            $sentencia = $sentencia . " ( (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%'  or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "') ) ";
+            $sentencia = $sentencia . " ( (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%'  or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "' and $tabla.codigobarra != '') ) ";
         else
-            $sentencia = $sentencia . " or (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "') ) ";
+            $sentencia = $sentencia . " or (descripcion like '%" . $filtros . "%' or titulo like '%" . $filtros . "%' or ( $tabla.id = '$filtros' and $tabla.id !='' ) or ($tabla.comodin like '%" . $filtros . "%' and $tabla.comodin != '') or ($tabla.codigobarra = '" . $codigobarra . "' and $tabla.codigobarra != '') ) ";
     }
 
 
@@ -78,7 +82,7 @@
         {
             // $sqlpor rubro
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"
-                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
+                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$seveimagen .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja," .$tabla. ".comodin," .$tabla. ".espublicidad,"
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro,"
@@ -90,14 +94,14 @@
                                  .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where "
                                  .$tabla. ".idrubro = " .$idrubro . $sentenciapublicidad ." order by " .$tabla. ".titulo";
 
-                                //  echo $sql;
+                                //   echo $sql;
         }else if($tipo == "consultafiltros")
         {
             if($sentencia != "")
             {
                 // $sql con $sentencia
                 $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion,"
-                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
+                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," . $seveimagen .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin," .$tabla. ".espublicidad,"
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro,"
@@ -115,7 +119,7 @@
         }else if($tipo == "consulta")
         {
             // $sql por id;
-            $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".imagen," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," .$tabla. ".espublicidad,"
+            $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," . $seveimagen .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo," .$tabla. ".espublicidad,"
                                 .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa,"  .$tablaunidadesgranel. ".relacioncompraventa,"
                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".esnovedad," .$tabla. ".esoferta,"
                                 .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
@@ -128,7 +132,7 @@
         }else if($tipo == "consultalector")
         {
             $sql = "Select " .$tabla. ".id," .$tabla. ".titulo," .$tabla. ".descripcion," .$tabla. ".espublicidad,"
-                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," .$tabla. ".imagen," .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
+                                 .$tabla. ".precio," .$tabla. ".precioanterior," .$tabla. ".idrubro," .$tabla. ".costo," .$tabla. ".costoanterior," . $seveimagen .$tabla. ".fechastockinicio," .$tabla. ".codigobarra,"  .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
                                  .$tabla. ".esnovedad," .$tabla. ".esoferta," .$tabla. ".nopublicar," .$tabla. ".bonus," .$tabla. ".tieneventaja,"  .$tabla. ".comodin,"
                                  .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
                                  .$tablarubros. ".nombrerubro as rubro,"
@@ -143,17 +147,6 @@
         }else if($tipo == "consultastocksindetalle")
         {
              $sql = "Select " .$tabla. ".id," .$tabla. ".precio," .$tabla. ".fechastockinicio," .$tabla. ".costo from " .$tabla. " where 1 ";
-
-            //  $sql = "Select " .$tabla. ".id,"
-            //                      .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".prefijocompra," .$tabla. ".prefijoventa," .$tabla. ".costoxprefijo," .$tabla. ".ventaxprefijo,"
-            //                      .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".relacioncompraventa,"
-            //                      .$tablaproveedoresanuncios. ".idanuncio," .$tablaproveedoresanuncios. ".idproveedor from ((((" .$tabla. " LEFT JOIN "
-            //                      .$tablarubros. " ON " .$tabla. ".idrubro = " .$tablarubros. ".idrubro ) LEFT JOIN "
-            //                      .$tablaproveedoresanuncios. " ON " .$tabla. ".id = " .$tablaproveedoresanuncios. ".idanuncio ) LEFT JOIN "
-            //                      .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) LEFT JOIN "
-            //                      .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where 1 ";
-
-
                                 //   echo $sql;
         }
 

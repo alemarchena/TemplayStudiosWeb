@@ -59,6 +59,9 @@
         <div class="row justify-content-center bd-highlight">
             <div class="col-sm-4 center">
                 <h5>Estilo de catálogo</h5>
+                <label>
+                    <input id="versolopublicidad" type='checkbox' class='filled-in' /><span class='colorletras'>Ver solo publicidades</span>
+                </label>
             </div>
             <div class="col-sm-4 center">
                 <select class="form-control" id="estilocatalogo" name="estilocatalogo"></select>
@@ -204,7 +207,8 @@
             filtro.push( $(this).text() );
         });
 
-        
+        verunicamentepublicidad = document.getElementById("versolopublicidad").checked;
+
 
         //tipo de consulta
         var tipo;
@@ -265,6 +269,18 @@
                     
                     $.each(dd, function (key, value) 
                     {
+                        if(!verunicamentepublicidad){
+                            if (estilocat == 0) //estilo fijo
+                                t.append("<div class='hijos row justify-content-center'><div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col center '> <div class='card' style='width:" + anchocard + "px'><div class='row'><div class='col-sm-12'><img src='" + rutadeimagenes + dd[key].imagen + "' class='card-img-top center-align pt-3' style='height: " + tamanioimagen + "px;width:auto;' alt='...'></img></div></div><div ><p class= 'titulo'>" + dd[key].titulo + "</p><p class='textos'>" + dd[key].descripcion + "</p></div ></div > </div></div>");
+                            else if (estilocat == 1) //estilo 3 columnas
+                                t.append("<div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col-sm-4 center hijos  '> <div class='card' ><img class='card-img-top' src='" + rutadeimagenes + dd[key].imagen + "' align-self:center'  alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div> </div>");
+                            else if (estilocat == 2) //estilo 4 columnas
+                                t.append("<div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col-sm-3 center hijos '> <div class='card' ><img class='card-img-top' src='" + rutadeimagenes + dd[key].imagen + "' align-self:center'  alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div> </div>");
+                            else if (estilocat == 3) //estilo ajustable
+                                t.append("<div onclick='eliminarEtiqueta(\"E" + contador + "\")' id='E" + contador + "' data-toggle='tooltip' data-placement='bottom' title='Click para quitar del catálogo' class='col center hijos '> <div class='card' ><img class='card-img-top' src='" + rutadeimagenes + dd[key].imagen + "' align-self:center'  alt='Card image cap'><div class='card-body'><h5 class='card-title'>" + dd[key].titulo + "</h5><p class='card-text'>" + dd[key].descripcion + "</p></div> </div>");
+
+                            contador = contador + 1;
+                        }else
                         if(dd[key].espublicidad == 1)
                         {
 

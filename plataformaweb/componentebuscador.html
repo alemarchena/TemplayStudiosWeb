@@ -1,6 +1,10 @@
 <div class="col-sm-12">
     <div class="row justify-content-center">
         <div class="col-sm-2">
+            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
+            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
+        </div>
+        <div class="col-sm-2" id="contenedorbusqueda">
             <label class="fas fa-barcode" for="usalector"></label> 
             <p>
                 <label>
@@ -9,19 +13,14 @@
                 </label>
             </p>
         </div>
-        <div class="col-sm-3" id="contenedorbusqueda">
+        <div class="col-sm-4">
             <input id="cajabusqueda" onkeydown="validarenter(event)" placeholder="F4-Encuentra marcas y productos aquí"
-                class="form-control mr-sm-2" type="search" aria-label="Search">
+            class="form-control mr-sm-2" type="search" aria-label="Search">
         </div>
         <div class="col-sm-1">
             <button id="consulta" class="btn btn-primary">Buscar <i class="fas fa-search"></i></button>
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-6">
-            <input style="display: none;" id="rubro" name="rubro" type="text" class="validate">
-            <select class="form-control" id="opcioneslista" name="opcioneslista"></select>
-        </div>
+        <div class="col-sm-3"></div>
     </div>
 </div>
 

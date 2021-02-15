@@ -1,21 +1,138 @@
 <div id="accordion">
 
     <h5 style="margin-top: 1em;">Cambios masivos<i class="fas fa-bullseye m-1"></i></h5>
-    <p class="p-1">Aquí es posible cambiar datos masivamente</p>
+    <div id="divverdata" class="row justify-content-start"></div>
 
-
-    <div id="divBuscador" class="row justify-content-center">
-        <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
-
-
-        <!-- ---------------------------------------------------------- -->
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="row justify-content-center">
+                <p class="m-0">
+                    <a href="#" id="btnOcultaprecio" class="collapsed" data-toggle="collapse" data-target="#collapseOculta"
+                        aria-expanded="false" aria-controls="collapseOculta">
+                        Oculta precio web
+                    </a>
+                </p>
+                <div id="collapseOculta" class="collapse" aria-labelledby="headingOculta" data-parent="#accordion">
+                
+                    <div class="row justify-content-center">
+                        <label for="divoperacionocultar" class="colorletras">Muestra u Ocultar el precios en la web</label>
+                    </div>
+                    <div id="divoperacionocultar" class="row justify-content-center">
+                        <div class="col">
+                            <button id="noocultar" class="btn btn btn-warning">Mostrar</button>
+                        </div>
+                        <div class="col">
+                            <button id="siocultar" class="btn btn btn-primary">Ocultar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <p class="m-0">
+                    <a href="#" id="btnPublicaroNo" class="collapsed" data-toggle="collapse" data-target="#collapsePublica"
+                        aria-expanded="false" aria-controls="collapsePublica">
+                        Publica producto
+                    </a>
+                </p>
+                <div id="collapsePublica" class="collapse" aria-labelledby="headingPublica" data-parent="#accordion">
+                
+                    <div class="row justify-content-center">
+                        <label for="divoperacionpublicar" class="colorletras">Se ve u oculta en web</label>
+                    </div>
+                    <div id="divoperacionpublicar" class="row justify-content-center">
+                        <div class="col">
+                            <button id="nopublicar" class="btn btn btn-warning">No publicar</button>
+                        </div>
+                        <div class="col">
+                            <button id="sipublicar" class="btn btn btn-primary">Publicar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <p class="m-0">
+                    <a href="#" id="btnPromo" class="collapsed" data-toggle="collapse" data-target="#collapsePromo"
+                        aria-expanded="false" aria-controls="collapsePromo">
+                        Publica Promoción
+                    </a>
+                </p>
+                <div id="collapsePromo" class="collapse" aria-labelledby="headingPromo" data-parent="#accordion">
+                
+                    <div class="row justify-content-center">
+                        <label for="divoperacionpublicar" class="colorletras">Se ve como Promoción en la web</label>
+                    </div>
+                    <div id="divoperacionpublicar" class="row justify-content-center">
+                        <div class="col">
+                            <button id="nopublicarpromo" class="btn btn btn-warning">No promo</button>
+                        </div>
+                        <div class="col">
+                            <button id="sipublicarpromo" class="btn btn btn-primary">Si es Promo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div id="divBuscador" class="row justify-content-center">
+                <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
+        
+        
+                <!-- ---------------------------------------------------------- -->
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="row">
+                <p class="m-0 justify-content-center">
+                    <a href="#" id="btnNove" class="collapsed" data-toggle="collapse" data-target="#collapseNovedad"
+                        aria-expanded="false" aria-controls="collapseNovedad">
+                        Publica Novedad
+                    </a>
+                </p>
+                <div id="collapseNovedad" class="collapse" aria-labelledby="headingNovedad" data-parent="#accordion">
+                
+                    <div class="row justify-content-center">
+                        <label for="divoperacionnovedad" class="colorletras">Se ve como novedad en la web</label>
+                    </div>
+                    <div id="divoperacionnovedad" class="row justify-content-center">
+                        <div class="col">
+                            <button id="nopublicarnovedad" class="btn btn btn-warning">No es</button>
+                        </div>
+                        <div class="col">
+                            <button id="sipublicarnovedad" class="btn btn btn-primary">Si es</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <p class="m-0 justify-content-center">
+                    <a href="#" id="btnPubli" class="collapsed" data-toggle="collapse" data-target="#collapsePublicidad"
+                        aria-expanded="false" aria-controls="collapsePublicidad">
+                        Publicidades
+                    </a>
+                </p>
+                <div id="collapsePublicidad" class="collapse" aria-labelledby="headingPublicidad" data-parent="#accordion">
+                
+                    <div class="row justify-content-center">
+                        <label for="divoperacionpublicidad" class="colorletras">Las publicidades se ven en web y no en panel de
+                            control</label>
+                    </div>
+                    <div id="divoperacionnovedad" class="row justify-content-center">
+                        <div class="col">
+                            <button id="nopublicidad" class="btn btn btn-warning">No es</button>
+                        </div>
+                        <div class="col">
+                            <button id="sipublicidad" class="btn btn btn-primary">Si es</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <hr>
     <!-- ------------------------------------------- -->
     <div class="row justify-content-center">
        
-        <div class="col-sm-12">
+        <div class="col-sm-7">
             <p class="m-0">
                 <a href="#" id="btnPrecios" class="collapsed" data-toggle="collapse" data-target="#collapsePrecios"
                     aria-expanded="false" aria-controls="collapsePrecios">
@@ -41,7 +158,6 @@
                         </label>
                     </div>
                 </div>
-                <br>
                 <div id="divoperacionprecios" class="row justify-content-center">
                     <div class="col-sm-3" style="text-align: end;">
                         <label>
@@ -64,7 +180,6 @@
                         </label>
                     </p>
                 </div>
-                <br>
                 <div id="divoperacionprecios" class="row justify-content-center">
                     <div class="col-sm-2">
                         <button id="disminuyeprecio" onclick='cambiapreciosmasivamente("restar")'
@@ -89,22 +204,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-1">
+            <label>
+                <input id="todostilde" onclick='checktodostilde()' type='checkbox' class='filled-in columnadedos' /><span
+                    class='colorletras'>Todos</span>
+            </label>
+        </div>
         <!-- ------------------------------------------- -->
-
-    </div>
-    <div class="row justify-content-center">
-
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <p class="m-0">
-                <a style="font-size: 1.2em;" href="#" id="btnAsignarcategoria" class="collapsed" data-toggle="collapse"
+                <a  href="#" id="btnAsignarcategoria" class="collapsed" data-toggle="collapse"
                     data-target="#collapseThreeCategoria" aria-expanded="false" aria-controls="collapseThreeCategoria">
                     Asigna categoria</a>
             </p>
-        
+
             <div id="collapseThreeCategoria" class="collapse" aria-labelledby="headingCate" data-parent="#accordion">
                 <div class="card-body">
                     <div id="divcategorias" class="row justify-content-center">
-        
+
                     </div>
                     <div id="divoperacioncategorias" class="row justify-content-center">
                         <div class="col">
@@ -115,147 +233,14 @@
             </div>
         </div>
     </div>
-
-    <div class="row justify-content-center">
-
-        <div class="col-sm-2">
-        
-        
-            <p class="m-0">
-                <a href="#" id="btnOcultaprecio" class="collapsed" data-toggle="collapse" data-target="#collapseOculta"
-                    aria-expanded="false" aria-controls="collapseOculta">
-                    Oculta precio web
-                </a>
-            </p>
-            <div id="collapseOculta" class="collapse" aria-labelledby="headingOculta" data-parent="#accordion">
-        
-                <div class="row justify-content-center">
-                    <label for="divoperacionocultar" class="colorletras">Muestra u Ocultar el precios en la web</label>
-                </div>
-                <div id="divoperacionocultar" class="row justify-content-center">
-                    <div class="col">
-                        <button id="noocultar" class="btn btn btn-warning">Mostrar</button>
-                    </div>
-                    <div class="col">
-                        <button id="siocultar" class="btn btn btn-primary">Ocultar</button>
-                    </div>
-                </div>
-            </div>
-        
-        </div>
-        <!-- ------------------------------------------- -->
-        <div class="col-sm-2">
-        
-        
-            <p class="m-0">
-                <a href="#" id="btnPublicaroNo" class="collapsed" data-toggle="collapse" data-target="#collapsePublica"
-                    aria-expanded="false" aria-controls="collapsePublica">
-                    Publica producto
-                </a>
-            </p>
-            <div id="collapsePublica" class="collapse" aria-labelledby="headingPublica" data-parent="#accordion">
-        
-                <div class="row justify-content-center">
-                    <label for="divoperacionpublicar" class="colorletras">Se ve u oculta en web</label>
-                </div>
-                <div id="divoperacionpublicar" class="row justify-content-center">
-                    <div class="col">
-                        <button id="nopublicar" class="btn btn btn-warning">No publicar</button>
-                    </div>
-                    <div class="col">
-                        <button id="sipublicar" class="btn btn btn-primary">Publicar</button>
-                    </div>
-                </div>
-            </div>
-        
-        </div>
-        <!-- ------------------------------------------- -->
-        <div class="col-sm-2">
-        
-            <p class="m-0">
-                <a href="#" id="btnPromo" class="collapsed" data-toggle="collapse" data-target="#collapsePromo"
-                    aria-expanded="false" aria-controls="collapsePromo">
-                    Publica Promoción
-                </a>
-            </p>
-            <div id="collapsePromo" class="collapse" aria-labelledby="headingPromo" data-parent="#accordion">
-        
-                <div class="row justify-content-center">
-                    <label for="divoperacionpublicar" class="colorletras">Se ve como Promoción en la web</label>
-                </div>
-                <div id="divoperacionpublicar" class="row justify-content-center">
-                    <div class="col">
-                        <button id="nopublicarpromo" class="btn btn btn-warning">No promo</button>
-                    </div>
-                    <div class="col">
-                        <button id="sipublicarpromo" class="btn btn btn-primary">Si es Promo</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ------------------------------------------- -->
-        <div class="col-sm-2">
-        
-            <p class="m-0">
-                <a href="#" id="btnNove" class="collapsed" data-toggle="collapse" data-target="#collapseNovedad"
-                    aria-expanded="false" aria-controls="collapseNovedad">
-                    Publica Novedad
-                </a>
-            </p>
-            <div id="collapseNovedad" class="collapse" aria-labelledby="headingNovedad" data-parent="#accordion">
-        
-                <div class="row justify-content-center">
-                    <label for="divoperacionnovedad" class="colorletras">Se ve como novedad en la web</label>
-                </div>
-                <div id="divoperacionnovedad" class="row justify-content-center">
-                    <div class="col">
-                        <button id="nopublicarnovedad" class="btn btn btn-warning">No novedad</button>
-                    </div>
-                    <div class="col">
-                        <button id="sipublicarnovedad" class="btn btn btn-primary">Si novedad</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ------------------------------------------- -->
-        <div class="col-sm-2">
-        
-            <p class="m-0">
-                <a href="#" id="btnPubli" class="collapsed" data-toggle="collapse" data-target="#collapsePublicidad"
-                    aria-expanded="false" aria-controls="collapsePublicidad">
-                    Publicidades
-                </a>
-            </p>
-            <div id="collapsePublicidad" class="collapse" aria-labelledby="headingPublicidad" data-parent="#accordion">
-        
-                <div class="row justify-content-center">
-                    <label for="divoperacionpublicidad" class="colorletras">Las publicidades se ven en web y no en panel de control</label>
-                </div>
-                <div id="divoperacionnovedad" class="row justify-content-center">
-                    <div class="col">
-                        <button id="nopublicidad" class="btn btn btn-warning">No es Publicidad</button>
-                    </div>
-                    <div class="col">
-                        <button id="sipublicidad" class="btn btn btn-primary">Es publicidad</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-   
+    <hr>
 
     <!-- ----------------------------------------------- -->
 
     <div class="row justify-content-center">
 
         <div class="col-sm-12">
-            <div id="divverdata" class="row justify-content-start">
-                
-            </div>
-            <label>
-                <input id="todostilde" onclick='checktodostilde()' type='checkbox'
-                    class='filled-in columnadedos' /><span class='colorletras'>Todos</span>
-            </label>
+           
             <div class="table-responsive">
                 <table id="tablaanunciosmasivos" class="display table table-striped" style="font-size: 1.3em;">
                     <thead>
@@ -313,7 +298,7 @@
 $(document).ready(function ()
 {
     llama = "masivos";
-    $("#divBuscador").load("componentebuscador.html");
+    $("#divBuscador").load("componentebuscador.html?n=1");
     $("#divverdata").load("componentelistaverdata.html");
     $("#divproveedores").load("componenteproveedores.html");
     $("#divcategorias").load("componentecategorias.html");

@@ -1,68 +1,62 @@
-<div id="accordionVentas" class="mt-3 pt-2">
-    
-    <div class="filafondo row justify-content-center align-items-center">
-        <div class="col-sm-2">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5 style="color: white;" >CAJA</h5>
-                </div>
-                <div class="col-sm-6">
-                    <button id="nuevoclienteventas" style="color: white;" class="waves-effect waves-light btn-small">Clientes</button>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-sm-2">
-            <div class="row justify-content-center ">
-                <h5 class="m-1 p-1">
-                    <input id="fechaventa" type="text" class="datepicker center" readonly>
-                </h5>
-                <h5 id="fechaventalectura" type="text" style="display: none;"></h5>
+<div id="accordionVentas" class="mt-4">
+    
+   
+    
+    <div id="collapseMasOpciones" class="collapse" aria-labelledby="headingMasOpciones" data-parent="#accordionVentas">
+
+        <div class="filafondo row justify-content-center ">
+            <div class="col-sm-2">
+                <div id="divverdata" class="row justify-content-start"></div>
             </div>
-            <div class="row" style="display: none;">
-                <div class="col-sm-4">
-                    <input type="text" id="bonusestablecido" value="" class="center" readonly>
-                </div>
-                <div class="col-sm-8">
-                    <p>% de bonus por venta</p>
+            <div class="col-sm-2">
+                <label>
+                    <input id="verconimagen" type='checkbox' class='filled-in' /><span class='colorletras'>Mostrar imagenes</span>
+                </label>
+            </div>
+            <div class="col-sm-4">
+                <div class="row justify-content-center ">
+                    <h5 class="m-1 p-1">
+                        <input id="fechaventa" type="text" class="datepicker center" readonly>
+                    </h5>
+                    <h5 id="fechaventalectura" type="text" style="display: none;"></h5>
                 </div>
             </div>
+            <div class="col-sm-4"></div>
         </div>
-        
-        <div class="col-sd-2">
+    </div>
+
+    <div class="filafondo row justify-content-center align-items-center">
+
+        <div class="col-sm-12 col-md-3">
+            <button id="nuevoclienteventas" style="color: white;" class="waves-effect waves-light btn-small">Clientes</button>
+        </div>
+        <div class="col-sm-12 col-md-3">
             <div class="row justify-content-center">
-                <select class="form-control m-1 p-1" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
+                <select class="js-example-basic-single form-control m-1 p-1" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
             </div>
-            
         </div>
-        <div class="col-sd-2">
+        <div class="col-sm-12 col-md-3">
             <div class="row justify-content-center">
                 <select class="form-control m-1 p-1" id="opcioneslistatiposdepago" name="opcioneslistatiposdepago"></select>
             </div>
         </div>
-
-        <div class="col-sd-2">
-            <div class="row justify-content-center">
-                <button id="procesarpedido" class="btn btn-primary">Guardar <i class="fas fa-save"></i></button>
-            </div>
-        </div>
-        <div class="col-sd-2">
-            <div class="row justify-content-center">
-                <input id="totalpedido" value="0" type="text" class="center" style="color: rgb(255, 255, 255);font-size: 1.3em;"
-                    readonly>
-            </div>
+        <div class="col-sm-12 col-md-3" id="headingMasOpciones">
+            <button class="btn collapsed" data-toggle="collapse" data-target="#collapseMasOpciones" aria-expanded="false"
+                aria-controls="collapseMasOpciones">
+                Mas opciones
+            </button>
         </div>
     </div>
+    
     <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
-    <div id="divNuevoCliente" style="display: none;"  class="row">
-        
-    </div>
+    <div id="divNuevoCliente" style="display: none;"  class="row"></div>
 
     <div id="pedido" style="display: none;">
         <!-- lista venta -->
-        <div class="row">
+        <div class="row mb-0">
             <!-- Columna de tarjeta de ventas -->
-            <div class="col-sm-12 notapedido">
+            <div class="col-sm-8 notapedido mb-0">
 
                 <div class="table-responsive">
                     <table id="tablaitemsventa" class="display table table-striped" style="width: 100%!important;">
@@ -91,22 +85,56 @@
                     </table>
                 </div>
             </div>
-
+            <div class="col-sm-2">
+                <input id="totalpedido" value="0" type="text" class="center" style="font-size: 1.3em;"
+                    readonly>
+            </div>
+            <div class="col-sm-2">
+                <button id="procesarpedido" class="btn btn-primary">Guardar <i class="fas fa-save"></i></button>
+            </div>
         </div>
     </div>
-
-        <hr>
+    <!-- -----------Forma de pago dividido ------------ -->
+    <div id="divdvp" style="display: none;">
+        <div class="row ">
+            <div class="col-sm-12 col-md-4 offset-md-5">
+                <div class="table-responsive">
+                    <table id="tabladvp" class="display table table-striped" style="width: 100%!important;">
+                        <thead>
+                            <tr>
+                                <th>Tipo de pago</th>
+                                <th></th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-0">
+                <div class="col-sm-12 mb-0">
+                    <div id="divBuscador" class="row justify-content-center mb-0">
+                        <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
+                        
         
+                        <!-- ---------------------------------------------------------- -->
+                    </div>
+                </div>
+    </div>
     <!-- Buscar para Vender -->
     <div class="row">
         <!-- Columna de lista de anuncios -->
         <div class="col-sm-12">
-            <div id="divBuscador" class="row justify-content-center p-4">
-                <!-- ------------INSERTA COMPONENTE BUSQUEDA------------------- -->
-                
-
-                <!-- ---------------------------------------------------------- -->
-            </div>
+            
+            
             <div class=" col-sm-2">
                 <!-- cliente elegido -->
                 <input style="display: none;" id="idclienteelegido" name="idclienteelegido" type="text">
@@ -115,31 +143,28 @@
                 <input style="display: none;" id="tipodepagoelegido" name="tipodepagoelegido" type="text">
             </div>
 
-            <div id="divverdata" class="row justify-content-start"></div>
-
+            
             <div id="listaproductos" style="display: none;" class="table-responsive">
                 <table id="tablaanunciosvender" class="display table table-striped" style="width: 100%!important;">
                     <thead>
                         <tr>
                             <th class=" center" ></th>
                             <th class=" columnadedos center">Stock</th>
-                            <th class="  center">Titulo</th>
-                            <th class="  center">$ vta</th>
-                            <th class="  center" style="font-size: 0.9em;" ></th>
-                            <th class="  center" ></th>
+                            <th class=" center">Titulo</th>
+                            <th class=" center">$ vta</th>
+                            <th class=" center" style="font-size: 0.9em;" ></th>
+                            <th class=" center" ></th>
                             <th class=" columnadetres center">cantidad</th>
                             <th class=" columnadedos center">$ lista</th>
                             <th class=" columnadedos">Imagen</th>
-                            <th class="columnadedos center">Id</th>
-                            <th class="columnadedos center">Codigo Barra</th>
+                            <th class=" columnadedos center">Id</th>
+                            <th class=" columnadedos center">Codigo Barra</th>
                             <th class="">Descripcion</th>
                             <th class="columnadedos center">Unidad Vta</th>
-
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            
                             <td class=" center"></td>
                             <td class=" columnadedos center"></td>
                             <td class= ""></td>
@@ -171,9 +196,11 @@
                     Lista de ventas del día
                 </button>
             </h5>
-           
-            <h5 id="totalventas">0</h5>
-            
+           <div class="row justify-content-center">
+               <div class="col-sm-12 col-md-3 center">
+                   <h5 id="totalventas">0</h5>
+               </div>
+            </div>
         </div>
         
         <div id="collapseListaVenta" class="collapse" aria-labelledby="headingListaVenta" data-parent="#accordionVentas">
@@ -343,13 +370,46 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+            <div class="table-responsive">
+                <table id="tablaresumendvp" class="display table table-striped" style="width: 100%!important;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-
+<div class="row" style="display: none;">
+    <div class="col-sm-4">
+        <input type="text" id="bonusestablecido" value="" class="center" readonly>
+    </div>
+    <div class="col-sm-8">
+        <p>% de bonus por venta</p>
+    </div>
+</div>
 <script>
+var totalmontodvp = 0;
 
 function consultaventadiaactual() {
     
-    consultarventasdeldia();
+    // consultarventasdeldia();
+    consultarventasdeldiadvp();
+           
+
 }
 
 function verificaJerarquia()
@@ -388,7 +448,6 @@ function verificaJerarquia()
 
     $(document).ready(function () 
     {
-        
         configuracalendario();
         consultarbonus();
         consultaclientes_seleccion_lista(); //llena la lista de clientes del buscador
@@ -399,6 +458,8 @@ function verificaJerarquia()
         configuraciontablavender();
         configuraciontablacajas();
         configuraciontablaanunciosvender();
+        configuraciontabladvp();
+        $('.js-example-basic-single').select2();
 
         $("#divNuevoCliente").load("componenteclientes.html");
 
@@ -472,7 +533,7 @@ function verificaJerarquia()
         colocafechaactual();
 
         llama = "vender";
-        $("#divBuscador").load("componentebuscador.html");
+        $("#divBuscador").load("componentebuscador.html?n=4");
 
         verificabloqueo();
         verificaJerarquia();
@@ -499,9 +560,125 @@ function verificaJerarquia()
         });
     $('.tooltipped').tooltip();
 
-    $("#divverdata").load("componentelistaverdata.html?" + versionts);
+    $("#divverdata").load("componentelistaverdata.html?n=1" + versionts);
 
     $("#exportararchivo").click(function () {
             exportTableToExcel('tablaresumen', 'resumencajadeldia');
+            exportTableToExcel('tablaresumendvp', 'resumencajadeldiadvp');
     });
+
+
+    //---------------------------------------------------------------------
+
+    function configuraciontabladvp(){
+        $('#tabladvp').DataTable({
+            "language": {
+
+                "processing": "Procesando...",
+                "search": "Sub búsqueda:",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                "emptyTable": "No hay registros guardados",
+                "zeroRecords": "No hay registros guardados",
+                "infoEmpty": "No hay anuncios para mostrar",
+                
+                "pageLength": 10,
+
+            },
+            
+            "dom": 'rt<"clear">'
+
+        });
+    }
+    function consultatiposdepagodvp(e) {
+
+        if ($.fn.dataTable.isDataTable('#tabladvp')) {
+            tdvp= $('#tabladvp').DataTable();
+        }
+
+        var bdd = conexionbdd;
+        var tabla = tablatiposdepago;
+        var tipo = "consultatodo";
+        var id=0;
+
+        var datos = new Object();
+        datos.id = id;
+        datos.nombre = "";
+        datos.bdd = bdd;
+        datos.tabla = tabla;
+        datos.tipo = tipo;
+        var datosjson = JSON.stringify(datos);
+
+        tdvp.clear().draw(true);
+        arrdvp = [];
+        $.ajax({
+
+            url: "consultatiposdepago.php",
+            data: { datos: datosjson },
+            type: "post",
+
+            success: function (data) {
+                if (data != "consultavacia") {
+
+                    dd = JSON.parse(data); //data decodificado
+
+                    $.each(dd, function (key, value) {
+                        if(dd[key].nodivisible==0)
+                        {
+                            var objeto = new Object();
+                            objeto.tipopago = dd[key].id;
+                            objeto.nombre = dd[key].nombre;
+                            objeto.nombrecorto = dd[key].nombrecorto;
+                            objeto.monto= 0;
+
+                            tptemp = dd[key].nombrecorto;
+                            tptemp = tptemp.trim();
+                            // aca crea la tabla para completar con monto por pago
+                            tdvp.row.add([
+                                "<p style='text-align: center;' >" + dd[key].nombre + "</p>",
+                                "<p style='text-align: center;' >" + dd[key].nombrecorto + "</p>",
+                                "<input style='text-align: center;' onKeyUp ='return asignamonto(\"" + dd[key].id + "\")' id ='montodvp_" + dd[key].id + "' name ='montodvp_" + dd[key].id + "' type ='text' value=0 class='validate'></input>",
+                            ]).draw(true);
+
+                            arrdvp.push(objeto);
+                        }
+                    });
+
+                    tdvp.columns.adjust().draw();
+                         
+                } else {
+                    M.toast({ html: 'No hay tipos de pago dados de alta.' });
+                }
+            },
+            error: function (e) {
+                alert("Error en la consulta." + e.value);
+            }
+        });
+
+    }
+
+    function asignamonto(idpasado){
+
+
+        for(var a = 0 ;a < arrdvp.length;a++)
+        {
+            if(idpasado == arrdvp[a].tipopago)
+                arrdvp[a].monto = document.getElementById("montodvp_" + idpasado).value;
+        }
+        
+        //suma los montos para verificar si puede guardar
+        totalmontodvp = 0;
+        for (var a = 0; a < arrdvp.length; a++)
+            totalmontodvp = totalmontodvp + Math.round(arrdvp[a].monto * 100) / 100;
+        
+        var montototalpedido = Math.round(document.getElementById("totalpedido").value * 100) / 100;
+
+
+        if(totalmontodvp >=  montototalpedido)
+             document.getElementById("procesarpedido").disabled = false;
+        else
+            document.getElementById("procesarpedido").disabled = true;
+        
+        return true;
+    }
 </script>

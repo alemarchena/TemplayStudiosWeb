@@ -1,12 +1,21 @@
+<style>
+    .nav-link{
+        height: 40px;
+        font-size: 0.9em;
+    }
+    .navbar{
+        height: 50px;
+    }
+</style>
 <div >
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top menu mt-2">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top menu m-0 p-0">
         <img id="logojt" src="img/logoempresa.png" alt="Empresa" class="ml-3 mr-3">
         <button id="botonmenu" class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="my-nav" class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ">
 
                 <li id="ciencientouno" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,7 +85,7 @@
         </div>
     </nav>
 
-    <div id="contenido" class="contenido center" style="padding-top: 1em;">
+    <div id="contenido" class="contenido center">
         <h3>Panel de Control</h3>
         <img src="img/logoempresa.png" alt="Empresa">
     </div>
@@ -86,8 +95,8 @@
         <div class="footer-copyright">
             <div class="container row">
                 <div class="col-sm-4">
-                    © 2020 Copyright
-                    <a class="grey-text text-lighten-4 right" href="http://www.templaystudios.com" target="_BLANK">Creado por
+                    © 2021 Copyright
+                    <a class="grey-text text-lighten-4 right" href="https://www.templaystudios.com" target="_BLANK">Creado por
                         Templay Studios</a>
                 </div>
                 
@@ -116,7 +125,7 @@
 
 <script src="scrollmenu.js?" + versionts></script> <!-- codigo que permite el scroll de menu-->
 
-<script src="funciones.js?n=10" + versionts></script>
+<script src="funciones.js?n=54" + versionts></script>
 <script src="js/convertidorfecha.js?" + versionts></script>
 <script src="configuracion.js?" + versionts></script>
     
@@ -205,7 +214,7 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
             
-            $("#contenido").load("vender.html?n=5" + versionts);
+            $("#contenido").load("vender.html?n=34" + versionts);
         });
 
         $("#botcaja").click(function (e) {
@@ -219,7 +228,7 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("comprasyajustes.html?n=4" + versionts);
+            $("#contenido").load("comprasyajustes.html?n=5" + versionts);
         });
 
         $("#botbonus").click(function (e) {
@@ -246,7 +255,7 @@ $(document).ready(function ()
             e.preventDefault();
             contraerMenu();
 
-            $("#contenido").load("cambiosmasivos.html?n=1" + versionts);
+            $("#contenido").load("cambiosmasivos.html?n=6" + versionts);
         });
         
         if (jerarquia < 1) ocultarmenu('botpermisos');

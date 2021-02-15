@@ -85,37 +85,39 @@
          * INGRESO AL SISTEMA.
          */
         function toggleSignIn() {
-            if (firebase.auth().currentUser) {
-                // [START signout]
-                firebase.auth().signOut();
+           verificarusuario();
 
-                // [END signout]
-            } else {
-                var email = document.getElementById('email').value;
-                var password = document.getElementById('password').value;
-                if (email.length < 4) {
-                    swal("Atención", "Ingrese una dirección de email!");
-                    return;
-                }
-                if (password.length < 4) {
-                    swal("Atención", "Ingrese una clave!");
+            // if (firebase.auth().currentUser) {
+            //     // [START signout]
+            //     firebase.auth().signOut();
 
-                    return;
-                }
+            //     // [END signout]
+            // } else {
+            //     var email = document.getElementById('email').value;
+            //     var password = document.getElementById('password').value;
+            //     if (email.length < 4) {
+            //         swal("Atención", "Ingrese una dirección de email!");
+            //         return;
+            //     }
+            //     if (password.length < 4) {
+            //         swal("Atención", "Ingrese una clave!");
 
-                firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    if (errorCode === 'auth/wrong-password') {
-                        swal("Contraseña", "La clave es incorrecta.");
-                    } else {
-                        swal("Error", "No existe un usuario con este email");
-                    }
-                    console.log(error);
-                    document.getElementById('quickstart-sign-in').disabled = false;
-                });
-            }
-            document.getElementById('quickstart-sign-in').disabled = true;
+            //         return;
+            //     }
+
+            //     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+            //         var errorCode = error.code;
+            //         var errorMessage = error.message;
+            //         if (errorCode === 'auth/wrong-password') {
+            //             swal("Contraseña", "La clave es incorrecta.");
+            //         } else {
+            //             swal("Error", "No existe un usuario con este email");
+            //         }
+            //         console.log(error);
+            //         document.getElementById('quickstart-sign-in').disabled = false;
+            //     });
+            // }
+            // document.getElementById('quickstart-sign-in').disabled = true;
         }
 
         /**
@@ -130,8 +132,10 @@
             objeto = new Object();
             objeto.email = email.trim();
             objeto.tipo = "consultar";
-            var objetojson = JSON.stringify(objeto);
+            objeto.id = 0;
+            objeto.idplataformaagregada = "";
 
+            var objetojson = JSON.stringify(objeto);
 
             $.ajax({
 
@@ -168,21 +172,19 @@
             
             
              var email = document.getElementById('email').value;
-             var password = document.getElementById('password').value;
 
             if (email.length < 4) {
                 swal("Email", "Por favor ingrese una dirección de correo.");
                 return;
             }
-            if (password.length < 4) {
-                swal("Contraseña", "Ingrese una clave de al menos 4 digitos");
-                return;
-            }
+           
 
             
             objeto = new Object();
             objeto.email = email.trim();
             objeto.tipo = "alta";
+            objeto.idplataformaagregada = "";
+            objeto.id = 0;
             var objetojson = JSON.stringify(objeto);
 
             M.toast({ html: 'Trabajando...' });
@@ -201,9 +203,10 @@
                    
                     }else if (data == "1"){
                         console.log("Usuario creado");
-                        handleSignUp();
+                        // handleSignUp();
                         //swal("Usuario Creado!", "Presione 'Verificar cuenta' para continuar!");
-                       
+                        M.toast({ html: 'Usuario Creado', displayLength: '1000', classes: 'rounded' });
+
 
                     }else{
                         console.log("Otro error " + data);
@@ -215,75 +218,7 @@
             });
             
         }
-
         
-
-       
-     
-        function handleSignUp() {
-            
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            document.getElementById('textoexplicacion').style.visibility = "visible";
-        
-
-            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode == 'auth/weak-password') {
-                    document.getElementById('textoexplicacion').style.visibility = "hidden";
-
-                    eliminarusuario();
-                    swal("Contraseña", "La clave es demasiado débil.");
-
-                } else {
-                    document.getElementById('textoexplicacion').style.visibility = "hidden";
-
-                    eliminarusuario();
-                    swal("Error", errorMessage);
-                }
-                console.log("Resultado:" + error);
-            });
-
-            mensajeok();
-        }
-
-        function mensajeok(){
-             
-                        const swalWithBootstrapButtons = Swal.mixin({
-                            customClass: {
-                                confirmButton: 'btn btn-success',
-                                cancelButton: 'btn btn-danger'
-                            },
-                            buttonsStyling: false
-                        })
-
-                        swalWithBootstrapButtons.fire({
-                            title: 'Usuario Creado!',
-                            text: "Está a un solo paso, enviaremos un email para verificar que es el propietario de la cuenta!",
-                            icon: 'warning',
-                            showCancelButton: false,
-                            confirmButtonText: 'OK',
-                            cancelButtonText: 'No, cancelar!',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.value) {
-                                sendEmailVerification();
-                                MandaEmail(email);
-
-                            } else if (
-                                /* Read more about handling dismissals below */
-                                result.dismiss === Swal.DismissReason.cancel
-                            ) {
-                                swalWithBootstrapButtons.fire(
-                                    'Perfecto',
-                                    'Si cambias de opinión presiona el botón verificar :)'
-                                )
-                            }
-                        })
-                        
-        }
         function eliminarusuario() {
 
             var email = document.getElementById('email').value;
@@ -291,6 +226,8 @@
             objeto = new Object();
             objeto.email = email.trim();
             objeto.tipo = "baja";
+            objeto.idplataformaagregada = "";
+            objeto.id = 0;
             var objetojson = JSON.stringify(objeto);
 
             $.ajax({
@@ -381,105 +318,13 @@
             });
         } 
 
-      
-        /**
-         * Sends an email verification to the user.
-         */
-        function sendEmailVerification() {
-            firebase.auth().currentUser.sendEmailVerification().then(function () {
-                swal("Genial!", "Estamos felices que quieras estar con nosotros! ya tienes un enlace en tu email");
-
-            });
-            document.getElementById('quickstart-verify-email').style.visibility = "hidden";
-            firebase.auth().signOut();
-        }
-
-        function sendPasswordReset() {
-            var email = document.getElementById('email').value;
-            firebase.auth().sendPasswordResetEmail(email).then(function () {
-                swal("Enviado!", "Abra su email y resetee su clave!");
-            }).catch(function (error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode == 'auth/invalid-email') {
-                    swal("Error", errorMessage);
-                } else if (errorCode == 'auth/user-not-found') {
-                    swal("Error", errorMessage);
-                }
-                console.log(error);
-            });
-        }
-
-        function MandaEmail(email) {
-
-            var emailnuevo = new FormData();
-            var xhrnuevo = new XMLHttpRequest();
-            
-            // CONFIGURACION INICIO
-            xhrnuevo.open('POST', dominioruta + 'controladores/emailnuevousuario.php');
-            //CONFIGURACION FIN
-            
-            xhrnuevo.withCredentials = true;
-
-            emailnuevo.append('email', email);
-            xhrnuevo.send(emailnuevo);
-
-        }
-
         function initOffline(){
             document.getElementById('quickstart-sign-in').disabled = false;
-        }
-        function initApp() {
-            // Listening for auth state changes.
-            firebase.auth().onAuthStateChanged(function (user) {
-                document.getElementById('quickstart-verify-email').disabled = true;
-                
-            
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    emailingreso = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var isAnonymous = user.isAnonymous;
-                    var uid = user.uid;
-                    var providerData = user.providerData;
-
-                    document.getElementById('quickstart-sign-in-status').textContent = 'Conectado';
-                    document.getElementById('quickstart-sign-in').textContent = 'Salir';
-                    
-                    // document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-                    
-                    if (!emailVerified) {
-                        document.getElementById('quickstart-verify-email').disabled = false;
-                    
-                        document.getElementById('quickstart-verify-email').style.visibility = "visible";
-                        document.getElementById('quickstart-password-reset').style.visibility = "hidden";
-                    }else{
-                        document.getElementById('quickstart-password-reset').style.visibility = "visible";
-                        document.getElementById('quickstart-verify-email').style.visibility = "hidden";
-                        document.getElementById('textoexplicacion').style.visibility = "hidden";
-                        
-                        verificarusuario();
-                    }
-                } else {
-                    document.getElementById('quickstart-sign-in-status').textContent = 'Desconectado';
-                    document.getElementById('quickstart-sign-in').textContent = 'Ingresar';
-                    document.getElementById('quickstart-account-details').textContent = '';
-                }
-                document.getElementById('quickstart-sign-in').disabled = false;
-            });
-
-            document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+            document.getElementById('quickstart-sign-up').disabled = false;
             document.getElementById('quickstart-sign-up').addEventListener('click', consultarusuario, false);
-            document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
-            document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
-        
         }
-
+        
         window.onload = function () {
-            // initApp();
             initOffline();
         };
 
@@ -494,12 +339,9 @@
 
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-    <!-- <div class="d-flex justify-content-center mt-2">
-        <img src="img/logoempresa.png" class="img-fluid" alt="Responsive image" width="10%" height="auto">
-    </div> -->
+ 
   
     <div id="plataforma"class="mt-5">
-        <!-- <form method=post action=""> -->
             <div  class="col-sm-4 offset-sm-4">
                     <div id="tarjeta" class="card text-center">
                         <div class="card-header">
@@ -508,15 +350,6 @@
                         <div class="">
                             <h5 class="card-title">Panel de control</h5>
                             
-                            <!-- ----------------------- plataforma de prueba ----------------- -->
-                            
-                            <!-- <br>
-                            <p style="color:green">Siéntete libre de realizar acciones, esto no perjudica al sitio.</p>
-                            <p style="color:green">Es importante para nosotros que nos hagas una devolución de tu experiencia.</p>
-                            Puedes ponerte en <a href="https:\\www.templaystudios.com" target="_blank">contacto</a> con nosotros.
-                            <p style="color:black">Ingresa con esta cuenta de prueba.</p>
-                            -->
-                            <!-- ------------------------------------------------------------------------ -->
                             
                             <hr>
                             <div class="d-flex justify-content-center mt-4 row">
@@ -524,54 +357,25 @@
                                 placeholder="Email: info@templaystudios.com" value=""/>
                                 &nbsp;&nbsp;&nbsp;
                             </div>
-                            <div class="d-flex justify-content-center mt-4 row">
-                                <input class="mdl-textfield__input center" onKeyUp="return verificaenter(event)" style="display:inline;width:65%;" type="password" id="password" name="password"
-                                    placeholder="Password 12345678" value=""/>
-                                <br /><br />
-                                <div class="col-sm-2" style="padding: 0em!important;">
-                                    <button class="btn icon fa fa-eye" type="button" id="button-addon2"></button>
-                                </div>
-                            </div>
-
+                           
 
 
 
                             <div class="d-flex justify-content-center mt-4 row">
                                 <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-in" name="signin">Ingresar</button>
                                 &nbsp;&nbsp;&nbsp;
-                            
-                                <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Registrarse</button>
+                                <button disabled class="mdl-button mdl-js-button mdl-button--raised amber" id="quickstart-sign-up" name="signin">Registrarse</button>
                                 &nbsp;&nbsp;&nbsp;
+                            
+                               
                             </div>
 
                         
-                            <div class="d-flex justify-content-center row">
-                                <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email"
-                                name="verify-email" style="visibility: hidden;">Verificar cuenta</button>
-                                &nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div class="d-flex justify-content-center mt-1 row">
-                                <!-- <a class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">¿Has olvidado tu contraseña?</a> -->
-                                <a class="btn-link blue-text text-darken-2" id="quickstart-password-reset" name="verify-email">¿Has olvidado tu contraseña?</a>
-                                
-                            </div>
                             
                         </div>
-                        <div class="card-footer text-muted">
-                            <div class="d-flex justify-content-center row">
-                                <p id="textoexplicacion" style="visibility: hidden;">Por seguridad te enviamos un correo para que verifiquemos que es tuya la cuenta.</p>
-                            </div>
-                            <!-- Container where we'll display the user details -->
-                            <div class="quickstart-user-details-container">
-                                Estado de conexión: <span id="quickstart-sign-in-status">Desconocido</span>
-                                
-                                <pre><code id="quickstart-account-details"> </code></pre>
-                            </div>
-                            
-                        </div>
+                       
                     </div>
             </div>
-        <!-- </form> -->
 
         <div id="opcionesadministracion" style="visibility:hidden;">
 

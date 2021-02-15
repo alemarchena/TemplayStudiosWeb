@@ -18,10 +18,11 @@
     $tabla          = $objeto['tabla'];
     $tipo           = $objeto['tipo'];
     $id             = $objeto['id'];
-    $bloqueo             = $objeto['bloqueo'];
+    $bloqueo        = $objeto['bloqueo'];
 
-    // $arreglousuario = $objeto['arreglousuario'];
-    $arreglousuario = $_POST['arreglousuario'];
+    if($tipo == "consultapaquete"){
+        $arreglousuario = $_POST['arreglousuario'];
+    }
 
 
     // Consulta

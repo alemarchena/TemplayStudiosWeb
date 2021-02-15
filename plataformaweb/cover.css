@@ -7,6 +7,12 @@ body {
   height: 100%;
   /* background-color: #2E9AFE; */
 }
+
+.dataTables_wrapper .dataTables_filter {
+  width:100%;
+  text-align:center;
+}
+
 /* --------------------- Barra de navegacion --------------- */
 
 .tamaimagen{ 

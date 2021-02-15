@@ -9,19 +9,21 @@
     $bdd = $vendido['bdd'];
     include  $bdd;
     $tabla= $vendido['tabla'];
-    $tablaanuncios= $vendido['tablaanuncios'];
-    $tablaclientes= $vendido['tablaclientes'];
-    $tablarubros= $vendido['tablarubros'];
     $tipo = $vendido['tipo'];
-    $tablaunidadesgranel = $vendido['tablaunidadesgranel'];
     $email = $vendido['email'];
     $jerarquia = $vendido['jerarquia'];
 
+    if ($tipo != "consultadvp") {
+        $tablaanuncios= $vendido['tablaanuncios'];
+        $tablaclientes= $vendido['tablaclientes'];
+        $tablarubros= $vendido['tablarubros'];
+        $tablaunidadesgranel = $vendido['tablaunidadesgranel'];
+    }
 
     $fechaventarecibida =$vendido['fechaventa'];
     $fechaventacreada= date_create_from_format('dmY', $fechaventarecibida);
     $fechaventa = date_format($fechaventacreada, 'Y-m-d');
-
+    
     if($tipo == "alta")
     {
         $idproducto     = $vendido["id"];
@@ -33,6 +35,7 @@
         $bonus          = $vendido["bonus"];
         $tipopago       = $vendido["tipopago"];
         $hora           = $vendido["hora"];
+        $numdvp           = $vendido["numdvp"];
     }
 
     if($tipo == "baja")
@@ -66,14 +69,14 @@
     }
     
 
-    if($tipo == "consulta" || $tipo == "consultacaja" || $tipo == "consultacajasindetalle")
+    if($tipo == "consulta" || $tipo == "consultacaja" || $tipo == "consultacajasindetalle" || $tipo == "consultadvp" )
     {
         if($tipo == "consulta")
         {
             // $sql = "Select * from `" .$tabla. "` where fecha = '" . $fechaventa . "'";
             $sql = "Select " 
             .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," .$tabla. ".email," .$tabla. ".hora," 
-            .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," .$tabla. ".email,"
+            .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," .$tabla. ".email," . $tabla . ".numdvp,"
             .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion," .$tablaanuncios. ".codigobarra,"  
             .$tablaclientes. ".idcliente,".$tablaclientes. ".nombrecliente," 
             .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
@@ -83,12 +86,11 @@
             " ON " .$tabla. ".idcliente  = " .$tablaclientes. ".idcliente) LEFT JOIN " .$tablarubros. 
             " ON " .$tabla. ".idrubro    = " .$tablarubros.    ".idrubro ) LEFT JOIN " .$tablaunidadesgranel.
             " ON " .$tablaanuncios. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tablaanuncios. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where " . $segunjerarquia . " fecha = '" . $fechaventa . "'";
-            
         }else if($tipo == "consultacaja"){
             // $sql = "Select * from `" .$tabla. "` where fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "' order by fecha desc";
             $sql = "Select " 
             .$tabla. ".id," .$tabla. ".cantidad," .$tabla. ".precio," .$tabla. ".costo," .$tabla. ".fecha," .$tabla. ".hora," 
-            .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," .$tabla. ".email,"
+            .$tabla. ".bonus," .$tabla. ".tipopago," .$tabla. ".idproducto," .$tabla. ".idcliente," .$tabla. ".idrubro," .$tabla. ".email," . $tabla . ".numdvp,"
             .$tablaanuncios. ".id as idproducto," .$tablaanuncios. ".titulo," .$tablaanuncios. ".descripcion," .$tablaanuncios. ".codigobarra," 
             .$tablaclientes. ".idcliente,".$tablaclientes. ".nombrecliente," 
             .$tablaunidadesgranel. ".prefijocompra," .$tablaunidadesgranel. ".nombreprefijocompra," .$tablaunidadesgranel. ".nombreprefijoventa," .$tablaunidadesgranel. ".relacioncompraventa,"
@@ -101,6 +103,8 @@
         }else if($tipo == "consultacajasindetalle"){
             $sql = "Select SUM(cantidad * precio) as ventasalpublico,SUM(cantidad * costo) as ventasalcosto," .$tabla. ".fecha,".$tabla. ".email from "
             .$tabla. " where " . $segunjerarquia . " fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "'";
+        }else if($tipo == "consultadvp"){
+            $sql = "Select * from ". $tabla . " where " . $segunjerarquia . " fecha = '" . $fechaventa . "'";
         }
 
 
@@ -119,8 +123,8 @@
     }else if($tipo == "alta" || $tipo == "baja")
     {
         if($tipo == "alta"){
-            $sql = "Insert Into " .$tabla. "(idproducto, precio, costo, idrubro, fecha, hora, cantidad,idcliente,bonus,tipopago,email)
-                values('$idproducto','$precio','$costo','$idrubro','$fechaventa','$hora','$cantidad','$idcliente','$bonus','$tipopago','$email')";
+            $sql = "Insert Into " .$tabla. "(idproducto, precio, costo, idrubro, fecha, hora, cantidad,idcliente,bonus,tipopago,email,numdvp)
+                values('$idproducto','$precio','$costo','$idrubro','$fechaventa','$hora','$cantidad','$idcliente','$bonus','$tipopago','$email','$numdvp')";
         
         }else{
             $sql = "delete from " .$tabla. " where id = $id";

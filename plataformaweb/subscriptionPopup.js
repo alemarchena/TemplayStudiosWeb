@@ -101,7 +101,6 @@ function checkCookie() {
   }
 }
 
-
 function subscriptionPopup(){
     // get the mPopup
     var mpopup = $('#mpopupBox');
@@ -120,7 +119,4 @@ function subscriptionPopup(){
             mpopup.hide();
         }
     });
-    
-    
-
 }
