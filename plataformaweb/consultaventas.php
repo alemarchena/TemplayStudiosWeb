@@ -13,7 +13,11 @@
     $email = $vendido['email'];
     $jerarquia = $vendido['jerarquia'];
 
-    if ($tipo != "consultadvp") {
+    if ($tipo == "consultaventasdvp" || $tipo == "alta") {
+        $numdvp = $vendido['numdvp'];
+    }
+
+    if ($tipo != "consultadvp" && $tipo != "consultaventasdvp") {
         $tablaanuncios= $vendido['tablaanuncios'];
         $tablaclientes= $vendido['tablaclientes'];
         $tablarubros= $vendido['tablarubros'];
@@ -35,7 +39,6 @@
         $bonus          = $vendido["bonus"];
         $tipopago       = $vendido["tipopago"];
         $hora           = $vendido["hora"];
-        $numdvp           = $vendido["numdvp"];
     }
 
     if($tipo == "baja")
@@ -69,7 +72,7 @@
     }
     
 
-    if($tipo == "consulta" || $tipo == "consultacaja" || $tipo == "consultacajasindetalle" || $tipo == "consultadvp" )
+    if($tipo == "consulta" || $tipo == "consultacaja" || $tipo == "consultacajasindetalle" || $tipo == "consultadvp" || $tipo == "consultaventasdvp")
     {
         if($tipo == "consulta")
         {
@@ -105,6 +108,10 @@
             .$tabla. " where " . $segunjerarquia . " fecha >= '" . $fechaventadesde . "' and  fecha <= '" . $fechaventahasta . "'";
         }else if($tipo == "consultadvp"){
             $sql = "Select * from ". $tabla . " where " . $segunjerarquia . " fecha = '" . $fechaventa . "'";
+            // $sql = "Select * from " . $tabla . " where fecha = '" . $fechaventa . "'";
+        }else if($tipo == "consultaventasdvp"){
+            $sql = "Select * from " . $tabla . " where " . $segunjerarquia . " numdvp = '" . $numdvp . "'";
+            // $sql = "Select * from " . $tabla . " where numdvp = '" . $numdvp . "'";
         }
 
 

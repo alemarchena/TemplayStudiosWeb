@@ -1,5 +1,5 @@
 //------------------------------------------- DATOS GLOBALES ------------------------------------
-
+document.oncontextmenu = function () { return false }
 
 var arreglo = [];
 var arregloproveedoranuncio = [];
@@ -9,8 +9,12 @@ var muestrastockinicio = false;
 arregloconsultaofertas = [];
 arregloconsultanovedades = [];
 arregloconsultabuscados = [];
+arreglocomprobantes = [];
+
 arrdvp = [];
+arrdvpquitar = [];
 itemsdeventa = [];
+arrecobrado = [];
 
 paginaactualofertas = 0;
 paginaactualnovedad = 0;
@@ -36,6 +40,7 @@ totalcajaconventa = 0;
 totalventasdia =0;
 totalventasdiadvp =0;
 totalefectivo=0;
+totalefectivocaja = 0;
 totalmp=0;
 totaltcredito=0;
 totaltdebito=0;
@@ -2275,7 +2280,6 @@ $("#opciones").change(function () {
             itemanuncio.tablaproveedoresanuncios = tabladeproveedoresanuncios;
             itemanuncio.rutaimagenes = rutaimagenes;
             itemanuncio.imagen = "";
-            itemanuncio.codigobarra = "";
             itemanuncio.titulo = "";
             itemanuncio.descripcion = "";
             itemanuncio.precio = "";
@@ -2289,7 +2293,7 @@ $("#opciones").change(function () {
 
             var objetoanuncio = JSON.stringify(itemanuncio);
 
-            // console.log(objetoanuncio);
+            console.log(objetoanuncio);
             t.clear().draw(true);
 
             if (tipo != "consultafiltros")
@@ -2305,7 +2309,7 @@ $("#opciones").change(function () {
                 data: { objetoanuncio: objetoanuncio },
                 type: "post",
                 success: function (data) {
-                    // console.log(data);
+                    console.log(data);
 
                     if (data != "consultavacia") {
                         dd = JSON.parse(data); //data decodificado
@@ -2624,11 +2628,11 @@ $("#opciones").change(function () {
 
         // -------------------------------- Se procesa desde un boton en la pagina ---------------------
         function procesarventa() {
-            var nombrecliente = $("#clienteelegido").val();
+           
             var idclienteelegido = document.getElementById("opcioneslistaclientes").value;
             var tipopagonombrecorto = document.getElementById("opcioneslistatiposdepago").value;
             var numdvp = armanumdvp();
-            if (nombrecliente == "" || nombrecliente == "Selecciona un cliente") {
+            if (idclienteelegido == "") {
                 Swal.fire({
                     position: 'top-end', icon: 'warning', title: 'Indique el cliente', showConfirmButton: false,
                     timer: 1500
@@ -2663,6 +2667,8 @@ $("#opciones").change(function () {
             if(tipopagonombrecorto!="DV")
                 numdvp = '';
 
+            itemsdeventa=[];
+
             for (var a = 0; a < ar.length; a++) {
                 var itemventa = new Object();
 
@@ -2685,7 +2691,7 @@ $("#opciones").change(function () {
                 itemsdeventa.push(objetoJsonVentas);
             }
 
-            guardaritemsventa(numdvp)
+            guardaritemsventa(numdvp,idclienteelegido)
             ar = [];
 
             var t = $("#tablaitemsventa").DataTable();
@@ -2831,8 +2837,14 @@ $("#opciones").change(function () {
                         totalventasdia = Math.round(totalventasdia * 100) / 100;
                         cajita = Math.round(cajita * 100) / 100;
                         totalcajaconventa = totalventasdia + cajita;
+                        totalefectivocaja = totalefectivo + cajita;
+                        totalefectivocaja = Math.round(totalefectivocaja * 100) / 100;
+
                         colocatotalcaja();
-                        tresumen.row.add(["<h5 style='color: blue;'><small><b>TOTAL DE CAJA</b></small></h5>", "<h5 style='color: blue;text-align: right;'><small>" + totalcajaconventa + "</small></h5>", ""]).draw(false);
+                        colocatotalefectivocaja();
+                        tresumen.row.add(["<h5 style='color: blue;'><small><b>TOTAL DE CAJA</b></small></h5>", "<h5 style='color: blue;text-align: right;'>" + "$" + totalcajaconventa + "</h5>", ""]).draw(false);
+                        tresumen.row.add(["<h5><small><b>TOTAL DE CAJA EFECTIVO</b></small></h5>", "<h5 style='background-color: burlywood; color: black;text-align: right;'>"+ "$" + totalefectivocaja + "</h5>", ""]).draw(false);
+
 
                         verificabloqueo();
                         tabcajas.columns.adjust().draw(false);
@@ -2848,7 +2860,10 @@ $("#opciones").change(function () {
             totalcajaconventa = Math.round(totalcajaconventa * 100) / 100;
             document.getElementById("totalcaja").innerHTML = "$ " + totalcajaconventa.toString();
         }
-
+        function colocatotalefectivocaja() {
+            totalefecaja = Math.round(totalefectivocaja * 100) / 100;
+            document.getElementById("totalefectivocaja").innerHTML = "$ " + totalefecaja.toString();
+        }
         function quitarmovimientocaja(idcaja) {
 
             const swalWithBootstrapButtons = Swal.mixin({
@@ -2915,7 +2930,7 @@ $("#opciones").change(function () {
 
         }
 
-function guardaritemsventa(numdvp){
+function guardaritemsventa(numdvp,idclienteelegido){
             
             var bdd = conexionbdd;
             var tabla = tablaventas;
@@ -2930,17 +2945,24 @@ function guardaritemsventa(numdvp){
 
                         var tipobonus = "bonussumado";
 
-                        guardarbonusencliente(idclienteelegido, bonussuma, tipobonus);
-
+                        
                         if(document.getElementById('opcioneslistatiposdepago').value == "DV")
+                        {
                             guardardvp(numdvp);
+                        }
                         else
                         {
                             consultarventasdeldiadvp();
                             M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
                         }
 
+                        // selecciona el primer tipo de pago
+                        $("#opcioneslistatiposdepago option:selected").prop("selected", false);
+                        $("#opcioneslistatiposdepago option:selected").prop("selected", true);
+                        document.getElementById("divdvp").style.display = "none";
 
+                        guardarbonusencliente(idclienteelegido, bonussuma, tipobonus);
+                        consultaclientes_seleccion_lista();
                     } else {
                         M.toast({ html: 'Error al crear el registro' })
                     }
@@ -3023,6 +3045,7 @@ function guardaritemsventa(numdvp){
             var bdd = conexionbdd;
             var tabla = tabladvp;
             var tipo = "alta";
+            var email = emailingreso;
            
             paquetedvp = [];
             for(var a = 0 ;a < arrdvp.length;a++)
@@ -3040,7 +3063,7 @@ function guardaritemsventa(numdvp){
             
             $.ajax({
                 url: "consultadvp.php?n=1",
-                data: { bdd: bdd, tabla: tabla, tipo: tipo, numdvp: numdvp, paquetedvp:paquetedvp },
+                data: { bdd: bdd, tabla: tabla, tipo: tipo, email:email,numdvp: numdvp, paquetedvp:paquetedvp },
                 type: "post",
                 success: function (data) {
 
@@ -3087,7 +3110,6 @@ function guardaritemsventa(numdvp){
             datosclientes.bonus = bonus;
 
             var cliente = JSON.stringify(datosclientes);
-
             $.ajax({
                 url: "consultaclientes.php",
                 data: { cliente: cliente },
@@ -3105,6 +3127,86 @@ function guardaritemsventa(numdvp){
                 }
             });
 
+        }
+
+        function consultapagadodvp(numdvppasado){
+
+            if ($.fn.dataTable.isDataTable('#tabladvpcobrado')) {
+                tdvpcobrado = $('#tabladvpcobrado').DataTable();
+            }
+
+            var fechaventa = $("#fechaventa").val();
+            fechaventa = conviertefechaastringdmy(fechaventa);
+
+            var bdd = conexionbdd;
+            var tabla = tabladvp;
+            var tipo = "consultaventasdvp";
+
+            var itemcob = new Object();
+            itemcob.bdd = bdd;
+            itemcob.tabla = tabla;
+            itemcob.tipo = tipo;
+            itemcob.email = emailingreso;
+            itemcob.jerarquia = jerarquia;
+            itemcob.fechaventa = fechaventa;
+            itemcob.numdvp = numdvppasado;
+
+            var vendidodvpcob = JSON.stringify(itemcob);
+
+            tdvpcobrado.clear().draw(true);
+            arrecobrado = [];
+            $.ajax({
+
+                url: "consultaventas.php?n=1",
+                data: { vendido: vendidodvpcob },
+
+                type: "post",
+
+                success: function (data) {
+                    if (data != "consultavacia") {
+
+                        dd = JSON.parse(data); //data decodificado
+
+                        $.each(dd, function (key, value) {
+
+                            total = dd[key].monto; 
+                            total = Math.round(total * 100) / 100;
+                            tptempdvp = dd[key].tipopago;
+                            tptempdvp = tptempdvp.trim();
+                            nombretmp = '';
+                            if (tptempdvp == "EF") { nombretmp = "Efectivo"; }
+                            if (tptempdvp == "CC") { nombretmp = "Cuenta Corriente"; }
+                            if (tptempdvp == "MP") { nombretmp = "Mercado Pago"; }
+                            if (tptempdvp == "TD") { nombretmp = "Tarjeta de débito";; }
+                            if (tptempdvp == "TC") { nombretmp = "Tarjeta de crédito"; }
+                            if (tptempdvp == "BO") { nombretmp = "Bonus"; }
+            
+                            var objcob = new Object();
+                            objcob.tipopago = tptempdvp;
+                            objcob.monto = total;
+                            objcob.numdvp = numdvppasado;
+                            arrecobrado.push(objcob);
+
+                            tdvpcobrado.row.add([
+                                "<p style='text-align: center;' >" + nombretmp + "</p>",
+                                "<p style='text-align: center;' >" + tptempdvp + "</p>",
+                                "<p style='text-align: center;' >" + total + "</p>",
+                                
+                            ]).draw(true);
+
+                            tdvpcobrado.push(objeto);
+                            
+                        });
+                        tdvpcobrado.columns.adjust().draw();
+
+                        verificabloqueo();
+                       
+                    }
+                },
+                error: function (e) {
+                    console.log("Error en la consulta." + e.value);
+                }
+            });
         }
 
         function consultarventasdeldiadvp(e) {
@@ -3283,7 +3385,10 @@ function guardaritemsventa(numdvp){
                                 totalventasdia = totalventasdia + total;
                                 totalventasdia = Math.round(totalventasdia * 100) / 100;
 
-                                if (tptemp == "EF") { totalefectivo = totalefectivo + total; }
+                                if (tptemp == "EF") { 
+                                    totalefectivo = totalefectivo + total; 
+                                    totalefectivo = Math.round(totalefectivo * 100) / 100;
+                                }
                                 if (tptemp == "CC") { totalcc = totalcc + total; }
                                 if (tptemp == "MP") { totalmp = totalmp + total; }
                                 if (tptemp == "TD") { totaltdebito = totaltdebito + total; }
@@ -3293,8 +3398,7 @@ function guardaritemsventa(numdvp){
                             }else
                             {
                                 numdvppasado=dd[key].numdvp;
-                                comoquita = "<a onclick='quitardvp(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\",\"" + numdvppasado + "\")' class=" + "\"btn-floating btn-large waves-effect   blue darken-3 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
-
+                                comoquita = "<a onclick='quitardvp(\"" + dd[key].id + "\",\"" + dd[key].idcliente + "\",\"" + dd[key].bonus + "\",\"" + numdvppasado + "\",\"" + total + "\")' class=" + "\"btn-floating btn-large waves-effect   blue darken-3 masmenos blockeliminar" + "\"><i class=" + "\"material-icons\"" + ">delete</i>"
                             }
                                 
                             emailventadia = dd[key].email;
@@ -3315,7 +3419,6 @@ function guardaritemsventa(numdvp){
                                 dd[key].hora,
                                 "<label style='text-align: center;'>" + dd[key].idcliente + "</label>",
                                 "<label style='text-align: center;'>" + dd[key].nombrecliente + "</label>",
-                                // "<label style='text-align: center;'>" + dd[key].email + "</label>" ,
                                 "<label style='text-align: center;'>" + dd[key].bonus + "</label>",
                                 comoquita
                                 
@@ -3328,6 +3431,7 @@ function guardaritemsventa(numdvp){
 
                         // suma las ventas divididas con las no divididas por tipo de pago
                         totalefectivo = totalefectivo + totalefectivodvp;
+                        totalefectivo = Math.round(totalefectivo * 100) / 100;
                         totalmp = totalmp + totalmpdvp;
                         totalcc = totalcc + totalccdvp;
                         totaltdebito = totaltdebito + totaltdebitodvp;
@@ -3344,7 +3448,7 @@ function guardaritemsventa(numdvp){
                         tresumen.row.add(["Tarjeta DEBITO", "<p style='text-align: right;'>" + totaltdebito + "</p>", "Cobrado"]).draw(false);
                         tresumen.row.add(["Tarjeta CREDITO", "<p style='text-align: right;'>" + totaltcredito + "</p>", "Cobrado"]).draw(false);
                         tresumen.row.add(["Pago con bonus", "<p style='text-align: right;'>" + totalbonus + "</p>", "puntos de bonificación"]).draw(false);
-                        tresumen.row.add(["<h5 style='color: blue;'><small><b>TOTAL COBRADO</b></small></h5>", "<h5 style='color: blue;text-align: right;'><small>" + totalventasdia + "</small></h5>", "<h5 style='color: blue;'><small>" + "DIA " + fechaventaresumen + "</small></h5>"]).draw(false);
+                        tresumen.row.add(["<h5 style='color: blue;'><small><b>TOTAL COBRADO</b></small></h5>", "<h5 style='color: blue;text-align: right;'><small>" + "$" + totalventasdia + "</small></h5>", "<h5 style='color: blue;'><small>" + "DIA " + fechaventaresumen + "</small></h5>"]).draw(false);
 
                         consultarcajadeldia();
                     }
@@ -3430,11 +3534,19 @@ function guardaritemsventa(numdvp){
 
         }
 
-        function quitardvp(numdvppasado)
+        function quitardvp(idventa, idcliente, bonusventa,numdvppasado,monto)
         {
-            console.log("Preguntara como quitar");
-
-            consultarventasdeldiadvp();
+            document.getElementById("divquitar").style.display = "block";
+            document.getElementById("montoeliminar").value = monto;
+            consultapagadodvp(numdvppasado);
+            itemparaquitar = {
+                idventa:idventa,
+                idcliente:idcliente,
+                bonusventa:bonusventa,
+                numdvppasado:numdvppasado,
+                monto:monto
+            };
+            consultatiposdepagodvpquitar(itemparaquitar); 
         }
 
         function masuno(id) {
@@ -6279,9 +6391,6 @@ function consultaclientes_seleccion_lista(e) {
 
     var cliente = JSON.stringify(datosclientes);
 
-    // var oplista = $("#opcioneslistaclientes");
-
-
     $.ajax({
 
         url: "consultaclientes.php",
@@ -6293,20 +6402,22 @@ function consultaclientes_seleccion_lista(e) {
             if (data != "consultavacia") {
 
                 dd = JSON.parse(data); //data decodificado
-
+                valorid = 0;
                 var a = [];
-                a.push('<option value = "" selected >Seleccione un cliente</option >');
-
+                a.push('<option value = "">Seleccione un cliente</option >');
                 $.each(dd, function (key, value) {
+                    if(dd[key].nombrecliente == "Consumidor Final" || dd[key].nombrecliente == "consumidor final" || dd[key].nombrecliente == "Consumidor final")
+                    {
+                        valorid = dd[key].idcliente;
+                    }
                     a = a.concat('<option value = ' + dd[key].idcliente + ' > ' + dd[key].nombrecliente + '</option>');
+                    
                 });
 
                 $("#opcioneslistaclientes").append(a);
+                $('#opcioneslistaclientes').val(valorid.toString()).trigger('change.select2');
 
-                //selecciona el primer item
-                $("#opcioneslistaclientes option:selected").prop("selected", false);
 
-                $(this).prop("selected", true);
             } else {
                 M.toast({ html: 'No hay clientes dados de alta.' });
             }
@@ -7396,13 +7507,20 @@ function consultarcomprasdeldia(fechacompradesde, fechacomprahasta, e) {
 
     itemcompra.tipo = tipo;
 
-    itemcompra.fechacompra = "";
+    itemcompra.fechacompra = fechacompradesde;
     itemcompra.fechacompradesde = fechacompradesde;
     itemcompra.fechacomprahasta = fechacomprahasta;
     itemcompra.id = "";
     itemcompra.costo = "";
     itemcompra.cantidad = "";
     itemcompra.idproveedor = "";
+    itemcompra.comprobantecompra ="";
+    itemcompra.idcompra="";
+    itemcompra.prefijocompra="";
+    itemcompra.prefijoventa="";
+    itemcompra.costoxprefijo="";
+    itemcompra.ventaxprefijo="";
+    itemcompra.codigobarra="";
 
     var comprado = JSON.stringify(itemcompra);
 
@@ -9107,7 +9225,7 @@ function eligetipopago(){
     {
         document.getElementById("divdvp").style.display = "block";
         consultatiposdepagodvp();
-         document.getElementById("procesarpedido").disabled = true;
+        document.getElementById("procesarpedido").disabled = true;
     }
     else{
         document.getElementById("divdvp").style.display = "none";
@@ -10300,6 +10418,10 @@ function focoencajabusqueda(teclafoco)
         {
             document.getElementById('cajabusqueda').value = "";
         }
+        if (llama == "vender" && teclafoco == 114)
+        {
+             hacefoco();
+        }
     }
 }
 
@@ -10333,6 +10455,12 @@ $(function(){
             ActivarCheckLector();
             focoencajabusqueda(teclapresionada);
             posicioninicial();
+        }
+
+        if(teclapresionada == 114) //F3 para saltar a los items de ventas
+        {
+            e.preventDefault();
+            focoencajabusqueda(teclapresionada);
         }
     });
 });

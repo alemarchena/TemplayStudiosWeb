@@ -62,10 +62,31 @@
 
     <script src="configuracion.js?n=1" + versionts></script>
     <script type="text/javascript">
-        tablaanuncios = "";tablarubros = "";tablaventas = "";tablaclientes = "";tablaproveedores = "";
-        tablabonus = "";tablacompras = "";tablaajustes = "";tablaproveedoresanuncios = "";tablaunidadesgranel = "";
-        tablabloqueos = "";conexionbdd = "";tablatiposdepago = "";tablatiposdemovimientos = "";tablafiltros = "";
-        tablacajas = "";tabladvp="";rutaimagenes = "";idencontrado = -1;emailingreso = "";jerarquia = "";idplataformaactual = "";
+        document.oncontextmenu = function() {
+            return false
+        }
+        tablaanuncios = "";
+        tablarubros = "";
+        tablaventas = "";
+        tablaclientes = "";
+        tablaproveedores = "";
+        tablabonus = "";
+        tablacompras = "";
+        tablaajustes = "";
+        tablaproveedoresanuncios = "";
+        tablaunidadesgranel = "";
+        tablabloqueos = "";
+        conexionbdd = "";
+        tablatiposdepago = "";
+        tablatiposdemovimientos = "";
+        tablafiltros = "";
+        tablacajas = "";
+        tabladvp = "";
+        rutaimagenes = "";
+        idencontrado = -1;
+        emailingreso = "";
+        jerarquia = "";
+        idplataformaactual = "";
         /**
          * INGRESO AL SISTEMA.
          */
@@ -356,7 +377,7 @@
 
                         console.log(empresa);
 
-                        $("#plataforma").load("panel.html?n=55" + versionts);
+                        $("#plataforma").load("panel.html?n=69" + versionts);
                     }
                 },
                 error: function(e) {

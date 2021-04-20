@@ -1,6 +1,6 @@
 
 // CAMBIAME 0 parte del nombre inicial para las tablas en base de datos
-empresa                 = "templay";
+empresa                 = "juantobacco";
 tablaanunciospaginaweb  = empresa + "_anuncios";
 tablarubrospaginaweb    = empresa + "_rubros";
 tablaclientespaginaweb  = empresa + "_clientes";

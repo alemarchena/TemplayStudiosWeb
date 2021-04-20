@@ -143,7 +143,7 @@
                                  .$tablaproveedores. " ON " .$tablaproveedores. ".idproveedor = " .$tablaproveedoresanuncios. ".idproveedor ) LEFT JOIN "
                                  .$tablaunidadesgranel. " ON " .$tabla. ".prefijocompra = " .$tablaunidadesgranel. ".prefijocompra and " .$tabla. ".prefijoventa = " .$tablaunidadesgranel. ".prefijoventa ) where "
                                  .$tabla. ".codigobarra = '" .$codigobarra . "'" . $sentenciapublicidad ." order by " .$tabla. ".titulo";
-
+                    // echo $sql;
         }else if($tipo == "consultastocksindetalle")
         {
              $sql = "Select " .$tabla. ".id," .$tabla. ".precio," .$tabla. ".fechastockinicio," .$tabla. ".costo from " .$tabla. " where 1 ";

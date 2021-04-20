@@ -1,20 +1,18 @@
 
-<div id="accordionVentas" class="mt-4">
-    
-   
+<div id="accordionVentas" >
     
     <div id="collapseMasOpciones" class="collapse" aria-labelledby="headingMasOpciones" data-parent="#accordionVentas">
 
-        <div class="filafondo row justify-content-center ">
-            <div class="col-sm-2">
+        <div class="filafondo row justify-content-center pt-4">
+            <div class="col-sm-12 col-md-2">
                 <div id="divverdata" class="row justify-content-start"></div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-12 col-md-2">
                 <label>
                     <input id="verconimagen" type='checkbox' class='filled-in' /><span class='colorletras'>Mostrar imagenes</span>
                 </label>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-12 col-md-4">
                 <div class="row justify-content-center ">
                     <h5 class="m-1 p-1">
                         <input id="fechaventa" type="text" class="datepicker center" readonly>
@@ -22,15 +20,16 @@
                     <h5 id="fechaventalectura" type="text" style="display: none;"></h5>
                 </div>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-12 col-md-4">
+                <button id="nuevoclienteventas" style="color: white;" class="waves-effect waves-light btn-small">Clientes</button>
+            </div>
         </div>
     </div>
 
-    <div class="filafondo row justify-content-center align-items-center">
+    <div class="filafondo row justify-content-center align-items-center pt-4">
 
-        <div class="col-sm-12 col-md-3">
-            <button id="nuevoclienteventas" style="color: white;" class="waves-effect waves-light btn-small">Clientes</button>
-        </div>
+        
+        <div class="col-sm-12 col-md-3"></div>
         <div class="col-sm-12 col-md-3">
             <div class="row justify-content-center">
                 <select class="js-example-basic-single form-control m-1 p-1" id="opcioneslistaclientes" name="opcioneslistaclientes"></select>
@@ -52,11 +51,11 @@
     <!-- ---------- OBJETO BASE PARA ALTA DE PRODUCTOS-------------- -->
     <div id="divNuevoCliente" style="display: none;"  class="row"></div>
 
-    <div id="pedido" style="display: none;">
+    <div id="pedido" style="display: none;" class="notapedido">
         <!-- lista venta -->
-        <div class="row mb-0">
+        <div class="row pb-3">
             <!-- Columna de tarjeta de ventas -->
-            <div class="col-sm-8 notapedido mb-0">
+            <div class="col-sm-8">
 
                 <div class="table-responsive">
                     <table id="tablaitemsventa" class="display table table-striped" style="width: 100%!important;">
@@ -97,7 +96,7 @@
     <!-- -----------Forma de pago dividido ------------ -->
     <div id="divdvp" style="display: none;">
         <div class="row ">
-            <div class="col-sm-12 col-md-4 offset-md-5">
+            <div class="col-sm-12 col-md-4 offset-md-4">
                 <div class="table-responsive">
                     <table id="tabladvp" class="display table table-striped" style="width: 100%!important;">
                         <thead>
@@ -204,6 +203,73 @@
         </div>
         
         <div id="collapseListaVenta" class="collapse" aria-labelledby="headingListaVenta" data-parent="#accordionVentas">
+            <div id="divquitar" style="display: none;background-color: rgb(250, 228, 200);" class="p-2">
+                <div class="row justify-content-center">
+                    <h5>Eliminar un item de cobro dividido</h5>
+                </div>
+                <div class="row justify-content-center">
+                    <button class="btn" id="cerrarquitar">Cerrar</button>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-2">
+                        <label for="montoeliminar">Total Monto en venta a eliminar</label>
+                        <input class="center" type="text" name="montoeliminar" id="montoeliminar" readonly>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <p>Especifique que montos debe aplicar el sistema en el pago dividido</p>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="table-responsive">
+                            <table id="tabladvpcobrado" class="display table table-striped" style="width: 100%!important;">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de pago cobrado</th>
+                                        <th></th>
+                                        <th>Monto cobrado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="table-responsive">
+                            <table id="tabladvpquitar" class="display table table-striped" style="width: 100%!important;">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de pago</th>
+                                        <th></th>
+                                        <th>Monto a <b style="color: red;">Quitar</b> de la cobranza</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+                    
+                <div class="row justify-content-center">
+                    <p id="advertenciaquitar"></p>
+                </div>
+                <div class="row justify-content-center">
+                    <button id="eliminarquitar" class="btn">Eliminar</button>
+                </div>
+            </div>
             <div class="">
                 <!-- lista venta -->
                 <div class="row m-0 p-0">
@@ -277,7 +343,10 @@
                     Lista de Caja del día
                 </button>
             </h5>
+            <label for="totalcaja">Total de Caja</label>
             <h5 id="totalcaja">0</h5>
+            <label for="totalefectivocaja" style="color:burlywood">Total efectivo de Caja</label>
+            <h5 id="totalefectivocaja" style="background-color: burlywood; color:rgb(11, 70, 8);">0</h5>
 
         </div>
     
@@ -392,6 +461,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 <div class="row" style="display: none;">
     <div class="col-sm-4">
@@ -403,6 +473,7 @@
 </div>
 <script>
 var totalmontodvp = 0;
+var totalmontodvpquitar = 0;
 
 function consultaventadiaactual() {
     
@@ -567,9 +638,101 @@ function verificaJerarquia()
             exportTableToExcel('tablaresumendvp', 'resumencajadeldiadvp');
     });
 
+    $("#cerrarquitar").click(function(){
+        document.getElementById("divquitar").style.display = "none";
+    });
 
+    function confirmaEliminar(){
+         const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Desea eliminar ?',
+            text: "Esta acción no se podrá revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, eliminar!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                eliminardvpitem();
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Perfecto',
+                    'Todo sigue como estaba'
+                )
+            }
+        })
+    }
+
+    function eliminardvpitem()
+    {
+        for (var a = 0; a < arrecobrado.length; a++) {
+            if (arrecobrado[a].monto == arrdvpquitar[a].monto) {
+                eliminamodificadvp("eliminardvp", arrecobrado[a].numdvp, arrdvpquitar[a].nombrecorto, "");
+
+            }
+            else {
+                if (arrdvpquitar[a].monto > 0) {
+                    var montoadescontar = arrecobrado[a].monto - arrdvpquitar[a].monto;
+                    eliminamodificadvp("modificardvp", arrecobrado[a].numdvp, arrdvpquitar[a].nombrecorto, montoadescontar);
+
+                }
+            }
+            var idventa = arrdvpquitar[a].itemparaquitar.idventa;
+            var idcliente = arrdvpquitar[a].itemparaquitar.idcliente;
+            var bonusventa = arrdvpquitar[a].itemparaquitar.bonusventa;
+            var numdvppasado = arrdvpquitar[a].itemparaquitar.numdvppasado;
+        }
+        // console.log("ver datos");
+        eliminaventa(idventa, idcliente, bonusventa, numdvppasado);
+        document.getElementById("divquitar").style.display = "none";
+    }
+
+    $("#eliminarquitar").click(function(){
+
+        confirmaEliminar();
+
+    })
     //---------------------------------------------------------------------
 
+    function eliminamodificadvp(tipopasado,numdvppasado,nombrecortopasado,montopasado)
+    {
+        var bdd = conexionbdd;
+        var tabla = tabladvp;
+        var tipo = tipopasado;
+        var numdvp = numdvppasado;
+        var tipopago = nombrecortopasado;
+        var monto = montopasado;
+        var email = emailingreso;
+        $.ajax({
+            url: "consultadvp.php?n=1",
+            data: { bdd: bdd, tabla: tabla, tipo: tipo, email:email,tipopago:tipopago, monto: monto, numdvp: numdvp},
+            type: "post",
+            success: function (data) {
+                if (data > 0) {
+                    M.toast({ html: 'Ok guardado', displayLength: '1000', classes: 'rounded' });
+                } else {
+                    M.toast({ html: 'Error al crear el registro' })
+                }
+            },
+            error: function (e) {
+                M.toast({ html: 'Error al intentar guardar.' });
+            }
+
+
+        });
+    }
+
+    
     function configuraciontabladvp(){
         $('#tabladvp').DataTable({
             "language": {
@@ -589,13 +752,50 @@ function verificaJerarquia()
             "dom": 'rt<"clear">'
 
         });
+        $('#tabladvpquitar').DataTable({
+            "language": {
+
+                "processing": "Procesando...",
+                "search": "Sub búsqueda:",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                "emptyTable": "No hay registros guardados",
+                "zeroRecords": "No hay registros guardados",
+                "infoEmpty": "No hay anuncios para mostrar",
+
+                "pageLength": 10,
+
+            },
+
+            "dom": 'rt<"clear">'
+
+        });
+        $('#tabladvpcobrado').DataTable({
+            "language": {
+
+                "processing": "Procesando...",
+                "search": "Sub búsqueda:",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "info": "Registro: _START_ de _END_ - Total: _TOTAL_",
+                "emptyTable": "No hay registros guardados",
+                "zeroRecords": "No hay registros guardados",
+                "infoEmpty": "No hay anuncios para mostrar",
+
+                "pageLength": 10,
+
+            },
+
+            "dom": 'rt<"clear">'
+
+        });
+        
     }
     function consultatiposdepagodvp(e) {
 
         if ($.fn.dataTable.isDataTable('#tabladvp')) {
             tdvp= $('#tabladvp').DataTable();
         }
-
+       
         var bdd = conexionbdd;
         var tabla = tablatiposdepago;
         var tipo = "consultatodo";
@@ -631,8 +831,8 @@ function verificaJerarquia()
                             objeto.nombrecorto = dd[key].nombrecorto;
                             objeto.monto= 0;
 
-                            tptemp = dd[key].nombrecorto;
-                            tptemp = tptemp.trim();
+                            // tptemp = dd[key].nombrecorto;
+                            // tptemp = tptemp.trim();
                             // aca crea la tabla para completar con monto por pago
                             tdvp.row.add([
                                 "<p style='text-align: center;' >" + dd[key].nombre + "</p>",
@@ -641,6 +841,9 @@ function verificaJerarquia()
                             ]).draw(true);
 
                             arrdvp.push(objeto);
+
+                           
+
                         }
                     });
 
@@ -651,7 +854,7 @@ function verificaJerarquia()
                 }
             },
             error: function (e) {
-                alert("Error en la consulta." + e.value);
+                alert("Error en la consulta." + e);
             }
         });
 
@@ -679,6 +882,116 @@ function verificaJerarquia()
         else
             document.getElementById("procesarpedido").disabled = true;
         
+        return true;
+    }
+
+
+    function consultatiposdepagodvpquitar(itemparaquitar,e) {
+
+            if ($.fn.dataTable.isDataTable('#tabladvpquitar')) {
+                tdvpquitar = $('#tabladvpquitar').DataTable();
+            }
+            var bdd = conexionbdd;
+            var tabla = tablatiposdepago;
+            var tipo = "consultatodo";
+            var id = 0;
+
+            var datos = new Object();
+            datos.id = id;
+            datos.nombre = "";
+            datos.bdd = bdd;
+            datos.tabla = tabla;
+            datos.tipo = tipo;
+            var datosjson = JSON.stringify(datos);
+
+            tdvpquitar.clear().draw(true);
+            arrdvpquitar=[];
+            $.ajax({
+
+                url: "consultatiposdepago.php",
+                data: { datos: datosjson },
+                type: "post",
+
+                success: function (data) {
+                    if (data != "consultavacia") {
+
+                        dd = JSON.parse(data); //data decodificado
+
+                        $.each(dd, function (key, value) {
+                            if (dd[key].nodivisible == 0) {
+                                var objeto = new Object();
+                                objeto.tipopago = dd[key].id;
+                                objeto.nombre = dd[key].nombre;
+                                objeto.nombrecorto = dd[key].nombrecorto;
+                                objeto.itemparaquitar = itemparaquitar;
+                               
+                                for(var rec=0;rec < arrecobrado.length;rec++)
+                                {
+                                    if(arrecobrado[rec].tipopago ==  dd[key].nombrecorto){
+
+                                        tdvpquitar.row.add([
+                                            "<p style='text-align: center;' >" + dd[key].nombre + "</p>",
+                                            "<p style='text-align: center;' >" + dd[key].nombrecorto + "</p>",
+                                            "<input style='text-align: center;' onKeyUp ='return asignamontoquitar(\"" + dd[key].id + "\",\"" + arrecobrado[rec].monto + "\")' id ='montodvpquitar_" + dd[key].id + "' name ='montodvpquitar_" + dd[key].id + "' type ='text' class='validate' value = '"+ arrecobrado[rec].monto + "'></input>",
+                                        ]).draw(true);
+                                        objeto.monto = arrecobrado[rec].monto;
+                                        arrdvpquitar.push(objeto);
+                                    }
+                                }
+                            }
+                        });
+
+                        tdvpquitar.columns.adjust().draw();
+                    } else {
+                        M.toast({ html: 'No hay tipos de pago dados de alta.' });
+                    }
+                },
+                error: function (e) {
+                    alert("Error en la consulta." + e);
+                }
+            });
+
+        }
+        
+    function asignamontoquitar(idpasado,montomaximo) {
+
+       
+        for (var a = 0; a < arrdvpquitar.length; a++) {
+            if (idpasado == arrdvpquitar[a].tipopago)
+                arrdvpquitar[a].monto = document.getElementById("montodvpquitar_" + idpasado).value;
+        }
+
+        //suma los montos para verificar si puede guardar
+        var montototalquitar = Math.round(document.getElementById("montoeliminar").value * 100) / 100;
+        var valora = document.getElementById("montodvpquitar_" + idpasado).value;
+        
+
+        totalmontodvpquitar=0;
+        for (var a = 0; a < arrdvpquitar.length; a++)
+            totalmontodvpquitar = totalmontodvpquitar + Math.round(arrdvpquitar[a].monto * 100) / 100;
+
+
+        if (totalmontodvpquitar <= montototalquitar){
+            document.getElementById("advertenciaquitar").innerText = "";
+            document.getElementById("eliminarquitar").disabled = false;
+
+        }
+        else{
+            document.getElementById("advertenciaquitar").innerText = "Advertencia: La suma de los montos a quitar es mayor al monto del item a eliminar !";
+        }
+
+        
+        montomaximo = Math.round(montomaximo);
+        if(valora > montomaximo){
+            document.getElementById("eliminarquitar").disabled = true;
+
+        }
+        else            
+        {
+            if( document.getElementById("eliminarquitar").disabled == false)
+                document.getElementById("eliminarquitar").disabled = false;
+        }
+
         return true;
     }
 </script>

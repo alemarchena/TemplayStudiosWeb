@@ -60,7 +60,7 @@
             $sql = "select " .$plataforma.".id,".$plataforma. ".nombre,"    .$plataforma.".bdd,".$plataforma.".tablaajustes,"
             .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,".$plataforma.".tablafiltros,"
             .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,".$plataforma.".tablaunidadesgranel,".$plataforma.".tablabloqueos,"
-            .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos," .$plataforma.".tablacajas,"  .$plataforma.".rutaimagenes,"
+            .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos,".$plataforma . ".tabladvp,".$plataforma.".tablacajas,"  .$plataforma.".rutaimagenes,"
             .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 
             .$plataforma. " LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma".
             ") LEFT JOIN " .$tabla. " ON " .$usuarioplataforma. ".idusuario = " .$tabla.  ".id) where " .$usuarioplataforma. ".idusuario = " .$id ;
@@ -71,7 +71,7 @@
             $sql = "select " .$plataforma.".id,".$plataforma. ".nombre,"    .$plataforma.".bdd,".$plataforma.".tablaajustes,"
             .$plataforma.".tablaanuncios,"      .$plataforma.".tablabonus," .$plataforma.".tablaclientes,".$plataforma.".tablacompras,".$plataforma.".tablafiltros,"
             .$plataforma.".tablaproveedores,"   .$plataforma.".tablaproveedoresanuncios,".$plataforma.".tablarubros,".$plataforma.".dominio,".$plataforma.".tablaunidadesgranel,".$plataforma.".tablabloqueos,"
-            .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma.".tablatiposdemovimientos," .$plataforma.".tablacajas," .$plataforma.".rutaimagenes,"
+            .$plataforma.".tablaventas,"        .$plataforma.".tablatiposdepago,".$plataforma. ".tablatiposdemovimientos,".$plataforma.".tabladvp,".$plataforma.".tablacajas," .$plataforma.".rutaimagenes,"
             .$usuarioplataforma.".idusuario,"   .$usuarioplataforma.".idplataforma,". $tabla .".esadmin"." from ((" 
             .$plataforma. " LEFT JOIN " .$usuarioplataforma. " ON " .$plataforma. ".id = " .$usuarioplataforma. ".idplataforma".
             ") LEFT JOIN " .$tabla. " ON " .$usuarioplataforma. ".idusuario = " .$tabla.  ".id) where " .$usuarioplataforma. ".idusuario = " .$id. " and ".$usuarioplataforma. ".idplataforma = " .$idplataformaagregada;
